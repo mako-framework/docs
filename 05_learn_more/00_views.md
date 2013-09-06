@@ -184,4 +184,4 @@ Your renderer has to implement the ```mako\view\renderer\RendererInterface``` in
 
 	// All views with a .twig.php extention will now be rendered using the custom Twig renderer
 
-	View::registerRenderer('.twig', '\app\lib\renderer\Twig');
+	View::registerRenderer('.twig', '\app\lib\view\renderers\Twig');

@@ -25,6 +25,8 @@ Mako language files are just simple arrays:
 
 	<?php
 
+	// examples.php
+
 	return array
 	(
 		'have_10_apples' => 'I have 10 apples',
@@ -38,7 +40,7 @@ Mako language files are just simple arrays:
 
 ### Usage
 
-Setting the language you want to use use is done by calling the language method. The method also returns the name of the current language.
+Setting the language you want to use use is done by calling the ```language``` method. The method also returns the name of the current language.
 
 	I18n::language('no_NO'); // Setting the language to Norwegian
 
@@ -48,15 +50,15 @@ Fetching a string is done with the ```get``` method. If no string is found then 
 
 	// Will print "I have 10 apples"
 
-	echo I18n::get('have_10_apples');
+	echo I18n::get('examples.have_10_apples');
 
 	// Will print "I have 20 apples"
 
-	echo I18n::get('have_n_apples', array(20));
+	echo I18n::get('examples.have_n_apples', array(20));
 
 	// Will print "Hi! My name is Iroquois Pliskin"
 
-	echo __('my_name_is', array('Iroquois Pliskin'));
+	echo __('examples.my_name_is', array('Iroquois Pliskin'));
 
 You can check if a string exists using the ```has``` method.
 
@@ -74,7 +76,7 @@ The ```pluralize``` method returns the plural form of the chosen noun. Unlike mo
 
 You can also pluralize words in translated strings:
 
-	// In a language file
+	// In a language file caleld ui.php
 	 
 	return array
 	(
@@ -83,6 +85,6 @@ You can also pluralize words in translated strings:
 	 
 	// In a view (using the template syntax)
 	 
-	{{__('new_messages', array(1)}} // Will print "You have 1 new message."
+	{{__('ui.new_messages', array(1)}} // Will print "You have 1 new message."
 
-	{{__('new_messages', array(10)}} // Will print "You have 10 new messages."
+	{{__('ui.new_messages', array(10)}} // Will print "You have 10 new messages."
