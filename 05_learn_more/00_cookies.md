@@ -16,8 +16,6 @@ The benefit of using signed cookies over regular cookies is that their values ca
 
 ### Usage
 
-#### Setting cookies
-
 Setting a signed cookie is done by using the ```set``` method. The available options are ```path```, ```domain```, ```secure``` and ```httponly```.
 
 	// Sets signed a cookie that will expire when the browser closes.
@@ -32,8 +30,6 @@ Setting a signed cookie is done by using the ```set``` method. The available opt
 
 	Cookie::set('foobar', 'my value', (3600 * 10), array('httponly' => true));
 
-#### Reading cookies
-
 Reading a signed cookie is done using the ```get``` method. Unsigned cookies or cookies with an invalid signature will be ignored.
 
 	// Reads the 'foobar' cookie. If the cookie doesn't exist then $value will be set to NULL
@@ -43,8 +39,6 @@ Reading a signed cookie is done using the ```get``` method. Unsigned cookies or 
 	// Reads the 'foobar' cookie. If the cookie doesn't exist then $value will be set to '1234'
 
 	$value = Cookie::get('foobar', '1234');
-
-#### Deleting cookies
 
 Deleting cookies is done by using the ```delete``` method.
 

@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-The Redis class provides a simple and consistent way of communicating with a Redis server.
+The Redis class provides a simple and consistent way of communicating with a [Redis](http://redis.io) server.
 
 --------------------------------------------------------
 

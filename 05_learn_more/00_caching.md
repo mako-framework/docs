@@ -37,8 +37,6 @@ To get an instance of the default cache just call the ```instance``` method of t
 
 	$cache = Cache::instance('apc');
 
-#### Writing
-
 To write something to the cache use the ```write``` method. The method returns TRUE on success or FALSE on failure.
 
 	// Stores the array for one hour
@@ -52,8 +50,6 @@ To write something to the cache use the ```write``` method. The method returns T
 	// Data can also be stored using overloading but you will not be able to set the ttl
 
 	$cache->my_array = array(1, 2, 3, 4);
-
-#### Reading
 
 To retrieve data that you have stored in the cache use the ```read``` method. The method returns FALSE if the cached data has expired or if it is not found.
 
@@ -95,8 +91,6 @@ The ```remember``` method works as a combination of the read and write methods. 
 		return Database::table('universe')->sum('stars');
 	}, 3600);
 
-#### Deleting
-
 Deleting data is done by using the ```delete``` method. The method returns TRUE on success or FALSE on failure.
 
 	$cache->delete('my_array');
@@ -118,8 +112,6 @@ You can clear the entire cache by using the ```clear``` method. The method retur
 	Cache::clear();
 
 > Clearing the cache can affect other applications when using shared memory caching solutions such as APC and Memcache.
-
-#### Incrementing & decrementing
 
 You increment a value in the cache by using the ```increment``` method.
 
