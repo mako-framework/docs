@@ -24,7 +24,7 @@ Mako has been tested on Apache, Cherokee, lighttpd and Nginx.
 
 ### Setup
 
-Installing Mako is easy and can be with one single command thanks to composer:
+Installing Mako is easy and can be with one single command thanks to [composer](https://packagist.org/):
 
 	composer create-project mako/app <project name>
 
