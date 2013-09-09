@@ -4,6 +4,7 @@
 
 * [Language files](#language_files)
 * [Usage](#usage)
+* [Language routing](#language_routing)
 
 --------------------------------------------------------
 
@@ -88,3 +89,18 @@ You can also pluralize words in translated strings:
 	{{__('ui.new_messages', array(1)}} // Will print "You have 1 new message."
 
 	{{__('ui.new_messages', array(10)}} // Will print "You have 10 new messages."
+
+--------------------------------------------------------
+
+<a id="language_routing"></a>
+
+### Language routing
+
+Language route prefixes can be configured in the ```app/config/routes.php``` config file.
+
+	'languages' => array
+	(
+		'no' => 'nb_NO',
+	),
+
+Visiting ```http://example.org/no/foo/bar``` will load the norwegian language pack before executing the ```bar``` action of the ```foo``` controller.
