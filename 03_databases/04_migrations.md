@@ -11,7 +11,7 @@
 
 Database migrations offer a convenient way to alter your databases in a structured and organized manner. They allow you to commit and roll back schema changes.
 
-Mako migrations are created and executed from the [reactor CLI tool](:base_url:/docs/cli:tasks).
+Mako migrations are created and executed from the [reactor CLI tool](:base_url:/docs/:version:/cli:tasks).
 
 --------------------------------------------------------
 

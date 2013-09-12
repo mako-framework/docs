@@ -69,7 +69,7 @@ You can then fetch the article by its primary key value like this:
 
 	$article = Article::get(1); // Will return FALSE if not found
 
-The ORM is built on top of the [query builder](:base_url:/docs/databases:query-builder) so you can also use other criteria to find your record:
+The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can also use other criteria to find your record:
 
 	$article = Article::where('title', '=', 'Super awesome stuff')->first();
 
@@ -218,7 +218,7 @@ This is how you would use the relations:
 
 #### Relation criteria
 
-The ORM is built on top of the [query builder](:base_url:/docs/databases:query-builder) so you can add query criteria to your relations.
+The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can add query criteria to your relations.
 
 	public function articles()
 	{
@@ -402,7 +402,7 @@ You can mass assignment a bit more secure by using the ```$assignable``` propert
 
 ### Validation
 
-You can validate your records before saving them using ORM validation. The ORM validation uses the Mako [validation class](:base_url:/docs/learn-more:validation).
+You can validate your records before saving them using ORM validation. The ORM validation uses the Mako [validation class](:base_url:/docs/:version:/learn-more:validation).
 
 	protected $rules = array
 	(

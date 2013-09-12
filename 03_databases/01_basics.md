@@ -71,7 +71,7 @@ The ```column``` method executes a query and returns the value of the first colu
 
 ### Query builder
 
-The ```table``` method returns an instance of the [query builder](:base_url:/docs/databases:query-builder).
+The ```table``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
 
 	$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
 

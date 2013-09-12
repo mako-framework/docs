@@ -85,7 +85,7 @@ The ```validate``` method will return TRUE if the token is valid and FALSE if no
 
 > Only the last 20 tokens that have been generated during a session are valid. Tokens that have been validated once are no longer considered valid.
 
-Tokens can also be validated using the ```token``` validation rule of the validation class.
+Tokens can also be validated using the ```token``` validation rule of the [validation class](:base_url:/docs/:version:/learn-more:validation).
 
 --------------------------------------------------------
 
