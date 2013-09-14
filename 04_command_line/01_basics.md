@@ -18,7 +18,7 @@ Mako includes a several useful tasks by default. To list the available tasks jus
 
 	php reactor
 
-If should print the following on a default Mako installation
+It should print the following on a default Mako installation
 
 	Usage:
 
