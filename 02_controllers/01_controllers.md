@@ -103,4 +103,4 @@ The ```get_index``` method responds to GET requests and the ```post_index``` met
 
 The ```before``` method is always executed before the requested action.
 
-The ```before``` method is always executed before the requested action.
+The ```after``` method is always executed after the requested action.
