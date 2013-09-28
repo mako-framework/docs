@@ -116,7 +116,7 @@ Loops is something you'll often need. Templates support ```foreach```, ```for```
 	{% endforeach %}
 	</ul>
 
-Another useful feature is template inheritance. This allows you to define a parent "wrapper" view that you can easily extend. Lets say you save the following template as ```arent.tpl.php```:
+Another useful feature is template inheritance. This allows you to define a parent "wrapper" view that you can easily extend. Lets say you save the following template as ```parent.tpl.php```:
 
 	<!DOCTYPE html>
 	<html lang="en">
