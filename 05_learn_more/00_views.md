@@ -116,6 +116,10 @@ Loops is something you'll often need. Templates support ```foreach```, ```for```
 	{% endforeach %}
 	</ul>
 
+You can also include a view inside another view (viewception?) like this:
+
+	{{view:view_name}}
+
 Another useful feature is template inheritance. This allows you to define a parent "wrapper" view that you can easily extend. Lets say you save the following template as ```parent.tpl.php```:
 
 	<!DOCTYPE html>
