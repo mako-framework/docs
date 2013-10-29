@@ -240,7 +240,7 @@ The ORM lets you create related records without having to worry about rememberin
 	$article->title   = 'My article title';
 	$article->content = 'My article content';
 
-	$user->articles->create($article);
+	$user->articles()->create($article);
 
 The article will now be saved and the value of the ```user_id``` foreign key will automatically be set to the users id. This method works for both ```has one``` and ```has many``` relations.
 
