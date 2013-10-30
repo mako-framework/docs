@@ -98,7 +98,7 @@ This will show you the names of the migrations that were executed:
 
 If you need to revert the changes made to your database then you can use the ```down``` command. This will roll back the last batch of migrations executed.
 
-	php code migrate.down
+	php reactor migrate.down
 
 This will show you the migrations that were rolled back:
 
@@ -107,7 +107,7 @@ This will show you the migrations that were rolled back:
 
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
 
-	php code migrate.down 2
+	php reactor migrate.down 2
 
 If you want to roll back all database changes in one go then you can use the ```reset``` command.
 

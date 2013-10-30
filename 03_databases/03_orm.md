@@ -378,7 +378,7 @@ Scopes also work through relations:
 
 ### Mass assignment
 
-The ORM allows you to use mass assignment when creating or updating records. This can save you some time since you don't have set each value individually but it can open attack vectors in your application if you're not careful.
+The ORM allows you to use mass assignment when creating or updating records. This can save you some time since you don't have to set each value individually but it can open attack vectors in your application if you're not careful.
 
 	// Create a new record using mass assignment
 
@@ -394,7 +394,7 @@ The ORM allows you to use mass assignment when creating or updating records. Thi
 
 The code above might seem like a good idea until a hacker adds an is_admin field to the POST data and gives himself admin privileges.
 
-You can mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment.
+You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment.
 
 --------------------------------------------------------
 
