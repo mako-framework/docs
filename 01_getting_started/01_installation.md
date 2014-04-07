@@ -16,8 +16,6 @@
 * mbstring
 * PDO
 
-Mako has been tested on Apache, Cherokee, lighttpd and Nginx.
-
 --------------------------------------------------------
 
 <a id="setup"></a>

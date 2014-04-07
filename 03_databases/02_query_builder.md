@@ -48,11 +48,11 @@ Fetching all rows is done using the ```Query::all``` method.
 
 	// You can also specify which columns you want to include in the result set
 
-	$persons = $connection->table('persons')->all(array('name', 'email'));
+	$persons = $connection->table('persons')->all(['name', 'email']);
 
 	// To make a distinct selection use the distinct method
 
-	$persons = $connection->table('persons')->distinct()->all(array('name', 'email'));
+	$persons = $connection->table('persons')->distinct()->all(['name', 'email']);
 
 The query builder also supports subqueries and raw sql.
 
@@ -60,7 +60,7 @@ The query builder also supports subqueries and raw sql.
 
 	$persons = $connection->table
 	(
-		new Subquery($connection->table('persons')->distinct()->columns(array('name')), 'distinct_names')
+		new Subquery($connection->table('persons')->distinct()->columns(['name']), 'distinct_names')
 	)
 	->where('name', '!=', 'John Doe')
 	->all();
@@ -72,7 +72,7 @@ The query builder also supports subqueries and raw sql.
 		'name',
 		'email',
 		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-		new Subquery($connection->table('persons')->columns(array(new Raw('AVG(age)'))), 'average_age')
+		new Subquery($connection->table('persons')->columns([new Raw('AVG(age)'])), 'average_age')
 	));
 
 > Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
@@ -83,7 +83,7 @@ If you only want to retrieve a single row you can use the ```Query::first``` met
 
 	// You can also specify which columns you want to include in the result set
 
-	$person = $connection->table('persons')->where('id', '=', 1)->first(array('name', 'email'));
+	$person = $connection->table('persons')->where('id', '=', 1)->first(['name', 'email']);
 
 Fetching the value of a single column is done using the column method.
 
@@ -98,7 +98,7 @@ Fetching the value of a single column is done using the column method.
 Inserting data is done using the ```Query::insert``` method.
 
 	$connection->table('table')
-	->insert(array('field1' => 'foo', 'field2' => 'bar', 'field3' => time()));
+	->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
 --------------------------------------------------------
 
@@ -110,7 +110,7 @@ Updating data is done using the ```Query::update``` method.
 
 	$connection->table('table')
 	->where('id', '=', 10)
-	->update(array('field1' => 'foo', 'field2' => 'bar', 'field3' => time()));
+	->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
 There are also shortcuts for incrementing and decrementing column values:
 
@@ -230,13 +230,13 @@ in(), orIn(), notIn(), orNotIn()
 	// SELECT * FROM `persons` WHERE `id` IN (1, 2, 3, 4, 5)
 
 	$persons = $connection->table('persons')
-	->in('id', array(1, 2, 3, 4, 5))
+	->in('id', [1, 2, 3, 4, 5])
 	->all();
 
 	// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
 	$persons = $connection->table('persons')
-	->in('id', new Subquery($connection->table('persons')->where('id', '!=', 1)->columns(array('id'))))
+	->in('id', new Subquery($connection->table('persons')->where('id', '!=', 1)->columns(['id'])))
 	->all();
 
 <a id="where_is_null_clauses"></a>
@@ -299,13 +299,13 @@ groupBy()
 
 	$customers = $connection->table('orders')
 	->groupBy('customer')
-	->all(array('customer', new Raw('SUM(price) as sum')));
+	->all(['customer', new Raw('SUM(price) as sum')]);
 
 	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`, `order_date`
 
 	$customers = $connection->table('orders')
-	->groupBy(array('customer', 'order_date'))
-	->all(array('customer', 'order_date', new Raw('SUM(price) as sum')));
+	->groupBy(['customer', 'order_date'])
+	->all(['customer', 'order_date', new Raw('SUM(price) as sum')]);
 
 <a id="having_clauses"></a>
 
@@ -318,7 +318,7 @@ having(), orHaving()
 	$customers = $connection->table('orders')
 	->groupBy('customer')
 	->having(new Raw('SUM(price)'), '<', 2000)
-	->all(array('customer', new Raw('SUM(price) as sum')));
+	->all(['customer', new Raw('SUM(price) as sum')]);
 
 <a id="order_by_clauses"></a>
 
@@ -354,7 +354,7 @@ orderBy(), descending(), ascending()
 	// SELECT * FROM `persons` ORDER BY `name`, `age` ASC
 
 	$persons = $connection->table('persons')
-	->orderBy(array('name', 'age'), 'asc')
+	->orderBy(['name', 'age'], 'asc')
 	->all();
 
 <a id="limit_and_offset_clauses"></a>

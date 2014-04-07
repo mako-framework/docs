@@ -8,7 +8,6 @@
 * [Getters and setters](#getters_and_setters)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
-* [Validation](#validation)
 * [Optimistic locking](#optimistic_locking)
 * [Read-only records](#read_only_records)
 * [Cloning records](#cloning_records)
@@ -24,14 +23,13 @@ The ORM lets you map your database tables to objects and create relations betwee
 
 ### Naming conventions
 
-The Mako ORM does not impose a naming standard on the class name but it is best practice to name the model class after the singular form of the table name. Camel casing should be used instead of underscores.
+The Mako ORM does not impose a naming standard on model class names but best practice is to use the camel cased singular form of the table name. You must use the ```$tableName``` property to define the actual name of your table.
 
 | Table name       | Model name       |
 |------------------|------------------|
 | articles         | Article          |
 | import_jobs      | ImportJob        |
 
-You must use the ```$tableName``` property to define the name of your table.
 
 All tables are also expected to have an auto incrementing primary key column named id. The name of the primary key column can be configured using the ```$primaryKey``` property.
 
@@ -43,7 +41,9 @@ The ORM expects foreign key names to use the following the pattern ```<model nam
 
 ### Key types
 
-The ORM assumes that your tables has an auto incrementing primary key by default. You can make it generate UUIDs, make your own custom key generator or tell it that your table doesn't have a primary key. Use the ```$primaryKeyType``` property to define the key type.
+As previously mentioned, the ORM assumes that all your tables have an auto incrementing primary key by default. You can make it generate UUIDs, make your own custom key generator or tell it that your table doesn't have a primary key.
+
+Use the ```$primaryKeyType``` property to define the key type.
 
 | Key type          | Constant                           |
 |-------------------|------------------------------------|
@@ -52,7 +52,7 @@ The ORM assumes that your tables has an auto incrementing primary key by default
 | Custom            | ORM::PRIMARY_KEY_TYPE_CUSTOM       |
 | None              | ORM::PRIMARY_KEY_TYPE_NONE         |
 
-> If you choose to use your own custom key generator then you'll have to implement the ```generatePrimaryKey``` method in your model class.
+> If you choose to use your own custom key generator then you'll have to implement the ```generatePrimaryKey``` method in your model class. You must also make sure that the generated value is unique.
 
 --------------------------------------------------------
 
@@ -417,37 +417,6 @@ You can make mass assignment a bit more secure by using the ```$assignable``` pr
 
 --------------------------------------------------------
 
-<a id="validation"></a>
-
-### Validation
-
-You can validate your records before saving them using ORM validation. The ORM validation uses the Mako [validation class](:base_url:/docs/:version:/learn-more:validation).
-
-	protected $rules = array
-	(
-		'title'   => 'required',
-		'content' => 'required',
-	);
-
-We can now validate our record before saving it:
-
-	$article = new Article();
-
-	$article->title = 'My article';
-
-	if($article->isValid($errors))
-	{
-		$article->save();
-	}
-	else
-	{
-		var_dump($errors);
-	}
-
-> All values are validated when creating a record and only modified values are validated when updating a record.
-
---------------------------------------------------------
-
 <a id="optimistic_locking"></a>
 
 ### Optimistic locking
@@ -467,7 +436,7 @@ To enable optimistic locking you have to set the ```$enableLocking``` property t
 
 	$user2->save();
 
-The second save will throw a ```mako\database\orm\StaleRecordException``` since the record is now outdated compared to the one stored in the database. The ```reload``` method can be used to load the updated record.
+The second save will throw a ```mako\database\orm\StaleRecordException``` since the record is now outdated compared to the one stored in the database. The ```reload``` method can be used to refresh the outdated record.
 
 	$user2->reload();
 

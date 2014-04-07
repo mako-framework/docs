@@ -9,7 +9,7 @@
 
 --------------------------------------------------------
 
-The database class provides a simple way of handling database connections in your application.
+The database connection manager provides a simple way of handling database connections in your application.
 
 --------------------------------------------------------
 
@@ -27,7 +27,7 @@ Creating a database connection is done using the ```ConnectionManager::connectio
 
 	$connection = $database->connection('mydb');
 
-The ```Connection::query``` method lets you execute a query and it will returns ```TRUE``` on success and ```FALSE``` on failure.
+The ```Connection::query``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
 
 	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
@@ -53,7 +53,7 @@ The ```Connection::column``` method executes a query and returns the value of th
 
 The ```Connection::update``` and ```Connection::delete``` methods will return the number of rows modified by the query.
 
-	$count = $connection->update('UPDATE `users` SET `email` = ?', ['foo@example.org');
+	$count = $connection->update('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
 	$count = $connection->delete('DELETE FROM `users`');
 
@@ -73,7 +73,7 @@ The ```Connection::table``` method returns an instance of the [query builder](:b
 
 ### Transactions
 
-The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns TRUE if the transaction was successful and FALSE if it failed.
+The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns the return value of the transaction closure.
 
 > Transactions only work if the storage engine you're using supports them.
 

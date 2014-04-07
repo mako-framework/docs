@@ -51,11 +51,11 @@ It is also possible to override settings or add new configurations at runtime:
 	  'mode'    => MCRYPT_MODE_ECB,
 	]);
 
-> Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their ```addConfiguration``` and ```removeConfiguration``` methods instead.
-
 Removing the custom configuration is done using the ```Config::delete``` method:
 
 	$this->config->delete('crypto.configurations.user');
+
+> Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their ```addConfiguration``` and ```removeConfiguration``` methods instead.
 
 --------------------------------------------------------
 
