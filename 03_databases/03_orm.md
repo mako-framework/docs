@@ -24,18 +24,35 @@ The ORM lets you map your database tables to objects and create relations betwee
 
 ### Naming conventions
 
-The model name should be the singular form of the table name and camel casing should be used instead of underscores.
+The Mako ORM does not impose a naming standard on the class name but it is best practice to name the model class after the singular form of the table name. Camel casing should be used instead of underscores.
 
 | Table name       | Model name       |
 |------------------|------------------|
 | articles         | Article          |
 | import_jobs      | ImportJob        |
 
-If you're converting an existing database to use the ORM and don't want to rename all your tables then you can use the ```$tableName``` property to define the name of your table.
+You must use the ```$tableName``` property to define the name of your table.
 
-All tables are also expected to have an auto incrementing primary key column named id. The name of the primary key column can be configured using the ```$primaryKey``` property and you can also tell the model not to use an auto incrementing key by setting the the ```$incrementing``` property to false.
+All tables are also expected to have an auto incrementing primary key column named id. The name of the primary key column can be configured using the ```$primaryKey``` property.
 
 The ORM expects foreign key names to use the following the pattern ```<model name>_id``` (e.g., item_id, user_id). This can be configured when setting up relations and we'll get back to this later on.
+
+--------------------------------------------------------
+
+<a id="key_types"></a>
+
+### Key types
+
+The ORM assumes that your tables has an auto incrementing primary key by default. You can make it generate UUIDs, make your own custom key generator or tell it that your table doesn't have a primary key. Use the ```$primaryKeyType``` property to define the key type.
+
+| Key type          | Constant                           |
+|-------------------|------------------------------------|
+| Auto incrementing | ORM::PRIMARY_KEY_TYPE_INCREMENTING |
+| UUID              | ORM::PRIMARY_KEY_TYPE_UUID         |
+| Custom            | ORM::PRIMARY_KEY_TYPE_CUSTOM       |
+| None              | ORM::PRIMARY_KEY_TYPE_NONE         |
+
+> If you choose to use your own custom key generator then you'll have to implement the ```generatePrimaryKey``` method in your model class.
 
 --------------------------------------------------------
 
@@ -51,9 +68,9 @@ Lets say you have a table called ```articles``` with three columns (id, title an
 
 	namespace app\models;
 
-	class Article extends \mako\database\ORM
+	class Article extends \mako\database\midgard\ORM
 	{
-
+		$tableName = 'articles';
 	}
 
 Creating a new record is as simple as this:
@@ -125,8 +142,10 @@ Lets create a user model and a profile model and set up a ```has one``` relation
 
 	namespace app\models;
 
-	class User extends \mako\database\ORM
+	class User extends \mako\database\midgard\ORM
 	{
+		protected $tableName = 'users';
+
 		public function profile()
 		{
 			return $this->hasOne('\app\models\Profile');
@@ -139,9 +158,9 @@ Lets not bother creating a relation in the profile model jus yet.
 
 	namespace app\models;
 
-	class Profile extends \mako\database\ORM
+	class Profile extends \mako\database\midgard\ORM
 	{
-		
+		protected $tableName = 'profiles';
 	}
 
 You can now access a users profile like this:

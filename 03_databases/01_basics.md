@@ -17,53 +17,45 @@ The database class provides a simple way of handling database connections in you
 
 ### Basics
 
-Creating a database connection is done using the ```connection``` method.
+Creating a database connection is done using the ```ConnectionManager::connection``` method.
 
 	// Returns connection object using the "default" database configuration defined in the config file
 
-	$connection = Database::connection();
+	$connection = $database->connection();
 
 	// Returns connection object using the "mydb" database configuration defined in the config file
 
-	$connection = Database::connection('mydb');
+	$connection = $database->connection('mydb');
 
-The ```query``` method lests you execute a query and it will returns data for ```SELECT``` queries, number of rows affected for ```DELETE``` and ```UPDATE``` queries and a boolean value for other queries.
+The ```Connection::query``` method lets you execute a query and it will returns ```TRUE``` on success and ```FALSE``` on failure.
 
-There is a third optional parameter that lets you set the fetch method. The different fetch modes are ```FETCH_ALL``` (default), ```FETCH_FIRST``` and ```FETCH_COLUMN```.
+	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
-	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', array('fruit', 'banana'));
+	// You can also use the connection instance to access the default connection
 
-	// You can also use the following syntax to perform a query against the default connection
+	$database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
-	Database::query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', array('fruit', 'banana'));
+The ```Connection::all``` method executes a query and returns an array containing all of the result set rows.
+
+	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
 	// There's also a handy syntax for assigning arrays for use in "IN" clauses
 
-	Database::query('SELECT * FROM `foo` WHERE `bar` IN ([?])', array(array('banana', 'apple')));
+	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana', 'apple']]);
 
-The ```all``` method executes a query and returns an array containing all of the result set rows.
+The ```Connection::first``` method executes a query and returns the first row of the result set.
 
-	$rows = $connection->all('SELECT * from `foo` WHERE `bar` = ?', array($bar));
+	$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
-	// You can also use the following syntax to perform a query against the default connection
+The ```Connection::column``` method executes a query and returns the value of the first column of the first row of the result set.
 
-	$rows = Database::all('SELECT * from `foo` WHERE `bar` = ?', array($bar));
+	$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 
-The ```first``` method executes a query and returns the first row of the result set.
+The ```Connection::update``` and ```Connection::delete``` methods will return the number of rows modified by the query.
 
-	$row = $connection->first('SELECT * from `foo` WHERE `bar` = ?', array($bar));
+	$count = $connection->update('UPDATE `users` SET `email` = ?', ['foo@example.org');
 
-	// You can also use the following syntax to perform a query against the default connection
-
-	$row = Database::first('SELECT * from `foo` WHERE `bar` = ?', array($bar));
-
-The ```column``` method executes a query and returns the value of the first column of the first row of the result set.
-
-	$email = $connection->column('SELECT `email` from `users` WHERE `id` = ?', array(1));
-
-	// You can also use the following syntax to perform a query against the default connection
-
-	$email = Database::column('SELECT `email` from `users` WHERE `id` = ?', array(1));
+	$count = $connection->delete('DELETE FROM `users`');
 
 --------------------------------------------------------
 
@@ -71,13 +63,9 @@ The ```column``` method executes a query and returns the value of the first colu
 
 ### Query builder
 
-The ```table``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
+The ```Connection::table``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
 
 	$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
-
-	// You can also use the following syntax to perform a query against the default connection
-
-	$rows = Database::table('foo')->where('bar', '=', $bar)->all();
 
 --------------------------------------------------------
 
@@ -85,20 +73,11 @@ The ```table``` method returns an instance of the [query builder](:base_url:/doc
 
 ### Transactions
 
-The ```transaction``` method provides a handy shortcut for performing database transactions. It returns TRUE if the transaction was successful and FALSE if it failed.
+The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns TRUE if the transaction was successful and FALSE if it failed.
 
 > Transactions only work if the storage engine you're using supports them.
 
 	$success = $connection->transaction(function($connection)
-	{
-		$connection->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
-
-		$connection->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
-	});
-
-	// You can also use the following syntax to perform a query against the default connection
-
-	$success = Database::transaction(function($connection)
 	{
 		$connection->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
@@ -119,11 +98,11 @@ You can also access the [PDO](http://php.net/manual/en/book.pdo.php) object dire
 		
 		$connection->query('DROP TABLE `foo`');
 
-		$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', array('fruit', 'banana'));
+		$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
-		$connection->pdo->commit();
+		$connection->getPDO()->commit();
 	}
 	catch(PDOException $e)
 	{
-		$connection->pdo->rollBack();
+		$connection->getPDO()->rollBack();
 	}

@@ -42,7 +42,7 @@ All queries executed by the query builder use prepared statements, thus mitigati
 
 ### Fetching data
 
-Fetching all rows is done using the ```all``` method.
+Fetching all rows is done using the ```Query::all``` method.
 
 	$persons = $connection->table('persons')->all();
 
@@ -54,11 +54,13 @@ Fetching all rows is done using the ```all``` method.
 
 	$persons = $connection->table('persons')->distinct()->all(array('name', 'email'));
 
+The query builder also supports subqueries and raw sql.
+
 	// Selecting from the results of a subquery is also possible
 
 	$persons = $connection->table
 	(
-		Database::subquery($connection->table('persons')->distinct()->columns(array('name')), 'distinct_names')
+		new Subquery($connection->table('persons')->distinct()->columns(array('name')), 'distinct_names')
 	)
 	->where('name', '!=', 'John Doe')
 	->all();
@@ -69,11 +71,13 @@ Fetching all rows is done using the ```all``` method.
 	(
 		'name',
 		'email',
-		Database::raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-		Database::subquery($connection->table('persons')->columns(array(Database::raw('AVG(age)'))), 'average_age')
+		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
+		new Subquery($connection->table('persons')->columns(array(new Raw('AVG(age)'))), 'average_age')
 	));
 
-If you only want to retrieve a single row you can use the ```first``` method.
+> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
+
+If you only want to retrieve a single row you can use the ```Query::first``` method.
 
 	$person = $connection->table('persons')->where('id', '=', 1)->first();
 
@@ -91,7 +95,7 @@ Fetching the value of a single column is done using the column method.
 
 ### Inserting data
 
-Inserting data is done using the ```insert``` method.
+Inserting data is done using the ```Query::insert``` method.
 
 	$connection->table('table')
 	->insert(array('field1' => 'foo', 'field2' => 'bar', 'field3' => time()));
@@ -102,7 +106,7 @@ Inserting data is done using the ```insert``` method.
 
 ### Updating data
 
-Updating data is done using the ```update``` method.
+Updating data is done using the ```Query::update``` method.
 
 	$connection->table('table')
 	->where('id', '=', 10)
@@ -124,7 +128,7 @@ There are also shortcuts for incrementing and decrementing column values:
 
 ### Deleting data
 
-Deleting data is done using the ```delete``` method.
+Deleting data is done using the ```Query::delete``` method.
 
 	$connection->table('table')->where('id', '=', 10)->delete();
 
@@ -232,7 +236,7 @@ in(), orIn(), notIn(), orNotIn()
 	// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
 	$persons = $connection->table('persons')
-	->in('id', Database::subquery($connection->table('persons')->where('id', '!=', 1)->columns(array('id'))))
+	->in('id', new Subquery($connection->table('persons')->where('id', '!=', 1)->columns(array('id'))))
 	->all();
 
 <a id="where_is_null_clauses"></a>
@@ -258,7 +262,7 @@ exists(), orExists(), notExists(), orNotExists()
 	$persons = $connection->table('persons')
 	->exists
 	(
-		Database::subquery($connection->table('cars')->where('cars.person_id', '=', Database::raw('persons.id')))
+		new Subquery($connection->table('cars')->where('cars.person_id', '=', new Raw('persons.id')))
 	)
 	->all();
 
@@ -295,13 +299,13 @@ groupBy()
 
 	$customers = $connection->table('orders')
 	->groupBy('customer')
-	->all(array('customer', Database::raw('SUM(price) as sum')));
+	->all(array('customer', new Raw('SUM(price) as sum')));
 
 	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`, `order_date`
 
 	$customers = $connection->table('orders')
 	->groupBy(array('customer', 'order_date'))
-	->all(array('customer', 'order_date', Database::raw('SUM(price) as sum')));
+	->all(array('customer', 'order_date', new Raw('SUM(price) as sum')));
 
 <a id="having_clauses"></a>
 
@@ -313,8 +317,8 @@ having(), orHaving()
 
 	$customers = $connection->table('orders')
 	->groupBy('customer')
-	->having(Database::raw('SUM(price)'), '<', 2000)
-	->all(array('customer', Database::raw('SUM(price) as sum')));
+	->having(new Raw('SUM(price)'), '<', 2000)
+	->all(array('customer', new Raw('SUM(price) as sum')));
 
 <a id="order_by_clauses"></a>
 
