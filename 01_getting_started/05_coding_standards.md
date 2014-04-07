@@ -9,6 +9,7 @@
 * [Methods](#methods")
 * [Variables](#variables)
 * [Constants](#constants)
+* [Arrays](#arrays)
 * [Braces](#braces)
 * [Indentation](#indentation)
 * [Comments](#comments)
@@ -174,6 +175,30 @@ Constant names should be written in upper case and multiple words should be sepa
 	// Incorrect
 
 	define('foobar', 123);
+
+--------------------------------------------------------
+
+<a id="arrays"></a>
+
+### Arrays
+
+Arrays should always be defined using the shorthand syntax:
+
+	// Correct
+
+	$array = [1, 2, 3];
+
+	// Correct
+
+	$array = ['foo' => 'bar'];
+
+	// Incorrect
+
+	$array = array(1, 2, 3);
+
+	// Incorrect
+
+	$array = array('foo' => 'bar');
 
 --------------------------------------------------------
 

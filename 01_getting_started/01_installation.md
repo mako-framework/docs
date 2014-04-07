@@ -12,7 +12,7 @@
 
 ### Requirements
 
-* PHP 5.3.7 or higher
+* PHP 5.4.0 or higher
 * mbstring
 * PDO
 

@@ -8,7 +8,7 @@
 
 --------------------------------------------------------
 
-The configuration of the Mako core is done in the ```index.php``` file. This is where you set the error reporting level and define the paths to the application and framework directories.
+The configuration of the Mako core is done in the ```index.php``` file. This is where you set the error reporting level and define the paths to the application and vendor directories.
 
 You do not need to edit the paths unless you move the application and framework directories out of your webserver's document root.
 
@@ -24,36 +24,38 @@ Mako config files are just simple arrays:
 
 	<?php
 
-	return array
-	(
+	return 
+	[
 	  'key_1' => 'value',
 	  'key_2' => 'value',
-	);
+	];
 
 And loading a config file is done by using the ```Config::get``` method.
 
-	config = Config::get('redis'); // Loads the redis.php file
+	$config = $this->config->get('redis'); // Loads the redis.php file
 
 You can also fetch config items using ```dot notation```:
 
-	$default = Config::get('redis.default');
+	$default = $this->config->get('redis.default');
 
-It is also easy to override settings or add new configurations:
+It is also possible to override settings or add new configurations at runtime:
 
 	// Adds a new Crypto configuration named "user" that you can 
 	// use when creating a Crypto instance "Crypto::instance('user');"
 
-	Config::set('crypto.configurations.user', array
-	(
+	$this->config->set('crypto.configurations.user', 
+	[
 	  'library' => 'mcrypt',
 	  'cipher'  => MCRYPT_RIJNDAEL_256,
 	  'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
 	  'mode'    => MCRYPT_MODE_ECB,
-	));
+	]);
+
+> Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their ```addConfiguration``` and ```removeConfiguration``` methods instead.
 
 Removing the custom configuration is done using the ```Config::delete``` method:
 
-	Config::delete('crypto.configurations.user');
+	$this->config->delete('crypto.configurations.user');
 
 --------------------------------------------------------
 
