@@ -6,8 +6,8 @@
 * [Route parameters](#route_parameters)
 * [Route filters](#route_filters)
 * [Route groups](#route_groups)
-* [Faking request methods](#faking_request_methods)
 * [Reverse routing](#reverse_routing)
+* [Faking request methods](#faking_request_methods)
 
 --------------------------------------------------------
 
