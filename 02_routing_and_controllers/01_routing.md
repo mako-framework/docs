@@ -86,7 +86,7 @@ You can also impose constraints on your parameters using the ```constraints``` m
 
 ### Route filters
 
-You can define filters that will get executed before and after your route action.
+You can define filters that will get executed before and after your route actions.
 
 > The route action and ```after``` filters will **not** be executed if a ```before``` filter returns data.
 
