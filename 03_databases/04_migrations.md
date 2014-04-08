@@ -41,12 +41,12 @@ Creating a migration is done from the reactor CLI tool:
 
 Running the ```create``` commands will return the following messages:
 
-	Migration created at "/var/www/app/migrations/20120824100019.php".
-	Migration created at "/var/www/app/packages/foobar/migrations/20120824100317.php".
+	Migration created at "/var/www/app/migrations/Migration_20120824100019.php".
+	Migration created at "/var/www/app/packages/foobar/migrations/Migration_20120824100317.php".
 
-The generated migration will contain a skeleton class with two methods, ```up``` and ```down```.
+The generated migration will contain a skeleton class with two methods, ```up``` and ```down```. The database connetion manager is available in both methods using the ```$this->database``` property.
 
-	class Migration_20120824100019
+	class Migration_20120824100019 extends \mako\reactor\tasks\migrate\Migration
 	{
 	        /**
 	        * Makes changes to the database structure.
