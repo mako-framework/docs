@@ -157,11 +157,11 @@ You can assign names to your routes when you define them. This will allow you to
 
 The route in the example above has been named ```home``` and we can now create a URL to the route using the ```toRoute``` method of the ```URLBuilder``` class.
 
-	<a href="{{$urlbuilder->toRoute('home')}}">Home</a>
+	<a href="{{$urlBuilder->toRoute('home')}}">Home</a>
 
 You can also pass parameters to your route URLs.
 
-	<a href="{{$urlbuilder->toRoute('articles:view', ['id' => 1])">Article</a>
+	<a href="{{$urlBuilder->toRoute('articles:view', ['id' => 1])">Article</a>
 
 --------------------------------------------------------
 

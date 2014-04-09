@@ -31,7 +31,7 @@ The ```Connection::query``` method lets you execute a query. It returns ```TRUE`
 
 	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
-	// You can also use the connection instance to access the default connection
+	// You can also access the default connection through the connection manager like this
 
 	$database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
