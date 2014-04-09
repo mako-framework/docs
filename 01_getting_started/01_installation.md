@@ -86,9 +86,9 @@ Basic [Nginx](http://nginx.org/) configuration for a Mako application:
 
 		index index.php;
 
-		# Prevents access to the app and libraries directories
+		# Prevents access to the app and vendor directories
 
-		location ~* ^/(app|libraries)
+		location ~* ^/(app|vendor)
 		{
 			return 403;
 		}
