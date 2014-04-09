@@ -109,9 +109,68 @@ You can define filters that will get executed before and after your route action
 
 > The cache example above is very basic and should probably not be used in a production environment.
 
-Assigning filters to a route is done using the ```before``` and ```after``` methods. You can also pass an array of filters. The filters get executed in the order that they are assigned.
+Assigning filters to a route is done using the ```before``` and ```after``` methods. You can also pass an array of filters if your route has multiple filters. The filters get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->constraints(['id' => '[0-9]+'])
 	->before('cache:read')
 	->after('cache:write');
+
+--------------------------------------------------------
+
+<a id="route_groups"></a>
+
+### Route groups
+
+Route groups are usefull when you have a set of groups with the same constraints and filters.
+
+	$options = ['before' => 'cache:read', 'after' => 'cache:write', 'constraints' => ['id' => '[0-9]+']];
+
+	$routes->group($options, function($routes)
+	{
+		$routes->get('/articles/{id}', 'app\controllers\Articles::view');
+
+		$routes->get('/photos/{id}', 'app\controllers\Photos::view');
+	});
+
+All routes within the group will now have the same filters and constraints. You can also nest groups if needed. 
+
+The following options are available when creating a route group. They are also available as chainable methods on individual routes.
+
+| Option      | Description                                                                              |
+|-------------|------------------------------------------------------------------------------------------|
+| before      | A before filter or an array of before filters                                            |
+| after       | An after filter or an array of aflter filters                                            |
+| constraints | An array of parameter constraints                                                        |
+| prefix      | Route prefix                                                                             |
+| headers     | An array of response headers (the key is the header field and value is the header value) |
+
+--------------------------------------------------------
+
+<a id="reverse_routing"></a>
+
+### Reverse routing
+
+You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your views.
+
+	$routes->get('/', 'app\controllers\Home::Welcome', 'home');
+
+The route in the example above has been named ```home``` and we can now create a URL to the route using the ```toRoute``` method of the ```URLBuilder``` class.
+
+	<a href="{{$urlbuilder->toRoute('home')}}">Home</a>
+
+You can also pass parameters to your route URLs.
+
+	<a href="{{$urlbuilder->toRoute('articles:view', ['id' => 1])">Article</a>
+
+--------------------------------------------------------
+
+<a id="faking_request_methods"></a>
+
+### Faking request methods
+
+Most browsers only support sending ```GET``` and ```POST``` requests. You can get around this limitation by performing a ```POST``` request and include a ```REQUEST_METHOD_OVERRIDE``` field where you specify the request method you want to use.
+
+	<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
+
+You can also send a ```HTTP_X_HTTP_METHOD_OVERRIDE``` header to override the request method if you're using a client that doesn't suport the request method you need to use.
