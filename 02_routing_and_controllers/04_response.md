@@ -227,6 +227,4 @@ The ```stream``` method returns a stream response container. They can be usefull
 		$stream->flush('Hello, world!');
 	});
 
-> This might not work as expected as some webservers will buffer the output before sending it.
-
-> Also make sure to disable Apache's mod_deflate for pages that send chunked data as it will scew up the output.
+> This might not work as expected as some webservers and reverse proxies will buffer the output before sending it.
