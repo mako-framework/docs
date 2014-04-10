@@ -214,7 +214,7 @@ You can set a custom file name, content type, content disposition and a callback
 
 #### Streams
 
-The ```stream``` method returns a stream response container. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+The ```stream``` method returns a stream response container. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage. It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
  
 	$this->response->type('text/plain');
   
@@ -226,3 +226,7 @@ The ```stream``` method returns a stream response container. They can be usefull
 
 		$stream->flush('Hello, world!');
 	});
+
+> This might not work as expected as some webservers will buffer the output before sending it.
+
+> Also make sure to disable Apache's mod_deflate for pages that send chunked data as it will scew up the output.
