@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-The role of a controller is to respond to a HTTP request and construct and return a HTTP response. See the [routing docs](:base_url:/docs/:version:/routing-and-controllers:routing) on how to direct HTTP requests to a controller action.
+The role of a controller is to respond to a HTTP request and construct a response. See the [routing docs](:base_url:/docs/:version:/routing-and-controllers:routing) on how to direct HTTP requests to a controller action.
 
 --------------------------------------------------------
 
