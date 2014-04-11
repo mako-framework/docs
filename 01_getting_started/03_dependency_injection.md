@@ -50,12 +50,27 @@ The ```registerInstance``` method is similar to the ```registerSingleton``` meth
 
 The ```has``` method allows you to check for the presence of an item in the container.
 
+	// Check using the type hint
+
+	if($app->has('app\lib\BarInterface'))
+	{
+		// do something
+	}
+	
+	// Or the optional key
+
 	if($app->has('bar'))
 	{
 		// do something
 	}
 
-The ```get``` method lets you resolve a class through the IoC container.
+The ```get``` method lets you resolve a dependency through the IoC container.
+
+	// Resolve the class using the type hint
+
+	$foo = $app->get('app\lib\FooInterface');
+
+	// Or the optional key
 
 	$foo = $app->get('foo');
 
@@ -89,34 +104,32 @@ The ```getFresh``` method works just like the ```get``` method except that it re
 
 ### Services
 
-Services are an easy and clean way of registering classes in the IoC container. Mako registers a number of services in the container to make it easier for your to inject dependencies into your controllers and tasks.
+Services are an easy and clean way of registering dependecies in the IoC container. 
 
-The list of services that get registered is in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
-
-The following services get registered in the container by default:
+Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
 | Service                  | Class                              | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\core\Application              | app              | Application / IoC container | ✔        |
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 |                          | mako\core\Config                   | config           | Config loader               | ✔        |
-| CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
+| CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| ErrorHandlerService      | mako\core\error\ErrorHandler       | errorhandler     | Error handler               | ✔        |
+| ErrorHandlerService      | mako\core\error\ErrorHandler       | errorhandler     | Error handler               | ✔        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
 | LoggerService            | Psr\Log\LoggerInterface            | logger           | Monolog logger              | ✔        |
-| PaginationFactoryService | mako\pagination\PaginationFactory  | pagination       | Pagination factory          | ✘        |
+| PaginationFactoryService | mako\pagination\PaginationFactory  | pagination       | Pagination factory          | ✘        |
 | RedisService             | mako\redis\ConnectionManager       | redis            | Redis connection manager    | ✘        |
 | RequestService           | mako\http\Request                  | request          | Request                     | ✔        |
-| ResponseService          | mako\http\Response                 | response         | Response                    | ✔        |
+| ResponseService          | mako\http\Response                 | response         | Response                    | ✔        |
 | RouteService             | mako\http\routing\Routes           | routes           | Route collection            | ✔        |
 | SessionService           | mako\session\Session               | session          | Session                     | ✘        |
-| SignerService            | mako\security\Signer               | signer           | Signer                      | ✔        |
-| URLBuilderService        | mako\http\routing\URLBuilder       | urlbuilder       | URL builder                 | ✘        |
-| ValidatorFactoryService  | mako\validator\ValidatorFactory    | validatorfactory | Validation factory          | ✘        |
-| ViewFactoryService       | mako\view\ViewFactory              | viewfactory      | View factory                | ✘        |
+| SignerService            | mako\security\Signer               | signer           | Signer                      | ✔        |
+| URLBuilderService        | mako\http\routing\URLBuilder       | urlbuilder       | URL builder                 | ✘        |
+| ValidatorFactoryService  | mako\validator\ValidatorFactory    | validatorfactory | Validation factory          | ✘        |
+| ViewFactoryService       | mako\view\ViewFactory              | viewfactory      | View factory                | ✘        |
 
 > Note that some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
 
@@ -126,9 +139,7 @@ The following services get registered in the container by default:
 
 ### Proxies
 
-Mako 4 includes a set of proxy classes that you can use instead of injecting your dependencies through the controller and task constructors.
-
-All examples in the documentation assume that you're using constructor injection but the syntax is the same (except for the static call).
+Mako 4 includes a set of static proxy classes that you can use instead of injecting your dependencies through the controller and task constructors. All the examples in the documentation assume that you're using constructor injection but the syntax is the same.
 
 	// Using constructor injection
 
