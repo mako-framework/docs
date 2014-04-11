@@ -21,11 +21,11 @@ Creating a database connection is done using the ```ConnectionManager::connectio
 
 	// Returns connection object using the "default" database configuration defined in the config file
 
-	$connection = $database->connection();
+	$connection = $this->database->connection();
 
 	// Returns connection object using the "mydb" database configuration defined in the config file
 
-	$connection = $database->connection('mydb');
+	$connection = $this->database->connection('mydb');
 
 The ```Connection::query``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
 
@@ -33,7 +33,7 @@ The ```Connection::query``` method lets you execute a query. It returns ```TRUE`
 
 	// You can also access the default connection through the connection manager like this
 
-	$database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
 The ```Connection::all``` method executes a query and returns an array containing all of the result set rows.
 
