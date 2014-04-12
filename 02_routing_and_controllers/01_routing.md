@@ -13,7 +13,7 @@
 
 The Mako router allows you to map URLs to controller and closure actions. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your views.
 
-Routes are registered in the ```app/routes.php``` file. There are two variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance).
+Routes are registered in the ```app/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
 
 --------------------------------------------------------
 
@@ -48,9 +48,9 @@ Routes can also execute closures instead of class methods. The two first paramet
 		return 'Hello, world!';
 	});
 
-You can access the application instance in your closures like this.
+You can access the container instance in your closures like this.
 
-	$routes->get('/hello-world', function($request, $response) use ($app)
+	$routes->get('/hello-world', function($request, $response) use ($container)
 	{
 		return 'Hello, world!';
 	});
@@ -92,19 +92,19 @@ You can define filters that will get executed before and after your route action
 
 	// Return cached version of route response if it's available
 
-	$routes->filter('cache:read', function($request, $response) use ($app)
+	$routes->filter('cache:read', function($request, $response) use ($container)
 	{
-		if($app->get('cache')->has('route:' . $request->path()))
+		if($container->get('cache')->has('route:' . $request->path()))
 		{
-			return $app->get('cache')->read('route:' . $request->path());
+			return $container->get('cache')->read('route:' . $request->path());
 		}
 	});
 
 	// Cache route response for 10 minutes
 
-	$routes->filter('cache:write', function($request, $response) use ($app)
+	$routes->filter('cache:write', function($request, $response) use ($container)
 	{
-		$app->get('cache')->write('route:' . $request->path(), $response->getBody(), 60 * 10);
+		$container->get('cache')->write('route:' . $request->path(), $response->getBody(), 60 * 10);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.

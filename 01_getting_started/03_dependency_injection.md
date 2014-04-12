@@ -22,15 +22,15 @@ The IoC container is by default avaiable in the ```app/bootstrap.php``` and ```a
 
 The ```register``` method allows you to register a dependency in the container.
 
-	$app->register('app\lib\FooInterface', 'app\lib\Foo');
+	$container->register('app\lib\FooInterface', 'app\lib\Foo');
 
 You can also register a key along with the type hint to so that you can save a few keystrokes when resolving classes.
 
-	$app->register(['app\lib\FooInterface', 'foo'], 'app\lib\Foo');
+	$container->register(['app\lib\FooInterface', 'foo'], 'app\lib\Foo');
 
 If your dependency requires constructor parameters then you can register it using a closure.
 
-	$app->register(['app\lib\BarInterface', 'bar'], function($app)
+	$container->register(['app\lib\BarInterface', 'bar'], function($container)
 	{
 		return new \app\lib\Bar('parameter value');
 	});
@@ -39,27 +39,27 @@ If your dependency requires constructor parameters then you can register it usin
 
 The ```registerSingleton``` method does the same as the ```register``` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
-	$app->registerSingleton(['app\lib\BarInterface', 'bar'], function($app)
+	$container->registerSingleton(['app\lib\BarInterface', 'bar'], function($container)
 	{
 		return new \app\lib\Bar('parameter value');
 	});
 
 The ```registerInstance``` method is similar to the ```registerSingleton``` method. The only difference is that it allows you to register an existing instance in the container.
 
-	$app->registerInstance(['app\lib\BarInterface', 'bar'], new \app\lib\Bar('parameter value'));
+	$container->registerInstance(['app\lib\BarInterface', 'bar'], new \app\lib\Bar('parameter value'));
 
 The ```has``` method allows you to check for the presence of an item in the container.
 
 	// Check using the type hint
 
-	if($app->has('app\lib\BarInterface'))
+	if($container->has('app\lib\BarInterface'))
 	{
 		// do something
 	}
 	
 	// Or the optional key
 
-	if($app->has('bar'))
+	if($container->has('bar'))
 	{
 		// do something
 	}
@@ -68,11 +68,11 @@ The ```get``` method lets you resolve a dependency through the IoC container.
 
 	// Resolve the class using the type hint
 
-	$foo = $app->get('app\lib\FooInterface');
+	$foo = $container->get('app\lib\FooInterface');
 
 	// Or the optional key
 
-	$foo = $app->get('foo');
+	$foo = $container->get('foo');
 
 The class does not have to be registered in the container to be resolvable.
 
@@ -90,11 +90,11 @@ The class does not have to be registered in the container to be resolvable.
 
 We can now resolve the ```Depends``` class using the IoC container. Both its dependencies will automatically be injected.
 
-	$depends = $app->get('Depends');
+	$depends = $container->get('Depends');
 
 The ```getFresh``` method works just like the ```get``` method except that it returns a fresh instance even if the class that you are resolving is registered as a singlegon.
 
-	$foo = $app->getFresh('bar');
+	$foo = $container->getFresh('bar');
 
 > The ```getFresh``` method might not work as expected for classes registered using the ```registerInstance``` method.
 
