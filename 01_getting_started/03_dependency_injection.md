@@ -108,9 +108,10 @@ Mako includes a number of services for your convenience and you'll find a comple
 
 | Service                  | Class                              | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
-|                          | mako\core\Application              | app              | Application / IoC container | ✔        |
-| CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
+|                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
+|                          | mako\core\Application              | app              | Application                 | ✔        |
 |                          | mako\core\Config                   | config           | Config loader               | ✔        |
+| CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
 | ErrorHandlerService      | mako\core\error\ErrorHandler       | errorhandler     | Error handler               | ✔        |
