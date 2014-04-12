@@ -28,7 +28,7 @@ You can also register a key along with the type hint to so that you can save a f
 
 	$container->register(['app\lib\FooInterface', 'foo'], 'app\lib\Foo');
 
-You can also register your dependency using a closure. The closure will not be executed before it is required.
+You can also register your dependencies using a closure. The closure will not be executed before it is required.
 
 	$container->register(['app\lib\BarInterface', 'bar'], function($container)
 	{
