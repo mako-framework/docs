@@ -35,8 +35,6 @@ You can also register your dependencies using a closure. The closure will not be
 		return new \app\lib\Bar('parameter value');
 	});
 
-> The container will automatically try to resolve type hinted parameters.
-
 The ```registerSingleton``` method does the same as the ```register``` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
 	$container->registerSingleton(['app\lib\BarInterface', 'bar'], function($container)
