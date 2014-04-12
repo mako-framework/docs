@@ -4,7 +4,6 @@
 
 * [Basics](#basics)
 * [Services](#services)
-* [Proxies](#proxies)
 
 --------------------------------------------------------
 
@@ -127,40 +126,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 | SessionService           | mako\session\Session               | session          | Session                     | ✘        |
 | SignerService            | mako\security\Signer               | signer           | Signer                      | ✔        |
 | URLBuilderService        | mako\http\routing\URLBuilder       | urlbuilder       | URL builder                 | ✘        |
-| ValidatorFactoryService  | mako\validator\ValidatorFactory    | validatorfactory | Validation factory          | ✘        |
-| ViewFactoryService       | mako\view\ViewFactory              | viewfactory      | View factory                | ✘        |
+| ValidatorFactoryService  | mako\validator\ValidatorFactory    | validator        | Validation factory          | ✘        |
+| ViewFactoryService       | mako\view\ViewFactory              | view             | View factory                | ✘        |
 
 > Note that some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
-
---------------------------------------------------------
-
-<a id="proxies"></a>
-
-### Proxies
-
-Mako 4 includes a set of static proxy classes that you can use instead of injecting your dependencies through the controller and task constructors. All the examples in the documentation assume that you're using constructor injection but the syntax is the same.
-
-	// Using constructor injection
-
-	$connection = $this->database->connection();
-
-	// Using the proxy
-
-	$connection = Database::connection();
-
-| Class                              | Proxy                              |
-|------------------------------------|------------------------------------|
-| mako\cache\CacheManager            | mako\proxies\Cache                 |
-| mako\core\Config                   | mako\proxies\Config                |
-| mako\security\crypto\CryptoManager | mako\proxies\Crypto                |
-| mako\database\ConnectionManager    | mako\proxies\Database              |
-| mako\auth\Gatekeeper               | mako\proxies\Gatekeeper            |
-| mako\utility\Humanizer             | mako\proxies\Humanizer             |
-| mako\i18n\I18n                     | mako\proxies\I18n                  |
-| Psr\Log\LoggerInterface            | mako\proxies\Logger                |
-| mako\pagination\PaginationFactory  | mako\proxies\Pagination            |
-| mako\redis\ConnectionManager       | mako\proxies\Redis                 |
-| mako\session\Session               | mako\proxies\Session               |
-| mako\http\routing\URLBuilder       | mako\proxies\URL                   |
-| mako\validator\ValidatorFactory    | mako\proxies\Validator             |
-| mako\view\ViewFactory              | mako\proxies\View                  |
