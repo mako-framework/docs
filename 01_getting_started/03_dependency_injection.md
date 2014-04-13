@@ -4,10 +4,11 @@
 
 * [Basics](#basics)
 * [Services](#services)
+* [Controllers and tasks](#controllers_and_tasks)
 
 --------------------------------------------------------
 
-Mako 4 comes with a inversion of controler container that allows you to inject dependencies into your controllers and command line tasks. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
+Mako 4 comes with a easy to use inversion of controler container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
 
 --------------------------------------------------------
 
@@ -105,7 +106,7 @@ Services are an easy and clean way of registering dependecies in the IoC contain
 
 Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
-| Service                  | Class                              | Key              | Description                 | Required |
+| Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
 |                          | mako\core\Application              | app              | Application                 | ✔        |
@@ -130,3 +131,74 @@ Mako includes a number of services for your convenience and you'll find a comple
 | ViewFactoryService       | mako\view\ViewFactory              | view             | View factory                | ✘        |
 
 > Note that some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
+
+--------------------------------------------------------
+
+<a id="controllers_and_tasks"></a>
+
+### Controllers and tasks
+
+All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers) and [task](:base_url:/docs/:version:/command-line:custom-tasks) instances are resolved through the inversion of control container to make it easy to inject dependencies.
+
+#### Controllers
+
+	namespace app\controllers;
+
+	use \mako\http\Request;
+	use \mako\http\Response;
+	use \mako\view\ViewFactory;
+
+	class Home extends \mako\http\routing\Controller
+	{
+		protected $view;
+
+		public function __construct(Request $request, Response $response, ViewFactory $viewFactory)
+		{
+			parent::__construct($request, $response);
+
+			$this->view = $viewFactory;
+		}
+	}
+
+> Make sure that the first two constructor parameters are for the ```Request``` and ```Response``` instances.
+
+#### Tasks
+
+	namespace app\tasks;
+
+	use \mako\database\ConnectionManager;
+	use \mako\reactor\io\Input;
+	use \mako\reactor\io\Output;
+
+	class MyTask entends \mako\reactor\Task
+	{
+		protected $database;
+
+		public function __construct(Input $input, Output $output, ConnectionManager $connectionManager)
+		{
+			parent::__construct($input, $output);
+
+			$this->database = $connectionManager;
+		}
+	}
+
+> Make sure that the first two constructor parameters are for the ```Input``` and ```Output``` instances.
+
+#### Container aware controllers and tasks
+
+You can also use the ```ContainerAwareTrait``` if you prefer to use the IoC container as a service locator.
+
+	namespace app\controllers;
+
+	class Home extends \mako\http\routing\Controller
+	{
+		use \mako\container\ContainerAwareTrait;
+	}
+
+The IoC container will now be avaiable through the ```$container``` property.
+
+	$this->container->get('view');
+
+The trait also implements the magic ```__get()``` method allowing you to resolve classes through the IoC container using overloading.
+
+	$this->view;

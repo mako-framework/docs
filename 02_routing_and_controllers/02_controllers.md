@@ -4,6 +4,7 @@
 
 * [Basics](#basics)
 * [Controller filters](#controller_filters)
+* [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
 
@@ -42,28 +43,6 @@ Passing parameters to your controller actions is easy. Just define a route with 
 
 > If any of your parameters are optional then you'll have to give them a default value when you define the method.
 
-Controller instances are resolved through the [inversion of control container](:base_url:/docs/:version:/getting-started:dependency-injection). This allows you to easily inject your dependecies and avoid tight coupling of your code.
-
-Just make sure that the first two constructor parameters are for the ```Request``` and ```Response``` instances.
-
-	namespace app\controllers;
-
-	use \mako\http\Request;
-	use \mako\http\Response;
-	use \mako\view\ViewFactory;
-
-	class Home extends \mako\http\routing\Controller
-	{
-		protected $viewFactory;
-
-		public function __construct(Request $request, Response $response, ViewFactory $viewFactory)
-		{
-			parent::__construct($request, $response);
-
-			$this->viewFactory = $viewFactory;
-		}
-	}
-
 --------------------------------------------------------
 
 <a id="controller_filters"></a>
@@ -81,3 +60,11 @@ The controller action and ```afterFilter``` methods will be skipped if the ```be
 			return $this->response->redirect($this->urlBuilder->toRoute('user:login'));
 		}
 	}
+
+--------------------------------------------------------
+
+<a id="dependency_injection"></a>
+
+### Dependency injection
+
+See the [dependency injection documentation](:base_url:/docs/:version:/getting-started:dependency-injection#controllers_and_tasks) for details.
