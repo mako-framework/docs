@@ -192,7 +192,7 @@ You can also use the ```ContainerAwareTrait``` if you prefer to use the IoC cont
 
 	class Home extends \mako\http\routing\Controller
 	{
-		use \mako\container\ContainerAwareTrait;
+		use \mako\syringe\ContainerAwareTrait;
 	}
 
 The IoC container will now be avaiable through the ```$container``` property.
