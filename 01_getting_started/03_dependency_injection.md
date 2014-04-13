@@ -8,7 +8,7 @@
 
 --------------------------------------------------------
 
-Mako 4 comes with a easy to use inversion of controler container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
+Mako 4 comes with an easy to use inversion of controler container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
 
 --------------------------------------------------------
 
