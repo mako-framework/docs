@@ -4,7 +4,7 @@
 
 * [Basics](#basics)
 * [Routing](#routing)
-* [Configuration, tasks and views](#configuration_tasks_and_views)
+* [Configuration, tasks, i18n and views](#configuration_tasks_i18n_and_views)
 * [Installing packages](#installing_packages)
 
 --------------------------------------------------------
@@ -37,7 +37,8 @@ Here's the directory structure of a more complex package containing config files
 			Home.php
 		i18n/
 			strings/
-				language.php
+				en_US/
+					language.php
 		tasks/
 			Task.php
 		views/
@@ -65,11 +66,11 @@ Now all you have to do is include the package routes in your main routes file (`
 
 --------------------------------------------------------
 
-<a id="configuration_tasks_and_views"></a>
+<a id="configuration_tasks_i18n_and_views"></a>
 
-### Configuration, tasks and views
+### Configuration, tasks, i18n and views
 
-Loading configuration files in packages is a bit different from what you're used to. You have to prefix the name of the config file with the name of your package followed by two colons (```::```). The same convention is used when running tasks or creating views.
+Loading configuration files in packages is a bit different from what you're used to. You have to prefix the name of the config file with the name of your package followed by two colons (```::```). The same convention is used when running tasks, fetching i18n strings or creating views.
 
 	// Loads the "app/packages/foobar/config/config.php" file
 
@@ -78,6 +79,10 @@ Loading configuration files in packages is a bit different from what you're used
 	// Execute the default task action
 
 	php reactor foobar::task
+
+	// Fetches a i18n string from "app/packages/foobar/language.php"
+
+	$string = $this->i18n->get('foobar::language.string');
 
 	// Loads the "app/packages/foobar/views/view.php" file
 

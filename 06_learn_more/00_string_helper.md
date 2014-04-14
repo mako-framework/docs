@@ -53,7 +53,7 @@ The ```increment``` method append an incremental numeric sufix to a string.
 
 The ```alternator``` method will return a closure that alternates between the chosen strings.
 
-	$alt = String::alternator(array('foo', 'bar'));
+	$alt = String::alternator(['foo', 'bar']);
 
 	echo $alt(); // foo
 	echo $alt(); // bar

@@ -5,11 +5,11 @@
 * [Usage](#usage)
 * [Validation rules](#validation_rules)
 * [Custom messages](#custom_messages)
-* [Creating custom rules](#creating_custom_rules)
+* [Validator plugins](#validator_plugins)
 
 --------------------------------------------------------
 
-The validation class provides a simple and consistent way of validating user input.
+The mako validator provides a simple and consistent way of validating user input.
 
 --------------------------------------------------------
 
@@ -19,47 +19,47 @@ The validation class provides a simple and consistent way of validating user inp
 
 First you need to define a set of rules you want to use to validate the input.
 
-	$rules = array
-	(
+	$rules = 
+	[
 		'username' => 'required|min_length:4|max_length:20',
 		'password' => 'required',
 		'email'    => 'required|email',
-	);
+	];
 
 The rules defined above will make sure that the username, password and email fields are filled in. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
 
 If all of your fields have one or more rule in common, then you can use the ```*``` shortcut.
 
-	$rules = array
-	(
+	$rules = 
+	[
 		'*'        => 'required',
 		'username' => 'min_length:4|max_length:20',
 		'email'    => 'email',
-	);
+	];
 
 > Only non-empty fields or fields marked as required are validated.
 
 Next you'll need to create a validation object. The first parameter is the input data you want to validate and the second is the validation rules.
 
-	$validation = new Validate($_POST, $rules);
+	$validator = $this->validator->create($this->request->post(), $rules);
 
-Now you need to check if the input data is valid using the ```successful``` method.
+Now you need to check if the input data is valid using the ```isValid``` method.
 
-	if($validation->successful())
+	if($validator->isValid())
 	{
 		// Save to database
 	}
 	else
 	{
-		// Handle error
+		// Handle errors
 	}
 
-You can also use the ```failed``` method.
+You can also use the ```isInvalid``` method.
 
-	if($validation->failed())
+	if($validator->isInvalid())
 	{
-		// Handle error
+		// Handle errors
 	}
 	else
 	{
@@ -68,11 +68,11 @@ You can also use the ```failed``` method.
 
 Retrieving errors is done using the ```errors``` method.
 
-	$errors = $validation->errors();
+	$errors = $validator->errors();
 
-Or by using the optional ```$errors``` parameter of the ```successful``` and ```failed``` methods.
+Or by using the optional ```$errors``` parameter of the ```isValid``` and ```isInvalid``` methods.
 
-	if($validation->successful($errors))
+	if($validator->isValid($errors))
 	{
 		// Save to database
 	}
@@ -163,20 +163,28 @@ You can also add custom field name translations using the ```overrides.fieldname
 
 --------------------------------------------------------
 
-<a id="creating_custom_rules"></a>
+<a id="validator_plugins"></a>
 
-### Creating custom rules
+### Validator plugins
 
-You can also register your own custom validation rules using the ```registerValidator``` method.
+You can create your own custom validator plugins. They must extend the ```mako\validator\plugins\ValidatorPlugin``` class and implement the ```mako\validator\plugins\ValidatorPluginInterface``` interface.
 
-	Validate::registerValidator('myrule', function($input, array $parameters)
+	class IsFooValidator extends \mako\validator\plugins\ValidatorPlugin implements \mako\validator\plugins\ValidatorPluginInterface
 	{
-		return $input === 'foo';
-	});
+		protected $ruleName = 'is_foo';
 
-Rules defined in a package should be prefixed with the package name followed by two colons.
+		public function validate($input, $parameters)
+		{
+			return mb_strtolower($input) === 'foo';
+		}
+	}
 
-	Validate::registerValidator('mypackage::myrule', function($input, array $parameters)
-	{
-		return $input === 'foo';
-	});
+> Prefix the ```$ruleName``` value with your package name and two colons (```::```) if your validator is a part of a [package](:base_url:/docs/:version:/packages:basics#configuration_tasks_i18n_and_views).
+
+You can register the plugin with the validation factory, thus making it avaiable to all future validator instances.
+
+	$this->validator->registerPlugin(new IsFooValidator);
+
+You can also register it into an existing validator instance.
+
+	$validator->registerPlugin(new IsFooValidator);
