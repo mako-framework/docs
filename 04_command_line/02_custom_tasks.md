@@ -2,24 +2,22 @@
 
 --------------------------------------------------------
 
-* [Basics](#usage)
-* [Input & output](#input_and_output)
+* [Basics](#basics)
+* [Input](#input)
+* [Output](#output)
+* [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
 
-The Mako reactor tool wouldn't be useful if you couldn't create your own custom tasks. Here we'll explain you how to do so.
-
-> All tasks must be located in the ```app/tasks``` directory and extend the mako\reactor\Task class.
+The Mako command line tool comes with a few useful tasks but you can also create your own.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="basics"></a>
 
 ### Basics
 
-If you save the following code as hello.php and run it via the terminal then you'll be greeted by Hello, world!.
-
-	<?php
+All tasks must extend the ```mako\reactor\Task``` base task. The ```$taskInfo``` property is optional but it can be a helpful reminder of what your task does. Every controller has two protected properties by default, an ```input``` instance and an ```output``` instance.
 
 	namespace app\tasks;
 
@@ -35,13 +33,11 @@ If you save the following code as hello.php and run it via the terminal then you
 		
 		public function run()
 		{
-			$this->cli->stdout('Hello, world!');
+			$this->output->writeln('Hello, world!');
 		}
 	}
 
 Passing arguments to a task action is easy as you can se in the example below.
-
-	<?php
 
 	namespace app\tasks;
 
@@ -49,130 +45,136 @@ Passing arguments to a task action is easy as you can se in the example below.
 	{
 		protected static $taskInfo = array
 		(
-			'color1' => array
-			(
-				'description' => 'Tells you what your favorite color is.',
-			),
-			'color2' => array
+			'favorite' => array
 			(
 				'description' => 'Tells you what your favorite color is.',
 			),
 		);
 
-		public function color1($color)
+		public function favorite($color)
 		{
-			$this->cli->stdout('your favorite color is ' . $color;);
-		}
-
-		public function color2($color = 'green')
-		{
-			$this->cli->stdout('your favorite color is ' . $color;);
+			$this->output->writeln('Your favorite color is ' . $color);
 		}
 	}
 
-Calling ```php reactor color.color1 blue``` will print ```your favorite color is blue```. Trying to call the same task action without the color parameter will result in an error since its a required parameter. Calling ```php reactor color.color2``` will not result in an error since the parameter is optional but instead tell you that ```your favorite color is green```.
+You can now execute your task from the command line.
+
+	php reactor color.favorite blue // Will print "Your favorite color is blue"
+
+You can also make task action parameters optional by making the method parameter optional.
+
+	public function favorite($color = 'green')
+    {
+        $this->output->writeln('Your favorite color is ' . $color);
+    }
 
 --------------------------------------------------------
 
-<a id="input_and_output"></a>
+<a id="input"></a>
 
-### Input & output
+### Input
 
-The ```param``` method will return the value of a named task parameter.
+The ```param``` method lets your read parameters from the command line.
 
-	// php reactor files.backup --path=/foo/bar --debug
+	// php reactor mytask.test --foo=bar
 
-	$path = $this->cli->param('path'); // $path is now set to "/foo/bar"
+	$foo = $this->input->param('foo');
 
-	$debug = $this->cli->param('debug', false); // $debug is now set to TRUE
+	// You can also define a default value in case the parameter isn't set (default is NULL)
 
-The ```input``` method will ask the user for input and wait until the return key has been pressed.
+	$foo = $this->input->param('foo', false);
 
-	$path = $this->cli->input('Path to your file'); // $path will be set to whatever the user types
+The ```text``` method will prompt the user for text input.
 
-The ```confirm``` method will ask the user to confirm and will only accept the values 'Y' or 'N'. The method returns TRUE if the input is 'Y' and FALSE if it's 'N'.
+	$username = $this->input->text('Your username:');
 
-	$deleteFiles = $this->cli->confirm('Do you want to delete all your files?');
+	// You can also define a default value if the user doesn't write anything (default is NULL)
 
-The ```color``` method will return the a colored string. The available colors are black, red, green, yellow, blue, purple, cyan and white.
+	$username = $this->input->text('Your username':, false);
 
-	// "foobar" is now red
+The ```password``` method will prompt the user for hidden input.
 
-	$str = $this->cli->color('foobar', 'red');
+	$password = $this->input->password('Your password');
 
-	// "foobar" is now red on black background
+The ```confirm``` method will prompt the user for confirmation.
 
-	$str = $this->cli->color('foobar', 'red', 'black');
+	$ok = $this->input->confirm('Do you want to delete everyting?');
 
-> This only works on *nix systems. On windows the string will be returned unchanged.
+	// You can also set a default value (default is TRUE)
 
-The ```style``` method lets you style the text string. The available styles are bold, faded, underlined, blinking, reversed and hidden.
+	$ok = $this->input->confirm('Do you want to delete everyting?', false);
 
-	// "foobar is now underlined"
+--------------------------------------------------------
 
-	$str = $this->cli->style('foobar', array('underlined'));
+<a id="output"></a>
 
-	// "foobar" is now underlined and blinking
+### Output
 
-	$str = $this->cli->style('foobar', array('underlined', 'blinking'));
+#### STDOUT
 
-> This only works on *nix systems. On windows the string will be returned unchanged.
+The ```write``` method writes output to STDOUT.
 
-The ```stdout``` method will print the message to STDOUT.
+	$this->output->write('Hello, world!');
 
-	$this->cli->stdout('Hello, world!');
+The ```writenl``` method writes output to STDOUT and appends a newline.
 
-	// Will print "Hello, world!" in red text on blue background
+	$this->output->writenl('Hello, world!');
 
-	$this->cli->stdout('Hello, world!', 'red', 'blue');
+The ```nl``` method writes a newline to STDOUT.
 
-The ```stderr``` method will print the message to STDERR.
+	$this->output->nl();
 
-	$this->cli->stderr('Hello, world!');
+	// You can also output multiple newlines
 
-	// Will print "Hello, world!" in red text on blue background
+	$this->output->nl(5);
 
-	$this->cli->stderr('Hello, world!', 'red', 'blue');
+The ```table``` method makes it easy to render tables.
 
-The ```newLine``` method will output n new lines.
+	$headers = ['Header 1', 'Header 2'];
 
-	$this->cli->newLine(); // One new line
+	$tableBody = [['foo', 'bar'], ['baz', 'bax']];
 
-	$this->cli->newLine(5); // 5 new lines
+	$this->output->table($headers, $tableBody);
 
-The ```beep``` method will make the system "beep" n times.
+The ```clearScreen``` method will clear the screen of all output.
 
-	$this->cli->beep(); // Beep once
+	$this->output->clearScreen();
 
-	$this->cli->beep(5); // Beep 5 times
+The ```beep``` will make your system beep.
 
-The ```wait``` method will sleep the script for n seconds while displaying a countdown.
+	$this->output->beep();
 
-	$this->cli->wait() // Wait 5 seconds;
+	// You can also tell it to beep multiple times
 
-	$this->cli->wait(10, true); // Wait 10 seconds and beep every second
+	$this->output->beel(5);
 
-The ```clearScreen``` method will clear the screen.
+The ```progress``` method lets you render a pretty progess bar.
 
-	$this->cli->clearScreen();
+	$itemCount = 1000;
 
-The ```screenSize``` method return the size of the CLI window.
+	$progress = $this->output->progress($itemCount);
 
-	$size = $this->cli->screenSize();
+	for($i = 0; $i < $itemCount; $i++)
+	{
+		$progress->advance();
+	}
 
-	echo $size['height'];
-	echo $size['width'];
+	$progress->finish();
 
-> If the method is unable to determine the size of the window then it will return an array where both values are set to 0.
+#### STDERR
 
-The ```screenWidth``` method return the width of the CLI window.
+You can write to STDERR using the ```error``` method.
 
-	$width = $this->cli->screenWidth();
+	$this->output->error('Something went wrong ...');
 
-> If the method is unable to determine the width of the window then it will return 0.
+You can also access the STDERR stream using the ```stderr``` method. It has all the same methods as STDOUT except for ```clearScreen```, ```beep``` and ```progess```.
 
-The ```screenHeight``` method return the height of the CLI window.
+	$this->output->stderr()->writeln('Something went wrong ...');
 
-	$height = $this->cli->screenHeight();
+--------------------------------------------------------
 
-> If the method is unable to determine the height of the window then it will return 0.
+<a id="dependency_injection"></a>
+
+### Dependency injection
+
+See the [dependency injection documentation](:base_url:/docs/:version:/getting-started:dependency-injection#controllers_and_tasks) for details.

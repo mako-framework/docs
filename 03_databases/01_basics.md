@@ -94,7 +94,7 @@ You can also access the [PDO](http://php.net/manual/en/book.pdo.php) object dire
 
 	try
 	{
-		$connection->pdo->beginTransaction();
+		$connection->getPDO()->beginTransaction();
 		
 		$connection->query('DROP TABLE `foo`');
 
