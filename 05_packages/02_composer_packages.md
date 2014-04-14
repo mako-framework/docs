@@ -16,59 +16,40 @@ Mako packages can be installed manually and via [composer](http://packagist.org/
 
 ### Basics
 
-Installing a Mako package using composer is easy and only requires one single command:
+Installing a Mako composer package is easy and only requires one single command.
 
-	composer require mako/image:*
+	composer require <vendor>/<package name>:*
 
-Using composer makes it easy to manage dependencies between packages and upgrading packages can be done with one simple command in the CLI.
+You'll be able to upate your packages with a single command as well.
 
 	composer update
 
-> Package names must be lower case and can only contain ascii alphabet characters, numbers and underscores.
+> Package names should only contain ascii alphabet characters, numbers and underscores.
 
 --------------------------------------------------------
 
 <a id="creating_packages"></a>
 
-### Creating packages
+### Creating composer packages
 
-Mako composer packages require a ```composer.json``` file in the root of the package. Here's what a minimal ```composer.json``` file for a Mako package looks like:
+Mako composer packages require a ```composer.json``` file in the root of the package.
 
 	{
-		"name": "vendor-name/package_name",
+		"name": "foo/foobar",
 		"type": "mako-package",
+		"autoload": {
+			"psr-4": {
+				"foobar\\": ""
+			}
+		},
 		"require": {
 			"composer/installers": "*"
 		}
 	}
 
-Here's what the ```composer.json``` file of a Twig view renderer package looks like:
+You'll notice that the type is set to ```mako-package``` and that the ```composer/installers``` package is required. This ensures that the packages are installed in the ```app/packages``` directory.
 
-	{
-		"name": "kula-shakerz/twig_renderer",
-		"type": "mako-package",
-		"description": "Twig view renderer for the Mako framework",
-		"keywords": ["mako", "twig"],
-		"homepage": "https://github.com/kula-shakerz",
-		"license": "BSD-3-Clause",
-		"authors": [
-			{
-				"name": "Frederic G. Østby",
-				"email": "frederic.g.ostby@gmail.com"
-			}
-		],
-		"require": {
-			"php": ">=5.3.1",
-			"composer/installers": "*",
-			"twig/twig": "1.*"
-		}
-	}
-
-You'll notice that the type is set to ```mako-package``` and that the ```composer/installers``` package is required in both examples. This ensures that the packages will be installed in the ```app/packages``` directory.
-
-> Adding ```mako``` to the list of keywords makes it easier to find Mako packages in the packagist repository.
-
-You can read more about composer at [getcomposer.org](http://getcomposer.org/).
+You can read more about composer.json files at [getcomposer.org](https://getcomposer.org/doc/04-schema.md).
 
 --------------------------------------------------------
 
