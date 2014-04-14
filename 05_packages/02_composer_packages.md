@@ -16,21 +16,19 @@ Mako packages can be installed manually and via [composer](http://packagist.org/
 
 ### Basics
 
-Installing a Mako composer package is easy and only requires one single command.
+Installing a Mako package using composer is easy and only requires a single command.
 
 	composer require <vendor>/<package name>:*
 
-You'll be able to upate your packages with a single command as well.
+Another advantage is that you'll now be able to upate your packages with a single command as well.
 
 	composer update
-
-> Package names should only contain ascii alphabet characters, numbers and underscores.
 
 --------------------------------------------------------
 
 <a id="creating_packages"></a>
 
-### Creating composer packages
+### Creating packages
 
 Mako composer packages require a ```composer.json``` file in the root of the package.
 
@@ -49,7 +47,9 @@ Mako composer packages require a ```composer.json``` file in the root of the pac
 
 You'll notice that the type is set to ```mako-package``` and that the ```composer/installers``` package is required. This ensures that the packages are installed in the ```app/packages``` directory.
 
-You can read more about composer.json files at [getcomposer.org](https://getcomposer.org/doc/04-schema.md).
+> Package names should only contain ascii alphabet characters, numbers and underscores.
+
+You can read more about the composer.json schema at [getcomposer.org](https://getcomposer.org/doc/04-schema.md).
 
 --------------------------------------------------------
 
@@ -57,4 +57,6 @@ You can read more about composer.json files at [getcomposer.org](https://getcomp
 
 ### Publishing packages
 
-Read about how to publish a package at [packagist.org](http://packagist.org/).
+Publishing your packages is very easy. Read all about it at [packagist.org](http://packagist.org/). 
+
+You can also host your own private repository if you don't want your code to be avaialbe to the public, read more about it at [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own).

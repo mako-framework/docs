@@ -108,7 +108,7 @@ And deleting a record is done like this:
 
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
 
-	$articles = Article::all(array('id', 'title'));
+	$articles = Article::all(['id', 'title']);
 
 > Specifying a custom set of columns will make the records read-only.
 
@@ -309,15 +309,15 @@ The code above will produce the same result as the previous example but it will 
 
 You can eager load more relations using an array and nested relations using the dot syntax:
 
-	$articles = Article::including(array('user', 'coments', 'comments.users'))->limit(10)->all();
+	$articles = Article::including(['user', 'coments', 'comments.users'])->limit(10)->all();
 
 You can also define relations to eager load in the model definition using the ```$including``` property. This is useful if you know that you're going to need to eager load the relations more often than not.
 
-	protected $including = array('user', 'comments', 'comments.user');
+	protected $including = ['user', 'comments', 'comments.user'];
 
 You can then disable eager loading of the relations if needed by using the ```excluding``` method:
 
-	$articles = Article::excluding(array('user', 'comments'))->limit(10)->all();
+	$articles = Article::excluding(['user', 'comments'])->limit(10)->all();
 
 #### Overriding naming conventions
 
@@ -347,7 +347,7 @@ The following setter will encode the value when its assigned.
 
 You can assign the value like you normally would:
 
-	$model->numbers = array(1, 2, 3, 4);
+	$model->numbers = [1, 2, 3, 4];
 
 And the following getter will decode the value when accessing it.
 

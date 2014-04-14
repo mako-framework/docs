@@ -24,55 +24,55 @@ The ```tag``` method can be used to generate nearly any HTML tag.
 
 	// Will print <span>Hello, world!</span>
 
-	echo HTML::tag('span', array(), 'Hello, world!');
+	echo HTML::tag('span', [], 'Hello, world!');
 
 	// Will print <span id="foo" class="bar">Hello, world!</span>
 
-	echo HTML::tag('span', array('id' => 'foo', 'class' => 'bar'), 'Hello, world!');
+	echo HTML::tag('span', ['id' => 'foo', 'class' => 'bar'], 'Hello, world!');
 
 The ```audio``` method generates HTML5 tags for audio files.
 
 	echo HTML::audio('http://example.org/file.mp3');
 
-	echo HTML::audio(array('http://example.org/file.mp3', 'http://example.org/file.ogg'));
+	echo HTML::audio(['http://example.org/file.mp3', 'http://example.org/file.ogg']);
 
 The ```video``` method generates HTML5 tags for video files.
 
 	echo HTML::video('http://example.org/file.mp4');
 
-	echo HTML::video(video('http://example.org/file.mp4', 'http://example.org/file.ogg'));
+	echo HTML::video(['http://example.org/file.mp4', 'http://example.org/file.ogg']);
 
 The ```ul``` method generates HTML tags for an unordered list.
 
-	$items = array('apple', 'banana', 'orange');
+	$items = ['apple', 'banana', 'orange'];
 
 	echo HTML::ul($items);
 
-	echo HTML::ul($items, array('class' => 'my_list'));
+	echo HTML::ul($items, ['class' => 'my_list']);
 
 	// It also supports multi-dimensional arrays
 
-	$items = array('foo', 'bar', array('bar', 'foo'));
+	$items = ['foo', 'bar', ['bar', 'foo']];
 
 	echo HTML::ul($items);
 
 The ```ol``` method generates HTML tags for a ordered list.
 
-	$items = array('apple', 'banana', 'orange');
+	$items = ['apple', 'banana', 'orange'];
 
 	echo HTML::ol($items);
 
-	echo HTML::ol($items, array('class' => 'my_list'));
+	echo HTML::ol($items, ['class' => 'my_list']);
 
 	// It also supports multi-dimensional arrays
 
-	$items = array('foo', 'bar', array('bar', 'foo'));
+	$items = ['foo', 'bar', ['bar', 'foo']);
 
 	echo HTML::ol($items);
 
-The ```macro``` method allows you to register custom tag methods.
+The ```registerTag``` method allows you to register custom tag methods.
 
-	HTML::macro('p', function($content, array $attributes = array())
+	HTML::registerTag('p', function($content, array $attributes = [])
 	{
 		return HTML::tag('p', $attributes, $content);
 	});
@@ -83,4 +83,4 @@ The ```macro``` method allows you to register custom tag methods.
 
 	// Will print <p class="foo">Hello</p>
 
-	HTML::p('Hello!', array('class' => 'foo'));
+	HTML::p('Hello!', ['class' => 'foo']);

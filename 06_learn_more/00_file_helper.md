@@ -14,52 +14,50 @@ The ```File``` class contains methods that assist in working with files.
 
 ### Usage
 
-The ```size``` method returns a human friendly representation of the file size.
+The ```size``` method returns returns the filesize in bytes.
 
-	echo File::size(1024); // Will print "1 KiB"
-
-	echo File::size(1024, false); // Will print "1.02 KB"
-
-	echo File::size('/path/to/file.ext'); // Will print "2.3 MiB"
+	$size = File::size('example.txt');
 
 The ```mime``` method returns the mime type of a file. It returns FALSE if the mime type is not found.
 
-The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determinating a mime type. You can disable guessing by setting the second parameter to FALSE.
+	$type = File::mime('image.png'); // Should return "image/png"
 
-	$type = File::mime('/path/to/my_file.png'); // Should return "image/png"
+> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determinating a mime type. You can disable guessing by setting the second parameter to FALSE.
 
-The ```display``` method will render the file in the browser.
+The ```get``` method returns the file contents.
 
-	// The file will be displayed in the browser and the content type will be detected automatically
+	$content = File::get('example.txt');
 
-	File::display('/path/to/my_file.png');
+The ```put``` method writes the supplied data to the file. The file will be created if it doesn't exist.
 
-The ```download``` method forces your browser to download the file.
+	File::put('example.txt', 'Hello, world!');
 
-	// The file will be downloaded as 'my_file.png' and the content type will be detected automatically
+	// Set the third parameter to TRUE to acquire an exclusive write lock
 
-	File::download('/path/to/my_file.png');
+	File::put('example.txt', 'Hello, world!', true);
 
-	// The file will be downloaded as 'my_file.png'
+> The method will overide any existing file content.
 
-	File::download('/path/to/my_file.png', 'image/png');
+The ```prepend``` method will prepend the supplied data to a file.
 
-	// The file will be downloaded as 'your_file.png'
+	File::prepend('example.txt', 'Hello, world!');
 
-	File::download('/path/to/my_file.png', 'image/png', 'your_file.png');
+	// Set the third parameter to TRUE to acquire an exclusive write lock
 
-	// The file will be downloaded as 'my_file.png' and the maximum download speed is set to 5 KiB/s
+	File::prepend('example.txt', 'Hello, world!', true);
 
-	File::download('/path/to/my_file.png', null, null, 5);
+The ```append``` method will prepend the supplied data to a file.
 
-The ```split``` method will split a big file into smaller files.
+	File::append('example.txt', 'Hello, world!');
 
-	// Will split the 100 MiB file into five 20 MiB files.
+	// Set the third parameter to TRUE to acquire an exclusive write lock
 
-	File::split('/path/to/my/100MiB-file.ext', 20);
+	File::append('example.txt', 'Hello, world!', true);
 
-The ```merge``` method will merge files that have been split.
+The ```truncate``` method will clear the contents of a file.
 
-	// Will split the five 20 MiB files into a 100 MiB file.
+	File::truncate('example.txt');
 
-	File::merge('/path/to/my/100MiB-file.ext');
+	// Set the second parameter to TRUE to acquire an exclusive write lock
+
+	File::append('example.txt', true);

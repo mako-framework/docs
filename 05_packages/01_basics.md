@@ -44,7 +44,7 @@ Here's the directory structure of a more complex package containing config files
 			welcome.php
 		routes.php
 
-> If your package isn't installed via composer then you'll have to edit the application [composer.json](https://getcomposer.org/doc/04-schema.md#autoload) file and add the required autoloading mappings there. Remember to run ```composer dump-autoload``` when you're done.
+> If your package isn't installed via [composer]((:base_url:/docs/:version:/packages:composer-packages)) then you'll have to edit the application [composer.json](https://getcomposer.org/doc/04-schema.md#autoload) file and add the required autoloading mappings there. Remember to run ```composer dump-autoload``` when you're done.
 
 --------------------------------------------------------
 
@@ -91,7 +91,7 @@ Loading configuration files in packages is a bit different from what you're used
 
 Installing packages is extremely easy. Just drop the package in the ```app/packages``` directory and you're ready to go! 
 
-You can also install packages using [composer](http://packagist.org/).
+You can also install packages using [composer]((:base_url:/docs/:version:/packages:composer-packages).
 
 	composer require <vendor>/<package name>:*
 
