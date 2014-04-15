@@ -19,7 +19,7 @@ First you'll have to create a pagination object. The first parameter is the pagi
 
 There's also a third optional parameter that lets you set the number of items to be displayed on each page. If this is left empty then it'll use the default value specified in the pagination config file.
 
-	$pagination = new Pagination('partials.pagination', Articles::count());
+	$pagination = $this->pagination->create('partials.pagination', Articles::count());
 
 Once the pagination object is created we can fetch the articles from the database.
 
@@ -27,9 +27,9 @@ Once the pagination object is created we can fetch the articles from the databas
 
 All you have to do now is to assign the articles and the pagination object to your view.
 
-You can render the pagination partial view in the article list view using the ```$paginagion->render()``` method or even easier just by echoing it since the pagination class implements the ```__toString``` method.
+You can render the pagination partial view in the article list view using the ```$paginagion->render()``` method.
 
-	$view = new View('articles.list', array
+	$view = $this->view->create('articles.list', array
 	(
 	    'articles'   => $articles,
 	    'pagination' => $pagination,
@@ -43,22 +43,20 @@ You can render the pagination partial view in the article list view using the ``
 
 Here's an example of what the pagination partial view can look like (using the template syntax) if you're using Twitter Bootstrap.
 
-	<div class="pagination">
-	  <ul>
-	    {% if(isset($previous)) %}
-	        <li><a href="{{preserve:$first}}">First</a></li>
-	        <li><a href="{{preserve:$previous}}">Prev</a></li>
-	    {% endif %}
-	    {% foreach($pages as $page) %}
-	        {% if($page['is_current']) %}
-	            <li class="active">{{$page['number']}}</li>
-	        {% else %}
-	            <li><a href="{{preserve:$page['url']}}">{{$page['number']}}</a></li>
-	        {% endif %}
-	    {% endforeach %}
-	    {% if(isset($next)) %}
-	        <li><a href="{{preserve:$next}}">Next</a></li>
-	        <li><a href="{{preserve:$last}}">Last</a></li>
-	    {% endif %}
-	  </ul>
-	</div>
+	<ul class="pagination">
+		{% if(isset($previous)) %}
+			<li><a href="{{preserve:$first}}">First</a></li>
+			<li><a href="{{preserve:$previous}}">Prev</a></li>
+		{% endif %}
+		{% foreach($pages as $page) %}
+			{% if($page['is_current']) %}
+				<li class="active"><span>{{$page['number']}}</span></li>
+			{% else %}
+				<li><a href="{{preserve:$page['url']}}">{{$page['number']}}</a></li>
+			{% endif %}
+		{% endforeach %}
+		{% if(isset($next)) %}
+			<li><a href="{{preserve:$next}}">Next</a></li>
+			<li><a href="{{preserve:$last}}">Last</a></li>
+		{% endif %}
+	</ul>

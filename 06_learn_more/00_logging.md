@@ -2,45 +2,55 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage)
+* [Basics](#basics)
+* [Advanced usage](#advanced_usage)
 
 --------------------------------------------------------
 
-The log class provides a simple and consistent interface to the most common (and some uncommon) logging solutions:
-
-* DebugToolbar
-* File
-* FirePHP
-* Syslog
+Mako uses the [Monolog library](https://github.com/Seldaek/monolog) for logging.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="basics"></a>
 
-### Usage
+### Basics
 
-To get an instance of the default logger just call the ```instance``` method of the log class. If you want to get an instance of any of the other logger configurations defined in the config file then you'll have to pass the configuration name as the first argument to the instance method.
+The ```debug``` method is used to log debug data.
 
-	// Returns instance of the "default" logger configuration defined in the config file
+	$this->logger->debug('foobar');
 
-	$log = Log::instance();
+The ```info``` method is used to log interesting events.
 
-	// Returns instance of the "syslog" log configuration defined in the config file
+	$this->logger->info('foobar');
 
-	$log = Log::instance('syslog');
+The ```notice``` method is used to log normal but significant events.
 
-To write something to the log use the ```write``` method. The method returns TRUE on success or FALSE on failure.
+	$this->logger->notice('foobar');
 
-	// Writes "Hello, world!" to the log
+The ```warning``` method is used to log exceptional occurrences that are not errors.
 
-	$log->write('Hello, world!');
+	$this->logger->warning('foobar');
 
-	// Writes "Hello, world!" to the log treating it as a debug message
+The ```error``` method is used to log runtime errors that do not require immediate action but should typically be logged and monitored.
 
-	$log->write('Hello, world!', Log::DEBUG);
+	$this->logger->error('foobar');
 
-	// You can also use the magic shortcut methods for writing to the default instance
+The ```critical``` method is used log to critical conditions.
 
-	Log::debug('Hello, world!');
+	$this->logger->critical('foobar');
 
-The available log types are ```Log::EMERGENCY```, ```Log::ALERT```, ```Log::CRITICAL```, ```Log::ERROR```, ```Log::WARNING```, ```Log::NOTICE```, ```Log::INFO``` and ```Log::DEBUG```.
+The ```alert``` method is used to log events where action must be taken immediately.
+
+	$this->logger->alert('foobar');
+
+The ```emergency``` method is used to log events where the system is unusable.
+
+	$this->logger->alert('foobar');
+
+--------------------------------------------------------
+
+<a id="advanced_usage"></a>
+
+### Advanced usage
+
+Check out the [Monolog documentation](https://github.com/Seldaek/monolog) for the full documentation of the library. 

@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a basic REST that client makes it easy to interact with [RESTful web services](http://en.wikipedia.org/wiki/Representational_state_transfer#RESTful_web_services).
+Mako includes a lightweight REST client for basic interactions with [RESTful web services](http://en.wikipedia.org/wiki/Representational_state_transfer#RESTful_web_services). For more advanced functionality you'll want to use something like [Guzzle](https://github.com/guzzle/guzzle).
 
 --------------------------------------------------------
 
@@ -16,9 +16,9 @@ Mako includes a basic REST that client makes it easy to interact with [RESTful w
 
 First you'll need to create a Rest object. Use the optional options parameter to set [CURL options](http://no2.php.net/manual/en/function.curl-setopt.php).
 
-	$rest = new Rest('http://example.org/api');
+	$rest = new Repose('http://example.org/api');
 
-	$rest = new Rest('http://example.org/api', array(CURLOPT_CONNECTTIMEOUT => 1));
+	$rest = new Repose('http://example.org/api', [CURLOPT_CONNECTTIMEOUT => 1]);
 
 If you need to provide authentication then you can use the ```authenticate``` method.
 
@@ -56,9 +56,9 @@ The ```delete``` method performs a DELETE request and returns the response.
 
 	$response = $rest->delete();
 
-The ```info``` method returns info about the last cURL request.
+The ```info``` method returns info about the last CURL request.
 
-	$rest = new Rest('http://example.org/api');
+	$rest = new Repose('http://example.org/api');
 
 	$response = $rest->get();
 
@@ -73,7 +73,7 @@ The ```info``` method returns info about the last cURL request.
 
 You can also set the ```$info``` parameter offered by the request methods to save a few lines of code.
 
-	$response = Rest::factory('http://example.org')->get($info);
+	$response = (new Repose('http://example.org'))->get($info);
 
 	if($info['http_code'] != 200)
 	{
