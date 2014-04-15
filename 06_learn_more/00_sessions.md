@@ -6,14 +6,11 @@
 
 --------------------------------------------------------
 
-The session class overrides PHP's standard session handler. This allows you to use the ```$_SESSION``` array as well as the methods offered by the session class. The supported handlers are:
+The Mako session library comes with three different session stores by default.
 
 * Database
 * File
-* Native
 * Redis
-
-> The native handler will use the default PHP session handler that has been configured in php.ini.
 
 --------------------------------------------------------
 
@@ -21,99 +18,69 @@ The session class overrides PHP's standard session handler. This allows you to u
 
 ### Usage
 
-If you want to use the ```$_SESSION``` array directly or the non-static interface of the session class then you need to call the instance method.
-
-	$session = Session::instance();
-
 Adding an item to the session is done using the ```remember``` method.
 
-	$session->remember('name', $name);
-
-	// Or if you're using the static interface
-
-	Session::remember('name', $name);
+	$this->session->remember('name', $name);
 
 Getting an item from the session is done using the ```get``` method.
 
-	$session->get('name');
-
-	// Or if you're using the static interface
-
-	Session::get('name');
+	$this->session->get('name');
 
 	// The get method allows you to return a default value if the key you're looking for doesn't exist
 	// The default return value for non-existing items is NULL
 
-	$session->get('name', 'John Doe');
+	$this->session->get('name', 'John Doe');
 
 You can check if an item exists in the session using the ```has``` method.
 
-	$session->has('name');
-
-	// Or if you're using the static interface
-
-	Session::has('name');
+	$this->session->has('name');
 
 Removing data from the session is done using the ```forget``` method.
 
-	$session->forget('name');
-
-	// Or if you're using the static interface
-
-	Session::forget('name');
+	$this->session->forget('name');
 
 Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the ```flash``` method.
 
-	$session->flash('success', 'The article has successfully been deleted!');
-
-	// Or if you're using the static interface
-
-	Session::flash('success', 'The article has successfully been deleted!');
+	$this->session->flash('success', 'The article has successfully been deleted!');
 
 Sometimes you'll want to extend the lifetime of the flashdata. This can be done using the ```reflash``` method.
 
-	$session->reflash();
+	$this->session->reflash();
 
-	// Or if you're using the static interface
+	// You can also choose to reflash only a set of keys
 
-	Session::reflash();
+	$this->session->reflash(['success', 'error']);
 
 Retrieving flash data is done using the ```flash``` method as well. The method will return FALSE if the requested flash data doesn't exist.
 
-	$data = $session->flash('success');
+	$data = $this->session->flash('success');
 
-	// Or if you're using the static interface
+The ```generateToken``` allows you to generate a token that can be used in forms to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
-	$data = Session::flash('success');
+	$token = $this->session->generateToken();
 
-Retrieving the session id is done by using the ```id``` method.
+The ```validateToken``` method allows you to validate a token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the ```token``` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
-	$id = $session->id();
+	$valid = $this->session->validateToken($token);
 
-	// Or if you're using the static interface
+> Only the last 20 tokens that have been generated during a session are valid. Tokens that have been validated once are no longer considered valid.
 
-	$id = Session::id();
+Retrieving the session id is done by using the ```getId``` method.
 
-Regenerating the session id can be done by using the ```regenerate``` method. A general rule of thumb is to regenerate the session id each time the access level of the user changes.
+	$id = $this->session->getId();
 
-	$session->regenerate();
+Regenerating the session id can be done by using the ```regenerateId``` method. A general rule of thumb is to regenerate the session id each time the access level of the user changes.
 
-	// Or if you're using the static interface
+	$this->session->regenerateId();
 
-	Session::regenerate();
+	// You can tell it to keep the data associated with the old session id
+
+	$this->session->regenerateId(true);
 
 To destroy a session use the ```destroy``` method.
 
-	$session->destroy();
-
-	// Or if you're using the static interface
-
-	Session::destroy();
+	$this->session->destroy();
 
 If you want to clear all session data without destroying the session then you can use the ```clear``` method.
 
-	$session->clear();
-
-	// Or if you're using the static interface
-
-	Session::clear();
+	$this->session->clear();

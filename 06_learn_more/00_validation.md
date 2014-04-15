@@ -125,8 +125,8 @@ The following validation rules are included with Mako:
 | date                     | Checks that the field value is a valid date (```date:Y-m-d```).                                          |
 | before                   | Checks that the field value is a valid date before the provided date (```before:Y-m-d,2012-09-25```).    |
 | after                    | Checks that the field value is a valid date after the provided date (```after:Y-m-d,2012-09-25```).      |
-| token                    | Checks that the field value matches a valid [security token]().                                          |
-| uuid                     | Checks that the field value matches a valid [uuid]().                                                    |
+| token                    | Checks that the field value matches a valid session token].                                              |
+| uuid                     | Checks that the field value matches a valid uuid.                                                        |
 | unique                   | Checks that the field value doesn't exist in the database (```unique:users,email```).                    |
 | exists                   | Checks that the field value exist in the database (```exists:users,email```).                            |
 
