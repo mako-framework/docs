@@ -2,60 +2,119 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage)
+* [Event listener](#event_listener)
+* [Observable trait](#observable_trait)
 
 --------------------------------------------------------
 
-The event class lets you register event listeners and trigger them.
+Mako includes two ways of handling events, an event listener and a trait that makes your class observable.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="event_listener"></a>
 
-### Usage
+### Event listener
 
-The ```register``` method lets you register an event listener that will run when triggered.
+First we'll need to create a listener instance.
 
-	Event::register('foobar', function()
+	$listener = new Listener();
+
+The ```register``` method lets you register an event handler that will get executed when the event is triggered.
+
+	$listener->register('foobar', function()
 	{
 		return 'foobar event 1';
 	});
 
-	// You can register multiple handlers for the same event.
-	// They will be run in the order they were registered.
+You can register multiple handlers for the same event. They will be executed in the order that they were registered.
 
-	Event::register('foobar', function()
+	$listener->register('foobar', function()
 	{
 		return 'foobar event 2';
 	});
 
-The ```registered``` method will return TRUE if an event listener has been registered and FALSE if not.
+The ```registered``` method will return TRUE if an event handler has been registered and FALSE if not.
 
-	$registered = Event::registered('foobar'); // True
+	$registered = $listener->registered('foobar');
 
-The ```clear``` method will clear all event listeners registered for an event.
+The ```clear``` method will clear all event handlers registered for an event.
 
-	Event::clear('foobar');
+	$listener->clear('foobar');
 
 The ```override``` method will clear all previously registered handlers for an event before registering a new handler.
 
-	Event::override('foobar', function()
+	$listener->override('foobar', function()
 	{
 		return 'foobar event 1';
 	});
 
 The ```trigger``` method run all handlers for the registered event and return an array containing all the return values.
 
-	$values = Event::trigger('foobar');
+	$values = $listener->trigger('foobar');
 
 	// You can also pass an array of values
 
-	$values = Event::trigger('foobar', array(1, 2, 3));
+	$values = $listener->trigger('foobar', [1, 2, 3]);
 
-The ```first``` method run all handlers for the registered event and return the result of the first one.
+--------------------------------------------------------
 
-	$value = Event::first('foobar');
+<a id="observable_trait"></a>
 
-	// You can also pass an array of values
+### Observable trait
 
-	$values = Event::first('foobar', array(1, 2, 3));
+Your class must use the ```ObservableTrait``` in order to be obserable.
+
+	class Observable
+	{
+		use \mako\event\ObsevableTrait;
+	}
+
+	$observable = new Observable;
+
+The ```attachObserver``` method allows you to attach an observer to your class. You can attach multiple observers for the same event.
+
+	$observable->attachObserver('foobar', function()
+	{
+		return 'foobar event';
+	});
+
+	// You can also attach an observer instance
+
+	$observable->attachObserver('foobar', new MyObserver);
+
+	// Or specify the name of your observer class. Remember to include the full namespace!
+
+	$observable->attachObserver('foobar', '\app\observers\MyObserver');
+
+> Observer classes must implement a public method named ```update``` that'll handle the event.
+
+The ```hasObserver``` method returns TRUE if an event has an observer and FALSE if not.
+
+	$observed = $observable->hasObserver('foobar');
+
+The ```detachObserver``` method allows you to detach an observer from an event.
+
+	$observable->detachObserver('foobar', new MyObserver);
+
+	$observable->detachObserver('foobar', '\app\observers\MyObserver');
+
+> The method does not work with closure observers.
+
+The ```clearObservers``` will clear all observers. You can also specify which event you want to clear.
+
+	$observable->clearObservers();
+
+	$observable->clearObservers('foobar');
+
+The ```overrideObservers``` method clears all observers for an event and registers a new one.
+
+	$observable->overrideObservers('foobar', function($string)
+	{
+		return mb_strtoupper($string);
+	});
+
+The ```notifyObservers``` method will notify all observers of an event and return an array containing all of their return values.
+
+	$returnValues = $this->notifyObservers('foobar', 'hello, world!');
+
+> The ```notifyObservers``` method is ```protected``` and can only be called from within the observable class.

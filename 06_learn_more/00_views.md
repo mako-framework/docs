@@ -19,7 +19,7 @@ All views must be located in the ```app/views``` directory. You can also create 
 
 ### Basics
 
-You create a view object by passing the name of the view file to the view constructor.
+You create a view object by passing the name of the view file to the ```create``` method of the view factory.
 
 	// Loads the welcome.php view
 

@@ -60,4 +60,4 @@ The ```truncate``` method will clear the contents of a file.
 
 	// Set the second parameter to TRUE to acquire an exclusive write lock
 
-	File::append('example.txt', true);
+	File::truncate('example.txt', true);
