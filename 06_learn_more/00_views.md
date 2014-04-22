@@ -103,15 +103,15 @@ Loops is something you'll often need. Templates support ```foreach```, ```for```
 
 You can also include a view inside another view like this:
 
-	{{view:partials.footer}}
+	{{view:'partials.footer'}}
 
 Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Lets say you save the following template as ```parent.tpl.php```:
 
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
-			<meta charset="{{MAKO_CHARSET}}">
-			<title>{{block:title}}Default Title{{endblock}}</title>
+			<meta charset="{{$__charset__}}">
+			<title>{{block:title}}My Site{{endblock}}</title>
 		</head>
 		<body>
 			<h1>Header</h1>
@@ -127,9 +127,9 @@ Another useful feature is template inheritance. This allows you to define a pare
 
 You can then create a ```child.tpl.php``` file that extends the parent template.
 
-	{% extends:parent %}
+	{% extends:'parent' %}
 
-	{% block:title %}My title{% endblock %}
+	{% block:title %}My Page - __PARENT__{% endblock %}
 
 	{% block:list %}
 		<li>Item 1</li>
@@ -140,13 +140,15 @@ You can then create a ```child.tpl.php``` file that extends the parent template.
 		This is the content.
 	{% endblock %}
 
+> The ```__PARENT__``` string will be replaced by the contents of the parent block.
+
 Rendering the child template will result in the following output:
 
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8">
-			<title>My title</title>
+			<title>My Page - My Site</title>
 		</head>
 		<body>
 			<h1>Header</h1>
