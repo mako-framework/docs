@@ -5,6 +5,9 @@
 * [Basics](#basics)
 * [Services](#services)
 * [Controllers and tasks](#controllers_and_tasks)
+	- [Controllers](#controllers_and_tasks:controllers)
+	- [Tasks](#controllers_and_tasks:tasks)
+	- [Container aware controllers and tasks](#controllers_and_tasks:container_aware)
 
 --------------------------------------------------------
 
@@ -17,8 +20,6 @@ Mako 4 comes with an easy to use inversion of controler container. Using depende
 ### Basics
 
 The IoC container is by default avaiable in the ```app/bootstrap.php``` and ```app/routes.php``` files.
-
-#### Registering dependencies
 
 The ```register``` method allows you to register a dependency in the container.
 
@@ -140,6 +141,8 @@ Mako includes a number of services for your convenience and you'll find a comple
 
 All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers) and [task](:base_url:/docs/:version:/command-line:custom-tasks) instances are resolved through the inversion of control container to make it easy to inject dependencies.
 
+<a id="controllers_and_tasks:controllers"></a>
+
 #### Controllers
 
 	namespace app\controllers;
@@ -162,6 +165,8 @@ All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers) 
 
 > Make sure that the first two constructor parameters are for the ```Request``` and ```Response``` instances.
 
+<a id="controllers_and_tasks:tasks"></a>
+
 #### Tasks
 
 	namespace app\tasks;
@@ -183,6 +188,8 @@ All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers) 
 	}
 
 > Make sure that the first two constructor parameters are for the ```Input``` and ```Output``` instances.
+
+<a id="controllers_and_tasks:container_aware"></a>
 
 #### Container aware controllers and tasks
 

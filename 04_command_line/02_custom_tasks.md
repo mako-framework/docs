@@ -5,6 +5,8 @@
 * [Basics](#basics)
 * [Input](#input)
 * [Output](#output)
+	- [STDOUT](#output:stdout)
+	- [STDERR](#output:stderr)
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -110,6 +112,8 @@ The ```confirm``` method will prompt the user for confirmation.
 
 ### Output
 
+<a id="output:stdout"></a>
+
 #### STDOUT
 
 The ```write``` method writes output to STDOUT.
@@ -160,6 +164,8 @@ The ```progress``` method lets you render a pretty progess bar.
 	}
 
 	$progress->finish();
+
+<a id="output:stderr"></a>
 
 #### STDERR
 

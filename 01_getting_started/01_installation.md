@@ -5,6 +5,8 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [Server configurations](#server_configurations)
+	- [Apache](#server_configurations:apache)
+	- [Nginx](#server_configurations:nginx)
 
 --------------------------------------------------------
 
@@ -40,6 +42,8 @@ Mako can now be updated using the following command:
 
 ### Server configurations
 
+<a id="server_configurations:apache"></a>
+
 #### Apache
 
 Basic [Apache](http://www.apache.org/) configuration for a Mako application:
@@ -70,6 +74,8 @@ Basic [Apache](http://www.apache.org/) configuration for a Mako application:
 		CustomLog /srv/www/mako/logs/access.log combined
 		
 	</VirtualHost>
+
+<a id="server_configurations:nginx"></a>
 
 #### Nginx
 

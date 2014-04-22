@@ -8,6 +8,9 @@
 * [Response filters](#response_filters)
 * [Caching and compression](#caching_and_compression)
 * [Special responses](#special_responses)
+	- [Redirecting](#special_responses:redirecting)
+	- [Files](#special_responses:files)
+	- [Streams](#special_responses:streams)
 
 --------------------------------------------------------
 
@@ -183,6 +186,8 @@ The ```disableCompression``` method disables output compression if it has been e
 
 ### Special responses
 
+<a id="special_responses:redirecting"></a>
+
 #### Redirecting
 
 The ```redirect``` method returns a redirect response container.
@@ -192,6 +197,8 @@ The ```redirect``` method returns a redirect response container.
 You can also set the status header (default is 302) by chaining the status method.
 
 	return $this->response->redirect($urlBuilder->toRoute())->status(301);
+
+<a id="special_responses:files"></a>
 
 #### Files
 
@@ -211,6 +218,8 @@ You can set a custom file name, content type, content disposition and a callback
 | callback     | Closure that will be executed after a completed download                                            |
 
 > Note that any errors int the callback will not be displayed as it happens after the output has been sent. You'll have to check your logs for errors.
+
+<a id="special_responses:streams"></a>
 
 #### Streams
 

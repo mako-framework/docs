@@ -4,7 +4,18 @@
 
 * [Naming conventions](#naming_conventions)
 * [Basic usage](#basic_usage)
+	- [CRUD](#basic_usage:crud)
+	- [Selecting columns](#basic_usage:selecting_columns)
+	- [Joins](#basic_usage:joins)
 * [Relations](#relations)
+	- [Has one](#relations:has_one)
+	- [Belongs to](#relations:belongs_to)
+	- [Has many](#relations:has_many)
+	- [Many to many](#relations:many_to_many)
+	- [Relation criteria](#relations:relation_criteria)
+	- [Creating related records](#relations:creating_related_records)
+	- [Eager loading](#relations:eager_loading)
+	- [Overriding naming conventions](#relations:overriding_naming_concentions)
 * [Getters and setters](#getters_and_setters)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
@@ -60,6 +71,8 @@ Use the ```$primaryKeyType``` property to define the key type.
 
 ### Basic usage
 
+<a id="basic_usage:crud"></a>
+
 #### CRUD
 
 Lets say you have a table called ```articles``` with three columns (id, title and content). This is all you need to interact with the table:
@@ -104,6 +117,8 @@ And deleting a record is done like this:
 
 	$article->delete();
 
+<a id="basic_usage:selecting_columns"></a>
+
 #### Selecting columns
 
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
@@ -111,6 +126,8 @@ By default the ORM selects all columns from the result set. You can specify the 
 	$articles = Article::all(['id', 'title']);
 
 > Specifying a custom set of columns will make the records read-only.
+
+<a id="basic_usage:joins"></a>
 
 #### Joins
 
@@ -133,6 +150,8 @@ It will return duplicates for articles that have more than one comment. This can
 ### Relations
 
 Being able to set up relations between tables is important when working with databases. The ORM supports ```has one```, ```belongs``` to, ```has many``` and ```many to many``` relations.
+
+<a id="relations:has_one"></a>
 
 #### Has one
 
@@ -169,6 +188,8 @@ You can now access a users profile like this:
 
 	$profile = $user->profile;
 
+<a id="relations:belongs_to"></a>
+
 #### Belongs to
 
 The ```belongs``` to relation is the opposite of a ```has one``` or ```has many``` relation.
@@ -186,6 +207,8 @@ Fetching the user that owns the article can now be done line this:
 
 	$user = $article->user;
 
+<a id="relations:has_many"></a>
+
 #### Has many
 
 We can now add a ```has many``` relation to our user model.
@@ -200,6 +223,8 @@ We can now fetch all the articles that belong to the user like this:
 	$user = User::get(1);
 
 	$articles = $user->articles;
+
+<a id="relations:many_to_many"></a>
 
 #### Many to many
 
@@ -235,6 +260,8 @@ This is how you would use the relations:
 
 	$users = $group->users;
 
+<a id="relations:relation_criteria"></a>
+
 #### Relation criteria
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can add query criteria to your relations.
@@ -247,6 +274,8 @@ The ORM is built on top of the [query builder](:base_url:/docs/:version:/databas
 They can be in the relation definition itself or you can add them when you're accessing the related records.
 
 	$articles = $user->articles()->orderBy('title', 'asc')->all();
+
+<a id="relations:creating_related_records"></a>
 
 #### Creating related records
 
@@ -289,6 +318,8 @@ The ```unlink``` method is used to remove the link between the records:
 
 	$group->users()->unlink($user);
 
+<a id="relations:eager_loading"></a>
+
 #### Eager loading
 
 Loading related records can sometimes cause the ```1 + N``` query problem. This is where eager loading becomes handy.
@@ -318,6 +349,8 @@ You can also define relations to eager load in the model definition using the ``
 You can then disable eager loading of the relations if needed by using the ```excluding``` method:
 
 	$articles = Article::excluding(['user', 'comments'])->limit(10)->all();
+
+<a id="relations:overriding_naming_conventions"></a>
 
 #### Overriding naming conventions
 
