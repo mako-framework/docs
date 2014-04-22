@@ -248,11 +248,11 @@ The ```languagePrefix``` method returns the language prefix (see the ```app/conf
 
 	$languagePrefix = $this->request->languagePrefix();
 
-The ```method``` returns the request method used to access the resource.
+The ```method``` method returns the request method used to access the resource.
 
 	$method = $this->request->method();
 
-The ```realMethod``` returns the real request method used to access the resource.
+The ```realMethod``` method returns the real request method used to access the resource.
 
 	$method = $this->request->method();
 

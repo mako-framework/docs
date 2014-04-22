@@ -169,8 +169,8 @@ You can also pass parameters to your route URLs.
 
 ### Faking request methods
 
-Most browsers only support sending ```GET``` and ```POST``` requests. You can get around this limitation by performing a ```POST``` request and include a ```REQUEST_METHOD_OVERRIDE``` field where you specify the request method you want to use.
+Most browsers only support sending ```GET``` and ```POST``` requests. You can get around this limitation by performing a ```POST``` request including a ```REQUEST_METHOD_OVERRIDE``` field where you specify the request method you want to use.
 
 	<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
 
-You can also send a ```HTTP_X_HTTP_METHOD_OVERRIDE``` header to override the request method if you're using a client that doesn't suport the request method you need to use.
+Another solution is to send a ```X_HTTP_METHOD_OVERRIDE``` header.

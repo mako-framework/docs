@@ -123,11 +123,9 @@ The ```header``` method adds a header to your response. The first parameter is t
 
 	$this->response->header('access-control-allow-origin', '*');
 
-The ```removeHeader``` allows you to remove a previously set header from the response.
+The ```removeHeader``` method allows you to remove a previously set header from the response.
 
-	$this->response->
-
-	removeHeader('access-control-allow-origin');
+	$this->response->removeHeader('access-control-allow-origin');
 
 The ```getHeaders``` method will return an array of all the response headers that have been set.
 
@@ -150,7 +148,7 @@ The ```filter``` methods allows you to add a response filter that the response b
 		return strtoupper($responseBody);
 	});
 
-The ```getFilters``` will return an array containing all the defined response filters.
+The ```getFilters``` method will return an array containing all the defined response filters.
 
 	$responseFilters = $this->response->getFilters();
 
@@ -217,7 +215,7 @@ You can set a custom file name, content type, content disposition and a callback
 | content_type | The framework will try to detect the content type for you but you can override it using this option |
 | callback     | Closure that will be executed after a completed download                                            |
 
-> Note that any errors int the callback will not be displayed as it happens after the output has been sent. You'll have to check your logs for errors.
+> Note that any errors in the callback will not be displayed as it happens after the output has been sent. You'll have to check your logs for errors.
 
 <a id="special_responses:streams"></a>
 
