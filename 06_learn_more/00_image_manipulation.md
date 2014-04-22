@@ -14,11 +14,11 @@ The pixl library allows you to manipulate images through a consistent API using 
 
 ### Usage
 
-First you'll have to decide whether to use GD or ImageMagick. In this example we'll use GD.
+First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the GD processor.
 
 	$image = new Image('my_image.png', new GD);
 
-> You can use the same processor instance for multiple images
+> You can reuse the same processor instance as long as you edit your images sequentially.
 
 The ```rotate``` method allows you to rotate an image n degrees.
 
