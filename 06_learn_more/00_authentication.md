@@ -96,6 +96,8 @@ The ```generateToken``` method allows you to generate a new authentication token
 
 	$user->save();
 
+> Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the ```Gatekeeper::forceLogin``` method to log the user back in in the background to keep the experience seamless.
+
 The ```memberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
 
 	$isMemberOf = $user->memberOf('admin');
@@ -148,7 +150,7 @@ You set a user password using the ```$password``` property of the user object. T
 
 	$user->save();
 
-> You should always generate a new token when a user updates his or her password! Remember to create a new session using the ```forceLogin``` method to prevent the user from getting logged out on the next pageload.
+> You should always generate a new token when a user updates his or her password!
 
 --------------------------------------------------------
 
