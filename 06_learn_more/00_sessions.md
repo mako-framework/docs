@@ -53,7 +53,7 @@ Sometimes you'll want to store temporary data that should expire after the next 
 
 	$this->session->putFlash('success', 'The article has successfully been deleted!');
 
-Retrieving flash data is done using the ```getFlash``` method. The method will return FALSE if the requested flash data doesn't exist.
+Retrieving flash data is done using the ```getFlash``` method.
 
 	$data = $this->session->getFlash('success');
 
