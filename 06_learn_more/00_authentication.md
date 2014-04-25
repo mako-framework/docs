@@ -50,11 +50,20 @@ The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING`
 
 	$successful = $this->gatekeeper->forceLogin($email, true);
 
-The ```basicAuth``` method can be usefull when creating APIs or if you don't want to create a full login page. It will prompt for login if a valid session isn't present.
+The ```basicAuth``` method can be usefull when creating APIs or if you don't want to create a full login page. It will return a response object if authentication is required and NULL if not. The best place to call this method is in a before filter ([routes](routing-and-controllers:routing#route_filters) / [controllers](routing-and-controllers:controllers#controller_filters)).
 
-	$this->gatekeeper->basicAuth();
+	return $this->gatekeeper->basicAuth();
 
-> The username and password is sent with every subsequent request so use HTTPS if possible!
+You can wrap it in a a if test if you want to execute more code in the event that a user is actually logged in.
+
+	if(($login = $this->gatekeeper->basicAuth()) !== null)
+	{
+		return $login;
+	}
+
+	// Code here gets executed if the user is logged in
+
+> The username and password is sent with every subsequent request so make sure use HTTPS if possible!
 
 The ```isGuest``` method returns FALSE if the user is logged in and TRUE if not.
 

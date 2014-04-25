@@ -30,11 +30,11 @@ Mako config files are just simple arrays:
 	  'key_2' => 'value',
 	];
 
-And loading a config file is done by using the ```Config::get``` method.
+And loading a config file is done by using the ```get``` method.
 
 	$config = $this->config->get('redis'); // Loads the redis.php file
 
-You can also fetch config items using ```dot notation```:
+You can also fetch config items using ```dot notation```.
 
 	$default = $this->config->get('redis.default');
 
@@ -51,9 +51,9 @@ It is also possible to override settings or add new configurations at runtime:
 	  'mode'    => MCRYPT_MODE_ECB,
 	]);
 
-Removing the custom configuration is done using the ```Config::delete``` method:
+Removing the custom configuration is done using the ```remove``` method:
 
-	$this->config->delete('crypto.configurations.user');
+	$this->config->remove('crypto.configurations.user');
 
 > Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their ```addConfiguration``` and ```removeConfiguration``` methods instead.
 

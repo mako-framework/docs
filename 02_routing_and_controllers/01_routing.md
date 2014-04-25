@@ -92,19 +92,19 @@ You can define filters that will get executed before and after your route action
 
 	// Return cached version of route response if it's available
 
-	$routes->filter('cache:read', function($request, $response) use ($container)
+	$routes->filter('cache:get', function($request, $response) use ($container)
 	{
 		if($container->get('cache')->has('route:' . $request->path()))
 		{
-			return $container->get('cache')->read('route:' . $request->path());
+			return $container->get('cache')->get('route:' . $request->path());
 		}
 	});
 
 	// Cache route response for 10 minutes
 
-	$routes->filter('cache:write', function($request, $response) use ($container)
+	$routes->filter('cache:put', function($request, $response) use ($container)
 	{
-		$container->get('cache')->write('route:' . $request->path(), $response->getBody(), 60 * 10);
+		$container->get('cache')->put('route:' . $request->path(), $response->getBody(), 60 * 10);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.

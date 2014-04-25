@@ -38,23 +38,23 @@ To get an instance of the default cache just call the ```CacheManager::instance`
 
 	$cache = $this->cache->instance('apc');
 
-To write something to the cache use the ```write``` method. The method returns TRUE on success or FALSE on failure.
+Adding data to the cache is done using the ```put``` method. The method returns TRUE on success or FALSE on failure.
 
 	// Stores the array for one hour
 
-	$cache->write('my_array', [1, 2, 3, 4], 3600);
+	$cache->put('my_array', [1, 2, 3, 4], 3600);
 
-	// You can also write to the default instance like this
+	// You can also add data to the default instance like this
 
-	$this->cache->write('my_array', [1, 2, 3, 4], 3600);
+	$this->cache->put('my_array', [1, 2, 3, 4], 3600);
 
-To retrieve data that you have stored in the cache use the ```read``` method. The method returns FALSE if the cached data has expired or if it is not found.
+The ```get``` method is used to retrieve data from the cache. The method returns FALSE if the cached data has expired or if it is not found.
 
-	$myArray = $cache->read('my_array');
+	$myArray = $cache->get('my_array');
 
 	// You can also read from the default instance like this
 
-	$myArray = $this->cache->read('my_array');
+	$myArray = $this->cache->get('my_array');
 
 You can check whether or not an item exists in the cache by using the ```has``` method.
 
@@ -70,13 +70,13 @@ You can check whether or not an item exists in the cache by using the ```has``` 
 		// Do something
 	}
 
-Deleting data is done by using the ```delete``` method. The method returns TRUE on success or FALSE on failure.
+Removing data from the cache is done by using the ```remove``` method. The method returns TRUE on success or FALSE on failure.
 
-	$cache->delete('my_array');
+	$cache->remove('my_array');
 
-	// You can also delete from the default instance like this
+	// You can also remove data from the default instance like this
 
-	$this->cache->delete('my_array');
+	$this->cache->remove('my_array');
 
 You can clear the entire cache by using the ```clear``` method. The method returns TRUE on success or FALSE on failure. Note that clearing the cache might also affect other applications.
 

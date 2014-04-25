@@ -18,9 +18,9 @@ The Mako session library comes with three different session stores by default.
 
 ### Usage
 
-Adding an item to the session is done using the ```remember``` method.
+Adding an item to the session is done using the ```put``` method.
 
-	$this->session->remember('name', $name);
+	$this->session->put('name', $name);
 
 Getting an item from the session is done using the ```get``` method.
 
@@ -35,9 +35,9 @@ You can check if an item exists in the session using the ```has``` method.
 
 	$this->session->has('name');
 
-Removing data from the session is done using the ```forget``` method.
+Removing data from the session is done using the ```remove``` method.
 
-	$this->session->forget('name');
+	$this->session->remove('name');
 
 Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the ```flash``` method.
 
