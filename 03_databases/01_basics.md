@@ -51,11 +51,11 @@ The ```Connection::column``` method executes a query and returns the value of th
 
 	$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 
-The ```Connection::update``` and ```Connection::delete``` methods will return the number of rows modified by the query.
+The ```Connection::queryAndCound``` method will return the number of rows modified by the query.
 
-	$count = $connection->update('UPDATE `users` SET `email` = ?', ['foo@example.org']);
+	$count = $connection->queryAndCound('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
-	$count = $connection->delete('DELETE FROM `users`');
+	$count = $connection->queryAndCound('DELETE FROM `users`');
 
 --------------------------------------------------------
 
