@@ -3,6 +3,9 @@
 --------------------------------------------------------
 
 * [Usage](#usage)
+	- [Data](#usage:data)
+	- [Flash data](#usage:flash_data)
+	- [Security](#usage:security)
 
 --------------------------------------------------------
 
@@ -18,6 +21,10 @@ The Mako session library comes with three different session stores by default.
 
 ### Usage
 
+<a id="usage:data"></a>
+
+#### Data
+
 Adding an item to the session is done using the ```put``` method.
 
 	$this->session->put('name', $name);
@@ -26,8 +33,7 @@ Getting an item from the session is done using the ```get``` method.
 
 	$this->session->get('name');
 
-	// The get method allows you to return a default value if the key you're looking for doesn't exist
-	// The default return value for non-existing items is NULL
+You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is NULL.
 
 	$this->session->get('name', 'John Doe');
 
@@ -39,21 +45,41 @@ Removing data from the session is done using the ```remove``` method.
 
 	$this->session->remove('name');
 
-Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the ```flash``` method.
+<a id="usage:flash_data"></a>
 
-	$this->session->flash('success', 'The article has successfully been deleted!');
+#### Flash data
 
-Sometimes you'll want to extend the lifetime of the flashdata. This can be done using the ```reflash``` method.
+Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the ```putFlash``` method.
+
+	$this->session->putFlash('success', 'The article has successfully been deleted!');
+
+Retrieving flash data is done using the ```getFlash``` method. The method will return FALSE if the requested flash data doesn't exist.
+
+	$data = $this->session->getFlash('success');
+
+You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is NULL.
+
+	$data = $this->session->getFlash('success', 'Some other message.');
+
+You can check if a flash item exists in the session using the ```hasFlash``` method.
+
+	$this->session->hasFlash('success');
+
+You can remove flash data using the ```removeFlash``` method. This is usually not needed as flash data expirtes after one request.
+
+	$this->session->removeFlash('success');
+
+Sometimes you'll want to extend the lifetime of the flash data by one request. This can be done using the ```reflash``` method.
 
 	$this->session->reflash();
 
-	// You can also choose to reflash only a set of keys
+You can also choose to reflash only a set of keys if you don't want to reflash all the flash data.
 
 	$this->session->reflash(['success', 'error']);
 
-Retrieving flash data is done using the ```flash``` method as well. The method will return FALSE if the requested flash data doesn't exist.
+<a id="usage:security"></a>
 
-	$data = $this->session->flash('success');
+#### Security
 
 The ```generateToken``` allows you to generate a token that can be used in forms to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
