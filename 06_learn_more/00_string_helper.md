@@ -83,5 +83,5 @@ The ```camel2underscored``` method will convert camel case to underscored.
 
 The ```underscored2camel``` method will convert underscored to camel case.
 
-	$str = String::camel2underscored('hello_world'); // $str will be set to "helloWorld"
-	$str = String::camel2underscored('hello_world', true); // $str will be set to "HelloWorld"
+	$str = String::underscored2camel('hello_world'); // $str will be set to "helloWorld"
+	$str = String::underscored2camel('hello_world', true); // $str will be set to "HelloWorld"
