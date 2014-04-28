@@ -54,22 +54,30 @@ Fetching all rows is done using the ```Query::all``` method.
 
 	$persons = $connection->builder()->table('persons')->distinct()->all(['name', 'email']);
 
-The query builder also supports subqueries and raw sql.
+Selecting from the results of a subquery is also possible.
 
-	// Selecting from the results of a subquery is also possible
+	// Using a closure
+
+	$persons = $connection->builder->table(function($query)
+	{
+		$query->table('persons')->distinct()->columns(['name']);
+	})
+	->where('name', '!=', 'John Doe')
+	->all();
+
+	// You can also use the Subquery class if you need a specific table alias
 
 	$persons = $connection->builder()->table
 	(
 		new Subquery
 		(
-			$connection->builder()->table('persons')->distinct()->columns(['name']),
-			'distinct_names'
+			$connection->builder()->table('persons')->distinct()->columns(['name']), 'distinct_names'
 		)
 	)
 	->where('name', '!=', 'John Doe')
 	->all();
 
-	// You can also make advanced column selections with raw SQL and subqueries
+You can also make advanced column selections with raw SQL and subqueries
 
 	$persons = $connection->builder()->table('persons')->all(array
 	(
@@ -78,8 +86,7 @@ The query builder also supports subqueries and raw sql.
 		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
 		new Subquery
 		(
-			$connection->builder()->table('persons')->columns([new Raw('AVG(age)'])), 
-			'average_age'
+			$connection->builder()->table('persons')->columns([new Raw('AVG(age)'])), 'average_age'
 		)
 	));
 
@@ -106,7 +113,7 @@ Fetching the value of a single column is done using the column method.
 Inserting data is done using the ```Query::insert``` method.
 
 	$connection->builder()->table('table')
-	->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
+	->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => new DateTime()]);
 
 --------------------------------------------------------
 
@@ -210,6 +217,8 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 	->notNull('email')
 	->all();
 
+> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
+
 <a id="where_between_clauses"></a>
 
 ### WHERE BETWEEN clauses
@@ -244,10 +253,10 @@ in(), orIn(), notIn(), orNotIn()
 	// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
 	$persons = $connection->builder()->table('persons')
-	->in('id', new Subquery
-	(
-		$connection->builder()->table('persons')->where('id', '!=', 1)->columns(['id']))
-	)
+	->in('id', function($query)
+	{
+		$query->table('persons')->where('id', '!=', 1)->columns(['id']);
+	})
 	->all();
 
 <a id="where_is_null_clauses"></a>
@@ -271,13 +280,10 @@ exists(), orExists(), notExists(), orNotExists()
 	// SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
 	$persons = $connection->builder()->table('persons')
-	->exists
-	(
-		new Subquery
-		(
-			$connection->builder()->table('cars')->where('cars.person_id', '=', new Raw('persons.id'))
-		)
-	)
+	->exists(function($query)
+	{
+		$query->table('cars')->where('cars.person_id', '=', new Raw('persons.id');
+	})
 	->all();
 
 <a id="join_clauses"></a>
@@ -302,6 +308,8 @@ join(), joinRaw(), leftJoin(), leftJoinRaw()
 		$join->orOn('u.phone_number', '=', 'p.number');
 	})
 	->all();
+
+> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
 
 <a id="group_by_clauses"></a>
 
@@ -370,6 +378,8 @@ orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRa
 	$persons = $connection->builder()->table('persons')
 	->orderBy(['name', 'age'], 'asc')
 	->all();
+
+> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
 
 <a id="limit_and_offset_clauses"></a>
 
