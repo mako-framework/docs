@@ -44,50 +44,58 @@ All queries executed by the query builder use prepared statements, thus mitigati
 
 Fetching all rows is done using the ```Query::all``` method.
 
-	$persons = $connection->table('persons')->all();
+	$persons = $connection->builder()->table('persons')->all();
 
 	// You can also specify which columns you want to include in the result set
 
-	$persons = $connection->table('persons')->all(['name', 'email']);
+	$persons = $connection->builder()->table('persons')->all(['name', 'email']);
 
 	// To make a distinct selection use the distinct method
 
-	$persons = $connection->table('persons')->distinct()->all(['name', 'email']);
+	$persons = $connection->builder()->table('persons')->distinct()->all(['name', 'email']);
 
 The query builder also supports subqueries and raw sql.
 
 	// Selecting from the results of a subquery is also possible
 
-	$persons = $connection->table
+	$persons = $connection->builder()->table
 	(
-		new Subquery($connection->table('persons')->distinct()->columns(['name']), 'distinct_names')
+		new Subquery
+		(
+			$connection->builder()->table('persons')->distinct()->columns(['name']),
+			'distinct_names'
+		)
 	)
 	->where('name', '!=', 'John Doe')
 	->all();
 
 	// You can also make advanced column selections with raw SQL and subqueries
 
-	$persons = $connection->table('persons')->all(array
+	$persons = $connection->builder()->table('persons')->all(array
 	(
 		'name',
 		'email',
 		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-		new Subquery($connection->table('persons')->columns([new Raw('AVG(age)'])), 'average_age')
+		new Subquery
+		(
+			$connection->builder()->table('persons')->columns([new Raw('AVG(age)'])), 
+			'average_age'
+		)
 	));
 
 > Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
 
 If you only want to retrieve a single row you can use the ```Query::first``` method.
 
-	$person = $connection->table('persons')->where('id', '=', 1)->first();
+	$person = $connection->builder()->table('persons')->where('id', '=', 1)->first();
 
 	// You can also specify which columns you want to include in the result set
 
-	$person = $connection->table('persons')->where('id', '=', 1)->first(['name', 'email']);
+	$person = $connection->builder()->table('persons')->where('id', '=', 1)->first(['name', 'email']);
 
 Fetching the value of a single column is done using the column method.
 
-	$email = $connection->table('persons')->where('id', '=', 1)->column('email');
+	$email = $connection->builder()->table('persons')->where('id', '=', 1)->column('email');
 
 --------------------------------------------------------
 
@@ -97,7 +105,7 @@ Fetching the value of a single column is done using the column method.
 
 Inserting data is done using the ```Query::insert``` method.
 
-	$connection->table('table')
+	$connection->builder()->table('table')
 	->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
 --------------------------------------------------------
@@ -108,19 +116,19 @@ Inserting data is done using the ```Query::insert``` method.
 
 Updating data is done using the ```Query::update``` method.
 
-	$connection->table('table')
+	$connection->builder()->table('table')
 	->where('id', '=', 10)
 	->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
 There are also shortcuts for incrementing and decrementing column values:
 
-	$connection->table('article')->increment('views');
+	$connection->builder()->table('article')->increment('views');
 
-	$connection->table('article')->increment('views', 10);
+	$connection->builder()->table('article')->increment('views', 10);
 
-	$connection->table('show')->decrement('tickets')
+	$connection->builder()->table('show')->decrement('tickets')
 
-	$connection->table('show')->decrement('tickets', 50);
+	$connection->builder()->table('show')->decrement('tickets', 50);
 
 --------------------------------------------------------
 
@@ -130,7 +138,7 @@ There are also shortcuts for incrementing and decrementing column values:
 
 Deleting data is done using the ```Query::delete``` method.
 
-	$connection->table('table')->where('id', '=', 10)->delete();
+	$connection->builder()->table('table')->where('id', '=', 10)->delete();
 
 --------------------------------------------------------
 
@@ -142,33 +150,33 @@ The query builder also includes a few handy shortcuts to the most common aggrega
 
 	// Counting
 
-	$count = $connection->table('persons')->count();
+	$count = $connection->builder()->table('persons')->count();
 
-	$count = $connection->table('persons')->where('age', '>', 25)->count();
+	$count = $connection->builder()->table('persons')->where('age', '>', 25)->count();
 
 	// Average value
 
-	$height = $connection->table('persons')->avg('height');
+	$height = $connection->builder()->table('persons')->avg('height');
 
-	$height = $connection->table('persons')->where('age', '>', 25)->avg('height');
+	$height = $connection->builder()->table('persons')->where('age', '>', 25)->avg('height');
 
 	// Largest value
 
-	$height = $connection->table('persons')->max('height');
+	$height = $connection->builder()->table('persons')->max('height');
 
-	$height = $connection->table('persons')->where('age', '>', 25)->max('height');
+	$height = $connection->builder()->table('persons')->where('age', '>', 25)->max('height');
 
 	// Smallest value
 
-	$height = $connection->table('persons')->min('height');
+	$height = $connection->builder()->table('persons')->min('height');
 
-	$height = $connection->table('persons')->where('age', '>', 25)->min('height');
+	$height = $connection->builder()->table('persons')->where('age', '>', 25)->min('height');
 
 	// Sum
 
-	$height = $connection->table('persons')->sum('height');
+	$height = $connection->builder()->table('persons')->sum('height');
 
-	$height = $connection->table('persons')->where('age', '>', 25)->sum('height');
+	$height = $connection->builder()->table('persons')->where('age', '>', 25)->sum('height');
 
 --------------------------------------------------------
 
@@ -176,24 +184,24 @@ The query builder also includes a few handy shortcuts to the most common aggrega
 
 ### WHERE clauses
 
-where(), orWhere()
+where(), whereRaw(), orWhere(), orWhereRaw()
 
 	// SELECT * FROM `persons` WHERE `age` > 25
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->where('age', '>', 25)
 	->all();
 
 	// SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->where('age', '>', 25)
 	->orWhere('age', '<', 20)
 	->all();
 
 	// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->where(function($query)
 	{
 		$query->where('age', '>', 25);
@@ -210,13 +218,13 @@ between(), orBetween(), notBetween(), orNotBetween()
 
 	// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->between('age', 20, 25)
 	->all();
 
 	// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25 OR `age` BETWEEN 30 AND 35
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->between('age', 20, 25)
 	->orBetween('age', 30, 35)
 	->all();
@@ -229,14 +237,17 @@ in(), orIn(), notIn(), orNotIn()
 
 	// SELECT * FROM `persons` WHERE `id` IN (1, 2, 3, 4, 5)
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->in('id', [1, 2, 3, 4, 5])
 	->all();
 
 	// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
-	$persons = $connection->table('persons')
-	->in('id', new Subquery($connection->table('persons')->where('id', '!=', 1)->columns(['id'])))
+	$persons = $connection->builder()->table('persons')
+	->in('id', new Subquery
+	(
+		$connection->builder()->table('persons')->where('id', '!=', 1)->columns(['id']))
+	)
 	->all();
 
 <a id="where_is_null_clauses"></a>
@@ -247,7 +258,7 @@ null(), orNull(), notNull(), orNotNull()
 
 	// SELECT * FROM `persons` WHERE `address` IS NULL
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->null('address')
 	->all();
 
@@ -259,10 +270,13 @@ exists(), orExists(), notExists(), orNotExists()
 
 	// SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->exists
 	(
-		new Subquery($connection->table('cars')->where('cars.person_id', '=', new Raw('persons.id')))
+		new Subquery
+		(
+			$connection->builder()->table('cars')->where('cars.person_id', '=', new Raw('persons.id'))
+		)
 	)
 	->all();
 
@@ -270,18 +284,18 @@ exists(), orExists(), notExists(), orNotExists()
 
 ### JOIN clauses
 
-join(), leftJoin()
+join(), joinRaw(), leftJoin(), leftJoinRaw()
 
 	// SELECT * FROM `persons` INNER JOIN `phones` ON `persons`.`id` = `phones`.`user_id`
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->join('phones', 'persons.id', '=', 'phones.user_id')
 	->all();
 
 	// SELECT * FROM `persons` AS `u` INNER JOIN `phones` AS `p` ON
 	// `u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`
 
-	$persons = $connection->table('persons as u')
+	$persons = $connection->builder()->table('persons as u')
 	->join('phones as p', function($join)
 	{
 		$join->on('u.id', '=', 'p.user_id');
@@ -297,13 +311,13 @@ groupBy()
 
 	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`
 
-	$customers = $connection->table('orders')
+	$customers = $connection->builder()->table('orders')
 	->groupBy('customer')
 	->all(['customer', new Raw('SUM(price) as sum')]);
 
 	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`, `order_date`
 
-	$customers = $connection->table('orders')
+	$customers = $connection->builder()->table('orders')
 	->groupBy(['customer', 'order_date'])
 	->all(['customer', 'order_date', new Raw('SUM(price) as sum')]);
 
@@ -315,7 +329,7 @@ having(), orHaving()
 
 	// SELECT `customer`, SUM(`price`) AS `sum FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
 
-	$customers = $connection->table('orders')
+	$customers = $connection->builder()->table('orders')
 	->groupBy('customer')
 	->having(new Raw('SUM(price)'), '<', 2000)
 	->all(['customer', new Raw('SUM(price) as sum')]);
@@ -324,36 +338,36 @@ having(), orHaving()
 
 ### ORDER BY clauses
 
-orderBy(), descending(), ascending()
+orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw()
 
 	// SELECT * FROM `persons` ORDER BY `name` ASC
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->orderBy('name', 'asc')
 	->all();
 
 	// SELECT * FROM `persons` ORDER BY `name` ASC
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->ascending('name')
 	->all();
 
 	// SELECT * FROM `persons` ORDER BY `name` DESC
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->descending('name')
 	->all();
 
 	// SELECT * FROM `persons` ORDER BY `name` ASC, `age` DESC
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->orderBy('name', 'asc')
 	->orderBy('age', 'desc')
 	->all();
 
 	// SELECT * FROM `persons` ORDER BY `name`, `age` ASC
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->orderBy(['name', 'age'], 'asc')
 	->all();
 
@@ -361,17 +375,23 @@ orderBy(), descending(), ascending()
 
 ### LIMIT and OFFSET clauses
 
-limit(), offset()
+limit(), offset(), paginate()
 
 	// SELECT * FROM `persons` LIMIT 10
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->limit(10)
 	->all();
 
 	// SELECT * FROM `persons` LIMIT 10 OFFSET 10
 
-	$persons = $connection->table('persons')
+	$persons = $connection->builder()->table('persons')
 	->limit(10)
 	->offset(10)
 	->all();
+
+You can also use a [pagination instance](:base_url:/docs/:version:/learn-more:pagination) to limit your results.
+
+	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
+
+	$persons = $connection->builder()->table('persons')->paginate($pagination)->all();

@@ -63,9 +63,9 @@ The ```Connection::queryAndCound``` method will return the number of rows modifi
 
 ### Query builder
 
-The ```Connection::table``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
+The ```Connection::builder``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
 
-	$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
+	$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
 
 --------------------------------------------------------
 
@@ -79,9 +79,9 @@ The ```Connection::transaction``` method provides a handy shortcut for performin
 
 	$success = $connection->transaction(function($connection)
 	{
-		$connection->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
+		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
-		$connection->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
+		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
 	});
 
 --------------------------------------------------------
