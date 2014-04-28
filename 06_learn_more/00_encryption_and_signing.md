@@ -3,6 +3,8 @@
 --------------------------------------------------------
 
 * [Encryption](#encryption)
+	- [Basics](#encryption:basics)
+	- [Magic shortcut](#encryption:magic_shortcut)
 * [Signing](#signing)
 
 --------------------------------------------------------
@@ -16,6 +18,10 @@ Mako comes with a set of classes to help you encrypt and sign your data.
 <a id="encryption"></a>
 
 ### Encryption
+
+<a id="encryption:basics"></a>
+
+#### Basics
 
 The encryption library allows you to encrypt data using Mcrypt or OpenSSL.
 
@@ -33,10 +39,6 @@ The ```encrypt``` method is used to encrypt your data.
 
 	$encrypted = $encrypter->encrypt('Hello, world!');
 
-	// You can also make calls to the default encrypter through the crypto manager like this
-
-	$encrypted = $this->crypto->encrypt('Hello, world!');
-
 The ```decrypt``` method is used to dencrypt your data. It will return FALSE if it's unable to decrypt your data.
 
 	$decrypted = $encrypter->decrypt('Hello, world!');
@@ -48,6 +50,14 @@ The ```encryptAndSign``` method will encrypt and sign your data. This will make 
 The ```validateAndDecrypt``` will first validate your data and then decrypt it. It will return FALSE if any of the two operations fail.
 
 	$validatedAndDecrypted = $encrypter->validateAndDecrypt($encryptedAndSigned);
+
+<a id="encryption:magic_shortcut"></a>
+
+#### Magic shortcut
+
+You can access the default crypto configuration directly without having to go through the ```instance``` method thanks to the magic ```__call``` method.
+
+	$encrypted = $this->crypto->encrypt('Hello, world!');
 
 --------------------------------------------------------
 

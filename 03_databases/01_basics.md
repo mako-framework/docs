@@ -2,7 +2,9 @@
 
 --------------------------------------------------------
 
-* [Basics](#basics)
+* [Connections](#connections)
+	- [Basics](#connections:basics)
+	- [Magic shortcut](#connections:magic_shortcut)
 * [Query builder](#query_builder)
 * [Transactions](#transactions)
 * [Accessing PDO](#accessing_pdo)
@@ -13,9 +15,13 @@ The database connection manager provides a simple way of handling database conne
 
 --------------------------------------------------------
 
-<a id="basics"></a>
+<a id="connections"></a>
 
-### Basics
+### Connections
+
+<a id="connections:basics"></a>
+
+#### Basics
 
 Creating a database connection is done using the ```ConnectionManager::connection``` method.
 
@@ -30,10 +36,6 @@ Creating a database connection is done using the ```ConnectionManager::connectio
 The ```Connection::query``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
 
 	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
-
-	// You can also access the default connection through the connection manager like this
-
-	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
 The ```Connection::all``` method executes a query and returns an array containing all of the result set rows.
 
@@ -56,6 +58,14 @@ The ```Connection::queryAndCound``` method will return the number of rows modifi
 	$count = $connection->queryAndCound('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
 	$count = $connection->queryAndCound('DELETE FROM `users`');
+
+<a id="connections:magic_shortcut"></a>
+
+#### Magic shortcut
+
+You can access the default database connection directly without having to go through the ```connection``` method thanks to the magic ```__call``` method.
+
+	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
 --------------------------------------------------------
 
