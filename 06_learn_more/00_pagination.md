@@ -19,21 +19,19 @@ First you'll have to create a pagination object. The first parameter is the pagi
 
 There's also a third optional parameter that lets you set the number of items to be displayed on each page. If this is left empty then it'll use the default value specified in the pagination config file.
 
-	$pagination = $this->pagination->create('partials.pagination', Articles::count());
+	$pagination = $this->pagination->create(Articles::count());
 
-Once the pagination object is created we can fetch the articles from the database.
+Once the pagination object is created we can fetch the articles from the database. Use the ```limit``` and ```offset``` methods to set the range of your query.
 
 	$articles = Articles::limit($pagination->limit())->offset($pagination->offset())->all();
 
-All you have to do now is to assign the articles and the pagination object to your view.
+The query builder and ORM will also allow you to use the pagination object directly.
 
-You can render the pagination partial view in the article list view using the ```$paginagion->render()``` method.
+	$articles = Articles::paginate($pagination)->all();
 
-	$view = $this->view->create('articles.list', array
-	(
-	    'articles'   => $articles,
-	    'pagination' => $pagination,
-	));
+You can render the pagination partial view in the article list view using the ```render``` method.
+
+	$paginationLinks = $pagination->render('partials.pagination');
 
 --------------------------------------------------------
 
