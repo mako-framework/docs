@@ -139,7 +139,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 
 ### Controllers and tasks
 
-All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers) and [task](:base_url:/docs/:version:/command-line:custom-tasks) instances are resolved through the inversion of control container to make it easy to inject dependencies.
+All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers), [task](:base_url:/docs/:version:/command-line:custom-tasks) and [migration](:base_url:/docs/:version:/databases:migrations) instances are resolved through the inversion of control container to make it easy to inject dependencies.
 
 <a id="controllers_and_tasks:controllers"></a>
 
