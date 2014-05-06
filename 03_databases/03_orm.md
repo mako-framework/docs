@@ -9,8 +9,8 @@
 	- [Joins](#basic_usage:joins)
 * [Relations](#relations)
 	- [Has one](#relations:has_one)
-	- [Belongs to](#relations:belongs_to)
 	- [Has many](#relations:has_many)
+	- [Belongs to](#relations:belongs_to)
 	- [Many to many](#relations:many_to_many)
 	- [Relation criteria](#relations:relation_criteria)
 	- [Creating related records](#relations:creating_related_records)
@@ -188,6 +188,23 @@ You can now access a users profile like this:
 
 	$profile = $user->profile;
 
+<a id="relations:has_many"></a>
+
+#### Has many
+
+We can now add a ```has many``` relation to our user model.
+
+	public function articles()
+	{
+		return $this->hasMany('\app\models\Article');
+	}
+
+We can now fetch all the articles that belong to the user like this:
+
+	$user = User::get(1);
+
+	$articles = $user->articles;
+
 <a id="relations:belongs_to"></a>
 
 #### Belongs to
@@ -206,23 +223,6 @@ Fetching the user that owns the article can now be done line this:
 	$article = Article::get(1);
 
 	$user = $article->user;
-
-<a id="relations:has_many"></a>
-
-#### Has many
-
-We can now add a ```has many``` relation to our user model.
-
-	public function articles()
-	{
-		return $this->hasMany('\app\models\Article');
-	}
-
-We can now fetch all the articles that belong to the user like this:
-
-	$user = User::get(1);
-
-	$articles = $user->articles;
 
 <a id="relations:many_to_many"></a>
 
