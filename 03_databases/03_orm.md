@@ -15,7 +15,7 @@
 	- [Relation criteria](#relations:relation_criteria)
 	- [Creating related records](#relations:creating_related_records)
 	- [Eager loading](#relations:eager_loading)
-	- [Overriding naming conventions](#relations:overriding_naming_concentions)
+	- [Overriding naming conventions](#relations:overriding_naming_conventions)
 * [Getters and setters](#getters_and_setters)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
