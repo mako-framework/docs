@@ -189,11 +189,11 @@ Users table
 Junction table
 
 	CREATE TABLE `groups_users` (
-	  `gatekeeperuser_id` int(11) unsigned NOT NULL,
-	  `gatekeepergroup_id` int(11) unsigned NOT NULL,
-	  UNIQUE KEY `user_id_2` (`gatekeeperuser_id`,`gatekeepergroup_id`),
-	  KEY `user_id` (`gatekeeperuser_id`),
-	  KEY `group_id` (`gatekeepergroup_id`)
+	  `user_id` int(11) unsigned NOT NULL,
+	  `group_id` int(11) unsigned NOT NULL,
+	  UNIQUE KEY `user_id_2` (`user_id`,`group_id`),
+	  KEY `user_id` (`user_id`),
+	  KEY `group_id` (`group_id`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Groups table
