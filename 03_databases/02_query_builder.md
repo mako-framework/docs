@@ -100,7 +100,7 @@ If you only want to retrieve a single row you can use the ```Query::first``` met
 
 	$person = $connection->builder()->table('persons')->where('id', '=', 1)->first(['name', 'email']);
 
-Fetching the value of a single column is done using the column method.
+Fetching the value of a single column is done using the ```Query::column``` method.
 
 	$email = $connection->builder()->table('persons')->where('id', '=', 1)->column('email');
 
