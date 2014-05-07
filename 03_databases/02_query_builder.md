@@ -104,6 +104,15 @@ Fetching the value of a single column is done using the column method.
 
 	$email = $connection->builder()->table('persons')->where('id', '=', 1)->column('email');
 
+If you need to process large ammounts of data then the ```Query::batch``` method will help you limit the memory usage of your application. The default batch size is a 1000 records but you can override this using the optional second parameter. 
+
+You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
+
+	$connection->builder()->table('persons')->ascending('id')->batch(function($batch)
+	{
+		// Process the batch here
+	});
+
 --------------------------------------------------------
 
 <a id="inserting_data"></a>
