@@ -96,7 +96,13 @@ The ```getImageBlob``` returns the raw binary image data.
 
 	$image = $image->getImageBlob('jpg', 70);
 
-The ```save``` method allows you to save the image to a file.
+As the name suggests the ```save``` method will save your edited image to disk.
+
+	// Override original file
+
+	$image->save();
+
+	// Create a new file
 
 	$image->save('edited_image.png');
 
