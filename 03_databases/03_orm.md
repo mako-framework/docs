@@ -124,7 +124,7 @@ And deleting a record is done like this:
 
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
 
-	$articles = Article::all(['id', 'title']);
+	$articles = Article::select(['id', 'title'])->all();
 
 > Specifying a custom set of columns will make the records read-only.
 
