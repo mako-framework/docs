@@ -395,7 +395,7 @@ The following mutator will encode the value when its assigned.
 		return json_encode($numbers);
 	}
 
-You can assign the value like you normally would:
+You can assign the value like any normal value and it will be JSON-encoded internally in the model making it possible to store it in the database.
 
 	$model->numbers = [1, 2, 3, 4];
 
@@ -406,7 +406,7 @@ And the following accessor will decode the value when accessing it.
 		return json_decode($numbers)
 	}
 
-You can retrieve the value like you normally would:
+You can now retrieve the value like any normal value and it will automatically be JSON-decoded for you.
 
 	$arrayOfNumbers = $model->numbers;
 
