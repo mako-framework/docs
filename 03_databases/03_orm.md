@@ -16,7 +16,8 @@
 	- [Creating related records](#relations:creating_related_records)
 	- [Eager loading](#relations:eager_loading)
 	- [Overriding naming conventions](#relations:overriding_naming_conventions)
-* [Getters and setters](#getters_and_setters)
+* [DateTime columns](#datetime_columns)
+* [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
 * [Optimistic locking](#optimistic_locking)
@@ -365,15 +366,31 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 --------------------------------------------------------
 
-<a id="getters_and_setters"></a>
+<a id="datetime_columns"></a>
 
-### Getters and setters
+### DateTime columns
 
-Getters and setters allow you to modify data on the way in and out of the database. Setters are prefixed with ```set_``` and getters and prefixed with ```get_```.
+The ORM and query builder both allow you to save DateTime objects in the database. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database? This is possible thanks to the ```$dateTimeColumns``` property.
 
-The following setter will encode the value when its assigned.
+	protected $dateTimeColumns = ['joined_at', 'last_seen'];
 
-	protected function set_numbers($numbers)
+You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/getting-started:learn-more:date-and-time) objects.
+
+	$user = User::get(1);
+
+	$lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
+
+--------------------------------------------------------
+
+<a id="mutators_and_accessors"></a>
+
+### Mutators and accessors
+
+Mutators and accessors allow you to modify data on the way in and out of the database. Mutators are suffixed with ```Mutator``` and accessors and suffixed with ```Accessor```.
+
+The following mutator will encode the value when its assigned.
+
+	protected function numbersMutator($numbers)
 	{
 		return json_encode($numbers);
 	}
@@ -382,9 +399,9 @@ You can assign the value like you normally would:
 
 	$model->numbers = [1, 2, 3, 4];
 
-And the following getter will decode the value when accessing it.
+And the following accessor will decode the value when accessing it.
 
-	protected function get_numbers($numbers)
+	protected function numbersAccessor($numbers)
 	{
 		return json_decode($numbers)
 	}
@@ -399,17 +416,16 @@ You can retrieve the value like you normally would:
 
 ### Scopes
 
-Scopes allow you to specify commonly used query criteria as methods. All scope methods must be prefixed with the ```scope_``` prefix.
+Scopes allow you to specify commonly used query criteria as methods. All scope methods must be prefixed with the ```Scope``` suffix.
 
-	public function scope_published($query)
+	public function publishedScope($query)
 	{
-		$query->where('published', '=', 1);
+		return $query->where('published', '=', 1);
 	}
 
-	public function scope_popularAndPublished($query, $count)
+	public function popularAndPublishedScope($query, $count)
 	{
-		$query->where('published', '=', 1);
-		$query->where('views', '>', $count);
+		return $query->where('published', '=', 1)->where('views', '>', $count);
 	}
 
 You can now retrieve published articles like this:
@@ -430,7 +446,7 @@ Scopes also work through relations:
 
 ### Mass assignment
 
-The ORM allows you to use mass assignment when creating or updating records. This can save you some time since you don't have to set each value individually but it can open attack vectors in your application if you're not careful.
+The ORM allows you to use mass assignment when creating or updating records. This can save you a few lines of code since you don't have to set each value individually but it can open attack vectors in your application if you're not careful.
 
 	// Create a new record using mass assignment
 
@@ -446,7 +462,7 @@ The ORM allows you to use mass assignment when creating or updating records. Thi
 
 The code above might seem like a good idea until a hacker adds an is_admin field to the POST data and gives himself admin privileges.
 
-You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment.
+You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment. But you should really only use this feature when you trust the input data a 100%.
 
 --------------------------------------------------------
 
