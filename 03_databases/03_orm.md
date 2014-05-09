@@ -390,7 +390,7 @@ Mutators and accessors allow you to modify data on the way in and out of the dat
 
 The following mutator will encode the value when its assigned.
 
-	protected function numbersMutator($numbers)
+	protected function numbersMutator(array $numbers)
 	{
 		return json_encode($numbers);
 	}
