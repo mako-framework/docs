@@ -60,7 +60,7 @@ Selecting from the results of a subquery is also possible.
 
 	$persons = $connection->builder()->from(function($query)
 	{
-		$query->table('persons')->distinct()->columns(['name']);
+		$query->from('persons')->distinct()->columns(['name']);
 	})
 	->where('name', '!=', 'John Doe')
 	->all();
@@ -71,7 +71,7 @@ Selecting from the results of a subquery is also possible.
 	(
 		new Subquery
 		(
-			$connection->builder()->table('persons')->distinct()->columns(['name']), 'distinct_names'
+			$connection->builder()->from('persons')->distinct()->columns(['name']), 'distinct_names'
 		)
 	)
 	->where('name', '!=', 'John Doe')
@@ -87,7 +87,7 @@ You can also make advanced column selections with raw SQL and subqueries
 			new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
 			new Subquery
 			(
-				$connection->builder()->table('persons')->columns([new Raw('AVG(age)'])), 'average_age'
+				$connection->builder()->from('persons')->columns([new Raw('AVG(age)'])), 'average_age'
 			)
 		]
 	)->from('persons')->all();
@@ -119,7 +119,7 @@ You can also set the offset starting point and offset end point using the option
 
 Inserting data is done using the ```Query::insert``` method.
 
-	$connection->builder()->into('table')
+	$connection->builder()->into('foobar')
 	->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => new DateTime()]);
 
 --------------------------------------------------------
@@ -130,7 +130,7 @@ Inserting data is done using the ```Query::insert``` method.
 
 Updating data is done using the ```Query::update``` method.
 
-	$connection->builder()->table('table')
+	$connection->builder()->table('foobar')
 	->where('id', '=', 10)
 	->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
@@ -152,7 +152,7 @@ There are also shortcuts for incrementing and decrementing column values:
 
 Deleting data is done using the ```Query::delete``` method.
 
-	$connection->builder()->from('table')->where('id', '=', 10)->delete();
+	$connection->builder()->from('article')->where('id', '=', 10)->delete();
 
 --------------------------------------------------------
 
