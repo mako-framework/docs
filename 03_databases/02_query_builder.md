@@ -71,7 +71,7 @@ Selecting from the results of a subquery is also possible.
 
 	$persons = $query->from(function($query)
 	{
-		$query->from('persons')->distinct()->columns(['name']);
+		$query->from('persons')->select(['name'])->distinct();
 	})
 	->where('name', '!=', 'John Doe')
 	->all();
@@ -82,7 +82,7 @@ Selecting from the results of a subquery is also possible.
 	(
 		new Subquery
 		(
-			$connection->builder()->from('persons')->distinct()->columns(['name']), 'distinct_names'
+			$connection->builder()->from('persons')->select(['name'])->distinct(), 'distinct_names'
 		)
 	)
 	->where('name', '!=', 'John Doe')
@@ -98,7 +98,7 @@ You can also make advanced column selections with raw SQL and subqueries
 			new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
 			new Subquery
 			(
-				$connection->builder()->from('persons')->columns([new Raw('AVG(age)'])), 'average_age'
+				$connection->builder()->select([new Raw('AVG(age)']))->from('persons'), 'average_age'
 			)
 		]
 	)->from('persons')->all();
@@ -260,7 +260,7 @@ in(), orIn(), notIn(), orNotIn()
 	$persons = $query->from('persons')
 	->in('id', function($query)
 	{
-		$query->from('persons')->where('id', '!=', 1)->columns(['id']);
+		$query->from('persons')->select(['id'])->where('id', '!=', 1);
 	})
 	->all();
 
