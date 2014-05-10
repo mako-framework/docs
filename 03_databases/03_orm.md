@@ -485,7 +485,7 @@ To enable optimistic locking you have to set the ```$enableLocking``` property t
 
 	$user2->save();
 
-The second save will throw a ```mako\database\orm\StaleRecordException``` since the record is now outdated compared to the one stored in the database. The ```reload``` method can be used to refresh the outdated record.
+The second save will throw a ```mako\database\midgard\StaleRecordException``` since the record is now outdated compared to the one stored in the database. The ```reload``` method can be used to refresh the outdated record.
 
 	$user2->reload();
 
@@ -497,13 +497,13 @@ The second save will throw a ```mako\database\orm\StaleRecordException``` since 
 
 ### Read-only records
 
-You can make your records read-only by setting the ```$readOnly``` property to TRUE. Doing so will make it impossible to update or delete the records and a ```mako\database\orm\ReadOnlyRecordException``` will be thrown if attempted.
+You can make your records read-only by setting the ```$readOnly``` property to TRUE. Doing so will make it impossible to update or delete the records and a ```mako\database\midgard\ReadOnlyRecordException``` will be thrown if attempted.
 
 	// Load a read-only record
 
 	$user = User::get(1);
 
-	// Will throw a mako\database\orm\ReadOnlyRecordException
+	// Will throw a mako\database\midgard\ReadOnlyRecordException
 
 	$user->delete();
 
