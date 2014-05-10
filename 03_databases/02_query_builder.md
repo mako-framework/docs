@@ -130,7 +130,7 @@ You can also set the offset starting point and offset end point using the option
 
 Inserting data is done using the ```insert``` method.
 
-	$query->into('foobar')->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => new DateTime()]);
+	$query->into('foobars')->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => new DateTime()]);
 
 --------------------------------------------------------
 
@@ -140,19 +140,19 @@ Inserting data is done using the ```insert``` method.
 
 Updating data is done using the ```update``` method.
 
-	$query->table('foobar')
+	$query->table('foobars')
 	->where('id', '=', 10)
 	->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
 
 There are also shortcuts for incrementing and decrementing column values:
 
-	$query->table('article')->increment('views');
+	$query->table('articles')->where('id', '=', 1)->increment('views');
 
-	$query->table('article')->increment('views', 10);
+	$query->table('articles')->where('id', '=', 1)->increment('views', 10);
 
-	$query->table('show')->decrement('tickets')
+	$query->table('shows')->where('id', '=', 1)->decrement('tickets')
 
-	$query->table('show')->decrement('tickets', 50);
+	$query->table('shows')->where('id', '=', 1)->decrement('tickets', 50);
 
 --------------------------------------------------------
 
@@ -162,7 +162,7 @@ There are also shortcuts for incrementing and decrementing column values:
 
 Deleting data is done using the ```delete``` method.
 
-	$query->from('article')->where('id', '=', 10)->delete();
+	$query->from('articles')->where('id', '=', 10)->delete();
 
 --------------------------------------------------------
 
