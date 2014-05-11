@@ -489,7 +489,7 @@ The second save will throw a ```mako\database\midgard\StaleRecordException``` si
 
 	$user2->reload();
 
-> Optimistic locking will also check for stale records when deleting, although not when deleting through a relation.
+> Optimistic locking will also check for stale records when deleting, although not when bulk deleting.
 
 --------------------------------------------------------
 
