@@ -32,7 +32,7 @@ The ```nl2br``` method converts newlines to ```<br>```.
 
 	$str = String::nl2br($_POST['input']);
 
-> The nl2br method will return HTML5 tags by default you can make it return XHTML compatible tags by setting the optional second parameter to TRUE.
+> The nl2br method will return HTML5 tags by default but you can make it return XHTML compatible tags by setting the optional second parameter to TRUE.
 
 The br2nl method converts ```<br />``` and ```<br>``` to newlines.
 
