@@ -4,10 +4,11 @@
 
 * [Basics](#basics)
 * [Services](#services)
-* [Controllers and tasks](#controllers_and_tasks)
-	- [Controllers](#controllers_and_tasks:controllers)
-	- [Tasks](#controllers_and_tasks:tasks)
-	- [Container aware controllers and tasks](#controllers_and_tasks:container_aware)
+* [Controllers, tasks and migrations](#controllers_tasks_and_migrations)
+	- [Controllers](#controllers_tasks_and_migrations:controllers)
+	- [Tasks](#controllers_tasks_and_migrations:tasks)
+	- [Migrations](#controllers_tasks_and_migrations:migrations)
+	- [Container aware controllers, tasks and migrations](#controllers_tasks_and_migrations:container_aware)
 
 --------------------------------------------------------
 
@@ -145,6 +146,8 @@ All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers),
 
 #### Controllers
 
+The ```Request``` and ```Response``` classes are injected into controllers by default.
+
 	namespace app\controllers;
 
 	use \mako\http\Request;
@@ -169,6 +172,8 @@ All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers),
 
 #### Tasks
 
+The ```Input``` and ```Output``` classes are injected into tasks by default.
+
 	namespace app\tasks;
 
 	use \mako\database\ConnectionManager;
@@ -188,6 +193,31 @@ All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers),
 	}
 
 > Make sure that the first two constructor parameters are for the ```Input``` and ```Output``` instances.
+
+<a id="controllers_and_tasks:migrations"></a>
+
+#### Migrations
+
+The ```ConnectionManager``` class is injected into migrations by default.
+
+	namespace app\migrations;
+
+	use \mako\config\Config;
+	use \mako\database\ConnectionManager;
+
+	class Migration_20120824100019 extends \mako\reactor\tasks\migrate\Migration
+	{
+		protected $config;
+
+		public function __construct(ConnectionManager $connectionManager, Config $config)
+		{
+			parent::__construct($output);
+
+			$this->config = $config;
+		}
+	}
+
+> Make sure that the first parameter is for the ```ConnectionManager``` instance.
 
 <a id="controllers_and_tasks:container_aware"></a>
 
