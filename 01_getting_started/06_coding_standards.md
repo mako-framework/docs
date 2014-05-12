@@ -16,7 +16,7 @@
 
 --------------------------------------------------------
 
-The following coding standards have been used when developing Mako. We suggest you follow the same standards when developing applications using Mako.
+The following coding standards have been used when developing Mako. Please follow them when contributing code to the project.
 
 --------------------------------------------------------
 
@@ -45,8 +45,6 @@ Always use long open tags. Never use short tags or ASP style tags. Class files s
 ### Files
 
 Files should always have the same name as the class they contain. A file should never contain more than one class. The file encoding should always be UTF-8.
-
-File names must match the case of the class. The only exception being controllers and tasks, which should always have lower case file names.
 
 	// File: libraries/mako/DateTime.php
 
@@ -118,7 +116,7 @@ Class names should be written in upper CamelCase:
 
 ### Methods
 
-Method names should be written in lower camelCase (does not apply to controller and task methods):
+Method names should be written in lower camelCase:
 
 	// Correct
 

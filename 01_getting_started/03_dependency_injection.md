@@ -111,11 +111,11 @@ Mako includes a number of services for your convenience and you'll find a comple
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
 |                          | mako\core\Application              | app              | Application                 | ✔        |
-|                          | mako\core\Config                   | config           | Config loader               | ✔        |
+|                          | mako\config\Config                 | config           | Config loader               | ✔        |
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| ErrorHandlerService      | mako\core\error\ErrorHandler       | errorhandler     | Error handler               | ✔        |
+| ErrorHandlerService      | mako\error\ErrorHandler            | errorhandler     | Error handler               | ✔        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
