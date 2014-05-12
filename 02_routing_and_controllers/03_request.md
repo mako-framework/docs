@@ -216,6 +216,22 @@ The ```referer``` method returns the address that refered the client to the curr
 
 	$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
 
+The ```acceptableContentTypes``` returns an array of acceptable content types in descending order of preference.
+
+	$acceptableContentTypes = $this->request->acceptableContentTypes();
+
+The ```acceptableLanguages``` returns an array of acceptable languages in descending order of preference.
+
+	$acceptableLanguages = $this->request->acceptableLanguages();
+
+The ```acceptableCharsets``` returns an array of acceptable character sets in descending order of preference.
+
+	$acceptableCharsets = $this->request->acceptableCharsets();
+
+The ```acceptableEncodings``` returns an array of acceptable encodings sets in descending order of preference.
+
+	$acceptableEncodings = $this->request->acceptableEncodings();
+
 The ```ip``` method returns IP of the client that made the request.
 
 	$ip = $this->request->ip();
