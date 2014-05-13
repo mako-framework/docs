@@ -24,6 +24,8 @@
 * [Read-only records](#read_only_records)
 * [Cloning records](#cloning_records)
 * [Array and JSON representations](#array_and_json_representations)
+* [Traits](#traits)
+	- [Optimistic locking](#traits:optimistic_locking)
 
 --------------------------------------------------------
 
@@ -466,38 +468,11 @@ You can make mass assignment a bit more secure by using the ```$assignable``` pr
 
 --------------------------------------------------------
 
-<a id="optimistic_locking"></a>
-
-### Optimistic locking
-
-When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
-
-To enable optimistic locking you have to set the ```$enableLocking``` property to TRUE. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
-
-	$user1 = User::get(1);
-	$user2 = User::get(1);
-
-	$user1->username = 'Foo';
-
-	$user1->save();
-
-	$user2->username = 'Bar';
-
-	$user2->save();
-
-The second save will throw a ```mako\database\midgard\StaleRecordException``` since the record is now outdated compared to the one stored in the database. The ```reload``` method can be used to refresh the outdated record.
-
-	$user2->reload();
-
-> Optimistic locking will also check for stale records when deleting, although not when bulk deleting.
-
---------------------------------------------------------
-
 <a id="read_only_records"></a>
 
 ### Read-only records
 
-You can make your records read-only by setting the ```$readOnly``` property to TRUE. Doing so will make it impossible to update or delete the records and a ```mako\database\midgard\ReadOnlyRecordException``` will be thrown if attempted.
+You can make your records read-only by setting the ```$readOnly``` property to TRUE. Doing so will make it impossible to update or delete the records and a ```ReadOnlyRecordException``` will be thrown if attempted.
 
 	// Load a read-only record
 
@@ -539,3 +514,41 @@ You can convert an ORM object or result set to an array using the ```toArray``` 
 	$json = (string) Article::limit(10)->all();
 
 You can exclude columns from the array and JSON representations by using the ```$protected``` property.
+
+--------------------------------------------------------
+
+<a id="traits"></a>
+
+### Traits
+
+<a id="traits:optimistic_locking"></a>
+
+### Optimistic locking
+
+When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
+
+To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
+
+	class Articles extends \mako\database\midgard\ORM
+	{
+		use \mako\database\midgard\traits\OptimisticLockingTrait;
+	}
+
+The second save in the example below will throw a ```StaleRecordException``` since the record is now outdated compared to the one stored in the database.
+
+	$article1 = Article::get(1);
+	$article2 = Article::get(1);
+
+	$article1->title = 'Foo';
+
+	$article1->save();
+
+	$article2->title = 'Bar';
+
+	$article2->save();
+
+ The ```reload``` method can be used to refresh the outdated record.
+
+	$article2->reload();
+
+> Optimistic locking will also check for stale records when deleting, although not when deleting in bulk.
