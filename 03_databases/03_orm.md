@@ -523,13 +523,13 @@ You can exclude columns from the array and JSON representations by using the ```
 
 <a id="traits:optimistic_locking"></a>
 
-### Optimistic locking
+#### Optimistic locking
 
 When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
 
 To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
 
-	class Articles extends \mako\database\midgard\ORM
+	class Article extends \mako\database\midgard\ORM
 	{
 		use \mako\database\midgard\traits\OptimisticLockingTrait;
 	}
