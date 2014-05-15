@@ -25,6 +25,7 @@
 * [Cloning records](#cloning_records)
 * [Array and JSON representations](#array_and_json_representations)
 * [Traits](#traits)
+	- [Timestamped](#traits:timestamped)
 	- [Optimistic locking](#traits:optimistic_locking)
 
 --------------------------------------------------------
@@ -37,13 +38,14 @@ The ORM lets you map your database tables to objects and create relations betwee
 
 ### Naming conventions
 
-The Mako ORM does not impose a naming standard on model class names but best practice is to use the camel cased singular form of the table name. You must use the ```$tableName``` property to define the actual name of your table.
+The Mako ORM does not impose a naming standard on model class names but best practice is to use the camel cased singular form of the table name.
 
 | Table name       | Model name       |
 |------------------|------------------|
 | articles         | Article          |
 | import_jobs      | ImportJob        |
 
+If you want to use the ORM on an existing database and don't want to rename all your tables then you can use the ```$tableName``` property to define the name of your table.
 
 All tables are also expected to have an auto incrementing primary key column named id. The name of the primary key column can be configured using the ```$primaryKey``` property.
 
@@ -520,6 +522,29 @@ You can exclude columns from the array and JSON representations by using the ```
 <a id="traits"></a>
 
 ### Traits
+
+<a id="traits:timestamped"></a>
+
+#### Timestamped
+
+You'll often want to track when a record has been created and when it was updated. The ```TimestampedTrait``` will do this for you automatically. 
+
+The trait requires you to add two DATETIME columns to your database table, ```created_at``` and ```updated_at```. You can override the column names using the ```$createdAtColumn``` and ```$updatedAtColumn``` properties.
+
+	class Article extends \mako\database\midgard\ORM
+	{
+		use \mako\database\midgard\traits\TimestampedTrait;
+	}
+
+You can touch the ```updated_at``` timestamp without having to modify any other data by using the ```touch``` method.
+
+	$article = Article::get(1);
+
+	$article->touch();
+
+You can also make the ORM touch related records upon saving by listing the relations you want to touch in the ```$touch``` property.
+
+	$touch = ['foo', 'foo.bar']; // Nested relations are also supported
 
 <a id="traits:optimistic_locking"></a>
 
