@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a Time class that extends the DateTime class from the PHP core. Here we'll go over the differences between the two. If you need documentation of all the default methods then you can read about them [here](http://www.php.net/manual/en/class.datetime.php).
+Mako includes a class that extends the DateTime class from the PHP core. Here we'll go over the differences between the two. If you need documentation of all the default methods then you can read about them [here](http://www.php.net/manual/en/class.datetime.php).
 
 --------------------------------------------------------
 
