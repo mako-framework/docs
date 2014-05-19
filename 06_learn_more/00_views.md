@@ -35,8 +35,6 @@ You create a view object by passing the name of the view file to the ```create``
 
 You can also assign variables to a view by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to.
 
-	// Assigned the variable $foo with the value "bar"
-
 	$view->assign('foo', 'bar');
 
 You can also assign global view variables using the ```assign``` method on the view factory instance.
@@ -44,8 +42,6 @@ You can also assign global view variables using the ```assign``` method on the v
 	$this->view->assign('user', $user);
 
 The ```render``` method returns the rendered output of the view.
-
-	// Returns the rendered output
 
 	$output = $view->render();
 
