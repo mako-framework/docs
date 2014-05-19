@@ -39,10 +39,6 @@ You can also assign variables to a view by using the ```assign``` method of the 
 
 	$view->assign('foo', 'bar');
 
-	// You can also assign variables using overloading
-
-	$view->foo = 'bar';
-
 You can also assign global view variables using the ```assign``` method on the view factory instance.
 
 	$this->view->assign('user', $user);
