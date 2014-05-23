@@ -27,6 +27,8 @@ You can increase the time it takes to calculate the hash by increasing the value
 
 	$hash = Password::hash('foobar', 14);
 
+> Having the the [openssl](http://www.php.net/manual/en/book.openssl.php) extention installed will improve the randomness of the salt.
+
 The ```validate``` method will validate hashes generated using the ```hash``` method.
 
 	$valid = Password::validate('foobar', $hash))
