@@ -33,9 +33,9 @@ You can register multiple handlers for the same event. They will be executed in 
 		return 'foobar event 2';
 	});
 
-The ```registered``` method will return TRUE if an event handler has been registered and FALSE if not.
+The ```has``` method will return TRUE if an event handler has been registered and FALSE if not.
 
-	$registered = $listener->registered('foobar');
+	$registered = $listener->has('foobar');
 
 The ```clear``` method will clear all event handlers registered for an event.
 
