@@ -116,7 +116,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| ErrorHandlerService      | mako\error\ErrorHandler            | errorhandler     | Error handler               | ✔        |
+| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✔        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
@@ -128,7 +128,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 | RouteService             | mako\http\routing\Routes           | routes           | Route collection            | ✔        |
 | SessionService           | mako\session\Session               | session          | Session                     | ✘        |
 | SignerService            | mako\security\Signer               | signer           | Signer                      | ✔        |
-| URLBuilderService        | mako\http\routing\URLBuilder       | urlbuilder       | URL builder                 | ✘        |
+| URLBuilderService        | mako\http\routing\URLBuilder       | urlBuilder       | URL builder                 | ✘        |
 | ValidatorFactoryService  | mako\validator\ValidatorFactory    | validator        | Validation factory          | ✘        |
 | ViewFactoryService       | mako\view\ViewFactory              | view             | View factory                | ✘        |
 
