@@ -26,7 +26,7 @@ Mako has been tested on Apache, Cherokee, lighttpd and Nginx.
 
 Installing Mako is easy and can be with one single command thanks to [composer](https://packagist.org/):
 
-	composer create-project mako/app <project name>
+	composer create-project mako/app:3.* <project name>
 
 > Remember to make the ```app/storage/*``` directories writable.
 
