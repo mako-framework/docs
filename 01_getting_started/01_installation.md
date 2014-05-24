@@ -28,7 +28,7 @@
 
 Installing Mako is easy and can be with one single command thanks to [composer](https://packagist.org/):
 
-	composer create-project mako/app <project name>
+	composer create-project mako/app:4.* <project name>
 
 > Remember to make the ```app/storage/*``` directories writable.
 
