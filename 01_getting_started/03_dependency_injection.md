@@ -112,6 +112,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
 |                          | mako\core\Application              | app              | Application                 | ✔        |
+|                          | mako\file\FileSystem               | fileSystem       | File system abstraction     | ✔        |
 |                          | mako\config\Config                 | config           | Config loader               | ✔        |
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
