@@ -30,7 +30,7 @@ The ```tag``` method can be used to generate nearly any HTML tag.
 
 	// Will print <span>Hello, world!</span>
 
-	echo HTML::tag('span', [], 'Hello, world!');
+	echo $html->tag('span', [], 'Hello, world!');
 
 	// Will print <span id="foo" class="bar">Hello, world!</span>
 

@@ -27,13 +27,13 @@ All tasks must extend the ```mako\reactor\Task``` base task. The ```$taskInfo```
 	{
 		protected static $taskInfo = array
 		(
-			'run' => array
+			'greet' => array
 			(
 				'description' => 'Displays a greeting.',
 			),
 		);
 		
-		public function run()
+		public function greet()
 		{
 			$this->output->writeln('Hello, world!');
 		}
@@ -43,7 +43,7 @@ Passing arguments to a task action is easy as you can se in the example below.
 
 	namespace app\tasks;
 
-	class color extends \mako\reactor\Task
+	class Color extends \mako\reactor\Task
 	{
 		protected static $taskInfo = array
 		(
