@@ -173,10 +173,11 @@ Users table
 
 	CREATE TABLE `users` (
 	  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	  `created_at` datetime NOT NULL,
-	  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+	  `updated_at` datetime NOT NULL,
+	  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	  `password` char(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 	  `token` char(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 	  `activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
@@ -200,6 +201,8 @@ Groups table
 
 	CREATE TABLE `groups` (
 	  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+	  `created_at` datetime NOT NULL,
+	  `updated_at` datetime NOT NULL,
 	  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `name` (`name`)
