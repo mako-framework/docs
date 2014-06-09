@@ -37,7 +37,7 @@ The optional third parameter is useful if you're migrating from a different type
 
 	$valid = Password::validate('foobar', $hash, function($password, $hash)
 	{
-		return md5($password) === $hash;
+		return Comparer::compare(md5($password), $hash);
 	});
 
 The ```isLegacyHash``` method returns TRUE if the provided hash is not a bcrypt hash.
