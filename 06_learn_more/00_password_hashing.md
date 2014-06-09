@@ -10,7 +10,7 @@ Using md5 or sha1 hashes for storing passwords is not recommended, as they are e
 
 Bcrypt is a cryptographic hash function for passwords that incorporates a salt to protect against rainbow table attacks. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive hash: over time it can be made slower and slower so it remains resistant to specific brute-force search attacks against the hash and the salt.
 
-> Having the the [openssl](http://www.php.net/manual/en/book.openssl.php) extention installed will improve the randomness of the salt.
+> Having the the [mcrypt](http://php.net//manual/en/book.mcrypt.php) or [openssl](http://php.net/manual/en/book.openssl.php) extentions installed will greatly improve the randomness of the salt.
 
 --------------------------------------------------------
 
