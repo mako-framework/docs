@@ -185,7 +185,7 @@ Users table
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `username` (`username`),
 	  UNIQUE KEY `email` (`email`)
-	) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Junction table
 
