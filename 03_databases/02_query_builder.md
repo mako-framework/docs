@@ -136,7 +136,7 @@ You can also insert data using the ```insertAndGetId``` method. It will create t
 
 	$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
 
-> When working with [PostgreSQL](http://www.postgresql.org), the ```insertAndGetId``` assumes that the sequence id follows the default naming convention (```<table_name>_<primary_key_name>_seq```) You can override the default primary key name (```id``) by using the optional second parameter.
+> When working with [PostgreSQL](http://www.postgresql.org), the ```insertAndGetId``` assumes that the sequence id follows the default naming convention (```<table_name>_<primary_key_name>_seq```) You can override the default primary key name (```id```) by using the optional second parameter.
 
 --------------------------------------------------------
 
