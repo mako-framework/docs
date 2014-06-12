@@ -130,7 +130,13 @@ You can also set the offset starting point and offset end point using the option
 
 Inserting data is done using the ```insert``` method.
 
-	$query->table('foobars')->insert(['field1' => 'foo', 'field2' => 'bar', 'field3' => new DateTime()]);
+	$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime()]);
+
+You can also insert data using the ```insertAndGetId``` method. It will create the record and return the generated auto increment id.
+
+	$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
+
+> When working with [PostgreSQL](http://www.postgresql.org), the ```insertAndGetId``` assumes that the sequence id follows the default naming convention (```<table_name>_<primary_key_seq```) You can override the default primary key name (```id```) by using the optional second parameter.
 
 --------------------------------------------------------
 
