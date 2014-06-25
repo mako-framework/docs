@@ -3,9 +3,12 @@
 --------------------------------------------------------
 
 * [Basic usage](#basic_usage)
+* [Providers](#providers)
+	- [User provider](#providers_user)
+	- [Group provider](#providers_group)
 * [Users & groups](#users_and_groups)
-	- [Basics](#users_and_groups_basics)
-	- [Passwords](#users_and_groups_passwords)
+	- [Users](#users_and_groups_users)
+	- [Groups](#users_and_groups_groups)
 * [Database schema](#database_schema)
 
 --------------------------------------------------------
@@ -26,7 +29,11 @@ The ```createUser``` method allows you to create a new user. A user object is re
 
 	$user = $this->gatekeeper->createUser('foo@example.org', 'username', 'password', true);
 
-The ```activateUser``` method activates a user. It will return TRUE on success and FALSE if the activation fails.
+The ```createGroup``` method allows you to create a new group. A group object is returned upon successful creation.
+
+	$group = $this->gatekeeper->createGroup('admin');
+
+The ```activateUser``` method activates a user by his or her action token. The methor will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
 
 	$activated = $this->gatekeeper->activateUser($token);
 
@@ -40,7 +47,7 @@ The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING`
 
 	$successful = $this->gatekeeper->login($email, $password, true);
 
-The ```forceLogin``` allows you to login a user without a password. It will return TRUE if the login is successful and one a status code if not. 
+The ```forceLogin``` allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not. 
 
 The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING``` and ```Gatekeeper::LOGIN_BANNED```.
 
@@ -63,7 +70,7 @@ You can wrap it in a a if test if you want to execute more code in the event tha
 
 	// Code here gets executed if the user is logged in
 
-> The username and password is sent with every subsequent request so make sure use HTTPS if possible!
+> The username and password is sent with every subsequent request when using basic authentication so make sure use ```HTTPS``` whenever possible!
 
 The ```isGuest``` method returns FALSE if the user is logged in and TRUE if not.
 
@@ -73,13 +80,59 @@ The ```isLoggedIn``` method returns TRUE of the user is logged in and FALSE if n
 
 	$isLoggedIn = $this->gatekeeper->isLoggedIn();
 
-The ```user``` method will return a user object if the user is logged in and NULL if not.
+The ```getUser``` method will return a user object if the user is logged in and NULL if not.
 
-	$user = $this->gatekeeper->user();
+	$user = $this->gatekeeper->getUser();
 
 The ```logout()``` method will log out the user and delete the "remember me" cookie if it is set.
 
 	$this->gatekeeper->logout();
+
+The ```getUserProvider``` returns the gatekeeper [user provider](#providers_user).
+
+	$userProvider = $this->gatekeeper->getUserProvider();
+
+The ```getGroupProvider``` returns the gatekeeper [group provider](#providers_user).
+
+	$groupProvider = $this->gatekeeper->getGroupProvider();
+
+--------------------------------------------------------
+
+<a id="providers"></a>
+
+### Providers
+
+<a id="providers_user"></a>
+
+#### User provider
+
+The ```getByActionToken``` method returns a user based on his or her action token and FALSE if no user is found.
+
+	$user = $userProvider->getByActionToken($token);
+
+The ```getByAccessToken``` method returns a user based on his or her access token and FALSE if no user is found.
+
+	$user = $userProvider->getByAccessToken($token);
+
+The ```getByEmail``` method returns a user based on his or her email address and FALSE if no user is found.
+
+	$user = $userProvider->getByEmail($email);
+
+The ```getById``` method returns a user based on his or her id and FALSE if no user is found.
+
+	$user = $userProvider->getById($id);
+
+<a id="providers_group"></a>
+
+#### Group provider
+
+The ```getByName``` method returns a group based its name and FALSE if no group is found.
+
+	$group = $groupProvider->getByName($name);
+
+The ```getById``` method returns a group based its id and FALSE if no group is found.
+
+	$group = $groupProvider->getById($id);
 
 --------------------------------------------------------
 
@@ -87,33 +140,33 @@ The ```logout()``` method will log out the user and delete the "remember me" coo
 
 ### Users & groups
 
-<a id="users_and_groups_basics"></a>
+The user and group objects returned by the default gatekeeper implementation are [ORM models](:base_url:/docs/:version:/databases:orm). 
 
-#### Basics
+The user model comes with a [many to many](:base_url:/docs/:version:/databases:orm#relations:many_to_many) relation to the group model and the group model has a many to many relation back to the user model.
 
-The user object returned by gatekeeper is a [ORM model](:base_url:/docs/:version:/databases:orm). The model (```mako\auth\models\User```) comes with a few extra methods and a [many to many](:base_url:/docs/:version:/databases:orm#relations:many_to_many) relation to the ```mako\auth\models\Group``` model. The group model has a many to many relation back to the user model.
+<a id="users_and_groups_users"></a>
 
-The ```validatePassword``` method allows you validate a user password.
+#### Users
 
-	$user = $this->gatekeeper->user();
+The ```generateAccessToken``` method allows you to generate a new access token for the user.
 
-	$isValid = $user->validatePassword($password);
-
-The ```generateToken``` method allows you to generate a new authentication token for the user.
-
-	$user->generateToken();
-
-	$user->save();
+	$user->generateAccessToken();
 
 > Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the ```Gatekeeper::forceLogin``` method to log the user back in in the background to keep the experience seamless.
 
-The ```memberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
+The ```generateActionToken``` method allows you to generate a new action token for the user. Should be used to activate a user, to validate "forgot password" requests etc.
 
-	$isMemberOf = $user->memberOf('admin');
+	$user->generateActionToken();
+
+> You should generate a new action token after a successfull action. Note that gatekeeper automatically generates a new action token when activating a user.
+
+The ```isMemberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
+
+	$isMemberOf = $user->isMemberOf('admin');
 
 	// Returns true if the user is a member "staff" or "admin"
 
-	$isMemberOf = $user->memberOf(['staff', 'admin']);
+	$isMemberOf = $user->isMemberOf(['staff', 'admin']);
 
 The ```isActivated``` method returns TRUE if the user is activated and FALSE if not.
 
@@ -123,13 +176,9 @@ The ```activate``` method activates a user.
 
 	$user->activate();
 
-	$user->save();
-
 The ```deactivate``` method will deactivate a user.
 
 	$user->deactivate();
-
-	$user->save();
 
 The ```isBanned``` method will return TRUE if a user is banned and FALSE if not.
 
@@ -139,27 +188,47 @@ The ```ban``` method will ban a user.
 
 	$user->ban();
 
-	$user->save();
-
 The ```unban``` method will unban a user.
 
 	$user->unban();
 
-	$user->save();
-
-<a id="users_and_groups_passwords"></a>
-
-#### Passwords
-
-You set a user password using the ```$password``` property of the user object. The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/learn-more:password-hashing) so you do not need to hash it yourself.
-
-	$user->password = 'my new super secret password';
-
-	$user->generateToken();
+The ```save``` method allows you to save changes to the user.
 
 	$user->save();
 
-> You should always generate a new token when a user updates his or her password!
+The ```delete``` method allows you to delete a user.
+
+	$user->delete();
+
+The user object also includes the following getters and setters: ```getId```, ```setEmail```, ```getEmail```, ```setUsername```, ```getUsername```, ```setPassword```, ```getPassword```, ```setIp```, ```getIp```, ```getActionToken``` and ```getAccessToken```.
+
+> The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/learn-more:password-hashing) so you do not need to hash it yourself.
+
+<a id="users_and_groups_groups"></a>
+
+#### Groups
+
+The ```addUser``` adds a user to the group.
+
+	$group->addUser($user);
+
+The ```removeUser``` removes a user from the group.
+
+	$group->addUser($user);
+
+The ```isMember``` method returns TRUE if the member is a member of the group and FALSE if not.
+
+	$group->isMember($user);
+
+The ```save``` method allows you to save changes to the group.
+
+	$group->save();
+
+The ```delete``` method allows you to delete a group.
+
+	$group->delete();
+
+The group object also includes the following getters and setters: ```getId```, ```setName``` and ```getName```.
 
 --------------------------------------------------------
 
@@ -176,25 +245,34 @@ Users table
 	  `created_at` datetime NOT NULL,
 	  `updated_at` datetime NOT NULL,
 	  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 	  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  `password` char(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-	  `token` char(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+	  `password` char(60) COLLATE utf8_unicode_ci NOT NULL,
+	  `action_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
+	  `access_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
 	  `activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 	  `banned` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `username` (`username`),
-	  UNIQUE KEY `email` (`email`)
-	) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+	  UNIQUE KEY `email` (`email`), 
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Junction table
 
 	CREATE TABLE `groups_users` (
-	  `user_id` int(11) unsigned NOT NULL,
 	  `group_id` int(11) unsigned NOT NULL,
-	  UNIQUE KEY `user_id_2` (`user_id`,`group_id`),
+	  `user_id` int(11) unsigned NOT NULL,
+	  UNIQUE KEY `group_user` (`group_id`,`user_id`),
+	  KEY `group_id` (`group_id`),
 	  KEY `user_id` (`user_id`),
-	  KEY `group_id` (`group_id`)
+	  CONSTRAINT `groups` 
+	  	FOREIGN KEY (`group_id`) 
+	  	REFERENCES `groups` (`id`) 
+	  	ON DELETE CASCADE ON UPDATE NO ACTION,
+	  CONSTRAINT `users` 
+	  	FOREIGN KEY (`user_id`) 
+	  	REFERENCES `users` (`id`) 
+	  	ON DELETE CASCADE ON UPDATE NO ACTION
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Groups table
