@@ -111,7 +111,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 | Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
-|                          | mako\core\Application              | app              | Application                 | ✔        |
+|                          | mako\application\Application       | app              | Application                 | ✔        |
 |                          | mako\file\FileSystem               | fileSystem       | File system abstraction     | ✔        |
 |                          | mako\config\Config                 | config           | Config loader               | ✔        |
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |

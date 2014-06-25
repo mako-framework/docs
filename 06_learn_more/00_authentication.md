@@ -254,7 +254,7 @@ Users table
 	  `banned` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 	  PRIMARY KEY (`id`),
 	  UNIQUE KEY `username` (`username`),
-	  UNIQUE KEY `email` (`email`), 
+	  UNIQUE KEY `email` (`email`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Junction table

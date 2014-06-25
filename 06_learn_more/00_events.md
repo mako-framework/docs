@@ -78,27 +78,9 @@ The ```attachObserver``` method allows you to attach an observer to your class. 
 		return 'foobar event';
 	});
 
-	// You can also attach an observer instance
-
-	$observable->attachObserver('foobar', new MyObserver);
-
-	// Or specify the name of your observer class. Remember to include the full namespace!
-
-	$observable->attachObserver('foobar', '\app\observers\MyObserver');
-
-> Observer classes must implement a public method named ```update``` that'll handle the event.
-
 The ```hasObserver``` method returns TRUE if an event has an observer and FALSE if not.
 
 	$observed = $observable->hasObserver('foobar');
-
-The ```detachObserver``` method allows you to detach an observer from an event.
-
-	$observable->detachObserver('foobar', new MyObserver);
-
-	$observable->detachObserver('foobar', '\app\observers\MyObserver');
-
-> The method does not work with closure observers.
 
 The ```clearObservers``` will clear all observers. You can also specify which event you want to clear.
 
