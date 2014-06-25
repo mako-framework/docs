@@ -241,47 +241,47 @@ The authentication library requires three database tables. Here are the create s
 Users table
 
 	CREATE TABLE `users` (
-	  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	  `created_at` datetime NOT NULL,
-	  `updated_at` datetime NOT NULL,
-	  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  `password` char(60) COLLATE utf8_unicode_ci NOT NULL,
-	  `action_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
-	  `access_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
-	  `activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-	  `banned` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-	  PRIMARY KEY (`id`),
-	  UNIQUE KEY `username` (`username`),
-	  UNIQUE KEY `email` (`email`)
+		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		`created_at` datetime NOT NULL,
+		`updated_at` datetime NOT NULL,
+		`ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		`username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		`email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		`password` char(60) COLLATE utf8_unicode_ci NOT NULL,
+		`action_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
+		`access_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
+		`activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+		`banned` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `username` (`username`),
+		UNIQUE KEY `email` (`email`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Junction table
 
 	CREATE TABLE `groups_users` (
-	  `group_id` int(11) unsigned NOT NULL,
-	  `user_id` int(11) unsigned NOT NULL,
-	  UNIQUE KEY `group_user` (`group_id`,`user_id`),
-	  KEY `group_id` (`group_id`),
-	  KEY `user_id` (`user_id`),
-	  CONSTRAINT `groups` 
-	  	FOREIGN KEY (`group_id`) 
-	  	REFERENCES `groups` (`id`) 
-	  	ON DELETE CASCADE ON UPDATE NO ACTION,
-	  CONSTRAINT `users` 
-	  	FOREIGN KEY (`user_id`) 
-	  	REFERENCES `users` (`id`) 
-	  	ON DELETE CASCADE ON UPDATE NO ACTION
+		`group_id` int(11) unsigned NOT NULL,
+		`user_id` int(11) unsigned NOT NULL,
+		UNIQUE KEY `group_user` (`group_id`,`user_id`),
+		KEY `group_id` (`group_id`),
+		KEY `user_id` (`user_id`),
+		CONSTRAINT `groups` 
+			FOREIGN KEY (`group_id`) 
+			REFERENCES `groups` (`id`) 
+			ON DELETE CASCADE ON UPDATE NO ACTION,
+		CONSTRAINT `users` 
+			FOREIGN KEY (`user_id`) 
+			REFERENCES `users` (`id`) 
+			ON DELETE CASCADE ON UPDATE NO ACTION
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 Groups table
 
 	CREATE TABLE `groups` (
-	  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-	  `created_at` datetime NOT NULL,
-	  `updated_at` datetime NOT NULL,
-	  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-	  PRIMARY KEY (`id`),
-	  UNIQUE KEY `name` (`name`)
+		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		`created_at` datetime NOT NULL,
+		`updated_at` datetime NOT NULL,
+		`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `name` (`name`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
