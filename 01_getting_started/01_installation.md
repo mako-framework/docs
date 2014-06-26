@@ -34,8 +34,6 @@ Mako can now be updated using the following command:
 
 	composer update
 
-> You can also [download](:base_url:/download) a bare bones Mako application if you're unable to use composer.
-
 --------------------------------------------------------
 
 <a id="server_configurations"></a>
