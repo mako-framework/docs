@@ -11,6 +11,7 @@
 The cache library provides a simple and consistent interface to the most common caching solutions:
 
 * APC
+* APCU
 * Database
 * File
 * Memcache / Memcached
