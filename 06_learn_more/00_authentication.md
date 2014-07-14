@@ -214,7 +214,7 @@ The ```addUser``` adds a user to the group.
 
 The ```removeUser``` removes a user from the group.
 
-	$group->addUser($user);
+	$group->removeUser($user);
 
 The ```isMember``` method returns TRUE if the member is a member of the group and FALSE if not.
 
