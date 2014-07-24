@@ -4,6 +4,7 @@
 
 * [Basics](#basics)
 * [Template views](#template_views)
+* [Custom view renderers](#custom_view_renderers)
  
 --------------------------------------------------------
 
@@ -154,3 +155,24 @@ Rendering the child template will result in the following output:
 			Footer
 		</body>
 	</html>
+
+--------------------------------------------------------
+
+<a id="custom_view_renderers"></a>
+
+### Custom view renderers
+
+Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/). 
+
+Registering a custom renderer is done using the ```registerRenderer``` method. The first parameter is the file extention you want to associate with your custom renderer. The second parameter is the namespaced class name of your renderer class.
+
+	$this->view->registerRenderer('.twig', 'foo\bar\TwigRenderer');
+
+You can also use a closure when registering a custom renderer.
+
+	$this->view->registerRenderer('.twig', function($view, $parameters)
+	{
+		// Return an implementation of mako\view\renderers\RendererInterface
+	});
+
+> All custom renderers must implement the ```mako\view\renderers\RendererInterface``` interface.
