@@ -7,7 +7,7 @@
 	- [Magic shortcut](#connections:magic_shortcut)
 * [Query builder](#query_builder)
 * [Transactions](#transactions)
-* [Accessing PDO](#accessing_pdo)
+* [Accessing the underlying PDO instance](#accessing_the_underlying_pdo_instance)
 
 --------------------------------------------------------
 
@@ -96,23 +96,10 @@ The ```Connection::transaction``` method provides a handy shortcut for performin
 
 --------------------------------------------------------
 
-<a id="accessing_pdo"></a>
+<a id="accessing_the_underlying_pdo_instance"></a>
 
-### Accessing PDO
+### Accessing the underlying PDO instance
 
 You can also access the [PDO](http://php.net/manual/en/book.pdo.php) object directly when needed.
 
-	try
-	{
-		$connection->getPDO()->beginTransaction();
-		
-		$connection->query('DROP TABLE `foo`');
-
-		$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
-
-		$connection->getPDO()->commit();
-	}
-	catch(PDOException $e)
-	{
-		$connection->getPDO()->rollBack();
-	}
+	$serverVersion = $connection->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
