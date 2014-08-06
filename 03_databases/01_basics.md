@@ -4,9 +4,9 @@
 
 * [Connections](#connections)
 	- [Basics](#connections:basics)
+	- [Transactions](#transactions)
 	- [Magic shortcut](#connections:magic_shortcut)
 * [Query builder](#query_builder)
-* [Transactions](#transactions)
 * [Accessing the underlying PDO instance](#accessing_the_underlying_pdo_instance)
 
 --------------------------------------------------------
@@ -59,6 +59,21 @@ The ```Connection::queryAndCound``` method will return the number of rows modifi
 
 	$count = $connection->queryAndCound('DELETE FROM `users`');
 
+<a id="transactions"></a>
+
+#### Transactions
+
+The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns the return value of the transaction closure.
+
+> Transactions only work if the storage engine you're using supports them.
+
+	$success = $connection->transaction(function($connection)
+	{
+		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
+
+		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
+	});
+
 <a id="connections:magic_shortcut"></a>
 
 #### Magic shortcut
@@ -76,23 +91,6 @@ You can access the default database connection directly without having to go thr
 The ```Connection::builder``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
 
 	$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
-
---------------------------------------------------------
-
-<a id="transactions"></a>
-
-### Transactions
-
-The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns the return value of the transaction closure.
-
-> Transactions only work if the storage engine you're using supports them.
-
-	$success = $connection->transaction(function($connection)
-	{
-		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
-
-		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
-	});
 
 --------------------------------------------------------
 
