@@ -99,9 +99,9 @@ You can check whether or not you're already in a transaction using the ```Connec
 
 #### Connection status
 
-You can check if a connection is still alive using the ```Connection::ping``` method. It will return TRUE if it is and FALSE if not.
+You can check if a connection is still alive using the ```Connection::isAlive``` method. It will return TRUE if it is and FALSE if not.
 
-	$isConnectionAlive = $connection->ping();
+	$isConnectionAlive = $connection->isAlive();
 
 You can reconnect using the ```Connection::reconnect``` method.
 
