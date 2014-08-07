@@ -76,13 +76,37 @@ The ```watermark``` method allows you to add a watermark to your image.
 
 	$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_RIGHT, 50);
 
+The ```pixelate``` method will pixelate the image.
+
+	$image->pixelate();
+
+	// You can also set the size of the pixels
+
+	$image->pixelate(20);
+
 The ```greyscale``` method converts the image to greyscale.
 
 	$image->greyscale();
 
+The ```sepia``` method converts the iamge to sepia.
+
+	$image->sepia();
+
+The ```negate``` will invert the colors in the image.
+
+	$image->negate();
+
 The ```colorize``` method allows you to colorize an image.
 
 	$image->colorize('FF0000');
+
+The ```brightness``` method allows you adjust the brightness of the image.
+
+	$image->brightness();
+
+	// You can also set a custom value (between -100 and 100)
+
+	$image->brightness(100);
 
 The ```getImageBlob``` returns the raw binary image data.
 
