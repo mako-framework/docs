@@ -63,16 +63,36 @@ The ```Connection::queryAndCound``` method will return the number of rows modifi
 
 #### Transactions
 
-The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. It returns the return value of the transaction closure.
-
 > Transactions only work if the storage engine you're using supports them.
 
-	$success = $connection->transaction(function($connection)
+The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. Any failed queries in the closure will automatically roll back the transaction.
+
+	$connection->transaction(function($connection)
 	{
 		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
 		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
 	});
+
+You can also begin a transaction using the ```Connection::beginTransaction``` method.
+
+	$connection->beginTransaction();
+
+Committing the transaction is done using the ```Connection::commitTransaction``` method.
+
+	$connection->commitTransaction();
+
+Rolling back the transaction is done using the ```Connection::rollBackTransaction``` method.
+
+	$connection->rollBackTransaction();
+
+You can get the transaction nesting level using the ```Connection::getTransactionNestingLevel``` method.
+
+	$nestingLevel = $connection->getTransactionNestingLevel();
+
+You can check whether or not you're already in a transaction using the ```Connection::inTransaction``` method.
+
+	$inTransaction = $connection->inTransaction();
 
 <a id="connections:magic_shortcut"></a>
 
