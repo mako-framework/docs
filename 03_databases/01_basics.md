@@ -5,6 +5,7 @@
 * [Connections](#connections)
 	- [Basics](#connections:basics)
 	- [Transactions](#transactions)
+	- [Connection status](#connection_status)
 	- [Magic shortcut](#connections:magic_shortcut)
 * [Query builder](#query_builder)
 * [Accessing the underlying PDO instance](#accessing_the_underlying_pdo_instance)
@@ -93,6 +94,20 @@ You can get the transaction nesting level using the ```Connection::getTransactio
 You can check whether or not you're already in a transaction using the ```Connection::inTransaction``` method.
 
 	$inTransaction = $connection->inTransaction();
+
+<a id="connection_status"></a>
+
+#### Connection status
+
+You can check if a connection is still alive using the ```Connection::ping``` method. It will return TRUE if it is and FALSE if not.
+
+	$isConnectionAlive = $connection->ping();
+
+You can reconnect using the ```Connection::reconnect``` method.
+
+	$connection->reconnect();
+
+> You can configure the connection to automatically reconnect if the connection is dropped in the ```app/config/database.php``` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
 
 <a id="connections:magic_shortcut"></a>
 
