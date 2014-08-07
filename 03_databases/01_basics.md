@@ -103,7 +103,7 @@ You can check if a connection is still alive using the ```Connection::isAlive```
 
 	$isConnectionAlive = $connection->isAlive();
 
-You can reconnect using the ```Connection::reconnect``` method.
+You can attempt to reconnect using the ```Connection::reconnect``` method.
 
 	$connection->reconnect();
 
