@@ -107,7 +107,7 @@ You can reconnect using the ```Connection::reconnect``` method.
 
 	$connection->reconnect();
 
-> You can configure the connection to automatically reconnect if the connection is dropped in the ```app/config/database.php``` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
+> You can configure the connection to automatically reconnect in the ```app/config/database.php``` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
 
 <a id="connections:magic_shortcut"></a>
 
