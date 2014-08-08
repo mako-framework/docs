@@ -20,6 +20,14 @@ First you'll have to decide whether to use GD or ImageMagick. In this example we
 
 > You can reuse the same processor instance as long as you edit your images sequentially.
 
+The ```snapshot``` method allows you to create a snapshot of your image.
+
+	$image->snapshot();
+
+The ```restore``` method allows you to restore an image snaphot.
+
+	$image->restore();
+
 The ```rotate``` method allows you to rotate an image n degrees.
 
 	$image->rotate(90);
