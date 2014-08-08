@@ -84,6 +84,10 @@ The ```watermark``` method allows you to add a watermark to your image.
 
 	$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_RIGHT, 50);
 
+The ```sharpen``` method allows you to sharpen the image.
+
+	$image->sharpen();
+
 The ```pixelate``` method will pixelate the image.
 
 	$image->pixelate();
