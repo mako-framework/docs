@@ -406,6 +406,8 @@ You can configure your model to automatically typecast values usig the ```$cast`
 
 The the valid types are ```boolean``` (or ```bool```), ```integer``` (or ```int```), ```float``` (or ```double```), ```string```, ```array```, ```object``` and ```null```.
 
+> Note that the maximum value for ```integer``` / ```int``` is ```PHP_INT_MAX```.
+
 --------------------------------------------------------
 
 <a id="mutators_and_accessors"></a>
