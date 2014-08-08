@@ -89,7 +89,7 @@ Lets say you have a table called ```articles``` with three columns (id, title an
 
 	class Article extends \mako\database\midgard\ORM
 	{
-		$tableName = 'articles';
+		protected $tableName = 'articles';
 	}
 
 Creating a new record is as simple as this:
