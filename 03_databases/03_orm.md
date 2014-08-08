@@ -17,6 +17,7 @@
 	- [Eager loading](#relations:eager_loading)
 	- [Overriding naming conventions](#relations:overriding_naming_conventions)
 * [DateTime columns](#datetime_columns)
+* [Automatic typecasting](#automatic_typecasting)
 * [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
@@ -383,6 +384,27 @@ You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [D
 	$user = User::get(1);
 
 	$lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
+
+--------------------------------------------------------
+
+<a id="automatic_typecasting"></a>
+
+### Automatic typecasting
+
+You can configure your model to automatically typecast values usig the ```$cast``` property. The array key is the column name and the array value is the type you want to cast the column value to.
+
+	<?php
+
+	namespace app\models;
+
+	class Article extends \mako\database\midgard\ORM
+	{
+	    protected $tableName = 'articles';
+
+	    protected $cast = ['id' => 'int', 'published' => 'bool'];
+	}
+
+The the valid types are ```boolean``` (or ```bool```), ```integer``` (or ```int```), ```float``` (or ```double```), ```string```, ```array```, ```object``` and ```null```.
 
 --------------------------------------------------------
 
