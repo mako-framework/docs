@@ -16,8 +16,9 @@
 	- [Creating related records](#relations:creating_related_records)
 	- [Eager loading](#relations:eager_loading)
 	- [Overriding naming conventions](#relations:overriding_naming_conventions)
-* [DateTime columns](#datetime_columns)
 * [Automatic typecasting](#automatic_typecasting)
+	- [Scalars](#automatic_typecasting_scalars)
+	- [DateTime](#automatic_typecasting_datetime)
 * [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
@@ -371,42 +372,35 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 --------------------------------------------------------
 
-<a id="datetime_columns"></a>
-
-### DateTime columns
-
-The ORM and query builder both allow you to save DateTime objects in the database. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database? This is possible thanks to the ```$dateTimeColumns``` property.
-
-	protected $dateTimeColumns = ['joined_at', 'last_seen'];
-
-You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/getting-started:learn-more:date-and-time) objects.
-
-	$user = User::get(1);
-
-	$lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
-
---------------------------------------------------------
-
 <a id="automatic_typecasting"></a>
 
 ### Automatic typecasting
 
 You can configure your model to automatically typecast values usig the ```$cast``` property. The array key is the column name and the array value is the type you want to cast the column value to.
 
-	<?php
+<a id="automatic_typecasting_scalars"></a>
 
-	namespace app\models;
+#### Scalars
 
-	class Article extends \mako\database\midgard\ORM
-	{
-	    protected $tableName = 'articles';
+	protected $cast = ['id' => 'int', 'published' => 'bool'];
 
-	    protected $cast = ['id' => 'int', 'published' => 'bool'];
-	}
-
-The the valid types are ```boolean``` (or ```bool```), ```integer``` (or ```int```), ```float``` (or ```double```), ```string```, ```array```, ```object``` and ```null```.
+Valid scalar types are ```boolean``` (or ```bool```), ```integer``` (or ```int```), ```float``` (or ```double```) and ```string```.
 
 > Note that the maximum value for ```integer``` / ```int``` is ```PHP_INT_MAX```.
+
+<a id="automatic_typecasting_datetime"></a>
+
+#### DateTime
+
+The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the ```date``` typecast.
+
+	protected $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
+
+You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/getting-started:learn-more:date-and-time) objects.
+
+	$user = User::get(1);
+
+	$lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
 
 --------------------------------------------------------
 
@@ -568,7 +562,7 @@ You can touch the ```updated_at``` timestamp without having to modify any other 
 
 You can also make the ORM touch related records upon saving by listing the relations you want to touch in the ```$touch``` property.
 
-	$touch = ['foo', 'foo.bar']; // Nested relations are also supported
+	protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 
 <a id="traits:optimistic_locking"></a>
 
