@@ -132,7 +132,7 @@ By default the ORM selects all columns from the result set. You can specify the 
 
 	$articles = Article::select(['id', 'title'])->all();
 
-> Specifying a custom set of columns will make the records read-only.
+> Note that the primary key will automatically be included in the array of selected columns.
 
 <a id="basic_usage:joins"></a>
 
@@ -149,6 +149,8 @@ The code above will execute the following SQL:
 It will return duplicates for articles that have more than one comment. This can be solved using a distinct select:
 
 	$articles = Article::distinct()->join('comments', 'article.id', '=', 'comments.article_id')->all();
+
+> Note that joining will make the selected records read-only.
 
 --------------------------------------------------------
 
