@@ -378,7 +378,7 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 ### Automatic typecasting
 
-You can configure your model to automatically typecast values usig the ```$cast``` property. The array key is the column name and the array value is the type you want to cast the column value to.
+You can configure your model to automatically typecast values on the way in and out of your database using the ```$cast``` property. The array key is the column name and the array value is the type you want to cast the column value to.
 
 <a id="automatic_typecasting_scalars"></a>
 
