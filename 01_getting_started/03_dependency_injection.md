@@ -117,11 +117,11 @@ Mako includes a number of services for your convenience and you'll find a comple
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✔        |
+| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
-| LoggerService            | Psr\Log\LoggerInterface            | logger           | Monolog logger              | ✔        |
+| LoggerService            | Psr\Log\LoggerInterface            | logger           | Monolog logger              | ✘        |
 | PaginationFactoryService | mako\pagination\PaginationFactory  | pagination       | Pagination factory          | ✘        |
 | RedisService             | mako\redis\ConnectionManager       | redis            | Redis connection manager    | ✘        |
 | RequestService           | mako\http\Request                  | request          | Request                     | ✔        |

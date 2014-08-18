@@ -17,8 +17,8 @@
 	- [Eager loading](#relations:eager_loading)
 	- [Overriding naming conventions](#relations:overriding_naming_conventions)
 * [Automatic typecasting](#automatic_typecasting)
-	- [Scalars](#automatic_typecasting_scalars)
-	- [DateTime](#automatic_typecasting_datetime)
+	- [Scalars](#automatic_typecasting:scalars)
+	- [DateTime](#automatic_typecasting:datetime)
 * [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
@@ -380,7 +380,7 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 You can configure your model to automatically typecast values on the way in and out of your database. The is done using the ```$cast``` property where the array key is the column name and the array value is the type you want to cast the column value to.
 
-<a id="automatic_typecasting_scalars"></a>
+<a id="automatic_typecasting:scalars"></a>
 
 #### Scalars
 
@@ -390,7 +390,7 @@ Valid scalar types are ```boolean``` (or ```bool```), ```integer``` (or ```int``
 
 > Note that the maximum value for ```integer``` / ```int``` is ```PHP_INT_MAX```.
 
-<a id="automatic_typecasting_datetime"></a>
+<a id="automatic_typecasting:datetime"></a>
 
 #### DateTime
 

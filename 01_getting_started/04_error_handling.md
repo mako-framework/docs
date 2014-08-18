@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 * [Custom error handling](#custom_error_handling)
+* [Disabling logging of specific exception types](#disabling_logging_of_specific_exception_types)
 
 --------------------------------------------------------
 
@@ -38,3 +39,23 @@ A great place to do so is in the ```app/bootstrap.php``` file.
 	});
 
 > You can register multiple error handlers for any type of error. Note that the last one registered is the first one to get executed.
+
+--------------------------------------------------------
+
+<a id="disabling_logging_of_specific_exception_types"></a>
+
+### Disabling logging of specific exception types
+
+Having error logging enabled can be usefull even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the ```disableLoggingFor``` method.
+
+	$errorHandler->disableLoggingFor('\mako\http\routing\PageNotFoundException');
+
+You can also pass an array of exception types.
+
+	$errorHandler->disableLoggingFor
+	([
+		'\mako\http\routing\PageNotFoundException',
+		'\mako\http\routing\MethodNotAllowedException',
+	]);
+
+> Remember to use the fully qualified name of the exception types that you want to ignore.
