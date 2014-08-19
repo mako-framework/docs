@@ -92,19 +92,19 @@ You can define filters that will get executed before and after your route action
 
 	// Return cached version of route response if it's available
 
-	$routes->filter('cache:get', function($request, $response) use ($container)
+	$routes->filter('cache.get', function($request, $response) use ($container)
 	{
-		if($container->get('cache')->has('route:' . $request->path()))
+		if($container->get('cache')->has('route.' . $request->path()))
 		{
-			return $container->get('cache')->get('route:' . $request->path());
+			return $container->get('cache')->get('route.' . $request->path());
 		}
 	});
 
 	// Cache route response for 10 minutes
 
-	$routes->filter('cache:put', function($request, $response, $minutes = 10) use ($container)
+	$routes->filter('cache.put', function($request, $response, $minutes = 10) use ($container)
 	{
-		$container->get('cache')->put('route:' . $request->path(), $response->getBody(), 60 * $minutes);
+		$container->get('cache')->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.
@@ -113,15 +113,15 @@ Assigning filters to a route is done using the ```before``` and ```after``` meth
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->constraints(['id' => '[0-9]+'])
-	->before('cache:read')
-	->after('cache:write');
+	->before('cache.read')
+	->after('cache.write');
 
 You can also pass parameters to your filters. Multiple parameters are separated by a comma. In the example below we're telling the filter to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->constraints(['id' => '[0-9]+'])
-	->before('cache:read')
-	->after('cache:write[60]');
+	->before('cache.read')
+	->after('cache.write[60]');
 
 --------------------------------------------------------
 
@@ -131,7 +131,7 @@ You can also pass parameters to your filters. Multiple parameters are separated 
 
 Route groups are usefull when you have a set of groups with the same constraints and filters.
 
-	$options = ['before' => 'cache:read', 'after' => 'cache:write', 'constraints' => ['id' => '[0-9]+']];
+	$options = ['before' => 'cache.read', 'after' => 'cache.write', 'constraints' => ['id' => '[0-9]+']];
 
 	$routes->group($options, function($routes)
 	{
@@ -168,7 +168,7 @@ The route in the example above has been named ```home``` and we can now create a
 
 You can also pass parameters to your route URLs.
 
-	<a href="{{$urlBuilder->toRoute('articles:view', ['id' => 1])">Article</a>
+	<a href="{{$urlBuilder->toRoute('articles.view', ['id' => 1])">Article</a>
 
 --------------------------------------------------------
 
