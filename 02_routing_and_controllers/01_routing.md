@@ -94,9 +94,9 @@ You can define filters that will get executed before and after your route action
 
 	$routes->filter('cache.get', function($request, $response) use ($container)
 	{
-		if($container->get('cache')->has('route:' . $request->path()))
+		if($container->get('cache')->has('route.' . $request->path()))
 		{
-			return $container->get('cache')->get('route:' . $request->path());
+			return $container->get('cache')->get('route.' . $request->path());
 		}
 	});
 
@@ -104,7 +104,7 @@ You can define filters that will get executed before and after your route action
 
 	$routes->filter('cache.put', function($request, $response, $minutes = 10) use ($container)
 	{
-		$container->get('cache')->put('route:' . $request->path(), $response->getBody(), 60 * $minutes);
+		$container->get('cache')->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.
@@ -168,7 +168,7 @@ The route in the example above has been named ```home``` and we can now create a
 
 You can also pass parameters to your route URLs.
 
-	<a href="{{$urlBuilder->toRoute('articles:view', ['id' => 1])">Article</a>
+	<a href="{{$urlBuilder->toRoute('articles.view', ['id' => 1])">Article</a>
 
 --------------------------------------------------------
 
