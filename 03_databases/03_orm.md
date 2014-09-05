@@ -384,11 +384,11 @@ You can configure your model to automatically typecast values on the way in and 
 
 #### Scalars
 
-	protected $cast = ['id' => 'int', 'published' => 'bool'];
+	protected $cast = ['id' => 'integer', 'published' => 'boolean'];
 
-Valid scalar types are ```boolean``` (or ```bool```), ```integer``` (or ```int```), ```float``` (or ```double```) and ```string```.
+Valid scalar types are ```boolean```, ```integer```, ```float``` and ```string```.
 
-> Note that the maximum value for ```integer``` / ```int``` is ```PHP_INT_MAX```.
+> Note that the maximum value for ```integer``` is ```PHP_INT_MAX```.
 
 <a id="automatic_typecasting:datetime"></a>
 
