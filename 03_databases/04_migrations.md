@@ -40,13 +40,25 @@ You need to add a table called ```mako_migrations``` to your database. The table
 
 Creating a migration is done from the reactor CLI tool:
 
-	php reactor mako::migrate.create        // Creates an application migration
-	php reactor mako::migrate.create foobar // Creates a migration for the "foobar" package
+	// Creates an application migration
+
+	php reactor mako::migrate.create
+
+	// Creates a migration for the "foobar" package
+
+	php reactor mako::migrate.create --package="vendor/package"
+
+	// Creates a migration with a description
+
+	php reactor mako::migrate.create --description="Creates session table"
 
 Running the ```create``` commands will return the following messages:
 
-	Migration created at "/var/www/app/migrations/Migration_20120824100019.php".
-	Migration created at "/var/www/app/packages/foobar/migrations/Migration_20120824100317.php".
+	Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
+
+	Migration created at "/var/www/app/packages/foobar/migrations/Migration_20140824100317.php".
+
+	Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 
 The generated migration will contain a skeleton class with two methods, ```up``` and ```down```. The database connetion manager is available in both methods using the ```$this->database``` property.
 
@@ -89,8 +101,15 @@ If there are outstanding migrations then you can run them like this:
 
 This will show you the names of the migrations that were executed:
 
-	Ran the 20120824100019 migration.
-	Ran the foobar::20120824100317 migration.
+	Ran the following migrations:
+
+	+-------------------------------------------+-----------------------+
+	| Migration                                 | Description           |
+	+-------------------------------------------+-----------------------+
+	| Migration_20140824100019                  |                       |
+	| Migration_20140824100317 (vendor/package) |                       |
+	| Migration_20140824100019                  | Creates session table |
+	+-------------------------------------------+-----------------------+
 
 <a id="usage:rolling_back_migrations"></a>
 
@@ -102,8 +121,15 @@ If you need to revert the changes made to your database then you can use the ```
 
 This will show you the migrations that were rolled back:
 
-	Rolled back the foobar::20120824100317 migration.
-	Rolled back the 20120824100019 migration.
+	Rolled back the following migrations:
+
+	+-------------------------------------------+-----------------------+
+	| Migration                                 | Description           |
+	+-------------------------------------------+-----------------------+
+	| Migration_20140824100019                  | Creates session table |
+	| Migration_20140824100317 (vendor/package) |                       |
+	| Migration_20140824100019                  |                       |
+	+-------------------------------------------+-----------------------+
 
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
 
