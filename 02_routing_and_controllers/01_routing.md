@@ -117,7 +117,7 @@ Filters are registered in the ```app/routing/filters.php``` file. There are thre
 
 > The cache example above is very basic and should probably not be used in a production environment.
 
-You can also create a filter classes instead of closures. The class will be instantiated through the dependency injection container so you can easily inject your dependencies.
+You can also create a filter classes instead of closures. The class will be instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies.
 
 	namespace app\routing\filters;
 
