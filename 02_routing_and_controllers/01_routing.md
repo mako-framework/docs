@@ -5,15 +5,17 @@
 * [Basics](#basics)
 * [Route parameters](#route_parameters)
 * [Route filters](#route_filters)
+	- [Defining filters](#route_filters:defining_filters)
+	- [Assigning filters](#route_filters:assigning_filters)
 * [Route groups](#route_groups)
 * [Reverse routing](#reverse_routing)
 * [Faking request methods](#faking_request_methods)
 
 --------------------------------------------------------
 
-The Mako router allows you to map URLs to controller and closure actions. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your views.
+The Mako router allows you to map URLs to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
+Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
 
 --------------------------------------------------------
 
@@ -86,13 +88,19 @@ You can also impose constraints on your parameters using the ```constraints``` m
 
 ### Route filters
 
+<a id="route_filters:defining_filters"></a>
+
+#### Defining filters
+
 You can define filters that will get executed before and after your route actions.
+
+Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
 
 > The route action and ```after``` filters will **not** be executed if a ```before``` filter returns data.
 
 	// Return cached version of route response if it's available
 
-	$routes->filter('cache.get', function($request, $response) use ($container)
+	$filters->register('cache.get', function($request, $response) use ($container)
 	{
 		if($container->get('cache')->has('route.' . $request->path()))
 		{
@@ -102,12 +110,42 @@ You can define filters that will get executed before and after your route action
 
 	// Cache route response for 10 minutes
 
-	$routes->filter('cache.put', function($request, $response, $minutes = 10) use ($container)
+	$filters->register('cache.put', function($request, $response, $minutes = 10) use ($container)
 	{
 		$container->get('cache')->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.
+
+You can also create a filter classes instead of closures. The class will be instantiated through the dependency injection container so you can easily inject your dependencies.
+
+	namespace app\routing\filters;
+
+	use \mako\http\Request;
+	use \mako\http\Response;
+
+	class MyFilter
+	{
+		public function construct(Request $request, Response $response)
+		{
+			$this->request = $request;
+
+			$this->response = $response;
+		}
+
+		public function filter()
+		{
+			// Do your filtering here
+		}
+	}
+
+Registering a filter class is just as easy as registering a closure.
+
+	$filters->register('my_filter', 'app\routing\filters\MyFilter');
+
+<a id="route_filters:assigning_filters"></a>
+
+#### Assigning filters
 
 Assigning filters to a route is done using the ```before``` and ```after``` methods. You can also pass an array of filters if your route has multiple filters. The filters get executed in the order that they are assigned.
 

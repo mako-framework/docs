@@ -34,7 +34,11 @@ You create a view object by passing the name of the view file to the ```create``
 
 	$view = $this->view->create('foo.bar', ['foo' => 'bar']);
 
-You can also assign variables to a view by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to.
+	// Renders the view. You can also assign variables using the optional second parameter
+
+	$rendered = $this->view->render('foo.bar');
+
+You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to.
 
 	$view->assign('foo', 'bar');
 
@@ -170,9 +174,13 @@ Registering a custom renderer is done using the ```registerRenderer``` method. T
 
 You can also use a closure when registering a custom renderer.
 
-	$this->view->registerRenderer('.twig', function($view, $parameters)
+	$this->view->registerRenderer('.twig', function()
 	{
-		// Return an implementation of mako\view\renderers\RendererInterface
+		$renderer = new foo\bar\TwigRenderer;
+
+		$renderer->setCachePath('/tmp');
+
+		return $renderer;
 	});
 
 > All custom renderers must implement the ```mako\view\renderers\RendererInterface``` interface.
