@@ -65,15 +65,7 @@ Removing the custom configuration is done using the ```remove``` method:
 
 Sometimes you might want to edit the configuration files of a third party package. You can edit the package config file directly but the changes you make will be overwritten when you update the package. This is where cascading config files come become handy.
 
-Lets say you have a packaged named ```foobar``` with a config file.
-
-	/app
-	  /packages
-	    /foobar
-	      /config
-	        config.php
-
-Just copy the file into ```app/config/packages/foobar``` and the application will load that file instead of the one located in the package. This makes it possible to update the package while keeping your custom settings.
+Lets say you have a packaged named ```foobar``` with a config file. Just copy the file into ```app/config/packages/foobar``` and the application will load that file instead of the one located in the package. This makes it possible to update the package while keeping your custom settings.
 
 --------------------------------------------------------
 
