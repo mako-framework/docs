@@ -122,7 +122,7 @@ The ```whitelisted``` methods returns all request data where keys not in the whi
 
 	$whitelisted = $this->request->whitelisted(['foo', 'bar']);
 
-	// You can also specify default values that will be used if they keys don't exist
+	// You can also specify default values that will be used if the keys don't exist
 
 	$whitelisted = $this->request->whitelisted(['foo', 'bar'], ['foo' => 'baz', 'bar' => 'bax']);
 
@@ -130,11 +130,11 @@ The ```blacklisted``` methods returns all request data where keys in the blackli
 
 	// Returns input data where the 'foo' and 'bar' keys have been removed
 
-	$whitelisted = $this->request->whitelisted(['foo', 'bar']);
+	$blacklisted = $this->request->blacklisted(['foo', 'bar']);
 
-	// You can also specify default values that will be used if they keys don't exist
+	// You can also specify default values that will be used if the keys don't exist
 
-	$whitelisted = $this->request->whitelisted(['foo', 'bar'], ['baz' => 'foo', 'bax' => 'bar']);
+	$blacklisted = $this->request->blacklisted(['foo', 'bar'], ['baz' => 'foo', 'bax' => 'bar']);
 
 The ```file``` method allows you to access file upload data ($_FILES).
 
