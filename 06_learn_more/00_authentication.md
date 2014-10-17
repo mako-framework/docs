@@ -257,6 +257,17 @@ Users table
 		UNIQUE KEY `email` (`email`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+Groups table
+
+	CREATE TABLE `groups` (
+		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		`created_at` datetime NOT NULL,
+		`updated_at` datetime NOT NULL,
+		`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `name` (`name`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 Junction table
 
 	CREATE TABLE `groups_users` (
@@ -273,15 +284,4 @@ Junction table
 			FOREIGN KEY (`user_id`) 
 			REFERENCES `users` (`id`) 
 			ON DELETE CASCADE ON UPDATE NO ACTION
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-Groups table
-
-	CREATE TABLE `groups` (
-		`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-		`created_at` datetime NOT NULL,
-		`updated_at` datetime NOT NULL,
-		`name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		PRIMARY KEY (`id`),
-		UNIQUE KEY `name` (`name`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

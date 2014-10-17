@@ -240,3 +240,9 @@ The IoC container will now be avaiable through the ```$container``` property.
 The trait also implements the magic ```__get()``` method allowing you to resolve classes through the IoC container using overloading.
 
 	$this->view;
+
+> Note that resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if your dependency is registered in the container using the ```Container::register()```method. 
+
+> &nbsp;
+
+> You should use the ```$this->container->get('...')``` method instead of overloading if you need a fresh instance.
