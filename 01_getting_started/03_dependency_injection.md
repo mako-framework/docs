@@ -245,4 +245,4 @@ The trait also implements the magic ```__get()``` method allowing you to resolve
 
 > &nbsp;
 
-> You should use the ```$this->container->get('...')``` method instead of overloading if you need a fresh instance.
+> Use the ```$this->container->get('...')``` method instead of overloading if you need a fresh instance from the container.
