@@ -154,14 +154,14 @@ Assigning filters to a route is done using the ```before``` and ```after``` meth
 	->before('cache.read')
 	->after('cache.write');
 
-You can also pass parameters to your filters. Multiple parameters are separated by a comma. In the example below we're telling the filter to cache the response for 60 minutes instead of the default 10.
+You can also pass parameters to your filters. In the example below we're telling the filter to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->constraints(['id' => '[0-9]+'])
 	->before('cache.read')
 	->after('cache.write:{"minutes":60}');
 
-> Anything after the first colon symbol (```:```) will be parsed as JSON.
+> Anything after the first colon symbol (```:```) will be parsed as JSON. In the example above we're telling the dispatcher that the value ```60``` should be passed to the ```$minutes``` parameter of the filter.
 
 --------------------------------------------------------
 
@@ -184,13 +184,13 @@ All routes within the group will now have the same filters and constraints. You 
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 
-| Option      | Description                                                                              |
-|-------------|------------------------------------------------------------------------------------------|
-| before      | A before filter or an array of before filters                                            |
-| after       | An after filter or an array of aflter filters                                            |
-| constraints | An array of parameter constraints                                                        |
-| prefix      | Route prefix                                                                             |
-| headers     | An array of response headers (the key is the header field and value is the header value) |
+| Option      | Method       | Description                                                                              |
+|-------------|--------------|------------------------------------------------------------------------------------------|
+| before      | before       | A before filter or an array of before filters                                            |
+| after       | after        | An after filter or an array of aflter filters                                            |
+| constraints | constraints  | An array of parameter constraints                                                        |
+| prefix      | prefix       | Route prefix                                                                             |
+| namespace   | setNamespace | The controller namespace. Closures will not be affected                                  |
 
 --------------------------------------------------------
 
