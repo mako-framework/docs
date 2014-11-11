@@ -45,7 +45,7 @@ If you only want to allow a specific set of methods then you can use the ```meth
 
 Routes can also execute closures instead of class methods. The two first parameters passed to the closures are the ```request``` and ```response``` objects. Any subsequent parameters will be route parameters.
 
-	$routes->get('/hello-world', function($request, $response)
+	$routes->get('/hello-world', function()
 	{
 		return 'Hello, world!';
 	});
@@ -100,19 +100,19 @@ Filters are registered in the ```app/routing/filters.php``` file. There are thre
 
 	// Return cached version of route response if it's available
 
-	$filters->register('cache.get', function($request, $response) use ($container)
+	$filters->register('cache.get', function(Request $request, CacheManager $cache) use ($container)
 	{
-		if($container->get('cache')->has('route.' . $request->path()))
+		if($cache->has('route.' . $request->path()))
 		{
-			return $container->get('cache')->get('route.' . $request->path());
+			return $cache->get('route.' . $request->path());
 		}
 	});
 
 	// Cache route response for 10 minutes
 
-	$filters->register('cache.put', function($request, $response, $minutes = 10) use ($container)
+	$filters->register('cache.put', function(Request $request, Response $response, CacheManager $cache, $minutes = 10)
 	{
-		$container->get('cache')->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
+		$cache->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
 	});
 
 > The cache example above is very basic and should probably not be used in a production environment.
@@ -159,7 +159,9 @@ You can also pass parameters to your filters. Multiple parameters are separated 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->constraints(['id' => '[0-9]+'])
 	->before('cache.read')
-	->after('cache.write[60]');
+	->after('cache.write:{"minutes":60}');
+
+> Anything after the first colon symbol (```:```) will be parsed as JSON.
 
 --------------------------------------------------------
 
