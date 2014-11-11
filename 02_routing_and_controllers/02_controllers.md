@@ -16,7 +16,7 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 ### Basics
 
-All controllers must extend the ```mako\http\routing\Controller``` base controller. Every controller has two protected properties by default, a ```request``` instance and a ```response``` instance.
+All controllers must extend the ```mako\http\routing\Controller``` base controller.
 
 	namespace app\controllers;
 

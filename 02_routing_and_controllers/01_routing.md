@@ -15,7 +15,7 @@
 
 The Mako router allows you to map URLs to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
+Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
 --------------------------------------------------------
 
@@ -50,10 +50,12 @@ Routes can also execute closures instead of class methods. The two first paramet
 		return 'Hello, world!';
 	});
 
-You can access the container instance in your closures like this.
+Closure actions get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
-	$routes->get('/hello-world', function($request, $response) use ($container)
+	$routes->get('/hello-world', function(Response $response)
 	{
+		$response->header('x-my-header', 'value');
+
 		return 'Hello, world!';
 	});
 
@@ -65,14 +67,14 @@ You can access the container instance in your closures like this.
 
 You'll often want to send parameters to your route actions. This is easy and can be done like this.
 
-	$routes->get('/articles/{id}', function($request, $response, $id)
+	$routes->get('/articles/{id}', function($id)
 	{
 		return $id;
 	});
 
 If you need to make a parameter optional then you can do so by adding the ```?``` suffix.
 
-	$routes->get('/articles/{id}/{slug}?', function($request, $response, $id, $slug = null)
+	$routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 	{
 		return $id . ' ' . $slug;
 	});
@@ -94,13 +96,15 @@ You can also impose constraints on your parameters using the ```constraints``` m
 
 You can define filters that will get executed before and after your route actions.
 
-Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
+Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+
+Closure filters get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 > The route action and ```after``` filters will **not** be executed if a ```before``` filter returns data.
 
 	// Return cached version of route response if it's available
 
-	$filters->register('cache.get', function(Request $request, CacheManager $cache) use ($container)
+	$filters->register('cache.get', function(Request $request, CacheManager $cache)
 	{
 		if($cache->has('route.' . $request->path()))
 		{
@@ -171,13 +175,19 @@ You can also pass parameters to your filters. In the example below we're telling
 
 Route groups are usefull when you have a set of groups with the same constraints and filters.
 
-	$options = ['before' => 'cache.read', 'after' => 'cache.write', 'constraints' => ['id' => '[0-9]+']];
+	$options = 
+	[
+		'before'      => 'cache.read', 
+		'after'       => 'cache.write', 
+		'constraints' => ['id' => '[0-9]+'],
+		'namespace'   => 'app\controllers';
+	];
 
 	$routes->group($options, function($routes)
 	{
-		$routes->get('/articles/{id}', 'app\controllers\Articles::view');
+		$routes->get('/articles/{id}', 'Articles::view');
 
-		$routes->get('/photos/{id}', 'app\controllers\Photos::view');
+		$routes->get('/photos/{id}', 'Photos::view');
 	});
 
 All routes within the group will now have the same filters and constraints. You can also nest groups if needed. 
@@ -200,7 +210,7 @@ The following options are available when creating a route group. They are also a
 
 You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your views.
 
-	$routes->get('/', 'app\controllers\Home::Welcome', 'home');
+	$routes->get('/', 'Home::Welcome', 'home');
 
 The route in the example above has been named ```home``` and we can now create a URL to the route using the ```toRoute``` method of the ```URLBuilder``` class.
 
