@@ -15,7 +15,7 @@
 
 The Mako router allows you to map URLs to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
+Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
 --------------------------------------------------------
 
@@ -50,6 +50,15 @@ Routes can also execute closures instead of class methods.
 		return 'Hello, world!';
 	});
 
+Closure actions get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
+
+	$routes->get('/hello-world', function(Response $response)
+	{
+		$response->header('x-my-header', 'value');
+
+		return 'Hello, world!';
+	});
+	
 --------------------------------------------------------
 
 <a id="route_parameters"></a>
@@ -98,7 +107,9 @@ The route actions (both class methods and closures) are executed using the ```Co
 
 You can define filters that will get executed before and after your route actions.
 
-Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
+Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+
+Closure filters get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 The route filters (both class filters and closures) are executed using the ```Container::call()``` method. This means that you typehint dependencies just like you can with route actions.
 
@@ -106,7 +117,7 @@ The route filters (both class filters and closures) are executed using the ```Co
 
 This filter will return cached version of route response if it's available.
 
-	$filters->register('cache.get', function(Request $request, CacheManager $cache) use ($container)
+	$filters->register('cache.get', function(Request $request, CacheManager $cache)
 	{
 		if($cache->has('route.' . $request->path()))
 		{
@@ -179,6 +190,7 @@ Route groups are usefull when you have a set of groups with the same constraints
 
 	$options = 
 	[
+
 		'before'    => 'cache.read', 
 		'after'     => 'cache.write', 
 		'when'      => ['id' => '[0-9]+'],
