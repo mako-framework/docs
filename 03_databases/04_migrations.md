@@ -62,29 +62,29 @@ Running the ```create``` commands will return the following messages:
 
 The generated migration will contain a skeleton class with two methods, ```up``` and ```down```. The database connetion manager is available in both methods using the ```$this->database``` property.
 
-	class Migration_20120824100019 extends \mako\reactor\tasks\migrate\Migration
+	class Migration_20120824100019 extends Migration
 	{
-	        /**
-	        * Makes changes to the database structure.
-	        *
-	        * @access  public
-	        */
+		/**
+		 * Makes changes to the database structure.
+		 *
+		 * @access  public
+		 */
 
-	        public function up()
-	        {
+		public function up()
+		{
 
-	        }
+		}
 
-	        /**
-	        * Reverts the database changes.
-	        *
-	        * @access  public
-	        */
+		/**
+		 * Reverts the database changes.
+		 *
+		 * @access  public
+		 */
 
-	        public function down()
-	        {
+		public function down()
+		{
 
-	        }
+		}
 	}
 
 <a id="usage:running_migrations"></a>
@@ -149,4 +149,28 @@ This will prompt you for confirmation. To force the reset just use the ```force`
 
 ### Dependency injection
 
-See the [dependency injection documentation](:base_url:/docs/:version:/getting-started:dependency-injection#controllers_and_tasks) for details.
+Migrations are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	class Migration_20120824100019 extends Migration
+	{
+		protected $config;
+
+		public function __construct(ConnectionManager $connectionManager, Config $config)
+		{
+			parent::__construct($connectionManager);
+
+			$this->config = $config;
+		}
+	}
+
+> Note that migrations expect the first constructor parameter to be an instance of the ```ConnectionManager``` class.
+
+
+You can also inject dependencies directly into the up and down methods since they are executed by the ```Container::call()``` method.
+
+	public function down(LoggerInterface $log)
+	{
+		$log->info('Executed the down method of the ' . static::class . ' migration');
+	}
+
+Migrations are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).

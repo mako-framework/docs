@@ -43,16 +43,9 @@ If you only want to allow a specific set of methods then you can use the ```meth
 
 	$routes->methods(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
 
-Routes can also execute closures instead of class methods. The two first parameters passed to the closures are the ```request``` and ```response``` objects. Any subsequent parameters will be route parameters.
+Routes can also execute closures instead of class methods.
 
 	$routes->get('/hello-world', function()
-	{
-		return 'Hello, world!';
-	});
-
-You can access the container instance in your closures like this.
-
-	$routes->get('/hello-world', function($request, $response) use ($container)
 	{
 		return 'Hello, world!';
 	});
@@ -65,22 +58,33 @@ You can access the container instance in your closures like this.
 
 You'll often want to send parameters to your route actions. This is easy and can be done like this.
 
-	$routes->get('/articles/{id}', function($request, $response, $id)
+	$routes->get('/articles/{id}', function($id)
 	{
 		return $id;
 	});
 
 If you need to make a parameter optional then you can do so by adding the ```?``` suffix.
 
-	$routes->get('/articles/{id}/{slug}?', function($request, $response, $id, $slug = null)
+	$routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 	{
 		return $id . ' ' . $slug;
 	});
 
-You can also impose constraints on your parameters using the ```constraints``` method. The route will not be matched unless all constraints are satisfied.
+You can also impose constraints on your parameters using the ```when``` method. The route will not be matched unless all constraints are satisfied.
 
-	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
-	->constraints(['id' => '[0-9]+']);
+	$routes->get('/articles/{id}', function($id)
+	{
+		return 'article ' . $id;
+	})
+	->when(['id' => '[0-9]+']);
+
+The route actions (both class methods and closures) are executed using the ```Container::call()``` method. This means that you can also typehint dependencies.
+
+	$routes->get('/article/{id}', function(ViewFactory $view, $id)
+	{
+		return $view->render('article', ['id' => $id]);
+	})
+	->when(['id' => '[0-9]+']);
 
 --------------------------------------------------------
 
@@ -96,9 +100,11 @@ You can define filters that will get executed before and after your route action
 
 Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instnace).
 
-> The route action and ```after``` filters will **not** be executed if a ```before``` filter returns data.
+The route filters (both class filters and closures) are executed using the ```Container::call()``` method. This means that you typehint dependencies just like you can with route actions.
 
-	// Return cached version of route response if it's available
+> Note that a route action and its after filters will **not** be executed if a before filter returns data.
+
+This filter will return cached version of route response if it's available.
 
 	$filters->register('cache.get', function(Request $request, CacheManager $cache) use ($container)
 	{
@@ -108,7 +114,7 @@ Filters are registered in the ```app/routing/filters.php``` file. There are thre
 		}
 	});
 
-	// Cache route response for 10 minutes
+This filter will cache route responses for 10 minutes:
 
 	$filters->register('cache.put', function(Request $request, Response $response, CacheManager $cache, $minutes = 10)
 	{
@@ -117,7 +123,7 @@ Filters are registered in the ```app/routing/filters.php``` file. There are thre
 
 > The cache example above is very basic and should probably not be used in a production environment.
 
-You can also create a filter classes instead of closures. The class will be instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies.
+You can also create a filter classes instead of closures. The class will be instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
 	namespace app\routing\filters;
 
@@ -150,14 +156,14 @@ Registering a filter class is just as easy as registering a closure.
 Assigning filters to a route is done using the ```before``` and ```after``` methods. You can also pass an array of filters if your route has multiple filters. The filters get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
-	->constraints(['id' => '[0-9]+'])
+	->when(['id' => '[0-9]+'])
 	->before('cache.read')
 	->after('cache.write');
 
 You can also pass parameters to your filters. In the example below we're telling the filter to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
-	->constraints(['id' => '[0-9]+'])
+	->when(['id' => '[0-9]+'])
 	->before('cache.read')
 	->after('cache.write:{"minutes":60}');
 
@@ -171,13 +177,19 @@ You can also pass parameters to your filters. In the example below we're telling
 
 Route groups are usefull when you have a set of groups with the same constraints and filters.
 
-	$options = ['before' => 'cache.read', 'after' => 'cache.write', 'constraints' => ['id' => '[0-9]+']];
+	$options = 
+	[
+		'before'    => 'cache.read', 
+		'after'     => 'cache.write', 
+		'when'      => ['id' => '[0-9]+'],
+		'namespace' => 'app\controllers',
+	];
 
 	$routes->group($options, function($routes)
 	{
-		$routes->get('/articles/{id}', 'app\controllers\Articles::view');
+		$routes->get('/articles/{id}', 'Articles::view');
 
-		$routes->get('/photos/{id}', 'app\controllers\Photos::view');
+		$routes->get('/photos/{id}', 'Photos::view');
 	});
 
 All routes within the group will now have the same filters and constraints. You can also nest groups if needed. 
@@ -188,9 +200,9 @@ The following options are available when creating a route group. They are also a
 |-------------|--------------|------------------------------------------------------------------------------------------|
 | before      | before       | A before filter or an array of before filters                                            |
 | after       | after        | An after filter or an array of aflter filters                                            |
-| constraints | constraints  | An array of parameter constraints                                                        |
+| when        | when         | An array of parameter constraints                                                        |
 | prefix      | prefix       | Route prefix                                                                             |
-| namespace   | setNamespace | The controller namespace. Closures will not be affected                                  |
+| namespace   | setNamespace | The controller namespace (closures will not be affected)                                 |
 
 --------------------------------------------------------
 
@@ -200,7 +212,7 @@ The following options are available when creating a route group. They are also a
 
 You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your views.
 
-	$routes->get('/', 'app\controllers\Home::Welcome', 'home');
+	$routes->get('/', 'Home::Welcome', 'home');
 
 The route in the example above has been named ```home``` and we can now create a URL to the route using the ```toRoute``` method of the ```URLBuilder``` class.
 

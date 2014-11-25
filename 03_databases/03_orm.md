@@ -88,7 +88,9 @@ Lets say you have a table called ```articles``` with three columns (id, title an
 
 	namespace app\models;
 
-	class Article extends \mako\database\midgard\ORM
+	use \mako\database\midgard\ORM;
+
+	class Article extends ORM
 	{
 		protected $tableName = 'articles';
 	}
@@ -109,6 +111,10 @@ You can then fetch the article by its primary key value like this:
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can also use other criteria to find your record:
 
 	$article = Article::where('title', '=', 'Super awesome stuff')->first();
+
+Note that you can also forward calls to the query builder on a model instance:
+
+	$article = (new Article)->where('title', '=', 'Super awesome stuff')->first();
 
 Modifying an existing record is done like this:
 
@@ -170,7 +176,9 @@ Lets create a user model and a profile model and set up a ```has one``` relation
 
 	namespace app\models;
 
-	class User extends \mako\database\midgard\ORM
+	use \mako\database\midgard\ORM;
+
+	class User extends ORM
 	{
 		protected $tableName = 'users';
 
@@ -186,7 +194,9 @@ Lets not bother creating a relation in the profile model jus yet.
 
 	namespace app\models;
 
-	class Profile extends \mako\database\midgard\ORM
+	use \mako\database\midgard\ORM;
+
+	class Profile extends ORM
 	{
 		protected $tableName = 'profiles';
 	}
@@ -551,9 +561,12 @@ You'll often want to track when a record has been created and when it was update
 
 The trait requires you to add two DATETIME columns to your database table, ```created_at``` and ```updated_at```. You can override the column names using the ```$createdAtColumn``` and ```$updatedAtColumn``` properties.
 
-	class Article extends \mako\database\midgard\ORM
+	use \mako\database\midgard\ORM;
+	use \mako\database\midgard\traits\TimestampedTrait;
+
+	class Article extends ORM
 	{
-		use \mako\database\midgard\traits\TimestampedTrait;
+		use TimestampedTrait;
 	}
 
 You can touch the ```updated_at``` timestamp without having to modify any other data by using the ```touch``` method.
@@ -574,9 +587,12 @@ When two users are attempting to update the same record simultaneously, one of t
 
 To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
 
-	class Article extends \mako\database\midgard\ORM
+	use \mako\database\midgard\ORM;
+	use \mako\database\midgard\traits\OptimisticLockingTrait;
+
+	class Article extends ORM
 	{
-		use \mako\database\midgard\traits\OptimisticLockingTrait;
+		use OptimisticLockingTrait;
 	}
 
 The second save in the example below will throw a ```StaleRecordException``` since the record is now outdated compared to the one stored in the database.

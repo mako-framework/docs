@@ -47,7 +47,7 @@ The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING`
 
 	$successful = $this->gatekeeper->login($email, $password, true);
 
-The ```forceLogin``` allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not. 
+The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not. 
 
 The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING``` and ```Gatekeeper::LOGIN_BANNED```.
 
@@ -88,11 +88,11 @@ The ```logout()``` method will log out the user and delete the "remember me" coo
 
 	$this->gatekeeper->logout();
 
-The ```getUserProvider``` returns the gatekeeper [user provider](#providers_user).
+The ```getUserProvider``` method returns the gatekeeper [user provider](#providers_user).
 
 	$userProvider = $this->gatekeeper->getUserProvider();
 
-The ```getGroupProvider``` returns the gatekeeper [group provider](#providers_user).
+The ```getGroupProvider``` method returns the gatekeeper [group provider](#providers_user).
 
 	$groupProvider = $this->gatekeeper->getGroupProvider();
 
@@ -208,11 +208,11 @@ The user object also includes the following getters and setters: ```getId```, ``
 
 #### Groups
 
-The ```addUser``` adds a user to the group.
+The ```addUser``` method adds a user to the group.
 
 	$group->addUser($user);
 
-The ```removeUser``` removes a user from the group.
+The ```removeUser``` method removes a user from the group.
 
 	$group->removeUser($user);
 

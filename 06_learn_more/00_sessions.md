@@ -9,10 +9,11 @@
 
 --------------------------------------------------------
 
-The Mako session library comes with three different session stores by default.
+The Mako session library comes with four different session stores by default.
 
 * Database
 * File
+* Null
 * Redis
 
 --------------------------------------------------------

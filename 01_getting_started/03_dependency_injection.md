@@ -4,23 +4,19 @@
 
 * [Basics](#basics)
 * [Services](#services)
-* [Controllers, tasks and migrations](#controllers_tasks_and_migrations)
-	- [Controllers](#controllers_tasks_and_migrations:controllers)
-	- [Tasks](#controllers_tasks_and_migrations:tasks)
-	- [Migrations](#controllers_tasks_and_migrations:migrations)
-	- [Container aware controllers, tasks and migrations](#controllers_tasks_and_migrations:container_aware)
+* [Container aware](#container_aware)
 
 --------------------------------------------------------
 
 Mako 4 comes with an easy to use inversion of controler container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
+
+> All controllers, migrations and tasks are instantiated using the IoC container making it easy to inject dependencies.
 
 --------------------------------------------------------
 
 <a id="basics"></a>
 
 ### Basics
-
-The IoC container is by default avaiable in the ```app/bootstrap.php``` and ```app/routes.php``` files.
 
 The ```register``` method allows you to register a dependency in the container.
 
@@ -98,6 +94,13 @@ The ```getFresh``` method works just like the ```get``` method except that it re
 
 > The ```getFresh``` method might not work as expected for classes registered using the ```registerInstance``` method.
 
+The ```call``` method allows you to execute a callable and automatically inject its dependencies.
+
+	$returnValue = $container->call(function(\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
+	{
+		// $foo and $bar will automatically be injected into the callable
+	});
+
 --------------------------------------------------------
 
 <a id="services"></a>
@@ -137,112 +140,23 @@ Mako includes a number of services for your convenience and you'll find a comple
 
 --------------------------------------------------------
 
-<a id="controllers_and_tasks"></a>
+<a id="container_aware"></a>
 
-### Controllers and tasks
 
-All [Controller](:base_url:/docs/:version:/routing-and-controllers:controllers), [task](:base_url:/docs/:version:/command-line:custom-tasks) and [migration](:base_url:/docs/:version:/databases:migrations) instances are resolved through the inversion of control container to make it easy to inject dependencies.
+### Container aware
 
-<a id="controllers_and_tasks:controllers"></a>
+You can also make a class that is instantiated by the container "container aware" by using the ```ContainerAwareTrait```. This means that you can use the IoC container as a service locator if you prefer that.
 
-#### Controllers
+> Note that controllers, migrations and taks are container aware by default.
 
-The ```Request``` and ```Response``` classes are injected into controllers by default.
-
-	namespace app\controllers;
-
-	use \mako\http\Request;
-	use \mako\http\Response;
-	use \mako\view\ViewFactory;
-
-	class Home extends \mako\http\routing\Controller
-	{
-		protected $view;
-
-		public function __construct(Request $request, Response $response, ViewFactory $viewFactory)
-		{
-			parent::__construct($request, $response);
-
-			$this->view = $viewFactory;
-		}
-	}
-
-> Make sure that the first two constructor parameters are for the ```Request``` and ```Response``` instances.
-
-<a id="controllers_and_tasks:tasks"></a>
-
-#### Tasks
-
-The ```Input``` and ```Output``` classes are injected into tasks by default.
-
-	namespace app\tasks;
-
-	use \mako\database\ConnectionManager;
-	use \mako\reactor\io\Input;
-	use \mako\reactor\io\Output;
-
-	class MyTask entends \mako\reactor\Task
-	{
-		protected $database;
-
-		public function __construct(Input $input, Output $output, ConnectionManager $connectionManager)
-		{
-			parent::__construct($input, $output);
-
-			$this->database = $connectionManager;
-		}
-	}
-
-> Make sure that the first two constructor parameters are for the ```Input``` and ```Output``` instances.
-
-<a id="controllers_and_tasks:migrations"></a>
-
-#### Migrations
-
-The ```ConnectionManager``` class is injected into migrations by default.
-
-	namespace app\migrations;
-
-	use \mako\config\Config;
-	use \mako\database\ConnectionManager;
-
-	class Migration_20120824100019 extends \mako\reactor\tasks\migrate\Migration
-	{
-		protected $config;
-
-		public function __construct(ConnectionManager $connectionManager, Config $config)
-		{
-			parent::__construct($output);
-
-			$this->config = $config;
-		}
-	}
-
-> Make sure that the first parameter is for the ```ConnectionManager``` instance.
-
-<a id="controllers_and_tasks:container_aware"></a>
-
-#### Container aware controllers and tasks
-
-You can also use the ```ContainerAwareTrait``` if you prefer to use the IoC container as a service locator.
-
-	namespace app\controllers;
-
-	class Home extends \mako\http\routing\Controller
-	{
-		use \mako\syringe\ContainerAwareTrait;
-	}
-
-The IoC container will now be avaiable through the ```$container``` property.
+The IoC container is always avaiable through the ```$container``` property.
 
 	$this->container->get('view');
 
-The trait also implements the magic ```__get()``` method allowing you to resolve classes through the IoC container using overloading.
+The ```ContainerAwareTrait``` also implements the magic ```__get()``` method. This allows you to resolve classes through the IoC container using overloading.
 
-	$this->view;
+	$this->view; // Instance of mako\view\ViewFactory
 
-> Note that resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if your dependency is registered in the container using the ```Container::register()```method. 
+Resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if you don't expect a to reuse the same instance of your dependency.
 
-> &nbsp;
-
-> Use the ```$this->container->get('...')``` method instead of overloading if you need a fresh instance from the container.
+Use the ```$this->container->get('...')``` method instead of overloading if you need a "fresh" instance from the container.

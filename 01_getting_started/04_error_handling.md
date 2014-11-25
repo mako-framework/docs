@@ -48,14 +48,14 @@ A great place to do so is in the ```app/bootstrap.php``` file.
 
 Having error logging enabled can be usefull even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the ```disableLoggingFor``` method.
 
-	$errorHandler->disableLoggingFor('\mako\http\routing\PageNotFoundException');
+	$errorHandler->disableLoggingFor('\mako\http\exceptions\NotFoundException');
 
 You can also pass an array of exception types.
 
 	$errorHandler->disableLoggingFor
 	([
-		'\mako\http\routing\PageNotFoundException',
-		'\mako\http\routing\MethodNotAllowedException',
+		'\mako\http\exceptions\NotFoundException',
+		'\mako\http\exceptions\MethodNotAllowedException',
 	]);
 
 > Remember to use the fully qualified name of the exception types that you want to ignore.

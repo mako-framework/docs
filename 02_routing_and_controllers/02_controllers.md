@@ -16,11 +16,13 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 ### Basics
 
-All controllers must extend the ```mako\http\routing\Controller``` base controller. Every controller has two protected properties by default, a ```request``` instance and a ```response``` instance.
+All controllers must extend the ```mako\http\routing\Controller``` base controller.
 
 	namespace app\controllers;
 
-	class Home extends \mako\http\routing\Controller
+	use \mako\http\routing\Controller;
+
+	class Home extends Controller
 	{
 		public function welcome()
 		{
@@ -30,18 +32,14 @@ All controllers must extend the ```mako\http\routing\Controller``` base controll
 
 Passing parameters to your controller actions is easy. Just define a route with the parameters you need and add the corresponding parameters to your method.
 
-	// In your routes.php file
+	$routes->get('/articles/{id}', 'Article::view');
 
-	$routes->get('/articles/{id}', 'app\controllers\Article::view');
-
-	// In your Articles controller class
+> Note that it is important that that the method parameter has the same name as the route parameter.
 
 	public function view($id)
 	{
 		return $id;
 	}
-
-> If any of your parameters are optional then you'll have to give them a default value when you define the method.
 
 --------------------------------------------------------
 
@@ -61,10 +59,36 @@ The controller action and ```afterFilter``` methods will be skipped if the ```be
 		}
 	}
 
+> Note that a controller action and its after filter will **not** be executed if the before filter returns data.
+
 --------------------------------------------------------
 
 <a id="dependency_injection"></a>
 
 ### Dependency injection
 
-See the [dependency injection documentation](:base_url:/docs/:version:/getting-started:dependency-injection#controllers_and_tasks) for details.
+Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	namespace app\controllers;
+
+	use \mako\http\routing\Controller;
+	use \mako\view\ViewFactory;
+
+	class Articles extends Controller
+	{
+		protected $view;
+
+		public function __construct(ViewFactory $view)
+		{
+			$this->view = $view;
+		}
+	}
+
+You can also inject your dependencies directly into a method since controller actions are executed by the ```Container::call()``` method.
+
+	public function view(ViewFactory $view, $id)
+	{
+		return $view->render('article', ['id' => $id]);
+	}
+
+Controllers are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).

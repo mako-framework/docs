@@ -99,11 +99,11 @@ You can check whether or not you're already in a transaction using the ```Connec
 
 #### Connection status
 
-You can check if a connection is still alive using the ```Connection::isAlive``` method. It will return TRUE if it is and FALSE if not.
+You can check if a connection is still alive using the ```Connection::isAlive()``` method. It will return TRUE if it is and FALSE if not.
 
 	$isConnectionAlive = $connection->isAlive();
 
-You can attempt to reconnect using the ```Connection::reconnect``` method.
+You can attempt to reconnect using the ```Connection::reconnect()``` method.
 
 	$connection->reconnect();
 
@@ -123,9 +123,13 @@ You can access the default database connection directly without having to go thr
 
 ### Query builder
 
-The ```Connection::builder``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
+The ```Connection::builder()``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
 
 	$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
+
+You can also use the ```Connection::table()``` convenience method if you want to skip the call to the ```Connection::builder()``` method.
+
+	$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
 
 --------------------------------------------------------
 

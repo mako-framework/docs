@@ -47,6 +47,10 @@ You can create a query builder instance using the ```Connection::builder()``` me
 
 	$query = $connection->builder();
 
+You can also skip the call to the ```Connection::builder()``` method using the ```Connection::table()``` method.
+
+	$query = $conncetion->table('foobar');
+
 --------------------------------------------------------
 
 <a id="fetching_data"></a>
