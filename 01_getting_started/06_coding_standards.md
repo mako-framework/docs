@@ -46,13 +46,15 @@ Always use long open tags. Never use short tags or ASP style tags. Class files s
 
 Files should always have the same name as the class they contain. A file should never contain more than one class. The file encoding should always be UTF-8.
 
-	// File: /mako/utility/Time.php
+	// File: /mako/chrono/Time.php
 
 	<?php
 
-	namespace mako\utility;
+	namespace mako\chrono;
+
+	use \DateTime;
 	
-	class Time extends \DateTime
+	class Time extends DateTime
 	{
 			
 	}

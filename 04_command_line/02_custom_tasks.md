@@ -23,7 +23,9 @@ All tasks must extend the ```mako\reactor\Task``` base task. The ```$taskInfo```
 
 	namespace app\tasks;
 
-	class Hello extends \mako\reactor\Task
+	use \mako\reactor\Task;
+
+	class Hello extends Task
 	{
 		protected static $taskInfo = array
 		(
@@ -43,7 +45,9 @@ Passing arguments to a task action is easy as you can se in the example below.
 
 	namespace app\tasks;
 
-	class Color extends \mako\reactor\Task
+	use \mako\reactor\Task;
+
+	class Color extends Task
 	{
 		protected static $taskInfo = array
 		(
@@ -183,4 +187,20 @@ You can also access the STDERR stream using the ```stderr``` method. It has all 
 
 ### Dependency injection
 
-See the [dependency injection documentation](:base_url:/docs/:version:/getting-started:dependency-injection#controllers_and_tasks) for details.
+Tasks are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	class MyTask extends Task
+	{
+		protected $config;
+
+		public function __construct(Input $input, Output $output, Config $config)
+		{
+			parent::__construct($input, $output);
+
+			$this->config = $config;
+		}
+	}
+
+> Note that tasks expect the first two constructor parameters to be instances of the ```Input``` and ```Output``` classes.
+
+Tasks are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).

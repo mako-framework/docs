@@ -2,55 +2,60 @@
 
 --------------------------------------------------------
 
-* [4.1.2 to 4.2.0](#4.1.2_to_4.2.0)
+* [4.2.x to 4.3.x](#4.2.x_to_4.3.x)
 	- [Application](#application)
-		- [Structure](#application:structure) 
-		- [Configuration](#application:configuration) 
-		- [Route filters](#application:route_filters)
+		- [Route parameters](#application:route_parameters)
+		- [Route constraints](#application:route_constraints)
+		- [HTTP exceptions](#application:http_exceptions)
 	- [Packages](#packages)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```4.1.2``` to ```4.2.x```.
-
-> Remember to clear your cached views (located in ```app/storage/cache/views```) if you're using templates.
+This guide takes you through the steps needed to migrate from Mako ```4.2.x``` to ```4.3.x```.
 
 --------------------------------------------------------
 
-<a id="4.1.2_to_4.2.0"></a>
+<a id="4.2.x_to_4.3.x"></a>
 
-### 4.1.2 to 4.2.0
+### 4.2.x to 4.3.x
 
 <a id="application"></a>
 
 #### Application
 
-<a id="application:structure"></a>
+<a id="application:route_parameters"></a>
 
-##### Structure
+##### Route parameters
 
-The first thing you have to do is creating an ```app/routing``` directory and move your ```app/routes.php``` file into it. Then you'll have to create a ```filters.php``` file in your newly created ```app/routing``` directory.
+Route parameters must now have the same name as your route action parameters. So if you have the following route:
 
-<a id="application:configuration"></a>
+	$routes->get('/article/{id}', 'Articles::view');
 
-##### Configuration
+Then your action will have to have a parameter named ```$id``` for it to work:
 
-Next you'll have to update your ```app/config/application.php``` configuration file. Remove the ```locale``` setting and update the [default_language](https://github.com/mako-framework/app/blob/master/app/config/application.php#L54) and [languages](https://github.com/mako-framework/app/blob/master/app/config/application.php#L65) settings to the new format. And finally add the new [packages](https://github.com/mako-framework/app/blob/master/app/config/application.php#L149) configuration option.
+	public function view($id)
+	{
+		return $id;
+	}
 
-The ```app/config/gatekeeper.php``` configuration file has also been updated. All you have to here is adding the [identifier](https://github.com/mako-framework/app/blob/master/app/config/gatekeeper.php#L13) option. It'll let you choose between identifying users using their email address or username.
+<a id="application:route_constraints"></a>
 
-<a id="application:route_filters"></a>
+##### Route constraints
 
-##### Route filters
+The ```constraints``` method has been renamed to ```when```:
 
-Route filters are no longer defined in the ```routes.php``` file but it a separate ```filters.php``` file. The [syntax](:base_url:/docs/:version:/routing-and-controllers:routing#route_filters) remains the same so migrating your filters to the 4.2 way of doing things should only take a minute or two.
+	$routes->get('/article/{id}', 'Articles::view')->when(['id' => '[0-9]+']);
+
+<a id="application:http_exceptions"></a>
+
+##### HTTP exceptions
+
+All the HTTP exceptions have been moved to the ```mako\http\exceptions``` namespace and the ```PageNotFoundException``` has been renamed to ```NotFoundException```.
 
 --------------------------------------------------------
 
-<a id="packages"></a>
+<a id="application"></a>
 
 #### Packages
 
-The biggest change in Mako 4.2 is how packages work. Take a look at the [package documentation](:base_url:/docs/:version:/packages:packages) to see what changes you will need to make to your packages.
-
-You can also take a look at the [Mako Toolbar](https://github.com/mako-framework/toolbar) package to get an idea of how 4.2 packages are structured.
+The changes above will also affect packages with routes and/or HTTP exceptions.
