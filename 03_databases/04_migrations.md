@@ -42,15 +42,15 @@ Creating a migration is done from the reactor CLI tool:
 
 	// Creates an application migration
 
-	php reactor mako::migrate.create
+	php reactor migrate.create
 
 	// Creates a migration for the "foobar" package
 
-	php reactor mako::migrate.create --package="vendor/package"
+	php reactor migrate.create --package="vendor/package"
 
 	// Creates a migration with a description
 
-	php reactor mako::migrate.create --description="Creates session table"
+	php reactor migrate.create --description="Creates session table"
 
 Running the ```create``` commands will return the following messages:
 
@@ -93,11 +93,11 @@ The generated migration will contain a skeleton class with two methods, ```up```
 
 You can check if there are any outstanding migrations using the ```status``` command:
 
-	php reactor mako::migrate.status
+	php reactor migrate.status
 
 If there are outstanding migrations then you can run them like this:
 
-	php reactor mako::migrate.up
+	php reactor migrate.up
 
 This will show you the names of the migrations that were executed:
 
@@ -117,7 +117,7 @@ This will show you the names of the migrations that were executed:
 
 If you need to revert the changes made to your database then you can use the ```down``` command. This will roll back the last batch of migrations executed.
 
-	php reactor mako::migrate.down
+	php reactor migrate.down
 
 This will show you the migrations that were rolled back:
 
@@ -133,15 +133,15 @@ This will show you the migrations that were rolled back:
 
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
 
-	php reactor mako::migrate.down 2
+	php reactor migrate.down 2
 
 If you want to roll back all database changes in one go then you can use the ```reset``` command.
 
-	php reactor mako::migrate.reset
+	php reactor migrate.reset
 
 This will prompt you for confirmation. To force the reset just use the ```force``` option.
 
-	php reactor mako::migrate.reset --force
+	php reactor migrate.reset --force
 
 --------------------------------------------------------
 
