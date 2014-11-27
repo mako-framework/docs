@@ -14,11 +14,11 @@
 
 ### Requirements
 
-* PHP 5.4.0 or higher *
+* PHP 5.5.0 or higher *
 * mbstring
 * PDO
 
-\* _Tested on PHP 5.4.x, 5.5.x, 5.6.x and HHVM 3.x.x_
+\* _Tested on PHP 5.5.x, 5.6.x and HHVM 3.x.x_
 
 --------------------------------------------------------
 
