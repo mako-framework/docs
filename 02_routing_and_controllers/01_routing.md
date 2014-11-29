@@ -13,9 +13,9 @@
 
 --------------------------------------------------------
 
-The Mako router allows you to map URLs to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
+The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routing/routes.php``` file. There are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Routes are registered in the ```app/routing/routes.php``` file and there are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
 --------------------------------------------------------
 
@@ -49,15 +49,6 @@ Routes can also execute closures instead of class methods.
 	{
 		return 'Hello, world!';
 	});
-
-Closure actions get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
-
-	$routes->get('/hello-world', function(Response $response)
-	{
-		$response->header('x-my-header', 'value');
-
-		return 'Hello, world!';
-	});
 	
 --------------------------------------------------------
 
@@ -87,7 +78,7 @@ You can also impose constraints on your parameters using the ```when``` method. 
 	})
 	->when(['id' => '[0-9]+']);
 
-The route actions (both class methods and closures) are executed using the ```Container::call()``` method. This means that you can also typehint dependencies.
+Closure actions get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 	$routes->get('/article/{id}', function(ViewFactory $view, $id)
 	{
