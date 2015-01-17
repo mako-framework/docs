@@ -29,7 +29,7 @@ The package class is used to register your package with the application that use
 
 	namespace acme\foo;
 
-	use \mako\application\Package;
+	use mako\application\Package;
 
 	class FooPackage extends Package
 	{

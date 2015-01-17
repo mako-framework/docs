@@ -52,7 +52,7 @@ Files should always have the same name as the class they contain. A file should 
 
 	namespace mako\chrono;
 
-	use \DateTime;
+	use DateTime;
 	
 	class Time extends DateTime
 	{

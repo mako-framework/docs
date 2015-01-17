@@ -20,7 +20,7 @@ All controllers must extend the ```mako\http\routing\Controller``` base controll
 
 	namespace app\controllers;
 
-	use \mako\http\routing\Controller;
+	use mako\http\routing\Controller;
 
 	class Home extends Controller
 	{
@@ -71,8 +71,8 @@ Controllers are instantiated by the [dependency injection container](:base_url:/
 
 	namespace app\controllers;
 
-	use \mako\http\routing\Controller;
-	use \mako\view\ViewFactory;
+	use mako\http\routing\Controller;
+	use mako\view\ViewFactory;
 
 	class Articles extends Controller
 	{

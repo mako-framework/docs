@@ -169,8 +169,8 @@ You can also add custom field name translations using the ```overrides.fieldname
 
 You can create your own custom validator plugins. They must extend the ```mako\validator\plugins\ValidatorPlugin``` class and implement the ```mako\validator\plugins\ValidatorPluginInterface``` interface.
 
-	use \mako\validator\plugins\ValidatorPlugin;
-	use \mako\validator\plugins\ValidatorPluginInterface;
+	use mako\validator\plugins\ValidatorPlugin;
+	use mako\validator\plugins\ValidatorPluginInterface;
 
 	class IsFooValidator extends ValidatorPlugin implements ValidatorPluginInterface
 	{

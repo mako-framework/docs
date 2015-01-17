@@ -23,7 +23,7 @@ All tasks must extend the ```mako\reactor\Task``` base task. The ```$taskInfo```
 
 	namespace app\tasks;
 
-	use \mako\reactor\Task;
+	use mako\reactor\Task;
 
 	class Hello extends Task
 	{
@@ -45,7 +45,7 @@ Passing arguments to a task action is easy as you can se in the example below.
 
 	namespace app\tasks;
 
-	use \mako\reactor\Task;
+	use mako\reactor\Task;
 
 	class Color extends Task
 	{

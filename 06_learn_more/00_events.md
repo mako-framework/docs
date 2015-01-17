@@ -66,7 +66,7 @@ Your class must use the ```ObservableTrait``` in order to be obserable.
 
 	class Observable
 	{
-		use \mako\event\ObsevableTrait;
+		use mako\event\ObsevableTrait;
 	}
 
 	$observable = new Observable;

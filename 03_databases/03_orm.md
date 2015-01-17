@@ -88,7 +88,7 @@ Lets say you have a table called ```articles``` with three columns (id, title an
 
 	namespace app\models;
 
-	use \mako\database\midgard\ORM;
+	use mako\database\midgard\ORM;
 
 	class Article extends ORM
 	{
@@ -176,7 +176,7 @@ Lets create a user model and a profile model and set up a ```has one``` relation
 
 	namespace app\models;
 
-	use \mako\database\midgard\ORM;
+	use mako\database\midgard\ORM;
 
 	class User extends ORM
 	{
@@ -194,7 +194,7 @@ Lets not bother creating a relation in the profile model jus yet.
 
 	namespace app\models;
 
-	use \mako\database\midgard\ORM;
+	use mako\database\midgard\ORM;
 
 	class Profile extends ORM
 	{
@@ -561,8 +561,8 @@ You'll often want to track when a record has been created and when it was update
 
 The trait requires you to add two DATETIME columns to your database table, ```created_at``` and ```updated_at```. You can override the column names using the ```$createdAtColumn``` and ```$updatedAtColumn``` properties.
 
-	use \mako\database\midgard\ORM;
-	use \mako\database\midgard\traits\TimestampedTrait;
+	use mako\database\midgard\ORM;
+	use mako\database\midgard\traits\TimestampedTrait;
 
 	class Article extends ORM
 	{
@@ -587,8 +587,8 @@ When two users are attempting to update the same record simultaneously, one of t
 
 To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
 
-	use \mako\database\midgard\ORM;
-	use \mako\database\midgard\traits\OptimisticLockingTrait;
+	use mako\database\midgard\ORM;
+	use mako\database\midgard\traits\OptimisticLockingTrait;
 
 	class Article extends ORM
 	{

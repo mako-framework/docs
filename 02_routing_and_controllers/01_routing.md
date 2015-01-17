@@ -129,8 +129,8 @@ You can also create a filter classes instead of closures. The class will be inst
 
 	namespace app\routing\filters;
 
-	use \mako\http\Request;
-	use \mako\http\Response;
+	use mako\http\Request;
+	use mako\http\Response;
 
 	class MyFilter
 	{
