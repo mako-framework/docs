@@ -2,60 +2,59 @@
 
 --------------------------------------------------------
 
-* [4.2.x to 4.3.x](#4.2.x_to_4.3.x)
-	- [Application](#application)
-		- [Route parameters](#application:route_parameters)
-		- [Route constraints](#application:route_constraints)
-		- [HTTP exceptions](#application:http_exceptions)
-	- [Packages](#packages)
+* [Application](#application)
+	- [Configuration](#application:configuration)
+	- [Command line](#application:command-line)
+	- [Miscellaneous](#application:miscellaneous)
+* [Packages](#packages)
+	- [Command line](#packages:command-line)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```4.2.x``` to ```4.3.x```.
+This guide takes you through the steps needed to migrate from Mako ```4.3.x``` to ```4.4.x```.
 
 --------------------------------------------------------
 
-<a id="4.2.x_to_4.3.x"></a>
-
-### 4.2.x to 4.3.x
 
 <a id="application"></a>
 
-#### Application
+### Application
 
-<a id="application:route_parameters"></a>
+<a id="application:configuration"></a>
 
-##### Route parameters
+#### Configuration
 
-Route parameters must now have the same name as your route action parameters. So if you have the following route:
+The ```app/config/application.php``` and ```app/config/session.php``` configuration files have seen some minor changes:
 
-	$routes->get('/article/{id}', 'Articles::view');
+* [application.php](https://github.com/mako-framework/app/blob/23cb6cdf3ccce2d686a69f45cf0ee6cd648b7207/app/config/application.php)
+* [session.php](https://github.com/mako-framework/app/blob/bbf29d5fad11cd0bc9d8a1434d53f3eb03b10ed1/app/config/session.php)
+ 
+<a id="application:command-line"></a>
 
-Then your action will have to have a parameter named ```$id``` for it to work:
+#### Command line
 
-	public function view($id)
-	{
-		return $id;
-	}
+The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](http://localhost:8002/mako/docs/public/index.php/docs/4.4/command-line:basics) to see what you'll have to do to migrate your code.
 
-<a id="application:route_constraints"></a>
+<a id="application:miscellaneous"></a>
 
-##### Route constraints
+#### Miscellaneous
 
-The ```constraints``` method has been renamed to ```when```:
+* The ```init.php``` file has been moved from the framework core to the [application root directory](https://github.com/mako-framework/app/blob/5bfb27b6e22cb87c088cc0bc56d1328c15f34953/app/init.php).
+* The ```reactor``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/app/reactor).
+* The ```index.php``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/public/index.php).
 
-	$routes->get('/article/{id}', 'Articles::view')->when(['id' => '[0-9]+']);
-
-<a id="application:http_exceptions"></a>
-
-##### HTTP exceptions
-
-All the HTTP exceptions have been moved to the ```mako\http\exceptions``` namespace and the ```PageNotFoundException``` has been renamed to ```NotFoundException```.
+> The default application structure has been slightly [changed](https://github.com/mako-framework/app/tree/a158f548542ddce065726149a0e96302250cb372).
 
 --------------------------------------------------------
 
-<a id="application"></a>
+<a id="packages"></a>
 
-#### Packages
+### Packages
 
-The changes above will also affect packages with routes and/or HTTP exceptions.
+<a id="packages:command-line"></a>
+
+#### Command line
+
+The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](http://localhost:8002/mako/docs/public/index.php/docs/4.4/command-line:basics) to see what you'll have to do to migrate your code.
+
+Also check out the [package documentation](:base_url:/docs/:version:/packages:packages) to see how your register your package commands.
