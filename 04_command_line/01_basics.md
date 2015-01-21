@@ -20,13 +20,9 @@ Mako includes a several useful commands by default. To list the available comman
 
 It should print the following on a default Mako installation
 
-	
-	 ███╗   ███╗ █████╗ ██╗  ██╗ ██████╗ 
-	 ████╗ ████║██╔══██╗██║ ██╔╝██╔═══██╗
-	 ██╔████╔██║███████║█████╔╝ ██║   ██║
-	 ██║╚██╔╝██║██╔══██║██╔═██╗ ██║   ██║
-	 ██║ ╚═╝ ██║██║  ██║██║  ██╗╚██████╔╝
-	 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  4.4.0
+	╔═══╗
+	║   ║ MAKO FRAMEWORK 4.4.0
+	╚═══╝
 
 	Usage:
 
@@ -49,6 +45,7 @@ It should print the following on a default Mako installation
 	-------------------------------------------------------------------------
 	| app.generate_secret | Generates a new application secret.             |
 	| app.routes          | Lists all registered routes.                    |
+	| logo                |                                                 |
 	| migrate.create      | Creates a new migration.                        |
 	| migrate.down        | Rolls back the last batch of migrations.        |
 	| migrate.reset       | Rolls back the last batch of migrations.        |
