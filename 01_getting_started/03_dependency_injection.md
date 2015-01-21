@@ -10,7 +10,7 @@
 
 Mako 4 comes with an easy to use inversion of control container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
 
-> All controllers, migrations and tasks are instantiated using the IoC container making it easy to inject dependencies.
+> All controllers, migrations and commands are instantiated using the IoC container making it easy to inject dependencies.
 
 --------------------------------------------------------
 

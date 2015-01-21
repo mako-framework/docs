@@ -3,7 +3,8 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
-* [Configuration, i18n, tasks and views](#configuration_i18n_tasks_and_views)
+* [Configuration, i18n and views](#configuration_i18n_and_views)
+* [Commands](#commands)
 * [Package installation](#package_installation)
 * [Publishing packages](#publishing_packages)
 
@@ -51,9 +52,9 @@ The example file below only contains the bare minimum so head over to the [compo
 
 --------------------------------------------------------
 
-<a id="configuration_i18n_tasks_and_views"></a>
+<a id="configuration_i18n_and_views"></a>
 
-### Configuration, i18n, tasks and views
+### Configuration, i18n and views
 
 Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate ```get*Path``` method in your package class.
 
@@ -64,9 +65,7 @@ Packages can also have their own configuration files, language strings and views
 	|     └─ strings/
     |        └─ ...
 	├─ src/
- 	│  ├─ FooPackage.php
- 	|  └─ tasks/
- 	|     └─ ...
+ 	│  └─ FooPackage.php
  	├─ views/
  	|  └─ ...
 	└─ composer.json
@@ -75,13 +74,26 @@ Loading configuration files, language strings and views from a package is a litt
 
 	$view = $this->view->create('acme-foo::vista');
 
-The same prefix is used when executing [command line tasks](:base_url:/docs/:version:/command-line:basics) from a package.
-
 	php reactor acme-foo::hello_world
 
-By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` in your package class.
+By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` propery in your package class.
 
 	protected $fileNamespace = 'foo';
+
+--------------------------------------------------------
+
+<a id="commands"></a>
+
+### Commands
+
+Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the ```$commands``` property in your package class.
+
+	protected $commands = 
+	[
+		'acme-foo::command' => 'acme\foo\commands\Command',
+	];
+
+> It is good practice to prefix the command with your package prefix to avoid naming collisions with other commands.
 
 --------------------------------------------------------
 

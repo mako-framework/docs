@@ -90,4 +90,4 @@ Setting the environment in a linux/unix shell:
 
 You can also manually set the environment in the CLI using the env option.
 
-	php reactor <task> --env=dev
+	php reactor <command> --env=dev

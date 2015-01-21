@@ -1,4 +1,4 @@
-# Custom tasks
+# Custom commands
 
 --------------------------------------------------------
 
@@ -7,9 +7,10 @@
 	- [Registering commands](#basics:registering-commands)
 	- [Arguments and options](#basics:arguments-and-options)
 * [Input](#input)
+	- [Helpers](#input:helpers)
 * [Output](#output)
-	- [STDOUT](#output:stdout)
-	- [STDERR](#output:stderr)
+	- [Helpers](#output:helpers)
+	- [Formatting](#output:formatting) 
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -40,7 +41,7 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 		}
 	}
 
-You'll also want to tell users (or remind yourself) what the command does. This is easily done using the ```$commandInformation``` property.
+You'll also want to tell your users (or remind yourself) what the command actually does. This is easily done using the ```$commandInformation``` property.
 
 	namespace app\commands;
 
@@ -65,7 +66,9 @@ You'll also want to tell users (or remind yourself) what the command does. This 
 
 You'll have to register your command with the reactor command line tool before you can use it. 
 
-They are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the comand class name. Check out the [this page](:base_url:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
+Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the comand class name. 
+
+Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
 	'commands' => 
 	[
@@ -96,7 +99,7 @@ Passing arguments to a command is easy as you can se in the example below.
 
 > ```$arg0``` is the reactor script and ```$arg1``` is the name of the command.
 
-You can now execute your task from the command line.
+You can now execute your command from the command line.
 
 	php reactor hello dude
 
@@ -114,7 +117,7 @@ You can also use options or "named arguments".
 		}
 	}
 
-You can now execute your task from the command line.
+You can now execute your command from the command line.
 
 	php reactor hello --name=dude
 
@@ -139,9 +142,24 @@ Options can also be used as boolean flags.
 		}
 	}
 
-You can now execute your task from the command line.
+You can now execute your command from the command line.
 
 	php reactor hello --shout
+
+Both arguments and options can be documented using the ```$commandInformation``` property.
+
+	protected $commandInformation = 
+	[
+		'description' => 'Print out a greeting.',
+		'options' => 
+		[
+			'shout' => 
+			[
+				'optional'    => true,
+				'description' => 'Should we output upper-case?',
+			],
+		],
+	];
 
 --------------------------------------------------------
 
@@ -149,35 +167,31 @@ You can now execute your task from the command line.
 
 ### Input
 
-The ```param``` method lets your read parameters from the command line.
+<a id="input:helpers"></a>
 
-	// php reactor mytask.test --foo=bar
+#### Helpers
 
-	$foo = $this->input->param('foo');
+The ```question``` method lets you ask the user for input.
 
-	// You can also define a default value in case the parameter isn't set (default is NULL)
+	$input = $this->question('How old are you?');
 
-	$foo = $this->input->param('foo', false);
+You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is ```NULL```.
 
-The ```text``` method will prompt the user for text input.
+	$input = $this->question('How old are you?', 25);
 
-	$username = $this->input->text('Your username:');
+The ```Confirmation``` method lets you ask the user for confirmation.
 
-	// You can also define a default value if the user doesn't write anything (default is NULL)
+	if($this->confirmation('Do you want to delete all your files?'))
+	{
+		// Delete all files
+	}
 
-	$username = $this->input->text('Your username':, false);
+The default answer is ```n``` (true) but you can choose to make ```y``` (false) the default answer.
 
-The ```password``` method will prompt the user for hidden input.
-
-	$password = $this->input->password('Your password');
-
-The ```confirm``` method will prompt the user for confirmation.
-
-	$ok = $this->input->confirm('Do you want to delete everyting?');
-
-	// You can also set a default value (default is TRUE)
-
-	$ok = $this->input->confirm('Do you want to delete everyting?', false);
+	if($this->confirmation('Do you want to delete all your files?', 'y'))
+	{
+		// Delete all files
+	}
 
 --------------------------------------------------------
 
@@ -185,70 +199,109 @@ The ```confirm``` method will prompt the user for confirmation.
 
 ### Output
 
-<a id="output:stdout"></a>
+<a id="output:helpers"></a>
 
-#### STDOUT
+#### Helpers
 
-The ```write``` method writes output to STDOUT.
+The ```write``` method lets you write output.
 
-	$this->output->write('Hello, world!');
+	$this->write('Hello, World!');
 
-The ```writenl``` method writes output to STDOUT and appends a newline.
+The method writes to ```STDOUT``` by default but you can make it write to ```STDERR``` like this.
 
-	$this->output->writenl('Hello, world!');
+	$this->write('Hello, World!', Ouput::ERROR);
 
-The ```nl``` method writes a newline to STDOUT.
+There's also a handy ```error``` method that lets you write to ```STDERR``` by default.
 
-	$this->output->nl();
+	$this->error('Hello, World!');
 
-	// You can also output multiple newlines
+The ```nl``` method writes a newline to the output.
 
-	$this->output->nl(5);
+	$this->nl();
 
-The ```table``` method makes it easy to render tables.
+The ```bell``` method rings the terminal bell.
 
-	$headers = ['Header 1', 'Header 2'];
+	$this->bell();
 
-	$tableBody = [['foo', 'bar'], ['baz', 'bax']];
+You can also make it ring multiple times if you want to.
 
-	$this->output->table($headers, $tableBody);
+	$this->bell(3);
 
-The ```clearScreen``` method will clear the screen of all output.
+The ```countdown``` method will print a countdown that dissapears after n seconds.
 
-	$this->output->clearScreen();
+	$this->countdown(5);
 
-The ```beep``` will make your system beep.
+The ```progressBar``` method will let you display a nice progressbar. This is useful if your command is processing multiple items.
 
-	$this->output->beep();
+	$items = 100;
 
-	// You can also tell it to beep multiple times
+	$progressbar = $this->progressBar($items);
 
-	$this->output->beel(5);
-
-The ```progress``` method lets you render a pretty progess bar.
-
-	$itemCount = 1000;
-
-	$progress = $this->output->progress($itemCount);
-
-	for($i = 0; $i < $itemCount; $i++)
+	for($i = 0; $i < $items; $i++)
 	{
-		$progress->advance();
+		$progressbar->advance();
 	}
 
-	$progress->finish();
+The ```table``` method lets you output a nice ASCII table.
 
-<a id="output:stderr"></a>
+	$this->table(['Col1', 'Col2'], [['R1 C1', 'R1 C2'], ['R2 C1', 'R2 C2']]);
 
-#### STDERR
+This code above will result in a table looking like this.
 
-You can write to STDERR using the ```error``` method.
+	-----------------
+	| Col1  | Col2  |
+	-----------------
+	| R1 C1 | R1 C2 |
+	| R2 C1 | R2 C2 |
+	-----------------
 
-	$this->output->error('Something went wrong ...');
+<a id="output:formatting"></a>
 
-You can also access the STDERR stream using the ```stderr``` method. It has all the same methods as STDOUT except for ```clearScreen```, ```beep``` and ```progess```.
+#### Formatting
 
-	$this->output->stderr()->writeln('Something went wrong ...');
+You can also format your output using formatting tags.
+
+	$this->write('<blue>Hello, World!</blue>');
+
+| Tag        | Description                  |
+|------------|------------------------------|
+| clear      | Clears all formatting styles |
+| bold       | Bold text                    |
+| faded      | Faded colors                 |
+| underlined | Underlined text              |
+| blinking   | Blinking text                |
+| reversed   | Reversed text                |
+| hidden     | Hidden text                  |
+| black      | Black text                   |
+| red        | Red text                     |
+| green      | Green text                   |
+| yellow     | Yellow text                  |
+| blue       | Blue text                    |
+| purple     | Purple text                  |
+| cyan       | Cyan text                    |
+| white      | white text                   |
+| bg_black   | Black background             |
+| bg_red     | Red background               |
+| bg_green   | Green background             |
+| bg_yellow  | Yellow background            |
+| bg_blue    | Blue background              |
+| bg_purple  | Purple background            |
+| bg_cyan    | Cyan background              |
+| bg_white   | white background             |
+
+> Note that formatting will only work on linux/unix and windows consoles with ANSI support.
+
+You can also nest tags like this.
+
+	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
+
+Tags can also be escaped by prepending them with a backlash.
+
+	$this->write('\<blue>Hello, World\</blue>');
+
+You can also escape all tags in a string using the ```Formatter::escape()``` method.
+
+	$escaped = $this->output->getFormatter()->escape($string);
 
 --------------------------------------------------------
 
@@ -256,9 +309,9 @@ You can also access the STDERR stream using the ```stderr``` method. It has all 
 
 ### Dependency injection
 
-Tasks are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+Commands are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
-	class MyTask extends Task
+	class Hello extends Command
 	{
 		protected $config;
 
@@ -270,6 +323,13 @@ Tasks are instantiated by the [dependency injection container](:base_url:/docs/:
 		}
 	}
 
-> Note that tasks expect the first two constructor parameters to be instances of the ```Input``` and ```Output``` classes.
+> Note that commands expect the first two constructor parameters to be instances of the ```Input``` and ```Output``` classes.
 
-Tasks are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+You can also inject your dependencies directly into the ```execute``` method since its executed by the ```Container::call()``` method.
+
+	public function execute(Config $config)
+	{
+		$foo = $config->get('settings.foo');
+	}
+
+Commands are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
