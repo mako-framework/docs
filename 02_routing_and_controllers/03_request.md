@@ -236,13 +236,17 @@ The ```ip``` method returns IP of the client that made the request.
 
 	$ip = $this->request->ip();
 
-The ```isAjax``` method returns TRUE if the request was made using AJAX and FALSE it not.
+The ```isAjax``` method returns TRUE if the request was made using AJAX and FALSE if not.
 
 	$isAjax = $this->request->isAjax();
 
-The ```isSecure``` method returns TRUE if the request was made using HTTPS and FALSE it not.
+The ```isSecure``` method returns TRUE if the request was made using HTTPS and FALSE if not.
 
 	$isSecure = $this->request->isSecure();
+
+The ```isSafe``` method returns TRUE if the request method used is considered safe and FALSE if not. The methods that are considered safe are ```GET``` and ```HEAD```.
+
+	$isSafe = $this->request->isSafe();
 
 The ```baseURL``` method returns the base URL of the request.
 

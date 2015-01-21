@@ -3,6 +3,9 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
+	- [Getting started](#basics:getting-started)
+	- [Registering commands](#basics:registering-commands)
+	- [Arguments and options](#basics:arguments-and-options)
 * [Input](#input)
 * [Output](#output)
 	- [STDOUT](#output:stdout)
@@ -11,7 +14,7 @@
 
 --------------------------------------------------------
 
-The Mako command line tool comes with a few useful tasks but you can also create your own.
+The Mako command line tool comes with a set of useful commands but you can also create your own.
 
 --------------------------------------------------------
 
@@ -19,60 +22,126 @@ The Mako command line tool comes with a few useful tasks but you can also create
 
 ### Basics
 
-All tasks must extend the ```mako\reactor\Task``` base task. The ```$taskInfo``` property is optional but it can be a helpful reminder of what your task does. Every controller has two protected properties by default, an ```input``` instance and an ```output``` instance.
+<a id="basics:getting-started"></a>
 
-	namespace app\tasks;
+#### Getting started
 
-	use mako\reactor\Task;
+All commands must extend the ```mako\reactor\Command``` base command and implement the ```execute``` method.
 
-	class Hello extends Task
+	namespace app\commands;
+
+	use mako\reactor\Coomand;
+
+	class Hello extends Command
 	{
-		protected static $taskInfo = array
-		(
-			'greet' => array
-			(
-				'description' => 'Displays a greeting.',
-			),
-		);
-		
-		public function greet()
+		public function execute()
 		{
-			$this->output->writeln('Hello, world!');
+			$this->write('Hello, World!');
 		}
 	}
 
-Passing arguments to a task action is easy as you can se in the example below.
+You'll also want to tell users (or remind yourself) what the command does. This is easily done using the ```$commandInformation``` property.
 
-	namespace app\tasks;
+	namespace app\commands;
 
-	use mako\reactor\Task;
+	use mako\reactor\Coomand;
 
-	class Color extends Task
+	class Hello extends Command
 	{
-		protected static $taskInfo = array
-		(
-			'favorite' => array
-			(
-				'description' => 'Tells you what your favorite color is.',
-			),
-		);
+		protected $commandInformation = 
+		[
+			'description' => 'Prints a greeting.',
+		];
 
-		public function favorite($color)
+		public function execute()
 		{
-			$this->output->writeln('Your favorite color is ' . $color);
+			$this->write('Hello, World!');
+		}
+	}
+
+<a id="basics:registering-commands"></a>
+
+#### Registering commands
+
+You'll have to register your command with the reactor command line tool before you can use it. 
+
+They are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the comand class name. Check out the [this page](:base_url:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
+
+	'commands' => 
+	[
+		'hello' => 'app\commands\Hello',
+	],
+
+You can now call your custom command like this.
+
+	php reactor hello
+
+<a id="basics:arguments-and-options"></a>
+
+#### Arguments and options
+
+Passing arguments to a command is easy as you can se in the example below.
+
+	namespace app\commands;
+
+	use mako\reactor\Coomand;
+
+	class Hello extends Command
+	{
+		public function execute($arg2)
+		{
+			$this->write('Hello, ' . $arg2 . '!');
+		}
+	}
+
+> ```$arg0``` is the reactor script and ```$arg1``` is the name of the command.
+
+You can now execute your task from the command line.
+
+	php reactor hello dude
+
+You can also use options or "named arguments".
+
+	namespace app\commands;
+
+	use mako\reactor\Coomand;
+
+	class Hello extends Command
+	{
+		public function execute($name)
+		{
+			$this->write('Hello, ' . $name . '!');
 		}
 	}
 
 You can now execute your task from the command line.
 
-	php reactor color.favorite blue // Will print "Your favorite color is blue"
+	php reactor hello --name=dude
 
-You can also make task action parameters optional by making the method parameter optional.
+Options can also be used as boolean flags.
 
-	public function favorite($color = 'green')
-    {
-        $this->output->writeln('Your favorite color is ' . $color);
-    }
+	namespace app\commands;
+
+	use mako\reactor\Coomand;
+
+	class Hello extends Command
+	{
+		public function execute($shout = false)
+		{
+			$greeting = 'Hello, World!';
+
+			if($shout !== false)
+			{
+				$greeting = strtoupper($greeting);
+			}
+
+			$this->write($greeting);
+		}
+	}
+
+You can now execute your task from the command line.
+
+	php reactor hello --shout
 
 --------------------------------------------------------
 
