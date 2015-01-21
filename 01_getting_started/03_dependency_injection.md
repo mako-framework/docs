@@ -4,6 +4,9 @@
 
 * [Basics](#basics)
 * [Services](#services)
+	- [Core](#services:core)
+	- [Web](#services:web)
+	- [CLI](#services:cli)
 * [Container aware](#container_aware)
 
 --------------------------------------------------------
@@ -111,6 +114,12 @@ Services are an easy and clean way of registering dependecies in the IoC contain
 
 Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
+Services are split up in 3 groups. ```Core``` services are loaded both web and cli environments while ```web``` and ```cli``` services are only loaded for web requests and command line operations respectively.
+
+<a id="services:core"></a>
+
+#### Core
+
 | Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 |                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
@@ -120,7 +129,6 @@ Mako includes a number of services for your convenience and you'll find a comple
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
@@ -135,6 +143,27 @@ Mako includes a number of services for your convenience and you'll find a comple
 | URLBuilderService        | mako\http\routing\URLBuilder       | urlBuilder       | URL builder                 | ✘        |
 | ValidatorFactoryService  | mako\validator\ValidatorFactory    | validator        | Validation factory          | ✘        |
 | ViewFactoryService       | mako\view\ViewFactory              | view             | View factory                | ✘        |
+
+<a id="services:web"></a>
+
+#### Web
+
+| Service                  | Type hint                          | Key              | Description                 | Required |
+|--------------------------|------------------------------------|------------------|-----------------------------|----------|
+| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
+
+
+<a id="services:cli"></a>
+
+#### Cli
+
+| Service                  | Type hint                          | Key              | Description                 | Required |
+|--------------------------|------------------------------------|------------------|-----------------------------|----------|
+| InputService             | mako\cli\input\Input               | input            | Input                       | ✔        |
+| OutputService            | mako\cli\output\Ouput              | output           | Output                      | ✔        |
+| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
+
+
 
 > Note that some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
 
