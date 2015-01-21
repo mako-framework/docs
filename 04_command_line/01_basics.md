@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a command line tool called ```reactor```. Reactor allows you to run parts of you application from the command line. This is especially useful when creating long running commands such as cronjobs.
+Mako includes a command line tool called ```reactor```. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs.
 
 --------------------------------------------------------
 
@@ -14,7 +14,7 @@ Mako includes a command line tool called ```reactor```. Reactor allows you to ru
 
 ### Usage
 
-Mako includes a several useful commands by default. To list the available commands just type this in your console:
+To list the available commands just type this in your console:
 
 	php reactor
 
