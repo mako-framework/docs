@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a command line tool called ```reactor```. Reactor allows you to run parts of you application from the command line. This is especially useful when creating long running tasks such as cronjobs.
+Mako includes a command line tool called ```reactor```. Reactor allows you to run parts of you application from the command line. This is especially useful when creating long running commands such as cronjobs.
 
 --------------------------------------------------------
 
@@ -14,46 +14,53 @@ Mako includes a command line tool called ```reactor```. Reactor allows you to ru
 
 ### Usage
 
-Mako includes a several useful tasks by default. To list the available tasks just type this in your console:
+Mako includes a several useful commands by default. To list the available commands just type this in your console:
 
 	php reactor
 
 It should print the following on a default Mako installation
 
+	
+	 ███╗   ███╗ █████╗ ██╗  ██╗ ██████╗ 
+	 ████╗ ████║██╔══██╗██║ ██╔╝██╔═══██╗
+	 ██╔████╔██║███████║█████╔╝ ██║   ██║
+	 ██║╚██╔╝██║██╔══██║██╔═██╗ ██║   ██║
+	 ██║ ╚═╝ ██║██║  ██║██║  ██╗╚██████╔╝
+	 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  4.4.0
+
 	Usage:
 
-	php reactor <action> [arguments] [options]
+	php reactor [command] [arguments] [options]
 
 	Global options:
 
-	+------------+---------------------------------------------------------+
-	| Option     | Description                                             |
-	+------------+---------------------------------------------------------+
-	| --env      | Allows you to override the default environment.         |
-	| --database | Allows you to override the default database connection. |
-	| --hush     | Disables all output                                     |
-	+------------+---------------------------------------------------------+
+	----------------------------------------------------------
+	| Option     | Description                               |
+	----------------------------------------------------------
+	| --mute     | Disables all output                       |
+	| --env      | Overrides the Mako environment            |
+	| --database | Overrides the default database connection |
+	----------------------------------------------------------
 
-	Available actions:
+	Available commands:
 
-	+---------------------+-------------------------------------------------+
-	| Action              | Description                                     |
-	+---------------------+-------------------------------------------------+
+	-------------------------------------------------------------------------
+	| Command             | Description                                     |
+	-------------------------------------------------------------------------
 	| app.generate_secret | Generates a new application secret.             |
-	| app.routes          | Lists the registered routes of the application. |
-	| console.start       | Starts the debug console.                       |
-	| migrate.status      | Checks if there are any outstanding migrations. |
+	| app.routes          | Lists all registered routes.                    |
 	| migrate.create      | Creates a new migration.                        |
-	| migrate.up          | Runs all outstanding migrations.                |
 	| migrate.down        | Rolls back the last batch of migrations.        |
-	| migrate.reset       | Rolls back all migrations.                      |
-	| server.start        | Starts the local development server.            |
-	+---------------------+-------------------------------------------------+
+	| migrate.reset       | Rolls back the last batch of migrations.        |
+	| migrate.status      | Checks if there are any outstanding migrations. |
+	| migrate.up          | Runs all outstanding migrations.                |
+	| server              | Starts the local development server.            |
+	-------------------------------------------------------------------------
 
-Executing a task is done like this:
+Executing a commands is done like this:
 
 	php reactor app.routes
 
-You can list detailed information about a specific task like this:
+You can list detailed information about a specific command like this:
 
-	php reactor app --task-info
+	php reactor app.server --help
