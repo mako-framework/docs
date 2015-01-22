@@ -179,6 +179,16 @@ You can also specify a default return value in the event that the user chooses n
 
 	$input = $this->question('How old are you?', 25);
 
+The ```secret``` method lets you ask the user for hidden input.
+
+	$input = $this->secret('Password:');
+
+You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is ```NULL```.
+
+	$input = $this->secret('Password', false);
+
+> The ```secret``` method will throw a ```RuntimeException``` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing ```TRUE``` to the optional third parameter.
+
 The ```Confirmation``` method lets you ask the user for confirmation.
 
 	if($this->confirmation('Do you want to delete all your files?'))
