@@ -185,11 +185,11 @@ The ```secret``` method lets you ask the user for hidden input.
 
 You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is ```NULL```.
 
-	$input = $this->secret('Password', false);
+	$input = $this->secret('Password:', false);
 
 > The ```secret``` method will throw a ```RuntimeException``` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing ```TRUE``` to the optional third parameter.
 
-The ```Confirmation``` method lets you ask the user for confirmation.
+The ```confirmation``` method lets you ask the user for confirmation.
 
 	if($this->confirmation('Do you want to delete all your files?'))
 	{
@@ -221,7 +221,7 @@ The method writes to ```STDOUT``` by default but you can make it write to ```STD
 
 	$this->write('Hello, World!', Ouput::ERROR);
 
-There's also a handy ```error``` method that lets you write to ```STDERR``` by default.
+There's also a handy ```error``` method that lets you write to ```STDERR```.
 
 	$this->error('Hello, World!');
 
@@ -269,9 +269,21 @@ This code above will result in a table looking like this.
 
 #### Formatting
 
-You can also format your output using formatting tags.
+You can format your output using formatting tags.
 
 	$this->write('<blue>Hello, World!</blue>');
+
+You can also nest formatting tags. Just make sure to close them in the right order.
+
+	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
+
+Tags can also be escaped by prepending them with a backlash.
+
+	$this->write('\<blue>Hello, World\</blue>');
+
+You can also escape all tags in a string using the ```Formatter::escape()``` method.
+
+	$escaped = $this->output->getFormatter()->escape($string);
 
 | Tag        | Description                  |
 |------------|------------------------------|
@@ -301,17 +313,7 @@ You can also format your output using formatting tags.
 
 > Note that formatting will only work on linux/unix and windows consoles with ANSI support.
 
-You can also nest tags like this.
-
-	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
-
-Tags can also be escaped by prepending them with a backlash.
-
-	$this->write('\<blue>Hello, World\</blue>');
-
-You can also escape all tags in a string using the ```Formatter::escape()``` method.
-
-	$escaped = $this->output->getFormatter()->escape($string);
+> Formatting is stripped when the output is redirected (e.g. to a log file ```php reactor command > log.txt```).
 
 --------------------------------------------------------
 
