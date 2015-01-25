@@ -108,7 +108,7 @@ You can then fetch the article by its primary key value like this:
 
 	$article = Article::get(1); // Will return FALSE if not found
 
-The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can also use other criteria to find your record:
+The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
 
 	$article = Article::where('title', '=', 'Super awesome stuff')->first();
 
@@ -283,7 +283,7 @@ This is how you would use the relations:
 
 #### Relation criteria
 
-The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases:query-builder) so you can add query criteria to your relations.
+The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can add query criteria to your relations.
 
 	public function articles()
 	{

@@ -3,7 +3,9 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
-* [Template views](#template_views)
+* [View renderers](#view_renderers)
+	- [Plain PHP](#view_renderers:plain_php) 
+	- [Templates](#view_renderers:templates)
 * [Custom view renderers](#custom_view_renderers)
  
 --------------------------------------------------------
@@ -22,21 +24,15 @@ All views must be located in the ```app/views``` directory. You can also create 
 
 You create a view object by passing the name of the view file to the ```create``` method of the view factory.
 
-	// Loads the welcome.php view
-
 	$view = $this->view->create('welcome');
 
-	// Loads the bar.php view located in the foo directory
+You can also organize your views in subdirectories. The example loads the ```bar``` view located in the ```foo``` directory.
 
 	$view = $this->view->create('foo.bar');
 
-	// Loads the welcome.php view and assigns the "foo" variable with the value "bar"
+Assigning variables can be done using the optional second parameter.
 
 	$view = $this->view->create('foo.bar', ['foo' => 'bar']);
-
-	// Renders the view. You can also assign variables using the optional second parameter
-
-	$rendered = $this->view->render('foo.bar');
 
 You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to.
 
@@ -50,11 +46,45 @@ The ```render``` method returns the rendered output of the view.
 
 	$output = $view->render();
 
+You can also render a view directly. This method also accepts a second parameter of variables as well.
+
+	$rendered = $this->view->render('foo.bar');
+
 --------------------------------------------------------
 
-<a id="template_views"></a>
+<a id="view_renderers"></a>
 
-### Template views
+### View renderers
+
+<a id="view_renderers:plain_php"></a>
+
+#### Plain PHP
+
+<a id="view_renderers:templates"></a>
+
+As the name suggests, plain PHP views are just HTML (or whatever you're using to present your data) and PHP.
+
+	<div>
+		<p>Hello, <?= $name; ?>!</p>
+	</div>
+
+You also have access to a few handy methods that you should use to escape untrusted data in your output.
+
+	<div>
+		<p>Hello, <?= $this->escapeHTML($name, $__charset__); ?>!</p>
+	</div>
+
+| Method          | Desciption                                          |
+|-----------------|-----------------------------------------------------|
+| escapeHTML      | Escapes data for use in a HTML body context.        |
+| escapeAttribute | Escapes data for use in a HTML attribute context.   |
+| escapeCSS       | Escapes data for use in a CSS context.              |
+| escapeJS        | Escapes data for use in a JavaScript context.       |
+| escapeURL       | Escapes data for use in a URI or parameter context. |
+
+> The ```escapeAttribute``` method is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```escapeJS``` filter.
+
+#### Templates
 
 Mako includes a simple templating language that offers a simpler and less verbose syntax than plain PHP in addition to automatic escaping of all variables.
 
@@ -62,19 +92,37 @@ There is almost no overhead associated with using template views as they get com
 
 > You must use the special ```.tpl.php``` extension on your views for them to get rendered using the template engine.
 
-Printing an escaped variable is done using the following syntax:
+Printing an escaped variable for use in a HTML content context is done using the following syntax:
 
 	{{$foo}}
 
-The preserve filter will escape output but not double-encode existing html entities.
+The ```preserve``` filter will escape output but not double-encode existing html entities.
 
 	{{preserve:$foo}}
 
-If you want to print an un-escaped variable then you'll have to use the following syntax:
+The ```attribute``` filter will escape output for use in a HTML attribute context.
+
+	{{attribute:$foo}}
+
+> The ```attribute``` filter is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```js``` filter.
+
+The ```js``` filter will escape output for use in a JavaScript context.
+
+	{{js:$foo}}
+
+The ```css``` filter will escape output for use in a CSS context.
+
+	{{css:$foo}}
+
+The ```url``` filter will escape output for use in a URI parameter context.
+
+	{{url:$foo}}
+
+If you want to print an un-escaped variable then you can use the ```raw``` filter.
 
 	{{raw:$foo}}
 
-Sometimes you'll want to set a default value for a variable that might be empty. This can be done like this:
+Sometimes you'll want to set a default value for a variable that might be empty. This can be done like this.
 
 	{{$foo || 'Default value'}}
 

@@ -140,9 +140,9 @@ The ```getById``` method returns a group based its id and FALSE if no group is f
 
 ### Users & groups
 
-The user and group objects returned by the default gatekeeper implementation are [ORM models](:base_url:/docs/:version:/databases:orm). 
+The user and group objects returned by the default gatekeeper implementation are [ORM models](:base_url:/docs/:version:/databases-sql:orm). 
 
-The user model comes with a [many to many](:base_url:/docs/:version:/databases:orm#relations:many_to_many) relation to the group model and the group model has a many to many relation back to the user model.
+The user model comes with a [many to many](:base_url:/docs/:version:/databases-sql:orm#relations:many_to_many) relation to the group model and the group model has a many to many relation back to the user model.
 
 <a id="users_and_groups_users"></a>
 
@@ -202,7 +202,7 @@ The ```delete``` method allows you to delete a user.
 
 The user object also includes the following getters and setters: ```getId```, ```setEmail```, ```getEmail```, ```setUsername```, ```getUsername```, ```setPassword```, ```getPassword```, ```setIp```, ```getIp```, ```getActionToken``` and ```getAccessToken```.
 
-> The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/learn-more:password-hashing) so you do not need to hash it yourself.
+> The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/security:password-hashing) so you do not need to hash it yourself.
 
 <a id="users_and_groups_groups"></a>
 

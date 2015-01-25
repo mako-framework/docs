@@ -123,7 +123,7 @@ You can access the default database connection directly without having to go thr
 
 ### Query builder
 
-The ```Connection::builder()``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases:query-builder).
+The ```Connection::builder()``` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
 
 	$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
 
