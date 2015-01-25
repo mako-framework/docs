@@ -6,6 +6,10 @@
 	- [Data](#usage:data)
 	- [Flash data](#usage:flash_data)
 	- [Security](#usage:security)
+		- [Token](#usage:security:token)
+		- [One time tokens](#usage:security:one_time_tokens)
+		- [Session id](#usage:security:session_id)
+		- [Session data](#usage:security:session_data)
 
 --------------------------------------------------------
 
@@ -84,15 +88,45 @@ You can also choose to reflash only a set of keys if you don't want to reflash a
 
 #### Security
 
-The ```generateToken``` allows you to generate a token that can be used in forms to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
+<a id="usage:security:token"></a>
 
-	$token = $this->session->generateToken();
+##### Token
+
+The ```getToken``` returns a token that can be used in forms and AJAX requests to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
+
+	$token = $this->session->getToken();
 
 The ```validateToken``` method allows you to validate a token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the ```token``` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
 	$valid = $this->session->validateToken($token);
 
-> Only the last 20 tokens that have been generated during a session are valid. Tokens that have been validated once are no longer considered valid.
+The ```regenerateToken``` method lets you generates a new token. 
+
+	$token = $this->session->regenerateToken();
+
+> Mako will automatically generate a new token upon a succesful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+
+<a id="usage:security:one_time_tokens"></a>
+
+##### One time tokens
+
+	$token = $this->session->regenerateToken();
+
+The ```generateOneTimeToken``` method allows you to generate a one time token that can be used in forms to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
+
+	$token = $this->session->generateOneTimeToken();
+
+The ```validateOneTimeToken``` method allows you to validate a one time token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the ```one_time_token``` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation). 
+
+One time tokens that have been validated once are no longer considered valid so they are not well suited for use with AJAX requests.
+
+	$valid = $this->session->validateOneTimeToken($token);
+
+> Note that only the last 20 one time tokens that have been generated during a session are valid.
+
+<a id="usage:security:session_id"></a>
+
+##### Session id
 
 Retrieving the session id is done by using the ```getId``` method.
 
@@ -102,9 +136,15 @@ Regenerating the session id can be done by using the ```regenerateId``` method. 
 
 	$this->session->regenerateId();
 
-	// You can tell it to keep the data associated with the old session id
+You can tell it to keep the data associated with the old session id
 
 	$this->session->regenerateId(true);
+
+> Mako will automatically regnerate the session id upon a succesful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+
+<a id="usage:security:session_data"></a>
+
+##### Session data
 
 To destroy a session use the ```destroy``` method.
 
