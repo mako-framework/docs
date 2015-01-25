@@ -247,7 +247,7 @@ Users table
 		`ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		`username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		`email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-		`password` char(60) COLLATE utf8_unicode_ci NOT NULL,
+		`password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		`action_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
 		`access_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
 		`activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
