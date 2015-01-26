@@ -10,6 +10,7 @@
 * [Packages](#packages)
 	- [Command line](#packages:command-line)
 	- [Migrations](#packages:migrations)
+	- [Miscellaneous](#packages:miscellaneous)
 
 --------------------------------------------------------
 
@@ -50,6 +51,9 @@ Migrations classes must now extend the ```mako\database\migrations\Migration``` 
 * The ```init.php``` file has been moved from the framework core to the [application root directory](https://github.com/mako-framework/app/blob/5bfb27b6e22cb87c088cc0bc56d1328c15f34953/app/init.php).
 * The ```reactor``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/app/reactor).
 * The ```index.php``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/public/index.php).
+* The ```Session::generateToken()``` method has been renamed to ```Session::generateOneTimeToken()```.
+* The ```Session::validateToken()``` method has been renamed to ```Session::validateOneTimeToken()```.
+* The ```token``` validation rule has been renamed to ```one_time_token```.
 
 > The default application structure has been slightly [changed](https://github.com/mako-framework/app/tree/a158f548542ddce065726149a0e96302250cb372).
 
@@ -72,3 +76,11 @@ Also check out the [package documentation](:base_url:/docs/:version:/packages:pa
 #### Migrations
 
 Migrations classes must now extend the ```mako\database\migrations\Migration``` class.
+
+<a id="packages:miscellaneous"></a>
+
+#### Miscellaneous
+
+* The ```Session::generateToken()``` method has been renamed to ```Session::generateOneTimeToken()```.
+* The ```Session::validateToken()``` method has been renamed to ```Session::validateOneTimeToken()```.
+* The ```token``` validation rule has been renamed to ```one_time_token```.
