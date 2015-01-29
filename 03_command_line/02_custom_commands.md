@@ -31,7 +31,7 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 
 	namespace app\commands;
 
-	use mako\reactor\Coomand;
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
@@ -45,7 +45,7 @@ You'll also want to tell your users (or remind yourself) what the command actual
 
 	namespace app\commands;
 
-	use mako\reactor\Coomand;
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
@@ -87,7 +87,7 @@ Passing arguments to a command is easy as you can se in the example below.
 
 	namespace app\commands;
 
-	use mako\reactor\Coomand;
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
@@ -107,7 +107,7 @@ You can also use options or "named arguments".
 
 	namespace app\commands;
 
-	use mako\reactor\Coomand;
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
@@ -125,7 +125,7 @@ Options can also be used as boolean flags.
 
 	namespace app\commands;
 
-	use mako\reactor\Coomand;
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
