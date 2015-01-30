@@ -10,7 +10,7 @@
 	- [Helpers](#input:helpers)
 * [Output](#output)
 	- [Helpers](#output:helpers)
-	- [Formatting](#output:formatting) 
+	- [Formatting](#output:formatting)
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -49,7 +49,7 @@ You'll also want to tell your users (or remind yourself) what the command actual
 
 	class Hello extends Command
 	{
-		protected $commandInformation = 
+		protected $commandInformation =
 		[
 			'description' => 'Prints a greeting.',
 		];
@@ -64,13 +64,13 @@ You'll also want to tell your users (or remind yourself) what the command actual
 
 #### Registering commands
 
-You'll have to register your command with the reactor command line tool before you can use it. 
+You'll have to register your command with the reactor command line tool before you can use it.
 
-Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the comand class name. 
+Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the command class name.
 
 Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
-	'commands' => 
+	'commands' =>
 	[
 		'hello' => 'app\commands\Hello',
 	],
@@ -148,12 +148,12 @@ You can now execute your command from the command line.
 
 Both arguments and options can be documented using the ```$commandInformation``` property.
 
-	protected $commandInformation = 
+	protected $commandInformation =
 	[
 		'description' => 'Print out a greeting.',
-		'options' => 
+		'options' =>
 		[
-			'shout' => 
+			'shout' =>
 			[
 				'optional'    => true,
 				'description' => 'Should we output upper-case?',
