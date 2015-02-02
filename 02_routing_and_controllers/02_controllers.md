@@ -16,7 +16,7 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 ### Basics
 
-All controllers must extend the ```mako\http\routing\Controller``` base controller.
+Here's a basic example controller that extends the base controller included with the framework.
 
 	namespace app\controllers;
 
@@ -91,4 +91,4 @@ You can also inject your dependencies directly into a method since controller ac
 		return $view->render('article', ['id' => $id]);
 	}
 
-Controllers are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+Controllers that extends the framework base controller are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
