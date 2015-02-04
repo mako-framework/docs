@@ -37,7 +37,7 @@ The ```activateUser``` method activates a user by his or her action token. The m
 
 	$activated = $this->gatekeeper->activateUser($token);
 
-The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successfull and a status code if not. 
+The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successfull and a status code if not.
 
 The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING```, ```Gatekeeper::LOGIN_BANNED``` and ```Gatekeeper::LOGIN_INCORRECT```.
 
@@ -47,7 +47,7 @@ The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING`
 
 	$successful = $this->gatekeeper->login($email, $password, true);
 
-The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not. 
+The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
 
 The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING``` and ```Gatekeeper::LOGIN_BANNED```.
 
@@ -70,7 +70,7 @@ You can wrap it in a a if test if you want to execute more code in the event tha
 
 	// Code here gets executed if the user is logged in
 
-> The username and password is sent with every subsequent request when using basic authentication so make sure use ```HTTPS``` whenever possible!
+> The username and password is sent with every subsequent request when using basic authentication so make sure to use ```HTTPS``` whenever possible!
 
 The ```isGuest``` method returns FALSE if the user is logged in and TRUE if not.
 
@@ -140,7 +140,7 @@ The ```getById``` method returns a group based its id and FALSE if no group is f
 
 ### Users & groups
 
-The user and group objects returned by the default gatekeeper implementation are [ORM models](:base_url:/docs/:version:/databases-sql:orm). 
+The user and group objects returned by the default gatekeeper implementation are [ORM models](:base_url:/docs/:version:/databases-sql:orm).
 
 The user model comes with a [many to many](:base_url:/docs/:version:/databases-sql:orm#relations:many_to_many) relation to the group model and the group model has a many to many relation back to the user model.
 
@@ -276,12 +276,12 @@ Junction table
 		UNIQUE KEY `group_user` (`group_id`,`user_id`),
 		KEY `group_id` (`group_id`),
 		KEY `user_id` (`user_id`),
-		CONSTRAINT `groups` 
-			FOREIGN KEY (`group_id`) 
-			REFERENCES `groups` (`id`) 
+		CONSTRAINT `groups`
+			FOREIGN KEY (`group_id`)
+			REFERENCES `groups` (`id`)
 			ON DELETE CASCADE ON UPDATE NO ACTION,
-		CONSTRAINT `users` 
-			FOREIGN KEY (`user_id`) 
-			REFERENCES `users` (`id`) 
+		CONSTRAINT `users`
+			FOREIGN KEY (`user_id`)
+			REFERENCES `users` (`id`)
 			ON DELETE CASCADE ON UPDATE NO ACTION
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
