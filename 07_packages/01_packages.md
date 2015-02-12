@@ -101,7 +101,11 @@ Registering [package](:base_url:/docs/:version:/command-line:custom-commands) co
 
 ### Package installation
 
-Installing packages is extremely easy. All you need to do is run a simple [composer](http://localhost:8002/mako/docs/docs/4.0/packages:composer-packages) command and add the package "boot" class to the list of packages in your ```app/config/application.php``` configuration file.
+Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org/) command and add the package "boot" class to the list of packages in your ```app/config/application.php``` configuration file.
+
+	composer require <vendor>/<package name>:*
+
+So, to install **acme/foo** package using composer, you have to issue following command from the project directory
 
 	composer require acme/foo:*
 
