@@ -36,7 +36,7 @@ The ```app/config/application.php``` and ```app/config/session.php``` configurat
 
 #### Command line
 
-The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](http://localhost:8002/mako/docs/public/index.php/docs/4.4/command-line:basics) to see what you'll have to do to migrate your code.
+The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](:base_url:/docs/:version/command-line:basics) to see what you'll have to do to migrate your code.
 
 <a id="application:migrations"></a>
 
@@ -67,7 +67,7 @@ Migrations classes must now extend the ```mako\database\migrations\Migration``` 
 
 #### Command line
 
-The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](http://localhost:8002/mako/docs/public/index.php/docs/4.4/command-line:basics) to see what you'll have to do to migrate your code.
+The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](:base_url:/docs/:version/command-line:basics) to see what you'll have to do to migrate your code.
 
 Also check out the [package documentation](:base_url:/docs/:version:/packages:packages) to see how your register your package commands.
 
