@@ -408,7 +408,7 @@ The ORM and query builder both allow you to save dates as DateTime objects witho
 
 	protected $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
 
-You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/getting-started:learn-more:date-and-time) objects.
+You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
 
 	$user = User::get(1);
 
