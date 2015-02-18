@@ -40,7 +40,7 @@ First we'll make our ```CreateUserCommand```. As you can see, the command acts a
 		}
 	}
 
-Next we'll make a ```CreateUserCommandHandler```. Command handlers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
+Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
 
 
 	<?php
@@ -50,7 +50,7 @@ Next we'll make a ```CreateUserCommandHandler```. Command handlers are instantia
 	use mako\auth\Gatekeeper;
 	use mako\commander\CommandHandlerInterface;
 
-	class CreateUserCommandHandler implements CommandHandlerInterface
+	class CreateUserHandler implements CommandHandlerInterface
 	{
 		protected $gatekeeper;
 
@@ -71,7 +71,12 @@ Next we'll make a ```CreateUserCommandHandler```. Command handlers are instantia
 
 This is a very basic example but you would also want to include input validation in your command handler. The ```CommandHandlerInterface::handle()``` method can return data that can be used to handle successes and errors.
 
-> Note that all command handlers must have the same name as the command that they're handling with a ```Handler``` suffix.
+> Note that all command handlers must follow a strict naming convention. The ```Command``` suffix of your command class will be replaced by a ```Handler``` suffix. If no ```Commnad``` suffix is present then the word ```Handler``` will just be appended to the class name.
+>
+| Command name      | Handler name      |
+|-------------------|-------------------|
+| CreateUserCommand | CreateUserHandler |
+| CreateUser        | CreateUserHandler |
 
 We are now ready to dispatch our command using the ```CommandBus::dispatch()``` method. In the following example we'll be creating a user from a controller method.
 
