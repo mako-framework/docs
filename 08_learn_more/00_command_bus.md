@@ -96,7 +96,7 @@ We are now ready to dispatch our command using the ```CommandBus::dispatch()``` 
 		}
 	}
 
-As previously mentioned, you can re-use your commands anywere in your application. Here we'll dispatch our command from a console command, and as you can see we haven't had to duplicate any of the user creation code.
+As previously mentioned, you can re-use your commands anywhere in your application. Here we'll dispatch our command from a console command, and as you can see we haven't had to duplicate any of the user creation code.
 
 	<?php
 
