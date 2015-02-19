@@ -178,3 +178,5 @@ Adding middlware like shown in the example above will decorate all command handl
 	$middleware = [TransactionMiddleware::class];
 
 	$commander->dispatch(new CreateUserCommand($email, $username, $password), [], $middleware);
+
+Middleware is instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
