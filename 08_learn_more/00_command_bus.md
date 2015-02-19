@@ -48,6 +48,7 @@ Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by 
 	namespace app\commands;
 
 	use mako\auth\Gatekeeper;
+	use mako\commander\CommandInterface;
 	use mako\commander\CommandHandlerInterface;
 
 	class CreateUserHandler implements CommandHandlerInterface
@@ -59,7 +60,7 @@ Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by 
 			$this->gatekeeper = $gatekeeper;
 		}
 
-		public function handle(CreateUserCommand $command)
+		public function handle(CommandInterface $command)
 		{
 			$email    = $command->email;
 			$username = $command->username;
