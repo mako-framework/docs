@@ -2,7 +2,8 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage)
+* [Basic usage](#basic_usage)
+* [Middleware](#middleware)
 
 --------------------------------------------------------
 
@@ -12,9 +13,9 @@ The main advantage of using this pattern is that the commands can be used from a
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="basic_usage"></a>
 
-### Usage
+### Basic usage
 
 In this example we'll be creating a command and a handler for creating users.
 
@@ -86,6 +87,7 @@ We are now ready to dispatch our command using the ```CommandBus::dispatch()``` 
 	namespace app\controllers;
 
 	use app\commands\CreateUserCommand;
+
 	use mako\commander\CommandBus;
 	use mako\http\Request;
 	use mako\http\routing\Controller;
@@ -109,6 +111,7 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 	namespace app\commands\users;
 
 	use app\commands\CreateUserCommand;
+
 	use mako\commander\CommandBus;
 	use mako\reactor\Command;
 
@@ -123,3 +126,55 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 	        $commander->dispatch(new CreateUserCommand($email, $username, $password));
 	    }
 	}
+
+--------------------------------------------------------
+
+<a id="middleware"></a>
+
+### Middleware
+
+Middleware can be used to decorate your command handlers with additional functionality. The example middleware below will wrap your command handler in a database transaction.
+
+	namespace app\commands\middleware;
+
+	use Closure;
+	use PDOException;
+
+	use mako\commander\CommandInterface;
+	use mako\database\ConnectionManager;
+
+	class TransactionMiddleware
+	{
+		protected $database;
+
+		public function __construct(ConnectionManager $database)
+		{
+			$this->database = $database;
+		}
+
+		public function execute(CommandInterface $command, Closure $next)
+		{
+			try
+			{
+				$this->database->beginTransaction();
+
+				$next($command);
+
+				$this->database->commitTransaction();
+			}
+			catch(PDOException $e)
+			{
+				$this->database->rollBackTransaction();
+			}
+		}
+	}
+
+Adding middleware to the command bus is done using the ```CommandBus::addMiddleware()``` method.
+
+	$commander->addMiddleware(TransactionMiddleware::class);
+
+Adding middlware like shown in the example above will decorate all command handlers executed by the command bus. You can also assign middleware at call-time if you don't want to affect subsequent handlers.
+
+	$middleware = [TransactionMiddleware::class];
+
+	$commander->dispatch(new CreateUserCommand($email, $username, $password), [], $middleware);
