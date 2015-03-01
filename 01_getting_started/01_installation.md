@@ -52,9 +52,9 @@ Basic [Apache](http://www.apache.org/) configuration for a Mako application:
 
 	<VirtualHost *:80>
 
-		DocumentRoot /srv/www/mako/htdocs
+		DocumentRoot /srv/www/mako/htdocs/public
 
-		<Directory /srv/www/mako/htdocs>
+		<Directory /srv/www/mako/htdocs/public>
 
 			Options -Indexes FollowSymLinks -MultiViews
 			AllowOverride All
@@ -74,7 +74,7 @@ Basic [Apache](http://www.apache.org/) configuration for a Mako application:
 		LogLevel warn
 		ErrorLog /srv/www/mako/logs/error.log
 		CustomLog /srv/www/mako/logs/access.log combined
-		
+
 	</VirtualHost>
 
 <a id="server_configurations:nginx"></a>
@@ -90,16 +90,9 @@ Basic [Nginx](http://nginx.org/) configuration for a Mako application:
 		access_log /srv/www/mako/logs/access.log;
 		error_log  /srv/www/mako/logs/error.log;
 
-		root /srv/www/mako/htdocs;
+		root /srv/www/mako/htdocs/public;
 
 		index index.php;
-
-		# Prevents access to the app and vendor directories
-
-		location ~* ^/(app|vendor)
-		{
-			return 403;
-		}
 
 		# "URL rewrite"
 
