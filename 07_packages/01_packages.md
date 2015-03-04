@@ -58,23 +58,22 @@ The example file below only contains the bare minimum so head over to the [compo
 
 Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate ```get*Path``` method in your package class.
 
- 	├─ config/
+	├─ config/
  	|  └─ ...
- 	├─ i18n/
-	|  └─ en_US/
-	|     └─ strings/
-    |        └─ ...
+ 	├─ resources/
+ 	|  ├─ i18n/
+	|  |  └─ en_US/
+	|  |     └─ strings/
+    |  |        └─ ...
+    |  └─ views/
+    |     └─ ...
 	├─ src/
  	│  └─ FooPackage.php
- 	├─ views/
- 	|  └─ ...
 	└─ composer.json
 
-Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load by the package file namespace followed by to colons (```::```).
+Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (```::```).
 
 	$view = $this->view->create('acme-foo::vista');
-
-	php reactor acme-foo::hello_world
 
 By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` propery in your package class.
 
@@ -88,12 +87,12 @@ By default the file namespace of a package will be the package name where the sl
 
 Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the ```$commands``` property in your package class.
 
-	protected $commands = 
+	protected $commands =
 	[
 		'acme-foo::command' => 'acme\foo\commands\Command',
 	];
 
-> It is good practice to prefix the command with your package prefix to avoid naming collisions with other commands.
+> It is considered good practice to prefix the command with your package prefix to avoid naming collisions with other commands.
 
 --------------------------------------------------------
 
@@ -105,7 +104,7 @@ Installing packages is extremely easy. All you need to do is running a simple [c
 
 	composer require <vendor>/<package name>:*
 
-So, to install **acme/foo** package using composer, you have to issue following command from the project directory
+So, to install ```acme/foo``` package using composer, you have to issue following command from the project directory
 
 	composer require acme/foo:*
 
@@ -115,6 +114,6 @@ So, to install **acme/foo** package using composer, you have to issue following 
 
 ### Publishing packages
 
-Publishing your packages is very easy. Read all about it at [packagist.org](http://packagist.org/).
+Publishing your packages is very easy and you can read all about it on the [packagist.org](http://packagist.org/) website.
 
-You can also host your own private repository if you don't want your code to be publicly avaialbe. You can read more about how to set up and manage your own repository at [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own).
+You can also host your own private repository if you don't want your code to be publicly avaialbe. You can read more about how to set up and manage your own repository on the [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own) website.
