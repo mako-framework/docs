@@ -135,6 +135,8 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 
 Middleware can be used to decorate your command handlers with additional functionality. The example middleware below will wrap your command handler in a database transaction.
 
+	<?php
+
 	namespace app\commands\middleware;
 
 	use Closure;
@@ -171,9 +173,13 @@ Middleware can be used to decorate your command handlers with additional functio
 
 Adding middleware to the command bus is done using the ```CommandBus::addMiddleware()``` method.
 
+	<?php
+
 	$commander->addMiddleware(TransactionMiddleware::class);
 
 Adding middlware like shown in the example above will decorate all command handlers executed by the command bus. You can also assign middleware at call-time if you don't want to affect subsequent handlers.
+
+	<?php
 
 	$middleware = [TransactionMiddleware::class];
 
