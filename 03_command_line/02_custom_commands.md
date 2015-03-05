@@ -196,7 +196,7 @@ The ```confirmation``` method lets you ask the user for confirmation.
 		// Delete all files
 	}
 
-The default answer is ```n``` (true) but you can choose to make ```y``` (false) the default answer.
+The default answer is ```n``` (false) but you can choose to make ```y``` (true) the default answer.
 
 	if($this->confirmation('Do you want to delete all your files?', 'y'))
 	{
