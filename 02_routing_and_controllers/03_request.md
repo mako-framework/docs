@@ -46,7 +46,7 @@ The ```post``` method allows you to access ```POST``` data ($_POST).
 
 	$foo = $this->request->post('foo', false);
 
-The ```put``` method allows you to access ```PUT``` data. 
+The ```put``` method allows you to access ```PUT``` data.
 
 > The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
 
@@ -62,7 +62,7 @@ The ```put``` method allows you to access ```PUT``` data.
 
 	$foo = $this->request->put('foo', false);
 
-The ```patch``` method allows you to access ```PATCH``` data. 
+The ```patch``` method allows you to access ```PATCH``` data.
 
 > The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
 
@@ -78,7 +78,7 @@ The ```patch``` method allows you to access ```PATCH``` data.
 
 	$foo = $this->request->patch('foo', false);
 
-The ```delete``` method allows you to access ```DELETE``` data. 
+The ```delete``` method allows you to access ```DELETE``` data.
 
 > The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
 
@@ -274,7 +274,7 @@ The ```method``` method returns the request method used to access the resource.
 
 The ```realMethod``` method returns the real request method used to access the resource.
 
-	$method = $this->request->method();
+	$method = $this->request->realMethod();
 
 The ```isFaked``` method returns TRUE if the request method method has been faked and FALSE if not.
 
