@@ -19,7 +19,7 @@
 * [ORDER BY clauses](#order_by_clauses)
 * [LIMIT and OFFSET clauses](#limit_and_offset_clauses)
 
--------------------------------------------------------- 
+--------------------------------------------------------
 
 The query builder allows you to programmatically build SQL queries.
 
@@ -71,8 +71,6 @@ Fetching all rows is done using the ```all``` method.
 
 Selecting from the results of a subquery is also possible.
 
-	// Using a closure
-
 	$persons = $query->table(function($query)
 	{
 		$query->table('persons')->select(['name'])->distinct();
@@ -80,7 +78,7 @@ Selecting from the results of a subquery is also possible.
 	->where('name', '!=', 'John Doe')
 	->all();
 
-	// You can also use the Subquery class if you need a specific table alias
+You can also use the Subquery class instead of a closure if you need a specific table alias.
 
 	$persons = $query->table
 	(
@@ -92,7 +90,7 @@ Selecting from the results of a subquery is also possible.
 	->where('name', '!=', 'John Doe')
 	->all();
 
-You can also make advanced column selections with raw SQL and subqueries
+Advanced column selections can also be made using raw SQL and subqueries.
 
 	$persons = $query->table('persons')->select
 	(
@@ -121,7 +119,7 @@ Fetching the value of a single column is done using the ```column``` method.
 
 	$email = $query->table('persons')->where('id', '=', 1)->column('email');
 
-If you need to process large ammounts of data then the ```batch``` method will help you limit the memory usage of your application. The default batch size is a 1000 records but you can override this using the optional second parameter. 
+If you need to process large ammounts of data then the ```batch``` method will help you limit the memory usage of your application. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 

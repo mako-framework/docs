@@ -2,17 +2,18 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage) 
+* [Time](#time)
+* [Time zones](#time_zones)
 
 --------------------------------------------------------
 
-Mako includes a class that extends the DateTime class from the PHP core. Here we'll go over the differences between the two. If you need documentation of all the default methods then you can read about them [here](http://www.php.net/manual/en/class.datetime.php).
+Mako includes a couple of classes that extends the DateTime and DateTimeZone classes from the PHP core. We'll only go over our customizations in this document. If you need documentation of all the default methods then you can read about them [here](http://www.php.net/manual/en/class.datetime.php) and [here](http://php.net/manual/en/class.datetimezone.php).
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="time"></a>
 
-### Usage
+### Time
 
 You can create a new instance using the constructor. The difference between Mako's Time constructor and PHP's DateTime constructor is that the optional second parameter can be either a valid time zone string or a DateTimeZone instance.
 
@@ -72,14 +73,6 @@ The ```setTimeZone``` method allows you to change the timzone after instance cre
 
 	$time->setTimeZone(new DateTimeZone('Europe/Paris'));
 
-The ```getTimeZones``` method retuns an array consisting of all avaiable time zones where the key is a valid time zone string while the value is a presentable name.
-
-	$timeZones = Time::getTimeZones();
-
-The ```getGroupedTimeZones``` method retuns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
-
-	$timeZones = Time::getGroupedTimeZones();
-
 The ```forward``` method moves you forward in time by **x** seconds.
 
 	$time->forward(60);
@@ -99,3 +92,17 @@ The ```isLeapYear``` method returns TRUE if the year of the Time instance is a l
 The ```daysInMonth``` method returnst the number of days in the month of the Time instance. The method also takes into account whether it is a leap year or not.
 
 	$daysInMonth = $time->daysInMonth();
+
+--------------------------------------------------------
+
+<a id="time_zones"></a>
+
+### Time zones
+
+The ```getTimeZones``` method retuns an array consisting of all avaiable time zones where the key is a valid time zone string while the value is a presentable name.
+
+	$timeZones = TimeZone::getTimeZones();
+
+The ```getGroupedTimeZones``` method retuns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
+
+	$timeZones = TimeZone::getGroupedTimeZones();
