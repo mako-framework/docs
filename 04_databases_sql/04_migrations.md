@@ -62,6 +62,8 @@ Running the ```create``` commands will return the following messages:
 
 The generated migration will contain a skeleton class with two methods, ```up``` and ```down```. The database connetion manager is available in both methods using the ```$this->database``` property.
 
+	<?php
+
 	class Migration_20120824100019 extends Migration
 	{
 		/**
@@ -150,6 +152,8 @@ This will prompt you for confirmation. To force the reset just use the ```force`
 ### Dependency injection
 
 Migrations are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	<?php
 
 	class Migration_20120824100019 extends Migration
 	{

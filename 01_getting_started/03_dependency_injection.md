@@ -55,7 +55,7 @@ The ```has``` method allows you to check for the presence of an item in the cont
 	{
 		// do something
 	}
-	
+
 	// Or the optional key
 
 	if($container->has('bar'))
@@ -74,6 +74,8 @@ The ```get``` method lets you resolve a dependency through the IoC container.
 	$foo = $container->get('foo');
 
 The class does not have to be registered in the container to be resolvable.
+
+	<?php
 
 	class Depends
 	{
@@ -110,7 +112,7 @@ The ```call``` method allows you to execute a callable and automatically inject 
 
 ### Services
 
-Services are an easy and clean way of registering dependecies in the IoC container. 
+Services are an easy and clean way of registering dependecies in the IoC container.
 
 Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
@@ -127,8 +129,10 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 |                          | mako\file\FileSystem               | fileSystem       | File system abstraction     | ✔        |
 |                          | mako\config\Config                 | config           | Config loader               | ✔        |
 | CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
+| CommandBusService        | mako\commander\CommandBusInterface | commander        | Command bus                 | ✘        |
 | CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
+| EventService             | mako\event\Event                   | event            | Event handler               | ✘        |
 | GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
@@ -186,6 +190,6 @@ The ```ContainerAwareTrait``` also implements the magic ```__get()``` method. Th
 
 	$this->view; // Instance of mako\view\ViewFactory
 
-Resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if you don't expect a to reuse the same instance of your dependency.
+Resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if you don't expect to reuse the same instance of your dependency.
 
 Use the ```$this->container->get('...')``` method instead of overloading if you need a "fresh" instance from the container.

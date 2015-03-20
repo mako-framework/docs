@@ -49,7 +49,7 @@ Routes can also execute closures instead of class methods.
 	{
 		return 'Hello, world!';
 	});
-	
+
 --------------------------------------------------------
 
 <a id="route_parameters"></a>
@@ -127,6 +127,8 @@ This filter will cache route responses for 10 minutes:
 
 You can also create a filter classes instead of closures. The class will be instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
+	<?php
+
 	namespace app\routing\filters;
 
 	use mako\http\Request;
@@ -179,11 +181,11 @@ You can also pass parameters to your filters. In the example below we're telling
 
 Route groups are usefull when you have a set of groups with the same constraints and filters.
 
-	$options = 
+	$options =
 	[
 
-		'before'    => 'cache.read', 
-		'after'     => 'cache.write', 
+		'before'    => 'cache.read',
+		'after'     => 'cache.write',
 		'when'      => ['id' => '[0-9]+'],
 		'namespace' => 'app\controllers',
 	];
@@ -195,7 +197,7 @@ Route groups are usefull when you have a set of groups with the same constraints
 		$routes->get('/photos/{id}', 'Photos::view');
 	});
 
-All routes within the group will now have the same filters and constraints. You can also nest groups if needed. 
+All routes within the group will now have the same filters and constraints. You can also nest groups if needed.
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 

@@ -18,6 +18,8 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 Here's a basic example controller that extends the base controller included with the framework.
 
+	<?php
+
 	namespace app\controllers;
 
 	use mako\http\routing\Controller;
@@ -68,6 +70,8 @@ The controller action and ```afterFilter``` methods will be skipped if the ```be
 ### Dependency injection
 
 Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	<?php
 
 	namespace app\controllers;
 

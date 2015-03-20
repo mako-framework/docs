@@ -19,7 +19,7 @@ The mako validator provides a simple and consistent way of validating user input
 
 First you need to define a set of rules you want to use to validate the input.
 
-	$rules = 
+	$rules =
 	[
 		'username' => ['required', 'min_length:4', 'max_length:20'],
 		'password' => ['required'],
@@ -31,7 +31,7 @@ The rules defined above will make sure that the username, password and email fie
 
 If all of your fields have one or more rule in common, then you can use the ```*``` shortcut.
 
-	$rules = 
+	$rules =
 	[
 		'*'        => ['required'],
 		'username' => ['min_length:4', 'max_length:20'],
@@ -169,6 +169,8 @@ You can also add custom field name translations using the ```overrides.fieldname
 ### Validator plugins
 
 You can create your own custom validator plugins. They must extend the ```mako\validator\plugins\ValidatorPlugin``` class and implement the ```mako\validator\plugins\ValidatorPluginInterface``` interface.
+
+	<?php
 
 	use mako\validator\plugins\ValidatorPlugin;
 	use mako\validator\plugins\ValidatorPluginInterface;

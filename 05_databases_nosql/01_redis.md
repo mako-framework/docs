@@ -24,19 +24,19 @@ Creating a database connection is done using the ```ConnectionManager::connectio
 
 	// Returns connection object using the "default" redis configuration defined in the config file
 
-	$connection = $this->redis->connection();
+	$redis = $this->redis->connection();
 
 	// Returns connection object using the "mydb" redis configuration defined in the config file
 
-	$connection = $this->redis->connection('mydb');
+	$redis = $this->redis->connection('mydb');
 
 The Redis class uses the magic ```__call``` method so every current (and future) [Redis command](http://redis.io/commands) is a valid method.
 
 	// Add some dummy data
 
-	$connection->rpush('drinks', 'water');
-	$connection->rpush('drinks', 'milk');
-	$connection->rpush('drinks', 'orange juice');
+	$redis->rpush('drinks', 'water');
+	$redis->rpush('drinks', 'milk');
+	$redis->rpush('drinks', 'orange juice');
 
 	// Fetches all the drinks
 
@@ -44,27 +44,27 @@ The Redis class uses the magic ```__call``` method so every current (and future)
 
 	// Delete data
 
-	$connection->del('drinks');
+	$redis->del('drinks');
 
 If the redis command contains spaces (```CONFIG GET```, ```CONFIG SET```, etc ...) then you'll have to separate the words using camel case or underscores.
 
 	// Use camel case to separate multi word commands
 
-	$connection->configGet('*max-*-entries*');
+	$redis->configGet('*max-*-entries*');
 
 	// You can also use underscores
 
-	$connection->config_get('*max-*-entries*');
+	$redis->config_get('*max-*-entries*');
 
 The ```pipeline``` method allows you to send multiple commands to the Redis server without having to wait for the replies. Using pipelining can be useful if you need to send a large number of commands as you will not be paying the cost of round-trip time for every single call.
 
-	$connection->set('x', 0);
+	$redis->set('x', 0);
 
-	$replies = $connection->pipeline(function($connection)
+	$replies = $redis->pipeline(function($redis)
 	{
 		for($i = 0; $i < 100; $i++)
 		{
-			$connection->incr('x');
+			$redis->incr('x');
 		}
 	});
 

@@ -164,7 +164,7 @@ The ```isMemberOf``` method allows you to check whether or not a user is a membe
 
 	$isMemberOf = $user->isMemberOf('admin');
 
-	// Returns true if the user is a member "staff" or "admin"
+	// Returns true if the user is a member of "staff" or "admin"
 
 	$isMemberOf = $user->isMemberOf(['staff', 'admin']);
 

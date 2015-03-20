@@ -557,9 +557,11 @@ You can exclude columns from the array and JSON representations by using the ```
 
 #### Timestamped
 
-You'll often want to track when a record has been created and when it was updated. The ```TimestampedTrait``` will do this for you automatically. 
+You'll often want to track when a record has been created and when it was updated. The ```TimestampedTrait``` will do this for you automatically.
 
 The trait requires you to add two DATETIME columns to your database table, ```created_at``` and ```updated_at```. You can override the column names using the ```$createdAtColumn``` and ```$updatedAtColumn``` properties.
+
+	<?php
 
 	use mako\database\midgard\ORM;
 	use mako\database\midgard\traits\TimestampedTrait;
@@ -586,6 +588,8 @@ You can also make the ORM touch related records upon saving by listing the relat
 When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
 
 To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
+
+	<?php
 
 	use mako\database\midgard\ORM;
 	use mako\database\midgard\traits\OptimisticLockingTrait;

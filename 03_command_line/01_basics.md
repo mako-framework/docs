@@ -20,9 +20,7 @@ To list the available commands just type this in your console:
 
 It should print the following on a default Mako installation
 
-	╔═══╗
-	║   ║ MAKO FRAMEWORK 4.4.0
-	╚═══╝
+	MAKO FRAMEWORK [ 4.5.0 ]
 
 	Usage:
 
@@ -33,9 +31,9 @@ It should print the following on a default Mako installation
 	----------------------------------------------------------
 	| Option     | Description                               |
 	----------------------------------------------------------
-	| --mute     | Disables all output                       |
-	| --env      | Overrides the Mako environment            |
 	| --database | Overrides the default database connection |
+	| --env      | Overrides the Mako environment            |
+	| --mute     | Mutes all output                          |
 	----------------------------------------------------------
 
 	Available commands:
@@ -45,7 +43,6 @@ It should print the following on a default Mako installation
 	-------------------------------------------------------------------------
 	| app.generate_secret | Generates a new application secret.             |
 	| app.routes          | Lists all registered routes.                    |
-	| logo                |                                                 |
 	| migrate.create      | Creates a new migration.                        |
 	| migrate.down        | Rolls back the last batch of migrations.        |
 	| migrate.reset       | Rolls back the last batch of migrations.        |

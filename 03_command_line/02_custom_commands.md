@@ -29,6 +29,8 @@ The Mako command line tool comes with a set of useful commands but you can also 
 
 All commands must extend the ```mako\reactor\Command``` base command and implement the ```execute``` method.
 
+	<?php
+
 	namespace app\commands;
 
 	use mako\reactor\Command;
@@ -42,6 +44,8 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 	}
 
 You'll also want to tell your users (or remind yourself) what the command actually does. This is easily done using the ```$commandInformation``` property.
+
+	<?php
 
 	namespace app\commands;
 
@@ -85,6 +89,8 @@ You can now call your custom command like this.
 
 Passing arguments to a command is easy as you can se in the example below.
 
+	<?php
+
 	namespace app\commands;
 
 	use mako\reactor\Command;
@@ -105,6 +111,8 @@ You can now execute your command from the command line.
 
 You can also use options or "named arguments".
 
+	<?php
+
 	namespace app\commands;
 
 	use mako\reactor\Command;
@@ -122,6 +130,8 @@ You can now execute your command from the command line.
 	php reactor hello --name=dude
 
 Options can also be used as boolean flags.
+
+	<?php
 
 	namespace app\commands;
 
@@ -322,6 +332,8 @@ You can also escape all tags in a string using the ```Formatter::escape()``` met
 ### Dependency injection
 
 Commands are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+	<?php
 
 	class Hello extends Command
 	{
