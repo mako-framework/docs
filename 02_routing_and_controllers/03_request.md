@@ -287,3 +287,7 @@ The ```username``` method returns a basic HTTP authentication username of NULL i
 The ```password``` method returns a basic HTTP authentication password of NULL if it isn't set.
 
 	$password = $this->request->password();
+
+The ```getRoute``` method returns the route that matched the request.
+
+	$route = $this->request->getRoute();

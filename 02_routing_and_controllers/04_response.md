@@ -55,7 +55,7 @@ The ```getCharset``` returns the current response charset.
 
 	$responseCharset = $this->response->getCharset();
 
-The ```status``` method lets you set the response status. 
+The ```status``` method lets you set the response status.
 
 	$this->response->status(404); // Sends the 404 "Not Found" header.
 
@@ -97,6 +97,14 @@ The ```signedCookie``` method has the same method signature as the ```cookie``` 
 
 > The benefit of using signed cookies over regular cookies is that their values can not be tampered with on the client site.
 
+The ```hasCookie``` method returns TRUE if the response has the specified cookie and FALSE if not.
+
+	$hasCookie = $this->response->hasCookie('name');
+
+The ```removeCookie``` method allows you to remove a cookie from the response.
+
+	$this->response->removeCookie('name');
+
 The ```deleteCookie``` method deletes a cookie from the browser. It can be used to delete both normal and signed cookies.
 
 	$this->response->deleteCooke('name');
@@ -122,6 +130,10 @@ The ```clearCookies``` method will clear all cookies that have been set.
 The ```header``` method adds a header to your response. The first parameter is the header field while the second is the header value.
 
 	$this->response->header('access-control-allow-origin', '*');
+
+The ```hasHeader``` method returns TRUE if the response has the specified header and FALSE if not.
+
+	$hasHeader = $this->response->hasHeader('access-control-allow-origin'):
 
 The ```removeHeader``` method allows you to remove a previously set header from the response.
 
@@ -222,9 +234,9 @@ You can set a custom file name, content type, content disposition and a callback
 #### Streams
 
 The ```stream``` method returns a stream response container. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage. It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
- 
+
 	$this->response->type('text/plain');
-  
+
 	return $this->response->stream(function($stream)
 	{
 		$stream->flush('Hello, world!');

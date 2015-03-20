@@ -20,6 +20,18 @@ First you'll have to decide whether to use GD or ImageMagick. In this example we
 
 > You can reuse the same processor instance as long as you edit your images sequentially.
 
+The ```getHeight``` method returns the height of your image.
+
+	$height = $image->getHeight();
+
+The ```getWidth``` method returns the width of your image.
+
+	$width = $image->getWidth();
+
+The ```getDimensions``` method returns an array containing both the height and width of your image.
+
+	$dimensions = $image->getDimensions();
+
 The ```snapshot``` method allows you to create a snapshot of your image.
 
 	$image->snapshot();
