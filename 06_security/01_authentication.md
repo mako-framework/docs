@@ -252,6 +252,9 @@ Users table
 		`access_token` char(64) COLLATE utf8_unicode_ci DEFAULT '',
 		`activated` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
 		`banned` set('0','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+		`failed_attempts` int(11) NOT NULL DEFAULT '0',
+		`last_fail_at` datetime DEFAULT NULL,
+		`locked_until` datetime DEFAULT NULL,
 		PRIMARY KEY (`id`),
 		UNIQUE KEY `username` (`username`),
 		UNIQUE KEY `email` (`email`)

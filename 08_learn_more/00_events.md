@@ -15,46 +15,66 @@ Mako includes two ways of handling events, an event listener and a trait that ma
 
 ### Event listener
 
-First we'll need to create a listener instance.
-
-	$listener = new Listener();
-
 The ```register``` method lets you register an event handler that will get executed when the event is triggered.
 
-	$listener->register('foobar', function()
+	$this->event->register('foobar', function()
 	{
-		return 'foobar event 1';
+		return 'foobar event handler';
 	});
+
+You can also handle your events using a class instead of a closure.
+
+	$this->event->register('foobar', 'app\events\FoobarHandler');
+
+The classes will be instantiated and executed by the IoC container so you can easily inject your dependencies.
+
+	<?php
+
+	namespace app\events;
+
+	use mako\event\EventHandlerInterface;
+
+	class FoobarHandler implements EventHandlerInterface
+	{
+		public function handle()
+		{
+			return 'foobar event handler';
+		}
+	}
 
 You can register multiple handlers for the same event. They will be executed in the order that they were registered.
 
-	$listener->register('foobar', function()
+	$this->event->register('foobar', function()
 	{
-		return 'foobar event 2';
+		return 'another foobar event handler';
 	});
 
 The ```has``` method will return TRUE if an event handler has been registered and FALSE if not.
 
-	$registered = $listener->has('foobar');
+	$registered = $this->event->has('foobar');
 
 The ```clear``` method will clear all event handlers registered for an event.
 
-	$listener->clear('foobar');
+	$this->event->clear('foobar');
 
 The ```override``` method will clear all previously registered handlers for an event before registering a new handler.
 
-	$listener->override('foobar', function()
+	$this->event->override('foobar', function()
 	{
 		return 'foobar event 1';
 	});
 
 The ```trigger``` method run all handlers for the registered event and return an array containing all the return values.
 
-	$values = $listener->trigger('foobar');
+	$values = $this->event->trigger('foobar');
 
-	// You can also pass an array of values
+You can also pass arguments your handlers using the optional second parameter.
 
-	$values = $listener->trigger('foobar', [1, 2, 3]);
+	$values = $this->event->trigger('foobar', [1, 2, 3]);
+
+The third optional parameter lets you stop event handling if one of the handlers return ```FALSE```.
+
+	$values = $this->event->trigger('foobar', [1, 2, 3], true);
 
 --------------------------------------------------------
 
