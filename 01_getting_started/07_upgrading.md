@@ -4,20 +4,16 @@
 
 * [Application](#application)
 	- [Configuration](#application:configuration)
-	- [Command line](#application:command-line)
-	- [Migrations](#application:migrations)
-	- [Miscellaneous](#application:miscellaneous)
+	- [Structure](#application:structure)
 * [Packages](#packages)
-	- [Command line](#packages:command-line)
-	- [Migrations](#packages:migrations)
-	- [Miscellaneous](#packages:miscellaneous)
+	- [Structure](#packages:structure)
+* [Database](#database)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```4.3.x``` to ```4.4.x```.
+This guide takes you through the steps needed to migrate from Mako ```4.4.x``` to ```4.5.x```.
 
 --------------------------------------------------------
-
 
 <a id="application"></a>
 
@@ -27,35 +23,17 @@ This guide takes you through the steps needed to migrate from Mako ```4.3.x``` t
 
 #### Configuration
 
-The ```app/config/application.php``` and ```app/config/session.php``` configuration files have seen some minor changes:
+The ```app/config/gatekeeper.php``` configuration file has been updated with a set of new brute force throttling [options](https://github.com/mako-framework/app/blob/8df4487ac1e3534a3225c79723749169f5f528ad/app/config/gatekeeper.php#L48).
 
-* [application.php](https://github.com/mako-framework/app/blob/23cb6cdf3ccce2d686a69f45cf0ee6cd648b7207/app/config/application.php)
-* [session.php](https://github.com/mako-framework/app/blob/bbf29d5fad11cd0bc9d8a1434d53f3eb03b10ed1/app/config/session.php)
- 
-<a id="application:command-line"></a>
+<a id="application:structure"></a>
 
-#### Command line
+#### Structure
 
-The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](:base_url:/docs/:version:/command-line:basics) to see what you'll have to do to migrate your code.
+There has been made some minor changes to the application structure:
 
-<a id="application:migrations"></a>
-
-#### Migrations
-
-Migrations classes must now extend the ```mako\database\migrations\Migration``` class.
-
-<a id="application:miscellaneous"></a>
-
-#### Miscellaneous
-
-* The ```init.php``` file has been moved from the framework core to the [application root directory](https://github.com/mako-framework/app/blob/5bfb27b6e22cb87c088cc0bc56d1328c15f34953/app/init.php).
-* The ```reactor``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/app/reactor).
-* The ```index.php``` file has been [updated](https://github.com/mako-framework/app/blob/a158f548542ddce065726149a0e96302250cb372/public/index.php).
-* The ```Session::generateToken()``` method has been renamed to ```Session::generateOneTimeToken()```.
-* The ```Session::validateToken()``` method has been renamed to ```Session::validateOneTimeToken()```.
-* The ```token``` validation rule has been renamed to ```one_time_token```.
-
-> The default application structure has been slightly [changed](https://github.com/mako-framework/app/tree/a158f548542ddce065726149a0e96302250cb372).
+* The ```app/commands``` directory has been moved to ```app\console\commands```.
+* The ```app/views``` directory has been moved to ```app\resources\views```.
+* The ```app/i18n``` directory has been moved to ```app\resources\i18n```.
 
 --------------------------------------------------------
 
@@ -63,24 +41,19 @@ Migrations classes must now extend the ```mako\database\migrations\Migration``` 
 
 ### Packages
 
-<a id="packages:command-line"></a>
+<a id="packages:structure"></a>
 
-#### Command line
+#### Structure
 
-The Mako command line tool ```reactor``` has been rewritten from scratch. Check out the [documentation](:base_url:/docs/:version:/command-line:basics) to see what you'll have to do to migrate your code.
+There has been made some minor changes to the default package structure.
 
-Also check out the [package documentation](:base_url:/docs/:version:/packages:packages) to see how your register your package commands.
+* The ```views``` directory has been moved to ```resources\views```.
+* The ```i18n``` directory has been moved to ```resources\i18n```.
 
-<a id="packages:migrations"></a>
+--------------------------------------------------------
 
-#### Migrations
+<a id="database"></a>
 
-Migrations classes must now extend the ```mako\database\migrations\Migration``` class.
+### Database
 
-<a id="packages:miscellaneous"></a>
-
-#### Miscellaneous
-
-* The ```Session::generateToken()``` method has been renamed to ```Session::generateOneTimeToken()```.
-* The ```Session::validateToken()``` method has been renamed to ```Session::validateOneTimeToken()```.
-* The ```token``` validation rule has been renamed to ```one_time_token```.
+Three new fields have been added to the [gatekeeper users table](:base_url:/docs/4.4/security:authentication#database_schema) (```users.failed_attempts```, ```users.last_fail_at``` and ```users.locked_until```).

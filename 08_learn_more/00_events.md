@@ -15,7 +15,7 @@ Mako includes two ways of handling events, an event listener and a trait that ma
 
 ### Event listener
 
-The ```register``` method lets you register an event handler that will get executed when the event is triggered.
+The ```register``` method lets you register an event handler that will get executed when the event is triggered. You can register multiple handlers for the same event. They will be executed in the order that they were registered.
 
 	$this->event->register('foobar', function()
 	{
@@ -26,7 +26,7 @@ You can also handle your events using a class instead of a closure.
 
 	$this->event->register('foobar', 'app\events\FoobarHandler');
 
-The classes will be instantiated and executed by the IoC container so you can easily inject your dependencies.
+Class handlers will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor. Both closure and class handlers will be executed by the ```Container::call()``` and all dependencies will automatically be [injected](:base_url:/docs/:version:/getting-started:dependency-injection) there as well.
 
 	<?php
 
@@ -41,13 +41,6 @@ The classes will be instantiated and executed by the IoC container so you can ea
 			return 'foobar event handler';
 		}
 	}
-
-You can register multiple handlers for the same event. They will be executed in the order that they were registered.
-
-	$this->event->register('foobar', function()
-	{
-		return 'another foobar event handler';
-	});
 
 The ```has``` method will return TRUE if an event handler has been registered and FALSE if not.
 
