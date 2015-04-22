@@ -297,7 +297,7 @@ exists(), orExists(), notExists(), orNotExists()
 	$persons = $query->table('persons')
 	->exists(function($query)
 	{
-		$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id';
+		$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id');
 	})
 	->all();
 
