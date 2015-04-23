@@ -56,4 +56,4 @@ There has been made some minor changes to the default package structure.
 
 ### Database
 
-Three new fields have been added to the [gatekeeper users table](:base_url:/docs/4.4/security:authentication#database_schema) (```users.failed_attempts```, ```users.last_fail_at``` and ```users.locked_until```).
+Three new fields have been added to the [gatekeeper users table](:base_url:/docs/:version:/security:authentication#database_schema) (```users.failed_attempts```, ```users.last_fail_at``` and ```users.locked_until```).
