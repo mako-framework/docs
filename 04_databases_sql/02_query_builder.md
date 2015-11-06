@@ -238,7 +238,28 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 		$query->where('age', '>', 25);
 		$query->where('height', '>', 180);
 	})
-	->notNull('email')
+	->isNotNull('email')
+	->all();
+
+You can also use the eq(), notEq(), lt(), lte(), gt(), gte(), like(), notLike(), orEq(), orNotEq(), orLt(), orLte(), orGt(), orGte(), orLike(), orNotLike(), eqRaw(), notEqRaw(), ltRaw(), lteRaw(), gtRaw(), gteRaw(), likeRaw(), notLikeRaw(), orEqRaw(), orNotEqRaw(), orLtRaw(), orLteRaw(), orGtRaw(), orGteRaw(), orLikeRaw(), orNotLikeRaw() convenience methods.
+
+	// SELECT * FROM `persons` WHERE `age` > 25
+
+	$persons = $query->table('persons')->gt('age', 25)->all();
+
+	// SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
+
+	$persons = $query->table('persons')->gt('age', 25)->orLt('age', 20)->all();
+
+	// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
+
+	$persons = $query->table('persons')
+	->where(function($query)
+	{
+		$query->gt('age', 25);
+		$query->gt('height', 180);
+	})
+	->isNotNull('email')
 	->all();
 
 > Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
@@ -280,11 +301,11 @@ in(), orIn(), notIn(), orNotIn()
 
 ### WHERE IS NULL clauses
 
-null(), orNull(), notNull(), orNotNull()
+isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
 	// SELECT * FROM `persons` WHERE `address` IS NULL
 
-	$persons = $query->table('persons')->null('address')->all();
+	$persons = $query->table('persons')->isNull('address')->all();
 
 <a id="where_exists_clauses"></a>
 
