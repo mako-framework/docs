@@ -23,12 +23,12 @@
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
 * [Optimistic locking](#optimistic_locking)
-* [Read-only records](#read_only_records)
 * [Cloning records](#cloning_records)
 * [Array and JSON representations](#array_and_json_representations)
 * [Traits](#traits)
 	- [Timestamped](#traits:timestamped)
 	- [Optimistic locking](#traits:optimistic_locking)
+	- [Read-only records](#read_only_records)
 
 --------------------------------------------------------
 
@@ -155,8 +155,6 @@ The code above will execute the following SQL:
 It will return duplicates for articles that have more than one comment. This can be solved using a distinct select:
 
 	$articles = Article::distinct()->join('comments', 'article.id', '=', 'comments.article_id')->all();
-
-> Note that joining will make the selected records read-only.
 
 --------------------------------------------------------
 
@@ -500,22 +498,6 @@ You can make mass assignment a bit more secure by using the ```$assignable``` pr
 
 --------------------------------------------------------
 
-<a id="read_only_records"></a>
-
-### Read-only records
-
-You can make your records read-only by setting the ```$readOnly``` property to TRUE. Doing so will make it impossible to update or delete the records and a ```ReadOnlyRecordException``` will be thrown if attempted.
-
-	// Load a read-only record
-
-	$user = User::get(1);
-
-	// Will throw a mako\database\midgard\ReadOnlyRecordException
-
-	$user->delete();
-
---------------------------------------------------------
-
 <a id="cloning_records"></a>
 
 ### Cloning records
@@ -617,3 +599,29 @@ The second save in the example below will throw a ```StaleRecordException``` sin
 	$article2->reload();
 
 > Optimistic locking will also check for stale records when deleting, although not when deleting in bulk.
+
+<a id="read_only_records"></a>
+
+### Read-only records
+
+You can make your records read-only by using the ```ReadOnlyTrait```.
+
+	<?php
+
+	use mako\database\midgard\ORM;
+	use mako\database\midgard\traits\ReadOnlyTrait;
+
+	class User extends ORM
+	{
+		use ReadOnlyTrait;
+	}
+
+This will make it impossible to update or delete the records and a ```ReadOnlyException``` will be thrown if attempted.
+
+	// Load a read-only record
+
+	$user = User::get(1);
+
+	// Will throw a mako\database\midgard\traits\exceptions\ReadOnlyException
+
+	$user->delete();
