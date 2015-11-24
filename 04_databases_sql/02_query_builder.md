@@ -369,14 +369,14 @@ groupBy()
 
 ### HAVING clauses
 
-having(), orHaving()
+having(), havingRaw(), orHaving(), orHavingRaw()
 
 	// SELECT `customer`, SUM(`price`) AS `sum FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
 
 	$customers = $query->table('orders')
 	->select(['customer', new Raw('SUM(price) as sum')])
 	->groupBy('customer')
-	->having(new Raw('SUM(price)'), '<', 2000)
+	->havingRaw('SUM(price)', '<', 2000)
 	->all();
 
 <a id="order_by_clauses"></a>
