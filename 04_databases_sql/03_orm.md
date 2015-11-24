@@ -28,7 +28,7 @@
 * [Traits](#traits)
 	- [Timestamped](#traits:timestamped)
 	- [Optimistic locking](#traits:optimistic_locking)
-	- [Read-only records](#read_only_records)
+	- [Read-only records](#traits:read_only_records)
 
 --------------------------------------------------------
 
@@ -600,7 +600,7 @@ The second save in the example below will throw a ```StaleRecordException``` sin
 
 > Optimistic locking will also check for stale records when deleting, although not when deleting in bulk.
 
-<a id="read_only_records"></a>
+<a id="traits:read_only_records"></a>
 
 ### Read-only records
 
