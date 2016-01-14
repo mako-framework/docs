@@ -287,7 +287,7 @@ You can also nest formatting tags. Just make sure to close them in the right ord
 
 	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
 
-Tags can also be escaped by prepending them with a backlash.
+Tags can also be escaped by prepending them with a backslash.
 
 	$this->write('\<blue>Hello, World\</blue>');
 
