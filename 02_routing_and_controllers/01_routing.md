@@ -39,9 +39,9 @@ You can also make a route respond to all request methods using the ```all``` met
 
 > All routes will by default respond to requests made using the ```OPTIONS``` method. ```GET``` routes will also respond to ```HEAD``` requests.
 
-If you only want to allow a specific set of methods then you can use the ```methods``` method.
+If you only want to allow a specific set of methods then you can use the ```register``` method.
 
-	$routes->methods(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
+	$routes->register(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
 
 Routes can also execute closures instead of class methods.
 
