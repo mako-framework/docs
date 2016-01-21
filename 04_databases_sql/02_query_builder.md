@@ -69,6 +69,8 @@ Fetching all rows is done using the ```all``` method.
 
 	$persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 
+> Note that the ```all``` method returns a result set. So you'll need to use the ```isEmpty``` method to check if it's empty.
+
 Selecting from the results of a subquery is also possible.
 
 	$persons = $query->table(function($query)
