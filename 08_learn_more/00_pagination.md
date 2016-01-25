@@ -3,7 +3,10 @@
 --------------------------------------------------------
 
 * [Usage](#usage)
-* [Example view](#example_view)
+	- [Basics](#usage_basics)
+	- [With the query builder](#usage_with_the_query_builder)
+* [Pagination rendering](#pagination_rendering)
+	- [Example view](#pagination_rendering_example_view)
 
 --------------------------------------------------------
 
@@ -15,9 +18,11 @@ The pagination class makes easy to generate pagination links.
 
 ### Usage
 
-First you'll have to create a pagination object. The first parameter is the pagination partial view and the second is the total count of the items you want to paginate.
+<a id="usage_basics"></a>
 
-There's also a third optional parameter that lets you set the number of items to be displayed on each page. If this is left empty then it'll use the default value specified in the pagination config file.
+#### Basics
+
+First you'll have to create a pagination object. The first parameter is the total count of the items you want to paginate. The second parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional third parameter that lets you override the other settings set in the configuration file.
 
 	$pagination = $this->pagination->create(Articles::count());
 
@@ -25,21 +30,35 @@ Once the pagination object is created we can fetch the articles from the databas
 
 	$articles = Articles::limit($pagination->limit())->offset($pagination->offset())->all();
 
-The query builder and ORM will also allow you to use the pagination object directly.
+<a id="usage_with_the_query_builder"></a>
 
-	$articles = Articles::paginate($pagination)->all();
+#### With the query builder
+
+You can also use the ```pagination``` method of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder). It will automatically perform the count and apply the appropriate limit and offset.
+
+The first parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional second parameter that lets you override the other settings set in the configuration file.
+
+	$articles = Articles::paginate();
+
+--------------------------------------------------------
+
+<a id="pagination_rendering"></a>
+
+### Pagination redering
 
 You can render the pagination partial view in the article list view using the ```render``` method.
 
 	$paginationLinks = $pagination->render('partials.pagination');
 
---------------------------------------------------------
+If you used the ```paginate``` method of the query builder then you can access the pagination object using the ```getPagination``` method on the result set.
 
-<a id="example_view"></a>
+	$articles->getPagination()->render('partials.pagination');
 
-### Example view
+<a id="pagination_rendering_example_view"></a>
 
-Here's an example of what the pagination partial view can look like (using the template syntax) if you're using Twitter Bootstrap.
+#### Example view
+
+Here's an example of what a pagination partial can look like if you're using Twitter Bootstrap.
 
 	<ul class="pagination">
 		{% if(isset($previous)) %}
