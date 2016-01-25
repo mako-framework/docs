@@ -46,9 +46,9 @@ The first parameter is optional and lets you set the number of items to be displ
 
 ### Pagination redering
 
-You can render the pagination partial view in the article list view using the ```render``` method.
+You can render the pagination partial in the article list view using the ```render``` method.
 
-	$paginationLinks = $pagination->render('partials.pagination');
+	$pagination->render('partials.pagination');
 
 If you used the ```paginate``` method of the query builder then you can access the pagination object using the ```getPagination``` method on the result set.
 
