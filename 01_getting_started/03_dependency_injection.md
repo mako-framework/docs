@@ -122,31 +122,31 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 
 #### Core
 
-| Service                  | Type hint                          | Key              | Description                 | Required |
-|--------------------------|------------------------------------|------------------|-----------------------------|----------|
-|                          | mako\syringe\Syringe               | container        | IoC container               | ✔        |
-|                          | mako\application\Application       | app              | Application                 | ✔        |
-|                          | mako\file\FileSystem               | fileSystem       | File system abstraction     | ✔        |
-|                          | mako\config\Config                 | config           | Config loader               | ✔        |
-| CacheService             | mako\cache\CacheManager            | cache            | Cache manager               | ✘        |
-| CommandBusService        | mako\commander\CommandBusInterface | commander        | Command bus                 | ✘        |
-| CryptoService            | mako\security\crypto\CryptoManager | crypto           | Crypto manager              | ✘        |
-| DatabaseService          | mako\database\ConnectionManager    | database         | Database connection manager | ✘        |
-| EventService             | mako\event\Event                   | event            | Event handler               | ✘        |
-| GatekeeperService        | mako\auth\Gatekeeper               | gatekeeper       | Gatekeeper autentication    | ✘        |
-| HumanizerService         | mako\utility\Humanizer             | humanizer        | Humanizer helper            | ✘        |
-| I18nService              | mako\i18n\I18n                     | i18n             | Internationalization class  | ✘        |
-| LoggerService            | Psr\Log\LoggerInterface            | logger           | Monolog logger              | ✘        |
-| PaginationFactoryService | mako\pagination\PaginationFactory  | pagination       | Pagination factory          | ✘        |
-| RedisService             | mako\redis\ConnectionManager       | redis            | Redis connection manager    | ✘        |
-| RequestService           | mako\http\Request                  | request          | Request                     | ✔        |
-| ResponseService          | mako\http\Response                 | response         | Response                    | ✔        |
-| RouteService             | mako\http\routing\Routes           | routes           | Route collection            | ✔        |
-| SessionService           | mako\session\Session               | session          | Session                     | ✘        |
-| SignerService            | mako\security\Signer               | signer           | Signer                      | ✔        |
-| URLBuilderService        | mako\http\routing\URLBuilder       | urlBuilder       | URL builder                 | ✘        |
-| ValidatorFactoryService  | mako\validator\ValidatorFactory    | validator        | Validation factory          | ✘        |
-| ViewFactoryService       | mako\view\ViewFactory              | view             | View factory                | ✘        |
+| Service                  | Type hint                                  | Key              | Description                 | Required |
+|--------------------------|--------------------------------------------|------------------|-----------------------------|----------|
+|                          | mako\syringe\Syringe                       | container        | IoC container               | ✔        |
+|                          | mako\application\Application               | app              | Application                 | ✔        |
+|                          | mako\file\FileSystem                       | fileSystem       | File system abstraction     | ✔        |
+|                          | mako\config\Config                         | config           | Config loader               | ✔        |
+| CacheService             | mako\cache\CacheManager                    | cache            | Cache manager               | ✘        |
+| CommandBusService        | mako\commander\CommandBusInterface         | commander        | Command bus                 | ✘        |
+| CryptoService            | mako\security\crypto\CryptoManager         | crypto           | Crypto manager              | ✘        |
+| DatabaseService          | mako\database\ConnectionManager            | database         | Database connection manager | ✘        |
+| EventService             | mako\event\Event                           | event            | Event handler               | ✘        |
+| GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper autentication    | ✘        |
+| HumanizerService         | mako\utility\Humanizer                     | humanizer        | Humanizer helper            | ✘        |
+| I18nService              | mako\i18n\I18n                             | i18n             | Internationalization class  | ✘        |
+| LoggerService            | Psr\Log\LoggerInterface                    | logger           | Monolog logger              | ✘        |
+| PaginationFactoryService | mako\pagination\PaginationFactoryInterface | pagination       | Pagination factory          | ✘        |
+| RedisService             | mako\redis\ConnectionManager               | redis            | Redis connection manager    | ✘        |
+| RequestService           | mako\http\Request                          | request          | Request                     | ✔        |
+| ResponseService          | mako\http\Response                         | response         | Response                    | ✔        |
+| RouteService             | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
+| SessionService           | mako\session\Session                       | session          | Session                     | ✘        |
+| SignerService            | mako\security\Signer                       | signer           | Signer                      | ✔        |
+| URLBuilderService        | mako\http\routing\URLBuilder               | urlBuilder       | URL builder                 | ✘        |
+| ValidatorFactoryService  | mako\validator\ValidatorFactory            | validator        | Validation factory          | ✘        |
+| ViewFactoryService       | mako\view\ViewFactory                      | view             | View factory                | ✘        |
 
 <a id="services:web"></a>
 
