@@ -4,7 +4,7 @@
 
 * [Usage](#usage)
 	- [Basics](#usage_basics)
-	- [With the query builder](#usage_with_the_query_builder)
+	- [With the query builder](#usage_with_the_query_builder)
 * [Pagination rendering](#pagination_rendering)
 	- [Example view](#pagination_rendering_example_view)
 
