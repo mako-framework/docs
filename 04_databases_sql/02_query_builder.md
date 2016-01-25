@@ -423,7 +423,7 @@ limit(), offset(), paginate()
 
 	$persons = $query->table('persons')->limit(10)->offset(10)->all();
 
-You can also use a [pagination instance](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
+You can also use the [pagination method](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
 
 	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
