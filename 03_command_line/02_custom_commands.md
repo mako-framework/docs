@@ -43,7 +43,7 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 		}
 	}
 
-You'll also want to tell your users (or remind yourself) what the command actually does. This is easily done using the ```$commandInformation``` property.
+You might also want to tell your users (or remind yourself) what the command actually does. This can easily be done using the ```$commandInformation``` property.
 
 	<?php
 
@@ -287,11 +287,15 @@ You can also nest formatting tags. Just make sure to close them in the right ord
 
 	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
 
+If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the ```Formatter::addStyle()``` method.
+
+	$this->output->getFormatter()->addStyle('awesome', ['bg_green', 'black', 'blinking']);
+
 Tags can also be escaped by prepending them with a backslash.
 
 	$this->write('\<blue>Hello, World\</blue>');
 
-You can also escape all tags in a string using the ```Formatter::escape()``` method.
+If you want to escape all tags in a string then you can use the ```Formatter::escape()``` method.
 
 	$escaped = $this->output->getFormatter()->escape($string);
 

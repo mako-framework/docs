@@ -20,7 +20,7 @@ To list the available commands just type this in your console:
 
 It should print the following on a default Mako installation
 
-	MAKO FRAMEWORK [ 4.5.0 ]
+	MAKO FRAMEWORK [ 5.0.0 ]
 
 	Usage:
 
