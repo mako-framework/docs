@@ -121,6 +121,14 @@ Fetching the value of a single column is done using the ```column``` method.
 
 	$email = $query->table('persons')->where('id', '=', 1)->column('email');
 
+It is also possible to fetch an array containing the values of a single column using the ```columns``` method.
+
+	 $emails = $query->table('persons')->select(['email'])->columns();
+
+	 // You can also use the following syntax
+
+	 $emails = $query->table('persons')->columns('email');
+
 If you need to process large ammounts of data then the ```batch``` method will help you limit the memory usage of your application. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.

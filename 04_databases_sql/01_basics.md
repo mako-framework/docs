@@ -54,6 +54,10 @@ The ```Connection::column``` method executes a query and returns the value of th
 
 	$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 
+The ```Connection::columns``` method executes a query and returns an array containing the values of the first column.
+
+	$email = $connection->columns('SELECT `email` FROM `users`');
+
 The ```Connection::queryAndCound``` method will return the number of rows modified by the query.
 
 	$count = $connection->queryAndCound('UPDATE `users` SET `email` = ?', ['foo@example.org']);
