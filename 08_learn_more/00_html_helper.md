@@ -76,11 +76,11 @@ The ```ol``` method generates HTML tags for a ordered list.
 
 	echo $html->ol($items);
 
-The ```registerTag``` method allows you to register custom tag methods.
+The ```extend``` method allows you to register custom tag methods.
 
-	HTML::registerTag('p', function($html, $content, array $attributes = [])
+	HTML::extend('p', function($content, array $attributes = [])
 	{
-		return $html->tag('p', $attributes, $content);
+		return $this->tag('p', $attributes, $content);
 	});
 
 	// Will print <p>Hello</p>
