@@ -154,13 +154,13 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 | HTTPService              | mako\http\Request                          | request          | Request                     | ✔        |
 | HTTPService              | mako\http\Response                         | response         | Response                    | ✔        |
 | HTTPService              | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
-| HTTPService              | mako\security\Signer                       | signer           | Signer                      | ✔        |
 | HTTPService              | mako\http\routing\URLBuilder               | urlBuilder       | URL builder                 | ✔        |
 | I18nService              | mako\i18n\I18n                             | i18n             | Internationalization class  | ✘        |
 | LoggerService            | Psr\Log\LoggerInterface                    | logger           | Monolog logger              | ✘        |
 | PaginationFactoryService | mako\pagination\PaginationFactoryInterface | pagination       | Pagination factory          | ✘        |
 | RedisService             | mako\redis\ConnectionManager               | redis            | Redis connection manager    | ✘        |
 | SessionService           | mako\session\Session                       | session          | Session                     | ✘        |
+| SignerService            | mako\security\Signer                       | signer           | Signer                      | ✔        |
 | ValidatorFactoryService  | mako\validator\ValidatorFactory            | validator        | Validation factory          | ✘        |
 | ViewFactoryService       | mako\view\ViewFactory                      | view             | View factory                | ✘        |
 
