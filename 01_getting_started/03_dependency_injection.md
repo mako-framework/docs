@@ -151,16 +151,16 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 | EventService             | mako\event\Event                           | event            | Event handler               | ✘        |
 | GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper autentication    | ✘        |
 | HumanizerService         | mako\utility\Humanizer                     | humanizer        | Humanizer helper            | ✘        |
+| HTTPService              | mako\http\Request                          | request          | Request                     | ✔        |
+| HTTPService              | mako\http\Response                         | response         | Response                    | ✔        |
+| HTTPService              | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
+| HTTPService              | mako\security\Signer                       | signer           | Signer                      | ✔        |
+| HTTPService              | mako\http\routing\URLBuilder               | urlBuilder       | URL builder                 | ✔        |
 | I18nService              | mako\i18n\I18n                             | i18n             | Internationalization class  | ✘        |
 | LoggerService            | Psr\Log\LoggerInterface                    | logger           | Monolog logger              | ✘        |
 | PaginationFactoryService | mako\pagination\PaginationFactoryInterface | pagination       | Pagination factory          | ✘        |
 | RedisService             | mako\redis\ConnectionManager               | redis            | Redis connection manager    | ✘        |
-| RequestService           | mako\http\Request                          | request          | Request                     | ✔        |
-| ResponseService          | mako\http\Response                         | response         | Response                    | ✔        |
-| RouteService             | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
 | SessionService           | mako\session\Session                       | session          | Session                     | ✘        |
-| SignerService            | mako\security\Signer                       | signer           | Signer                      | ✔        |
-| URLBuilderService        | mako\http\routing\URLBuilder               | urlBuilder       | URL builder                 | ✘        |
 | ValidatorFactoryService  | mako\validator\ValidatorFactory            | validator        | Validation factory          | ✘        |
 | ViewFactoryService       | mako\view\ViewFactory                      | view             | View factory                | ✘        |
 
