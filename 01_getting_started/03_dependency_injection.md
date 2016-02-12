@@ -150,11 +150,11 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 | DatabaseService          | mako\database\ConnectionManager            | database         | Database connection manager | ✘        |
 | EventService             | mako\event\Event                           | event            | Event handler               | ✘        |
 | GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper autentication    | ✘        |
-| HumanizerService         | mako\utility\Humanizer                     | humanizer        | Humanizer helper            | ✘        |
 | HTTPService              | mako\http\Request                          | request          | Request                     | ✔        |
 | HTTPService              | mako\http\Response                         | response         | Response                    | ✔        |
 | HTTPService              | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
 | HTTPService              | mako\http\routing\URLBuilder               | urlBuilder       | URL builder                 | ✔        |
+| HumanizerService         | mako\utility\Humanizer                     | humanizer        | Humanizer helper            | ✘        |
 | I18nService              | mako\i18n\I18n                             | i18n             | Internationalization class  | ✘        |
 | LoggerService            | Psr\Log\LoggerInterface                    | logger           | Monolog logger              | ✘        |
 | PaginationFactoryService | mako\pagination\PaginationFactoryInterface | pagination       | Pagination factory          | ✘        |
