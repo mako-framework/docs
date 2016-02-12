@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
+* [Contextual injection](#contextual_injection)
 * [Services](#services)
 	- [Core](#services:core)
 	- [Web](#services:web)
@@ -108,6 +109,21 @@ The ```call``` method allows you to execute a callable and automatically inject 
 
 --------------------------------------------------------
 
+<a id="contextual_injection"></a>
+
+### Contextual injection
+
+Sometimes you'll need to inject different implementations of the same interface to different classes. This can easily be achieved with contextual dependency injection.
+
+	$container->registerContextualDependency('ClassA', 'FooBarInterface', 'FooBarImplementationA');
+	$container->registerContextualDependency('ClassB', 'FooBarInterface', 'FooBarImplementationB');
+
+```ClassA``` will now get the ```FooBarImplementationA``` implementation of the ```FooBarInterface``` while ```ClassB``` will get the ```FooBarImplementationB``` implementation.
+
+You can also use an alias key as the third parameter if the dependecy is already registered in the container.
+
+--------------------------------------------------------
+
 <a id="services"></a>
 
 ### Services
@@ -180,7 +196,7 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 
 You can also make a class that is instantiated by the container "container aware" by using the ```ContainerAwareTrait```. This means that you can use the IoC container as a service locator if you prefer that.
 
-> Note that controllers, migrations and taks are container aware by default.
+> Note that controllers, migrations and tasks are container aware by default.
 
 The IoC container is always avaiable through the ```$container``` property.
 

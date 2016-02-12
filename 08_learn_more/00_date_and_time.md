@@ -93,6 +93,10 @@ The ```daysInMonth``` method returnst the number of days in the month of the Tim
 
 	$daysInMonth = $time->daysInMonth();
 
+The ```daysInMonths``` method returnst an array containing the number of days in each month of the Time instance. The method also takes into account whether it is a leap year or not.
+
+	$daysInMonths = $time->daysInMonths();
+
 --------------------------------------------------------
 
 <a id="time_zones"></a>
