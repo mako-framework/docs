@@ -3,7 +3,7 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
-* [Controller filters](#controller_filters)
+* [Controller events](#controller_events)
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -45,15 +45,15 @@ Passing parameters to your controller actions is easy. Just define a route with 
 
 --------------------------------------------------------
 
-<a id="controller_filters"></a>
+<a id="controller_events"></a>
 
-### Controller filters
+### Controller events
 
-All controllers have two special methods. The ```beforeFilter``` method which gets executed right before the controller action and the ```afterFilter``` method which gets executed right after the controller action.
+All controllers have two special methods. The ```beforeAction``` method which gets executed right before the controller action and the ```afterAction``` method which gets executed right after the controller action.
 
-The controller action and ```afterFilter``` methods will be skipped if the ```beforeFilter``` returns data.
+The controller action and ```afterAction``` methods will be skipped if the ```beforeAction``` returns data.
 
-	public function beforeFilter()
+	public function beforeAction()
 	{
 		if($this->gatekeeper->isGuest())
 		{
@@ -61,7 +61,7 @@ The controller action and ```afterFilter``` methods will be skipped if the ```be
 		}
 	}
 
-> Note that a controller action and its after filter will **not** be executed if the before filter returns data.
+> Note that a controller action and its after action will **not** be executed if the before action returns data.
 
 --------------------------------------------------------
 

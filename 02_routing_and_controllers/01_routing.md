@@ -4,9 +4,9 @@
 
 * [Basics](#basics)
 * [Route parameters](#route_parameters)
-* [Route filters](#route_filters)
-	- [Defining filters](#route_filters:defining_filters)
-	- [Assigning filters](#route_filters:assigning_filters)
+* [Route middleware](#route_middleware)
+	- [Defining middleware](#route_middleware:defining_middleware)
+	- [Assigning middleware](#route_middleware:assigning_middleware)
 * [Route groups](#route_groups)
 * [Reverse routing](#reverse_routing)
 * [Faking request methods](#faking_request_methods)
@@ -88,90 +88,104 @@ Closure actions get executed by the ```Container::call()``` method so all depend
 
 --------------------------------------------------------
 
-<a id="route_filters"></a>
+<a id="route_middleware"></a>
 
-### Route filters
+### Route middleware
 
-<a id="route_filters:defining_filters"></a>
+<a id="route_middleware:defining_middleware"></a>
 
-#### Defining filters
+Route middleware allows you to alter the request and reponse both before and after a route action gets executed.
 
-You can define filters that will get executed before and after your route actions.
+![middleware](:base_url:/assets/img/middleware.png)
 
-Filters are registered in the ```app/routing/filters.php``` file. There are three variables avaiable in the scope, ```$filters``` (the filter collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+#### Defining middleware
 
-Closure filters get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
-
-The route filters (both class filters and closures) are executed using the ```Container::call()``` method. This means that you typehint dependencies just like you can with route actions.
-
-> Note that a route action and its after filters will **not** be executed if a before filter returns data.
-
-This filter will return cached version of route response if it's available.
-
-	$filters->register('cache.get', function(Request $request, CacheManager $cache)
-	{
-		if($cache->has('route.' . $request->path()))
-		{
-			return $cache->get('route.' . $request->path());
-		}
-	});
-
-This filter will cache route responses for 10 minutes:
-
-	$filters->register('cache.put', function(Request $request, Response $response, CacheManager $cache, $minutes = 10)
-	{
-		$cache->put('route.' . $request->path(), $response->getBody(), 60 * $minutes);
-	});
-
-> The cache example above is very basic and should probably not be used in a production environment.
-
-You can also create a filter classes instead of closures. The class will be instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
+Middleware should (but is not required to) implement the ```MiddlewareInterface```. The example below is the most basic middleware implementation (it doesn't actually do anything).
 
 	<?php
 
-	namespace app\routing\filters;
+	namespace app\routing\middleware;
+
+	use Closure;
 
 	use mako\http\Request;
 	use mako\http\Response;
+	use mako\http\routing\middleware\MiddlewareInterface;
 
-	class MyFilter
+	class PassthroughMiddleware implements MiddlewareInterface
 	{
-		public function construct(Request $request, Response $response)
+		public function execute(Request $request, Response $response Closure $next): Response
 		{
-			$this->request = $request;
-
-			$this->response = $response;
-		}
-
-		public function filter()
-		{
-			// Do your filtering here
+			return $next($request, $response);
 		}
 	}
 
-Registering a filter class is just as easy as registering a closure.
+Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables avaiable in the scope, ```$middleware``` (the middleware collection), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
-	$filters->register('my_filter', 'app\routing\filters\MyFilter');
+	$middleware->register('passthrough', PassthroughMiddleware::class);
 
-<a id="route_filters:assigning_filters"></a>
+In the next example we'll create a middleware that returns a cached response if possible.
 
-#### Assigning filters
+Note that all middleware is instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
-Assigning filters to a route is done using the ```before``` and ```after``` methods. You can also pass an array of filters if your route has multiple filters. The filters get executed in the order that they are assigned.
+	<?php
+
+	namespace app\routing\middleware;
+
+	use Closure;
+
+	use mako\cache\CacheManager;
+	use mako\http\Request;
+	use mako\http\Response;
+	use mako\http\routing\middleware\MiddlewareInterface;
+
+	class CacheMiddleware implements MiddlewareInterface
+	{
+		protected $cache;
+
+		protected $minutes;
+
+		public function __construct(CacheManager $cache, $minutes = null)
+		{
+			$this->cache = $cache;
+
+			$this->minutes = $minutes ?? 10;
+		}
+
+		public function execute(Request $request, Response $response, Closure $next): Response
+		{
+			if(this->cache->has('route.' . $request->path()))
+			{
+				return $response->body($cache->get('route.' . $request->path()));
+			}
+
+			$reponse = $next($request, $response);
+
+			$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->minutes);
+
+			return $response;
+		}
+	}
+
+> The cache example above is very basic and should probably not be used in a production environment.
+
+<a id="route_middleware:assigning_middleware"></a>
+
+#### Assigning middleware
+
+Assigning middleware to a route is done using the ```middleware``` method. You can also pass an array of middleware if your route requires multiple middlewares. Middleware will get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->when(['id' => '[0-9]+'])
-	->before('cache.read')
-	->after('cache.write');
+	->middleware('cache');
 
-You can also pass parameters to your filters. In the example below we're telling the filter to cache the response for 60 minutes instead of the default 10.
+You can also pass parameters to your middleware. In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->when(['id' => '[0-9]+'])
-	->before('cache.read')
-	->after('cache.write:{"minutes":60}');
+	->middleware('cache:{"minutes":60}');
 
-> Anything after the first colon symbol (```:```) will be parsed as JSON. In the example above we're telling the dispatcher that the value ```60``` should be passed to the ```$minutes``` parameter of the filter.
+> Anything after the first colon symbol (```:```) will be parsed as JSON. In the example above we're telling the dispatcher that the value ```60``` should be passed to the ```$minutes``` parameter of the middleware constructor.
 
 --------------------------------------------------------
 
@@ -179,13 +193,12 @@ You can also pass parameters to your filters. In the example below we're telling
 
 ### Route groups
 
-Route groups are usefull when you have a set of groups with the same constraints and filters.
+Route groups are usefull when you have a set of routes with the same constraints and middleware.
 
 	$options =
 	[
 
-		'before'    => 'cache.read',
-		'after'     => 'cache.write',
+		'middlware' => 'cache',
 		'when'      => ['id' => '[0-9]+'],
 		'namespace' => 'app\controllers',
 	];
@@ -197,17 +210,16 @@ Route groups are usefull when you have a set of groups with the same constraints
 		$routes->get('/photos/{id}', 'Photos::view');
 	});
 
-All routes within the group will now have the same filters and constraints. You can also nest groups if needed.
+All routes within the group will now have the same middleware and constraints. You can also nest groups if needed.
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 
-| Option      | Method       | Description                                                                              |
-|-------------|--------------|------------------------------------------------------------------------------------------|
-| before      | before       | A before filter or an array of before filters                                            |
-| after       | after        | An after filter or an array of aflter filters                                            |
-| when        | when         | An array of parameter constraints                                                        |
-| prefix      | prefix       | Route prefix                                                                             |
-| namespace   | setNamespace | The controller namespace (closures will not be affected)                                 |
+| Option      | Method       | Description                                              |
+|-------------|--------------|----------------------------------------------------------|
+| middleware  | middleware   | A middleware or an array of middlewares                  |
+| namespace   | namespace    | The controller namespace (closures will not be affected) |
+| prefix      | prefix       | Route prefix                                             |
+| when        | when         | An array of parameter constraints                        |
 
 --------------------------------------------------------
 
