@@ -138,8 +138,6 @@ By default the ORM selects all columns from the result set. You can specify the 
 
 	$articles = Article::select(['id', 'title'])->all();
 
-> Note that the primary key will automatically be included in the array of selected columns.
-
 <a id="basic_usage:joins"></a>
 
 #### Joins
