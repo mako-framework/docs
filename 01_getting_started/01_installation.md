@@ -4,6 +4,8 @@
 
 * [Requirements](#requirements)
 * [Setup](#setup)
+	- [Updating](#setup:updating)
+* [Updating](#updating)
 * [Server configurations](#server_configurations)
 	- [Apache](#server_configurations:apache)
 	- [Nginx](#server_configurations:nginx)
@@ -26,17 +28,29 @@
 
 ### Setup
 
-Installing Mako is easy and can be with one single command thanks to [composer](https://packagist.org/):
+Installing Mako is easy and can be with done in a few simple steps thanks to [composer](https://packagist.org/).
+
+First you'll have to create a new project:
 
 	composer create-project mako/app:5.* <project name>
 
-> Remember to make the ```app/storage/*``` directories writable. You should also generate a new application secret using the ```reactor app.generate_secret``` command.
+Next you'll have to make the ```app/storage/*``` directories writable (command my vary depending on your system):
 
-Mako easily be updated to the latest version using the following command when a new version is releases:
+	chown www-data:www-data -R app/storage
+
+And finally you should generate a new application secret:
+
+	php app/reactor app.generate_secret
+
+<a id="setup:updating"></a>
+
+#### Updating
+
+Mako easily be updated to the latest version using the following command when a new version is released:
 
 	composer update
 
-> Note that you can also [download](:base_url:/download) a bare bones Mako application if you're unable to use composer.
+> Note that some updates might require some minor code changes. These will be documented in the upgrade guides.
 
 --------------------------------------------------------
 
