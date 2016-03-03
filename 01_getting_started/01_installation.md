@@ -14,11 +14,11 @@
 
 ### Requirements
 
-* PHP 5.5.0 or higher *
+* PHP 7.0.0 or higher *
 * mbstring
 * PDO
 
-\* _Tested on PHP 5.5.x, 5.6.x and HHVM 3.x.x_
+\* _Tested on PHP 7.0.x, and HHVM 3.x.x_
 
 --------------------------------------------------------
 
@@ -28,15 +28,15 @@
 
 Installing Mako is easy and can be with one single command thanks to [composer](https://packagist.org/):
 
-	composer create-project mako/app:4.* <project name>
+	composer create-project mako/app:5.* <project name>
 
-> Remember to make the ```app/storage/*``` directories writable.
+> Remember to make the ```app/storage/*``` directories writable. You should also generate a new application secret using the ```reactor app.generate_secret``` command.
 
-Mako can now be updated using the following command:
+Mako easily be updated to the latest version using the following command when a new version is releases:
 
 	composer update
 
-> You can also [download](:base_url:/download) a bare bones Mako application if you're unable to use composer.
+> Note that you can also [download](:base_url:/download) a bare bones Mako application if you're unable to use composer.
 
 --------------------------------------------------------
 
