@@ -84,10 +84,10 @@ You can also use the Subquery class instead of a closure if you need a specific 
 
 	$persons = $query->table
 	(
-		new Subquery
-		(
-			$connection->builder()->table('persons')->select(['name'])->distinct(), 'distinct_names'
-		)
+		new Subquery(function($query)
+		{
+			$query->table('persons')->select(['name'])->distinct();
+		}, 'distinct_names')
 	)
 	->where('name', '!=', 'John Doe')
 	->all();
@@ -100,10 +100,10 @@ Advanced column selections can also be made using raw SQL and subqueries.
 			'name',
 			'email',
 			new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-			new Subquery
-			(
-				$connection->builder()->table('persons')->select([new Raw('AVG(age)'])), 'average_age'
-			)
+			new Subquery(function($query)
+			{
+				$query->table('persons')->select([new Raw('AVG(age)']));
+			}, 'average_age')
 		]
 	)->all();
 
