@@ -438,7 +438,7 @@ You can also use the [```paginate``` method](:base_url:/docs/:version:/learn-mor
 
 	$persons = $query->table('persons')->paginate(10);
 
-<a id="row_level_lockingß"></a>
+<a id="row_level_locking"></a>
 
 ### Row-level locking
 
