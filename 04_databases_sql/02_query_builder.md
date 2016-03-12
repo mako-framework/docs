@@ -18,6 +18,7 @@
 * [HAVING clauses](#having_clauses)
 * [ORDER BY clauses](#order_by_clauses)
 * [LIMIT and OFFSET clauses](#limit_and_offset_clauses)
+* [Row-level locking](#row_level_locking)
 
 --------------------------------------------------------
 
@@ -436,3 +437,39 @@ You can also use the [```paginate``` method](:base_url:/docs/:version:/learn-mor
 	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
 	$persons = $query->table('persons')->paginate(10);
+
+<a id="row_level_locking"></a>
+
+### Row-level locking
+
+The `lock()` method can be used to enable row-level locking during database transactions.
+
+	// SELECT * FROM `persons` WHERE `age` =  30 FOR UPDATE
+
+	$persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
+
+It will use an exclusive lock by default but you can enable shared locking by passing ```FALSE``` to the ```lock()``` method.
+
+	// SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
+
+	$persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
+
+It is also possible to provide a custom locking clause.
+
+	// SELECT * FROM `persons` WHERE `age` =  30 CUSTOM LOCK
+
+	$persons = $query->table('persons')->where('age', '=', 30)->lock('CUSTOM LOCK')->all();
+
+Here's an overview of the locking clauses generated for the different RDBMSes that support row-level locking.
+
+| RDBMS      | Exclusive lock          | Shared lock                 |
+|------------|-------------------------|-----------------------------|
+| DB2        | FOR UPDATE WITH RS      | FOR READ ONLY WITH RS       |
+| Firebird   | FOR UPDATE WITH LOCK    | WITH LOCK                   |
+| MySQL      | FOR UPDATE              | LOCK IN SHARE MODE          |
+| NuoDB      | FOR UPDATE              | LOCK IN SHARE MODE          |
+| Oracle     | FOR UPDATE              | FOR UPDATE                  |
+| PostgreSQL | FOR UPDATE              | FOR SHARE                   |
+| SQLServer  | WITH (UPDLOCK, ROWLOCK) | WITH (HOLDLOCK, ROWLOCK)    |
+
+> Row-level locking will gracefully degrade for any RDBMS that doesn't support the feature.
