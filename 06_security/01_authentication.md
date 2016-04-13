@@ -10,6 +10,8 @@
 	- [Users](#users_and_groups_users)
 	- [Groups](#users_and_groups_groups)
 * [Database schema](#database_schema)
+	- [MySQL](#database_schema:mysql)
+	- [PostgreSQL](#database_schema:postgresql)
 
 --------------------------------------------------------
 
@@ -238,6 +240,8 @@ The group object also includes the following getters and setters: ```getId```, `
 
 The authentication library requires three database tables: a users table, a groups table, and a junction table combining the two. Here are the schemas for MySQL and PostgreSQL.
 
+<a id="database_schema:mysql"></a>
+
 #### MySQL
 
 Users table
@@ -290,6 +294,8 @@ Junction table
 			REFERENCES `users` (`id`)
 			ON DELETE CASCADE ON UPDATE NO ACTION
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+<a id="database_schema:postgresql"></a>
 
 #### PostgreSQL
 
