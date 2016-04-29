@@ -58,11 +58,11 @@ The ```Connection::columns``` method executes a query and returns an array conta
 
 	$email = $connection->columns('SELECT `email` FROM `users`');
 
-The ```Connection::queryAndCound``` method will return the number of rows modified by the query.
+The ```Connection::queryAndCount``` method will return the number of rows modified by the query.
 
-	$count = $connection->queryAndCound('UPDATE `users` SET `email` = ?', ['foo@example.org']);
+	$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
-	$count = $connection->queryAndCound('DELETE FROM `users`');
+	$count = $connection->queryAndCount('DELETE FROM `users`');
 
 <a id="transactions"></a>
 
