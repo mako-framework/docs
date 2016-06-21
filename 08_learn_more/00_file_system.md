@@ -82,21 +82,21 @@ The ```truncateContents``` method will truncate the contents of the file. There'
 
 	$this->fileSystem->truncateContents('/foo/bar.txt');
 
-The ```includeFile``` method will include a file.
+The ```include``` method will include a file.
 
-	$this->fileSystem->includeFile('/foo/bar.txt');
+	$this->fileSystem->include('/foo/bar.txt');
 
-The ```includeFileOnce``` method will include a file if it hasn't already been included.
+The ```includeOnce``` method will include a file if it hasn't already been included.
 
-	$this->fileSystem->includeFileOnce('/foo/bar.txt');
+	$this->fileSystem->includeOnce('/foo/bar.txt');
 
-The ```requireFile``` method will require a file.
+The ```require``` method will require a file.
 
-	$this->fileSystem->requireFile('/foo/bar.txt');
+	$this->fileSystem->require('/foo/bar.txt');
 
-The ```requireFileOnce``` method will require a file if it hasn't already been required.
+The ```requireOnce``` method will require a file if it hasn't already been required.
 
-	$this->fileSystem->requireFileOnce('/foo/bar.txt');
+	$this->fileSystem->requireOnce('/foo/bar.txt');
 
 The ```file``` method will return a [SplFileObject](http://php.net/manual/en/class.splfileobject.php).
 
