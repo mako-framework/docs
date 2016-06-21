@@ -24,9 +24,13 @@ The ```isFile``` method return TRUE if the provided path is a file and FALSE if 
 
 	$isFile = $this->fileSystem->isFile('/foo/bar.txt');
 
-The ```isDirectory``` method returns TRUE if the provided path is a directory and FALSE it not.
+The ```isDirectory``` method returns TRUE if the provided path is a directory and FALSE if not.
 
 	$isDirectory = $this->fileSystem->isDirectory('/foo');
+
+The ```isEmpty``` method returns TRUE if the provided path is an empty file or directory and FALSE if not.
+
+	$isEmpty = $this->fileSystem->isEmpty('/foo');
 
 The ```isReadable``` method returns TRUE if the provided path is readable and FALSE if not.
 
