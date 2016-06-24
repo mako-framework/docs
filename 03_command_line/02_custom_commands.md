@@ -277,7 +277,7 @@ This code above will result in a table looking like this.
 
 The ```ol``` method lets you output an ordered list.
 
-	$this->ol(['one', 'two', 'three', ['one', 'two', 'three'], 'four']);
+	$this->ol(['one', 'two', 'three', ['one', 'two'], 'four']);
 
 The example above will output the following list.
 
@@ -290,7 +290,7 @@ The example above will output the following list.
 
 The ```ul``` method lets you output an unordered list.
 
-	$this->ul(['one', 'two', 'three', ['one', 'two', 'three'], 'four']);
+	$this->ul(['one', 'two', 'three', ['one', 'two'], 'four']);
 
 The example above will output the following list.
 
