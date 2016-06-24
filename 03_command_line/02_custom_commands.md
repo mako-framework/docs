@@ -275,6 +275,32 @@ This code above will result in a table looking like this.
 	| R2 C1 | R2 C2 |
 	-----------------
 
+The ```ol``` method lets you output an ordered list.
+
+	$this->ol(['one', 'two', 'three', ['one', 'two', 'three'], 'four']);
+
+The example above will output the following list.
+
+	1. one
+	2. two
+	3. three
+	   1. one
+	   2. two
+	4. four
+
+The ```ul``` method lets you output an unordered list.
+
+	$this->ul(['one', 'two', 'three', ['one', 'two', 'three'], 'four']);
+
+The example above will output the following list.
+
+	* one
+	* two
+	* three
+	  * one
+	  * two
+	* four
+
 <a id="output:formatting"></a>
 
 #### Formatting
