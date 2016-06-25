@@ -15,7 +15,7 @@ Mako converts all errors to ```ErrorExceptions```. This allows the error handler
 
 ### Custom error handling
 
-You can register custom error handlers for different kinds of exception types using the ```ErrorHandler::handle()``` method. 
+You can register custom error handlers for different kinds of exception types using the ```ErrorHandler::handle()``` method.
 
 A great place to do so is in the ```app/bootstrap.php``` file.
 
@@ -54,8 +54,8 @@ You can also pass an array of exception types.
 
 	$errorHandler->disableLoggingFor
 	([
-		'\mako\http\exceptions\NotFoundException',
-		'\mako\http\exceptions\MethodNotAllowedException',
+		'mako\http\exceptions\NotFoundException',
+		'mako\http\exceptions\MethodNotAllowedException',
 	]);
 
 > Remember to use the fully qualified name of the exception types that you want to ignore.
