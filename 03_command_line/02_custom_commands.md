@@ -199,16 +199,16 @@ You can also specify a default return value in the event that the user chooses n
 
 > The ```secret``` method will throw a ```RuntimeException``` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing ```TRUE``` to the optional third parameter.
 
-The ```confirmation``` method lets you ask the user for confirmation.
+The ```confirm``` method lets you ask the user for confirm.
 
-	if($this->confirmation('Do you want to delete all your files?'))
+	if($this->confirm('Do you want to delete all your files?'))
 	{
 		// Delete all files
 	}
 
 The default answer is ```n``` (false) but you can choose to make ```y``` (true) the default answer.
 
-	if($this->confirmation('Do you want to delete all your files?', 'y'))
+	if($this->confirm('Do you want to delete all your files?', 'y'))
 	{
 		// Delete all files
 	}
