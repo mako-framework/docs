@@ -74,7 +74,7 @@ Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by 
 This is a very basic example but you would also want to include input validation in your command handler. The ```CommandHandlerInterface::handle()``` method can return data that can be used to handle successes and errors.
 
 > Note that all command handlers must follow a strict naming convention. The ```Command``` suffix of your command class will be replaced by a ```Handler``` suffix. If no ```Commnad``` suffix is present then the word ```Handler``` will just be appended to the class name.
->
+
 | Command name      | Handler name      |
 |-------------------|-------------------|
 | CreateUserCommand | CreateUserHandler |
