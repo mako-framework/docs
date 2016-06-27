@@ -5,7 +5,6 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 	- [Updating](#setup:updating)
-* [Updating](#updating)
 * [Server configurations](#server_configurations)
 	- [Apache](#server_configurations:apache)
 	- [Nginx](#server_configurations:nginx)
