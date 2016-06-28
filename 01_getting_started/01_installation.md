@@ -45,7 +45,7 @@ And finally you should generate a new application secret:
 
 #### Updating
 
-Mako easily be updated to the latest version using the following command when a new version is released:
+Mako can easily be updated when a new version is released using the following command:
 
 	composer update
 

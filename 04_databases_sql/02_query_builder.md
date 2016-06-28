@@ -7,6 +7,7 @@
 * [Inserting data](#inserting_data)
 * [Updating data](#updating_data)
 * [Deleting data](#deleting_data)
+* [JSON data](#JSON_data)
 * [Aggregates](#aggregates)
 * [WHERE clauses](#where_clauses)
 * [WHERE BETWEEN clauses](#where_between_clauses)
@@ -186,6 +187,19 @@ There are also shortcuts for incrementing and decrementing column values:
 Deleting data is done using the ```delete``` method.
 
 	$query->table('articles')->where('id', '=', 10)->delete();
+
+--------------------------------------------------------
+
+<a id="JSON_data"></a>
+
+### JSON data
+
+The query builder features a unified syntax for querying JSON data and it currently supports MySQL, Oracle, PostgreSQL, SQLServer and SQLite.
+
+	$articleMeta = $query->table('articles')
+	->select(['meta->foo->0->bar as bar'])
+	->where('meta->baz', '=', 1)
+	->all();
 
 --------------------------------------------------------
 
