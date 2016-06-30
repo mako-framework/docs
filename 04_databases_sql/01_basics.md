@@ -4,9 +4,11 @@
 
 * [Connections](#connections)
 	- [Basics](#connections:basics)
-	- [Transactions](#transactions)
 	- [Connection status](#connection_status)
 	- [Magic shortcut](#connections:magic_shortcut)
+* [Transactions](#transactions)
+	- [Basics](#transactions:basics)
+	- [Savepoints](#transactions:savepoints)
 * [Query builder](#query_builder)
 * [Accessing the underlying PDO instance](#accessing_the_underlying_pdo_instance)
 
@@ -28,11 +30,11 @@ Creating a database connection is done using the ```ConnectionManager::connectio
 
 	// Returns connection object using the "default" database configuration defined in the config file
 
-	$connection = $this->database->connection();
+	$connection = $connection->connection();
 
 	// Returns connection object using the "mydb" database configuration defined in the config file
 
-	$connection = $this->database->connection('mydb');
+	$connection = $connection->connection('mydb');
 
 The ```Connection::query``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
 
@@ -64,41 +66,6 @@ The ```Connection::queryAndCount``` method will return the number of rows modifi
 
 	$count = $connection->queryAndCount('DELETE FROM `users`');
 
-<a id="transactions"></a>
-
-#### Transactions
-
-> Transactions only work if the storage engine you're using supports them.
-
-The ```Connection::transaction``` method provides a handy shortcut for performing database transactions. Any failed queries in the closure will automatically roll back the transaction.
-
-	$connection->transaction(function($connection)
-	{
-		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
-
-		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
-	});
-
-You can also begin a transaction using the ```Connection::beginTransaction``` method.
-
-	$connection->beginTransaction();
-
-Committing the transaction is done using the ```Connection::commitTransaction``` method.
-
-	$connection->commitTransaction();
-
-Rolling back the transaction is done using the ```Connection::rollBackTransaction``` method.
-
-	$connection->rollBackTransaction();
-
-You can get the transaction nesting level using the ```Connection::getTransactionNestingLevel``` method.
-
-	$nestingLevel = $connection->getTransactionNestingLevel();
-
-You can check whether or not you're already in a transaction using the ```Connection::inTransaction``` method.
-
-	$inTransaction = $connection->inTransaction();
-
 <a id="connection_status"></a>
 
 #### Connection status
@@ -119,7 +86,90 @@ You can attempt to reconnect using the ```Connection::reconnect()``` method.
 
 You can access the default database connection directly without having to go through the ```connection``` method thanks to the magic ```__call``` method.
 
-	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+
+--------------------------------------------------------
+
+<a id="transactions"></a>
+
+### Transactions
+
+
+<a id="transactions:basics"></a>
+
+#### Basics
+
+> Transactions only work if the storage engine you're using supports them.
+
+You begin a transaction using the ```Connection::beginTransaction``` method.
+
+	$connection->beginTransaction();
+
+Committing the transaction is done using the ```Connection::commitTransaction``` method.
+
+	$connection->commitTransaction();
+
+Rolling back the transaction is done using the ```Connection::rollBackTransaction``` method.
+
+	$connection->rollBackTransaction();
+
+You can check whether or not you're already in a transaction using the ```Connection::inTransaction``` method.
+
+	$inTransaction = $connection->inTransaction();
+
+The ```Connection::transaction``` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
+
+	$connection->transaction(function($connection)
+	{
+		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
+
+		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
+	});
+
+<a id="transactions:savepoints"></a>
+
+#### Savepoints
+
+Nested transactions are also supported using savepoints.
+
+In the example below we'll decrease the cash total of user `1` by `100` and increase the cash total of user `2` by `100`. The nested transaction that would have increased the cash total of user `1` by another `1000` fails and is rolled back since the table name is misspelled.
+
+The parent transaction is unafected and the transfer between user `1` and `2` is still committed.
+
+	try
+	{
+		$connection->beginTransaction();
+
+		$connection->builder()->table('accounts')->where('id', '=', 1)->decrement('cash', 100);
+
+		$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 100);
+
+		{
+			$connection->beginTransaction();
+
+			try
+			{
+				$connection->builder()->table('accountss')->where('id', '=', 2)->increment('cash', 1000);
+
+				$connection->commitTransaction();
+			}
+			catch(PDOException $e)
+			{
+					$connection->rollbackTransaction();
+			}
+		}
+
+		$connection->commitTransaction();
+	}
+	catch(PDOException $e)
+	{
+			$connection->rollbackTransaction();
+	}
+
+
+You can get the transaction nesting level at any point using the ```Connection::getTransactionNestingLevel``` method.
+
+	$nestingLevel = $connection->getTransactionNestingLevel();
 
 --------------------------------------------------------
 
