@@ -7,6 +7,7 @@
 * [Inserting data](#inserting_data)
 * [Updating data](#updating_data)
 * [Deleting data](#deleting_data)
+* [JSON data](#JSON_data)
 * [Aggregates](#aggregates)
 * [WHERE clauses](#where_clauses)
 * [WHERE BETWEEN clauses](#where_between_clauses)
@@ -36,7 +37,7 @@ The query builder currently supports the following dialects:
 * SQLite
 * SQLServer
 
-All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections.
+> All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections. However you have to make that you do not create SQL injection vectors if you're using using raw SQL in your query builder queries!
 
 --------------------------------------------------------
 
@@ -62,11 +63,11 @@ Fetching all rows is done using the ```all``` method.
 
 	$persons = $query->table('persons')->all();
 
-	// You can also specify which columns you want to include in the result set
+You can also specify which columns you want to include in the result set
 
 	$persons = $query->table('persons')->select(['name', 'email'])->all();
 
-	// To make a distinct selection use the distinct method
+To make a distinct selection use the ```distinct``` method
 
 	$persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 
@@ -107,8 +108,6 @@ Advanced column selections can also be made using raw SQL and subqueries.
 			}, 'average_age')
 		]
 	)->all();
-
-> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
 
 If you only want to retrieve a single row you can use the ```first``` method.
 
@@ -186,6 +185,16 @@ There are also shortcuts for incrementing and decrementing column values:
 Deleting data is done using the ```delete``` method.
 
 	$query->table('articles')->where('id', '=', 10)->delete();
+
+--------------------------------------------------------
+
+<a id="JSON_data"></a>
+
+### JSON data
+
+The query builder features a unified syntax for querying JSON data and it currently supports MySQL, Oracle, PostgreSQL, SQLServer and SQLite.
+
+	$foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
 
 --------------------------------------------------------
 
@@ -277,8 +286,6 @@ You can also use the eq(), notEq(), lt(), lte(), gt(), gte(), like(), notLike(),
 	->isNotNull('email')
 	->all();
 
-> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
-
 <a id="where_between_clauses"></a>
 
 ### WHERE BETWEEN clauses
@@ -358,8 +365,6 @@ join(), joinRaw(), leftJoin(), leftJoinRaw()
 	})
 	->all();
 
-> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
-
 <a id="group_by_clauses"></a>
 
 ### GROUP BY clauses
@@ -419,8 +424,6 @@ orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRa
 	// SELECT * FROM `persons` ORDER BY `name`, `age` ASC
 
 	$persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
-
-> Make sure not to create SQL injection vectors when using raw sql in your query builder queries!
 
 <a id="limit_and_offset_clauses"></a>
 

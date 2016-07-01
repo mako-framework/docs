@@ -24,7 +24,7 @@ The ```register``` method lets you register an event handler that will get execu
 
 You can also handle your events using a class instead of a closure.
 
-	$this->event->register('foobar', 'app\events\FoobarHandler');
+	$this->event->register('foobar', FoobarHandler::class);
 
 Class handlers will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor. Both closure and class handlers will be executed by the ```Container::call()``` and all dependencies will automatically be [injected](:base_url:/docs/:version:/getting-started:dependency-injection) there as well.
 

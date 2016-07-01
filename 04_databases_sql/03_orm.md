@@ -390,7 +390,7 @@ You can configure your model to automatically typecast values on the way in and 
 
 #### Scalars
 
-	protected $cast = ['id' => 'integer', 'published' => 'boolean'];
+	protected $cast = ['id' => 'int', 'published' => 'bool'];
 
 Valid scalar types are ```bool```, ```int```, ```float``` and ```string```.
 
