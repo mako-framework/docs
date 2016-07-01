@@ -201,6 +201,10 @@ The query builder also includes a few handy shortcuts to the most common aggrega
 
 	$count = $query->table('persons')->where('age', '>', 25)->count();
 
+	// Distinct counting
+
+	$count = $query->table('persons')->countDistinct('age');
+
 	// Average value
 
 	$height = $query->table('persons')->avg('height');
