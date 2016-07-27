@@ -24,10 +24,10 @@ Mako config files are just simple arrays:
 
 	<?php
 
-	return 
+	return
 	[
-	  'key_1' => 'value',
-	  'key_2' => 'value',
+		'key_1' => 'value',
+		'key_2' => 'value',
 	];
 
 And loading a config file is done by using the ```get``` method.
@@ -40,15 +40,14 @@ You can also fetch config items using ```dot notation```.
 
 It is also possible to override settings or add new configurations at runtime:
 
-	// Adds a new Crypto configuration named "user" that you can 
+	// Adds a new Crypto configuration named "user" that you can
 	// use when creating a Crypto instance "Crypto::instance('user');"
 
-	$this->config->set('crypto.configurations.user', 
+	$this->config->set('crypto.configurations.user',
 	[
-	  'library' => 'mcrypt',
-	  'cipher'  => MCRYPT_RIJNDAEL_256,
-	  'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
-	  'mode'    => MCRYPT_MODE_ECB,
+		'library'  => 'openssl',
+		'cipher'   => 'AES-256-OFB',
+		'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
 	]);
 
 Removing the custom configuration is done using the ```remove``` method:

@@ -23,7 +23,7 @@ Mako comes with a set of classes to help you encrypt and sign your data.
 
 #### Basics
 
-The encryption library allows you to encrypt data using Mcrypt or OpenSSL.
+The encryption library allows you to encrypt data using OpenSSL.
 
 First we'll need to get an encrypter instance. This is done using the ```CryptoManager::instance``` method.
 
