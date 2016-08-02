@@ -43,13 +43,7 @@ The ```decrypt``` method is used to dencrypt your data. It will return FALSE if 
 
 	$decrypted = $encrypter->decrypt('Hello, world!');
 
-The ```encryptAndSign``` method will encrypt and sign your data. This will make sure that it has not been tampered with.
-
-	$encryptedAndSigned = $encrypter->encryptAndSign('Hello, world!');
-
-The ```validateAndDecrypt``` will first validate your data and then decrypt it. It will return FALSE if any of the two operations fail.
-
-	$validatedAndDecrypted = $encrypter->validateAndDecrypt($encryptedAndSigned);
+> Note that data will automatically be signed when encrypted and validated when decrypting when using the Crypto class.
 
 <a id="encryption:magic_shortcut"></a>
 

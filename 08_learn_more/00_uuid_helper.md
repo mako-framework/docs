@@ -34,8 +34,6 @@ The ```v4``` method will return a version 4 UUID.
 
 	$uuid = UUID::v4();
 
-> Having the the [openssl](http://www.php.net/manual/en/book.openssl.php) extention installed will improve the randomness of the generated version 4 UUIDs.
-
 The ```v5``` method will return a version 5 UUID.
 
 	// The namespace must be a valid UUID
