@@ -3,7 +3,6 @@
 --------------------------------------------------------
 
 * [Event listener](#event_listener)
-* [Observable trait](#observable_trait)
 
 --------------------------------------------------------
 
@@ -68,48 +67,3 @@ You can also pass arguments your handlers using the optional second parameter.
 The third optional parameter lets you stop event handling if one of the handlers return ```FALSE```.
 
 	$values = $this->event->trigger('foobar', [1, 2, 3], true);
-
---------------------------------------------------------
-
-<a id="observable_trait"></a>
-
-### Observable trait
-
-Your class must use the ```ObservableTrait``` in order to be obserable.
-
-	class Observable
-	{
-		use mako\event\ObsevableTrait;
-	}
-
-	$observable = new Observable;
-
-The ```attachObserver``` method allows you to attach an observer to your class. You can attach multiple observers for the same event.
-
-	$observable->attachObserver('foobar', function()
-	{
-		return 'foobar event';
-	});
-
-The ```hasObserver``` method returns TRUE if an event has an observer and FALSE if not.
-
-	$observed = $observable->hasObserver('foobar');
-
-The ```clearObservers``` will clear all observers. You can also specify which event you want to clear.
-
-	$observable->clearObservers();
-
-	$observable->clearObservers('foobar');
-
-The ```overrideObservers``` method clears all observers for an event and registers a new one.
-
-	$observable->overrideObservers('foobar', function($string)
-	{
-		return mb_strtoupper($string);
-	});
-
-The ```notifyObservers``` method will notify all observers of an event and return an array containing all of their return values.
-
-	$returnValues = $this->notifyObservers('foobar', 'hello, world!');
-
-> The ```notifyObservers``` method is ```protected``` and can only be called from within the observable class.
