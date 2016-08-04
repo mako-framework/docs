@@ -5,7 +5,7 @@
 * [Encryption](#encryption)
 	- [Basics](#encryption:basics)
 	- [Magic shortcut](#encryption:magic_shortcut)
-	- [Re-encrypting data](#ecryption:reencrypting_data)
+	- [Re-encrypting data](#encryption:reencrypting_data)
 * [Signing](#signing)
 
 --------------------------------------------------------
@@ -56,7 +56,7 @@ You can access the default crypto configuration directly without having to go th
 
 	$encrypted = $this->crypto->encrypt('Hello, world!');
 
-<a id="encryption:ecryption:reencrypting_data"></a>
+<a id="encryption:reencrypting_data"></a>
 
 #### Re-encrypting data
 
