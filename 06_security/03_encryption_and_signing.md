@@ -11,7 +11,9 @@
 
 Mako comes with a set of classes to help you encrypt and sign your data.
 
-> Make sure to NEVER use the example keys provided with the framework in production. ALWAYS create your own!
+> Make sure to NEVER use the example secret and keys provided with the framework in production. ALWAYS create your own!
+
+> You can easily generate your own secure secret and keys using the `app.generate_secret` and `app.generate_key` reactor commands.
 
 --------------------------------------------------------
 
