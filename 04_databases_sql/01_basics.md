@@ -126,6 +126,8 @@ The ```Connection::transaction``` method provides a handy shortcut for performin
 		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
 	});
 
+You can also nest transactions using this method but keep in mind that the entire transaction tree will be rolled back if any of the transactions fail.
+
 <a id="transactions:savepoints"></a>
 
 #### Savepoints
@@ -134,7 +136,7 @@ Nested transactions are also supported using savepoints.
 
 In the example below we'll decrease the cash total of user `1` by `100` and increase the cash total of user `2` by `100`. The nested transaction that would have increased the cash total of user `1` by another `1000` fails and is rolled back since the table name is misspelled.
 
-The parent transaction is unafected and the transfer between user `1` and `2` is still committed.
+The parent transaction is unafected and the transfer between user `1` and `2` is still committed. If you want your entire transaction to roll back when the nested transaction fails then you can just re-throw the exception.
 
 	try
 	{
@@ -165,7 +167,6 @@ The parent transaction is unafected and the transfer between user `1` and `2` is
 	{
 			$connection->rollbackTransaction();
 	}
-
 
 You can get the transaction nesting level at any point using the ```Connection::getTransactionNestingLevel``` method.
 
