@@ -171,6 +171,8 @@ Both arguments and options can be documented using the ```$commandInformation```
 		],
 	];
 
+It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the ```$isStrict``` property to ```TRUE``` if you want the command to fail if a non-documented argument or option is used.
+
 --------------------------------------------------------
 
 <a id="input"></a>
