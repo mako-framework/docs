@@ -166,7 +166,7 @@ The parent transaction is unafected and the transfer between user `1` and `2` is
 			$connection->rollbackTransaction();
 	}
 
-You can also nest transactions using the ```Connection::transaction``` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
+Transaction nesting is also possible when using the ```Connection::transaction``` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
 
 You can get the transaction nesting level at any point using the ```Connection::getTransactionNestingLevel``` method.
 
