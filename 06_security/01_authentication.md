@@ -41,17 +41,22 @@ The ```activateUser``` method activates a user by his or her action token. The m
 
 The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successfull and a status code if not.
 
-The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING```, ```Gatekeeper::LOGIN_BANNED``` and ```Gatekeeper::LOGIN_INCORRECT```.
-
 	$successful = $this->gatekeeper->login($email, $password);
 
 	// You can also tell gatekeeper to set a "remember me" cookie
 
 	$successful = $this->gatekeeper->login($email, $password, true);
 
-The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
+The possible status codes for failed logins are:
 
-The possible status codes for failed logins are ```Gatekeeper::LOGIN_ACTIVATING``` and ```Gatekeeper::LOGIN_BANNED```.
+| Constant                     | Description                                                                   |
+|------------------------------|-------------------------------------------------------------------------------|
+| Gatekeeper::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
+| Gatekeeper::LOGIN_ACTIVATING | The account has not been activated                                            |
+| Gatekeeper::LOGIN_BANNED     | The account has been banned                                                   |
+| Gatekeeper::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
+
+The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
 
 	$successful = $this->gatekeeper->forceLogin($email);
 
