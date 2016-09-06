@@ -180,7 +180,7 @@ Lets create a user model and a profile model and set up a ```has one``` relation
 
 		public function profile()
 		{
-			return $this->hasOne('\app\models\Profile');
+			return $this->hasOne(Profile::class);
 		}
 	}
 
@@ -211,7 +211,7 @@ We can now add a ```has many``` relation to our user model.
 
 	public function articles()
 	{
-		return $this->hasMany('\app\models\Article');
+		return $this->hasMany(Article::class);
 	}
 
 We can now fetch all the articles that belong to the user like this:
@@ -230,7 +230,7 @@ We can continue to build on the article model and add a ```belongs``` to relatio
 
 	public function user()
 	{
-	    return $this->belongsTo('\app\models\User');
+	    return $this->belongsTo(User::class);
 	}
 
 Fetching the user that owns the article can now be done line this:
@@ -251,14 +251,14 @@ The relation would then look like this in the user model:
 
 	public function groups()
 	{
-		return $this->manyToMany('\app\models\Group');
+		return $this->manyToMany(Group::class);
 	}
 
 And like this in the group model:
 
 	public function users()
 	{
-		return $this->manyToMany('\app\models\User');
+		return $this->manyToMany(User::class);
 	}
 
 This is how you would use the relations:
@@ -283,7 +283,7 @@ The ORM is built on top of the [query builder](:base_url:/docs/:version:/databas
 
 	public function articles()
 	{
-		return $this->hasMany('\app\models\Article')->orderBy('title', 'asc');
+		return $this->hasMany(Article::class)->orderBy('title', 'asc');
 	}
 
 They can be in the relation definition itself or you can add them when you're accessing the related records.
@@ -382,7 +382,7 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 	public function articles()
 	{
-		return $this->hasMany('\app\models\Article', 'user');
+		return $this->hasMany(Article::class, 'user');
 	}
 
 --------------------------------------------------------
