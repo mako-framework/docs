@@ -344,7 +344,7 @@ Loading related records can sometimes cause the ```1 + N``` query problem. This 
 		$comment->user->username;
 	}
 
-The code above will execute ```1``` query to fetch ```10``` comments and then ```1``` query per iteration to retrieve the user who wrote the comment. This means that it has to execute ```11``` queries in total. Using eager loading can solve this problem:
+The code above will execute ```1``` query to fetch ```10``` comments and then ```1``` query per iteration to retrieve the user who wrote the comment. This means that it has to execute ```11``` queries in total. Using eager loading can solve this problem.
 
 	foreach(Comment::including('users')->limit(10)->all() as $comment)
 	{
@@ -353,9 +353,16 @@ The code above will execute ```1``` query to fetch ```10``` comments and then ``
 
 The code above will produce the same result as the previous example but it will only execute ```2``` queries instead of ```11```.
 
-You can eager load more relations using an array and nested relations using the dot syntax:
+You can eager load more relations using an array and nested relations using the dot syntax.
 
 	$articles = Article::including(['user', 'coments', 'comments.users'])->limit(10)->all();
+
+If you need to add query criteria to your relations then you can do so using a closure.
+
+	$articles = Article::including(['user', 'coments' => function($query)
+	{
+		$query->where('approved', '=', true);
+	}, 'comments.users'])->limit(10)->all();
 
 You can also define relations to eager load in the model definition using the ```$including``` property. This is useful if you know that you're going to need to eager load the relations more often than not.
 
