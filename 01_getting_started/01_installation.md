@@ -5,9 +5,6 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 	- [Updating](#setup:updating)
-* [Server configurations](#server_configurations)
-	- [Apache](#server_configurations:apache)
-	- [Nginx](#server_configurations:nginx)
 
 --------------------------------------------------------
 
@@ -50,77 +47,3 @@ Mako can easily be updated when a new version is released using the following co
 	composer update
 
 > Note that some updates might require some minor code changes. These will be documented in the upgrade guides.
-
---------------------------------------------------------
-
-<a id="server_configurations"></a>
-
-### Server configurations
-
-<a id="server_configurations:apache"></a>
-
-#### Apache
-
-Basic [Apache](http://www.apache.org/) configuration for a Mako application:
-
-	<VirtualHost *:80>
-
-		DocumentRoot /srv/www/mako/htdocs/public
-
-		<Directory /srv/www/mako/htdocs/public>
-
-			Options -Indexes +FollowSymLinks -MultiViews
-			AllowOverride All
-			Order allow,deny
-			allow from all
-
-			# URL rewrite
-
-			RewriteEngine on
-
-			RewriteCond %{REQUEST_FILENAME} !-f
-			RewriteCond %{REQUEST_FILENAME} !-d
-			RewriteRule ^(.*)$ index.php/$1 [L]
-
-		</Directory>
-
-		LogLevel warn
-		ErrorLog /srv/www/mako/logs/error.log
-		CustomLog /srv/www/mako/logs/access.log combined
-
-	</VirtualHost>
-
-<a id="server_configurations:nginx"></a>
-
-#### Nginx
-
-Basic [Nginx](http://nginx.org/) configuration for a Mako application:
-
-	server
-	{
-		listen 80;
-
-		access_log /srv/www/mako/logs/access.log;
-		error_log  /srv/www/mako/logs/error.log;
-
-		root /srv/www/mako/htdocs/public;
-
-		index index.php;
-
-		# "URL rewrite"
-
-		location /
-		{
-			try_files $uri $uri/ /index.php?$query_string;
-		}
-
-		# Pass URIs ending in .php to the PHP interpreter
-
-		location ~* \.php$
-		{
-			try_files       $uri =404;
-			include         fastcgi_params;
-			fastcgi_pass    127.0.0.1:9000;
-			fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-		}
-	}
