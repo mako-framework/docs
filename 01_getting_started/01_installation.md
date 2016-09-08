@@ -56,7 +56,7 @@ Basic [Apache](http://www.apache.org/) configuration for a Mako application:
 
 		<Directory /srv/www/mako/htdocs/public>
 
-			Options -Indexes FollowSymLinks -MultiViews
+			Options -Indexes +FollowSymLinks -MultiViews
 			AllowOverride All
 			Order allow,deny
 			allow from all
