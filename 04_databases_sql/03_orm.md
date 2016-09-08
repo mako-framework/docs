@@ -355,11 +355,11 @@ The code above will produce the same result as the previous example but it will 
 
 You can eager load more relations using an array and nested relations using the dot syntax.
 
-	$articles = Article::including(['user', 'coments', 'comments.users'])->limit(10)->all();
+	$articles = Article::including(['user', 'comments', 'comments.users'])->limit(10)->all();
 
 If you need to add query criteria to your relations then you can do so using a closure.
 
-	$articles = Article::including(['user', 'coments' => function($query)
+	$articles = Article::including(['user', 'comments' => function($query)
 	{
 		$query->where('approved', '=', true);
 	}, 'comments.users'])->limit(10)->all();
