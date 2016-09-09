@@ -4,17 +4,17 @@
 
 * [Basics](#basics)
 * [View renderers](#view_renderers)
-	- [Plain PHP](#view_renderers:plain_php) 
+	- [Plain PHP](#view_renderers:plain_php)
 	- [Templates](#view_renderers:templates)
 * [Custom view renderers](#custom_view_renderers)
- 
+
 --------------------------------------------------------
 
 Views is where the HTML of your application goes. A view can be an entire web page or just a small section of a page like a header, menu or footer.
 
 Using views allows you to separate the presentation and business logic of your application, permitting independent development, testing and maintenance of each.
 
-All views must be located in the ```app/views``` directory. You can also create subdirectories to better organize your view files.
+All views must be located in the ```app/resources/views``` directory. You can of course create subdirectories to better organize your view files.
 
 --------------------------------------------------------
 
@@ -22,11 +22,11 @@ All views must be located in the ```app/views``` directory. You can also create 
 
 ### Basics
 
-You create a view object by passing the name of the view file to the ```create``` method of the view factory.
+Creating a view object is done by passing the name of the view file to the ```create``` method of the view factory.
 
 	$view = $this->view->create('welcome');
 
-You can also organize your views in subdirectories. The example loads the ```bar``` view located in the ```foo``` directory.
+If you're organizing your views in subdirectories then you'll have to separate the directory and template names by a dot.  The following example loads the ```bar``` view located in the ```foo``` directory.
 
 	$view = $this->view->create('foo.bar');
 
@@ -34,19 +34,19 @@ Assigning variables can be done using the optional second parameter.
 
 	$view = $this->view->create('foo.bar', ['foo' => 'bar']);
 
-You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to.
+You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to and its child views.
 
 	$view->assign('foo', 'bar');
 
-You can also assign global view variables using the ```assign``` method on the view factory instance.
+You can also assign global view variables that will be available in all views using the ```assign``` method on the view factory instance.
 
 	$this->view->assign('user', $user);
 
-The ```render``` method returns the rendered output of the view.
+The ```render``` method returns the rendered output of the view and it also accepts the same optional second parameter as the create method.
 
 	$output = $view->render();
 
-You can also render a view directly. This method also accepts a second parameter of variables as well.
+You can also render a view directly from the view factory, and as expected it accepts the same optional second parameter as the render method of the view object.
 
 	$rendered = $this->view->render('foo.bar');
 
@@ -126,11 +126,11 @@ Sometimes you'll want to set a default value for a variable that might be empty.
 
 	{{$foo || 'Default value'}}
 
-You can also use functions and methods in your templates:
+You can also use functions and methods in your templates.
 
 	<a href="{{$urlbuilder->to('about')}}">{{$i18n->get('about')}}</a>
 
-Conditional statements (```if```, ```elseif``` and ```else```) are also supported:
+Conditional statements (```if```, ```elseif``` and ```else```) are also supported.
 
 	{% if($foo === $bar) %}
 		$foo equals $bar
@@ -138,7 +138,7 @@ Conditional statements (```if```, ```elseif``` and ```else```) are also supporte
 		$foo is not equal to $bar
 	{% endif %}
 
-Loops is something you'll often need. Templates support ```foreach```, ```for``` and ```while``` loops. You can skip an iteration using ```continue``` or break out of the loop using ```break```:
+Loops is something you'll often need when displaying data. Templates support ```foreach```, ```for``` and ```while``` loops. You can skip an iteration using ```continue``` or break out of the loop using ```break```.
 
 	<ul>
 	{% foreach($articles as $article) %}
@@ -146,11 +146,21 @@ Loops is something you'll often need. Templates support ```foreach```, ```for```
 	{% endforeach %}
 	</ul>
 
-You can also include a view inside another view like this:
+You can easily include a partial template in a view.
 
 	{{view:'partials.footer'}}
 
-Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Lets say you save the following template as ```parent.tpl.php```:
+Included views will automatically inherit all the variables available in the parent view but you override them or add new ones.
+
+	{{view:'partials.footer', ['foo' => 'bar']}}
+
+If you want the template compiler to ignore a section of your template then you can use the verbatim blocks.
+
+	{% verbatim %}
+		This {{$will}} not be {{$parsed}}.
+	{% endverbatim %}
+
+Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Let's say you save the template below as ```parent.tpl.php```.
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -170,7 +180,7 @@ Another useful feature is template inheritance. This allows you to define a pare
 		</body>
 	</html>
 
-You can then create a ```child.tpl.php``` file that extends the parent template.
+You can then create a ```child.tpl.php``` template that extends the parent template.
 
 	{% extends:'parent' %}
 
@@ -187,7 +197,7 @@ You can then create a ```child.tpl.php``` file that extends the parent template.
 
 > The ```__PARENT__``` string will be replaced by the contents of the parent block.
 
-Rendering the child template will result in the following output:
+Rendering the child template will result in the HTML document displayed below.
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -214,7 +224,7 @@ Rendering the child template will result in the following output:
 
 ### Custom view renderers
 
-Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/). 
+Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
 
 Registering a custom renderer is done using the ```registerRenderer``` method. The first parameter is the file extention you want to associate with your custom renderer. The second parameter is the namespaced class name of your renderer class.
 
