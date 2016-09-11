@@ -16,9 +16,9 @@ The ```FileSystem``` class contains methods that assist in working with the file
 
 You can create a new FileSystem object or fetch the instance present in the [IoC container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
 
-The ```exists``` method return TRUE if the provided path exists and FALSE if not.
+The ```has``` method return TRUE if the provided path exists and FALSE if not.
 
-	$exists = $this->fileSystem->exists('/foo/bar.txt');
+	$exists = $this->fileSystem->has('/foo/bar.txt');
 
 The ```isFile``` method return TRUE if the provided path is a file and FALSE if not.
 
@@ -58,33 +58,33 @@ The ```mime``` method returns the mime type of the file.  It returns FALSE if th
 
 > The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determinating a mime type. You can disable guessing by setting the second parameter to FALSE.
 
-The ```delete``` method will delete a file from disk.
+The ```remove``` method will delete a file from disk.
 
-	$this->fileSystem->delete('/foo/bar.txt');
+	$this->fileSystem->remove('/foo/bar.txt');
 
 The ```glob``` method returns an array of path names matching the provided pattern.
 
 	$paths = $this->fileSystem->glob('/foo/*.txt');
 
-The ```getContents``` method returns the contents of a file.
+The ```get``` method returns the contents of a file.
 
 	$contents = $this->fileSystem->getContents('/foo/bar.txt');
 
-The ```putContents``` method puts the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```put``` method puts the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
-	$this->fileSystem->putContents('/foo/bar.txt', 'hello, world!');
+	$this->fileSystem->put('/foo/bar.txt', 'hello, world!');
 
-The ```prependContents``` method will prepend the provided conetents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```prepend``` method will prepend the provided conetents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
-	$this->fileSystem->prependContents('/foo/bar.txt', 'hello, world!');
+	$this->fileSystem->prepend('/foo/bar.txt', 'hello, world!');
 
 The ```appendContents``` method will append the provided conetents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
-	$this->fileSystem->appendContents('/foo/bar.txt', 'hello, world!');
+	$this->fileSystem->append('/foo/bar.txt', 'hello, world!');
 
-The ```truncateContents``` method will truncate the contents of the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```truncate``` method will truncate the contents of the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
-	$this->fileSystem->truncateContents('/foo/bar.txt');
+	$this->fileSystem->truncate('/foo/bar.txt');
 
 The ```include``` method will include a file.
 
@@ -101,6 +101,14 @@ The ```require``` method will require a file.
 The ```requireOnce``` method will require a file if it hasn't already been required.
 
 	$this->fileSystem->requireOnce('/foo/bar.txt');
+
+The ```hash``` method generates a hash value using the contents of the given file. The default hashing algorith is `sha256` but you can override it using the optional second parameter.
+
+	$hash = $this->fileSystem->hash('/foo/bar.txt');
+
+The ```hmac``` method a keyed hash value using the HMAC method using the contents of the given file. The default hashing algorith is `sha256` but you can override it using the optional third parameter.
+
+	$hash = $this->fileSystem->hmac('/foo/bar.txt', $secret);
 
 The ```file``` method will return a [SplFileObject](http://php.net/manual/en/class.splfileobject.php).
 
