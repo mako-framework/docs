@@ -102,11 +102,11 @@ The ```requireOnce``` method will require a file if it hasn't already been requi
 
 	$this->fileSystem->requireOnce('/foo/bar.txt');
 
-The ```hash``` method generates a hash value using the contents of the given file. The default hashing algorith is `sha256` but you can override it using the optional second parameter.
+The ```hash``` method generates a hash value using the contents of the given file. The default hashing algorithm is `sha256` but you can override it using the optional second parameter.
 
 	$hash = $this->fileSystem->hash('/foo/bar.txt');
 
-The ```hmac``` method a keyed hash value using the HMAC method using the contents of the given file. The default hashing algorith is `sha256` but you can override it using the optional third parameter.
+The ```hmac``` method a keyed hash value using the HMAC method using the contents of the given file. The default hashing algorithm is `sha256` but you can override it using the optional third parameter.
 
 	$hash = $this->fileSystem->hmac('/foo/bar.txt', $secret);
 
