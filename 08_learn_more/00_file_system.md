@@ -82,7 +82,7 @@ The ```appendContents``` method will append the provided conetents to the file. 
 
 	$this->fileSystem->append('/foo/bar.txt', 'hello, world!');
 
-The ```truncate``` method will truncate the contents of the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```truncate``` method will truncate the contents of the file. There's an optional second parameter that will set an exclusive write lock if set to TRUE.
 
 	$this->fileSystem->truncate('/foo/bar.txt');
 
