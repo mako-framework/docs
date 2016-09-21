@@ -205,7 +205,3 @@ The IoC container is always avaiable through the ```$container``` property.
 The ```ContainerAwareTrait``` also implements the magic ```__get()``` method. This allows you to resolve classes through the IoC container using overloading.
 
 	$this->view; // Instance of mako\view\ViewFactory
-
-Resolved instances will be cached and reused when using overloading. This can result in unexpected behaviour if you don't expect to reuse the same instance of your dependency.
-
-Use the ```$this->container->get('...')``` method instead of overloading if you need a "fresh" instance from the container.
