@@ -71,7 +71,7 @@ If you're extending the Mako base controller then you'll get a set of useful con
 
 #### File response
 
-The ```fileResponse``` method returns a file response container. The file download will be resumable, something that can be very useful when downloading large files.
+The ```fileResponse``` method returns a file response sender. The file download will be resumable, something that can be very useful when downloading large files.
 
 	return $this->fileResponse('/path/to/file.ext');
 
@@ -92,7 +92,7 @@ You can set a custom file name, mime type, content disposition and a closure to 
 
 #### Redirect response
 
-The ```redirectResponse``` method returns a redirect response container.
+The ```redirectResponse``` method returns a redirect response sender.
 
 	return $this->redirectResponse('http://example.org');
 
@@ -108,7 +108,7 @@ The ```redirectResponse``` method also allows you to use a [route name](:base_ur
 
 #### Stream response
 
-The ```streamResponse``` method returns a stream response container. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+The ```streamResponse``` method returns a stream response sender. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
 
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
