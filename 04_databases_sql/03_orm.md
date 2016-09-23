@@ -568,6 +568,8 @@ You can also make the ORM touch related records upon saving by listing the relat
 
 	protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 
+You can easily decide which type of changes that should touch related records using the ```$shouldTouchOnInsert```, ```$shouldTouchOnUpdate``` and ```$shouldTouchOnDelete``` properties. All of them are set to ```TRUE``` by default.
+
 <a id="traits:optimistic_locking"></a>
 
 #### Optimistic locking
