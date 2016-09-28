@@ -4,7 +4,7 @@
 
 * [Requirements](#requirements)
 * [Setup](#setup)
-	- [Updating](#setup:updating)
+* [Updating](#updating)
 
 --------------------------------------------------------
 
@@ -38,9 +38,15 @@ And finally you should generate a new application secret:
 
 	php app/reactor app.generate_secret
 
-<a id="setup:updating"></a>
+Now you're ready to start coding!
 
-#### Updating
+> Note that only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
+
+--------------------------------------------------------
+
+<a id="updating"></a>
+
+### Updating
 
 Mako can easily be updated when a new version is released using the following command:
 
