@@ -41,6 +41,7 @@ It should print the following on a default Mako installation
 	-------------------------------------------------------------------------
 	| Command             | Description                                     |
 	-------------------------------------------------------------------------
+	| app.generate_key    | Generates a 256-bit encryption key.             |
 	| app.generate_secret | Generates a new application secret.             |
 	| app.routes          | Lists all registered routes.                    |
 	| migrate.create      | Creates a new migration.                        |
@@ -51,7 +52,7 @@ It should print the following on a default Mako installation
 	| server              | Starts the local development server.            |
 	-------------------------------------------------------------------------
 
-Executing a commands is done like this:
+Executing a command is done like this:
 
 	php reactor app.routes
 

@@ -120,8 +120,6 @@ Sometimes you'll need to inject different implementations of the same interface 
 
 ```ClassA``` will now get the ```FooBarImplementationA``` implementation of the ```FooBarInterface``` while ```ClassB``` will get the ```FooBarImplementationB``` implementation.
 
-You can also use an alias key as the third parameter if the dependecy is already registered in the container.
-
 --------------------------------------------------------
 
 <a id="services"></a>

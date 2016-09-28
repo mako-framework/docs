@@ -145,7 +145,7 @@ The default JSONP callback function is named ```callback```. You can override th
 
 	return $this->jsonpResponse([1, 2, 3])->callback('foobar');
 
-Consumers can also override the callback name themselves using the ```callback``` query string parameter in the resource URL. You can override the key name using the ```key``` method.
+Consumers can also override the callback name themselves using the ```callback``` query string parameter on the resource URL. You can override the key name using the ```key``` method.
 
 	return $this->jsonpResponse([1, 2, 3])->key('function');
 
