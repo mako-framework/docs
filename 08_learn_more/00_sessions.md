@@ -9,7 +9,7 @@
 		- [Token](#usage:security:token)
 		- [One time tokens](#usage:security:one_time_tokens)
 		- [Session id](#usage:security:session_id)
-		- [Session data](#usage:security:session_data)
+		- [Session destruction](#usage:security:session_destruction)
 
 --------------------------------------------------------
 
@@ -34,7 +34,11 @@ Adding an item to the session is done using the ```put``` method.
 
 	$this->session->put('name', $name);
 
-> The ```mako.flashdata``` and ```mako.tokens``` keys are used by the framework and should not be used to store data. 
+> The ```mako.flashdata``` and ```mako.tokens``` keys are used by the framework and should not be used to store data.
+
+You can check if an item exists in the session using the ```has``` method.
+
+	$this->session->has('name');
 
 Getting an item from the session is done using the ```get``` method.
 
@@ -44,13 +48,25 @@ You can also tell the method to return a custom value if the key you're looking 
 
 	$this->session->get('name', 'John Doe');
 
-You can check if an item exists in the session using the ```has``` method.
+You can also get data from the session and replace it using the ```getAndPut``` method.
 
-	$this->session->has('name');
+	$this->session->getAndPut('name', $name);
+
+It is also possible to retrieve and remove data with a single method call using the ```getAndRemove``` method.
+
+	$this->session->getAndRemove('name');
+
+If you want to return custom value if the key you're looking for doesn't exist then you can set ut using the optional second parameter. The default return value for non-existing items is NULL.
+
+	$this->session->getAndRemove('name', 'John Doe');
 
 Removing data from the session is done using the ```remove``` method.
 
 	$this->session->remove('name');
+
+If you want to clear all session data then you can use the ```clear``` method.
+
+	$this->session->clear();
 
 <a id="usage:flash_data"></a>
 
@@ -100,7 +116,7 @@ The ```validateToken``` method allows you to validate a token. It will return TR
 
 	$valid = $this->session->validateToken($token);
 
-The ```regenerateToken``` method lets you generates a new token. 
+The ```regenerateToken``` method lets you generates a new token.
 
 	$token = $this->session->regenerateToken();
 
@@ -116,7 +132,7 @@ The ```generateOneTimeToken``` method allows you to generate a one time token th
 
 	$token = $this->session->generateOneTimeToken();
 
-The ```validateOneTimeToken``` method allows you to validate a one time token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the ```one_time_token``` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation). 
+The ```validateOneTimeToken``` method allows you to validate a one time token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the ```one_time_token``` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
 One time tokens that have been validated once are no longer considered valid so they are not well suited for use with AJAX requests.
 
@@ -142,14 +158,10 @@ You can tell it to keep the data associated with the old session id
 
 > Mako will automatically regnerate the session id upon a succesful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
 
-<a id="usage:security:session_data"></a>
+<a id="usage:security:session_destruction"></a>
 
-##### Session data
+##### Session destruction
 
 To destroy a session use the ```destroy``` method.
 
 	$this->session->destroy();
-
-If you want to clear all session data without destroying the session then you can use the ```clear``` method.
-
-	$this->session->clear();

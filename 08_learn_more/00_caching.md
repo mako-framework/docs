@@ -47,10 +47,16 @@ Adding data to the cache is done using the ```put``` method. The method returns 
 
 	$cache->put('my_array', [1, 2, 3, 4], 3600);
 
+You can check whether or not an item exists in the cache by using the ```has``` method.
+
+	if($cache->has('foo'))
+	{
+		// Do something
+	}
+
 The ```get``` method is used to retrieve data from the cache. The method returns FALSE if the cached data has expired or if it is not found.
 
 	$cached = $cache->get('my_array');
-
 
 The ```getOrElse``` method returns the data if the key exists and caches the return value of the closure if it doesn't. The closure does not get executed if the key exists in the cache.
 
@@ -61,12 +67,13 @@ The ```getOrElse``` method returns the data if the key exists and caches the ret
 		return 'this will get cached for 30 seconds';
 	}, 30);
 
-You can check whether or not an item exists in the cache by using the ```has``` method.
+The ```getAndPut``` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns FALSE if the cached data has expired or if it is not found.
 
-	if($cache->has('foo'))
-	{
-		// Do something
-	}
+	$cached = $cache->getAndPut('my_array', [1, 3, 4, 5], 3600);
+
+If you need to retrieve and remove a value then you can use the ```getAndRemove``` method. The method returns FALSE if the cached data has expired or if it is not found.
+
+	$cached = $cache->getAndRemove('my_array');
 
 Removing data from the cache is done by using the ```remove``` method. The method returns TRUE on success or FALSE on failure.
 
