@@ -1,4 +1,4 @@
-# Custom commands
+# Commands
 
 --------------------------------------------------------
 
@@ -11,6 +11,7 @@
 * [Output](#output)
 	- [Helpers](#output:helpers)
 	- [Formatting](#output:formatting)
+* [Calling commands from commands](#calling_commands_from_commands)
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -31,7 +32,7 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 
 	<?php
 
-	namespace app\commands;
+	namespace app\console\commands;
 
 	use mako\reactor\Command;
 
@@ -47,7 +48,7 @@ You might also want to tell your users (or remind yourself) what the command act
 
 	<?php
 
-	namespace app\commands;
+	namespace app\console\commands;
 
 	use mako\reactor\Command;
 
@@ -76,7 +77,7 @@ Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) 
 
 	'commands' =>
 	[
-		'hello' => 'app\commands\Hello',
+		'hello' => 'app\console\commands\Hello',
 	],
 
 You can now call your custom command like this.
@@ -91,7 +92,7 @@ Passing arguments to a command is easy as you can se in the example below.
 
 	<?php
 
-	namespace app\commands;
+	namespace app\console\commands;
 
 	use mako\reactor\Command;
 
@@ -113,7 +114,7 @@ You can also use options or "named arguments".
 
 	<?php
 
-	namespace app\commands;
+	namespace app\console\commands;
 
 	use mako\reactor\Command;
 
@@ -133,7 +134,7 @@ Options can also be used as boolean flags.
 
 	<?php
 
-	namespace app\commands;
+	namespace app\console\commands;
 
 	use mako\reactor\Command;
 
@@ -359,6 +360,51 @@ If you want to escape all tags in a string then you can use the ```Formatter::es
 
 --------------------------------------------------------
 
+<a id="calling_commands_from_commands"></a>
+
+### Calling commands from commands
+
+If you need to call a command from another command then you can use the `FireTrait`.
+
+The `fire` method executes your command in a separate process and lets you handle the output using a closure.
+
+	<?php
+
+	namespace app\console\commands;
+
+	use mako\reactor\Command;
+	use mako\reactor\traits\FireTrait;
+
+	class Proxy extends Command
+	{
+		public function execute()
+		{
+			$this->fire('hello --name=dude', function($buffer)
+			{
+				$this->output->write($buffer);
+			});
+		}
+	}
+
+If don't want to wait for the command to finish then you can start a background process using the `fireAndForget` method.
+
+	<?php
+
+	namespace app\console\commands;
+
+	use mako\reactor\Command;
+	use mako\reactor\traits\FireTrait;
+
+	class Manager extends Command
+	{
+		public function execute()
+		{
+			$this->fireAndForget('worker --file=1 >> /var/log/worker');
+		}
+	}
+
+--------------------------------------------------------
+
 <a id="dependency_injection"></a>
 
 ### Dependency injection
@@ -366,6 +412,10 @@ If you want to escape all tags in a string then you can use the ```Formatter::es
 Commands are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
 	<?php
+
+	namespace app\console\commands;
+
+	use mako\reactor\Command;
 
 	class Hello extends Command
 	{
