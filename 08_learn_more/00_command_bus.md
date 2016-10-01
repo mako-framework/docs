@@ -108,7 +108,7 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 
 	<?php
 
-	namespace app\commands\users;
+	namespace app\console\commands\users;
 
 	use app\commands\CreateUserCommand;
 
