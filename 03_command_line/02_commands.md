@@ -242,6 +242,10 @@ The ```nl``` method writes a newline to the output.
 
 	$this->nl();
 
+The ```clear``` method lets you clear all output from the terminal window.
+
+	$this->clear();
+
 The ```bell``` method rings the terminal bell.
 
 	$this->bell();
