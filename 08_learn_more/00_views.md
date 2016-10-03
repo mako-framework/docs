@@ -226,13 +226,13 @@ Rendering the child template will result in the HTML document displayed below.
 
 Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
 
-Registering a custom renderer is done using the ```registerRenderer``` method. The first parameter is the file extention you want to associate with your custom renderer. The second parameter is the namespaced class name of your renderer class.
+Registering a custom renderer is done using the ```registerRenderer``` method. The first parameter is the file extention you want to associate with your custom renderer. The second parameter is the namespaced class name of your renderer class. The renderer will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so all dependecies will automatically be injected.
 
-	$this->view->registerRenderer('.twig', 'foo\bar\TwigRenderer');
+	$this->view->extend('.twig', TwigRenderer::class);
 
 You can also use a closure when registering a custom renderer.
 
-	$this->view->registerRenderer('.twig', function()
+	$this->view->extend('.twig', function()
 	{
 		$renderer = new foo\bar\TwigRenderer;
 
