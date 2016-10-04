@@ -4,7 +4,7 @@
 
 * [Application](#application)
 	- [Configuration](#application:configuration)
-* [Packages](#packages)
+* [Framework](#framework)
 
 --------------------------------------------------------
 
@@ -16,8 +16,6 @@ This guide takes you through the steps needed to migrate from Mako ```4.5.x``` t
 
 ### Application
 
-Mako 5.0 is a major version update. See the [changelog](:base_url:/changelog) for changes.
-
 <a id="application:configuration"></a>
 
 #### Configuration
@@ -26,8 +24,8 @@ Make sure that your configuration files are up to date by comparing them to the 
 
 --------------------------------------------------------
 
-<a id="packages"></a>
+<a id="framework"></a>
 
-### Packages
+### Framework
 
-Mako 5.0 is a major version update. See the changelog for changes.
+Mako 5.0 is a major version update that contains a few minor breaking changes. See the changelog for [changelog](:base_url:/changelog) a complete list of changes.
