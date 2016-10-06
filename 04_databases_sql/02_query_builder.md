@@ -214,6 +214,8 @@ The query builder also includes a few handy shortcuts to the most common aggrega
 
 	$count = $query->table('persons')->countDistinct('age');
 
+	$count = $query->table('persons')->countDistinct(['age', 'height']);
+
 	// Average value
 
 	$height = $query->table('persons')->avg('height');
