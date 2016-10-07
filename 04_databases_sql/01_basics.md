@@ -40,6 +40,10 @@ The ```Connection::query``` method lets you execute a query. It returns ```TRUE`
 
 	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
+The ```Connection::first``` method executes a query and returns the first row of the result set.
+
+	$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+
 The ```Connection::all``` method executes a query and returns an array containing all of the result set rows.
 
 	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
@@ -48,9 +52,9 @@ The ```Connection::all``` method executes a query and returns an array containin
 
 	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana', 'apple']]);
 
-The ```Connection::first``` method executes a query and returns the first row of the result set.
+The ```Connection::yield``` method exectues a query and returns a generator that lets you iterate over the result set rows. This is very usefull if you want to process a large dataset without having to worry about memory consumption.
 
-	$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+	$rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
 The ```Connection::column``` method executes a query and returns the value of the first column of the first row of the result set.
 

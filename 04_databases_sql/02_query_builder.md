@@ -59,6 +59,10 @@ You can also skip the call to the ```Connection::builder()``` method using the `
 
 ### Fetching data
 
+If you only want to retrieve a single row then you can use the ```first``` method.
+
+	$person = $query->table('persons')->where('id', '=', 1)->first();
+
 Fetching all rows is done using the ```all``` method.
 
 	$persons = $query->table('persons')->all();
@@ -109,9 +113,23 @@ Advanced column selections can also be made using raw SQL and subqueries.
 		]
 	)->all();
 
-If you only want to retrieve a single row you can use the ```first``` method.
+If you need to process a large dataset and don't want to put the entire result set in memory then you can use the ```yield``` method. It returns a generator that lets you iterate over the result set.
 
-	$person = $query->table('persons')->where('id', '=', 1)->first();
+	$persons = $query->table('persons')->select(['name', 'email'])->yield();
+
+	foreach($persons as $person)
+	{
+		// Only a single row is kept in memory at a time
+	}
+
+In addition to using the ```yield``` method to process large ammounts of data you can also use the ```batch``` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
+
+You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
+
+	$query->table('persons')->ascending('id')->batch(function($batch)
+	{
+		// Process the batch here
+	});
 
 Fetching the value of a single column is done using the ```column``` method.
 
@@ -128,15 +146,6 @@ It is also possible to fetch an array containing the values of a single column u
 	 // You can also use the following syntax
 
 	 $emails = $query->table('persons')->columns('email');
-
-If you need to process large ammounts of data then the ```batch``` method will help you limit the memory usage of your application. The default batch size is a 1000 records but you can override this using the optional second parameter.
-
-You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
-
-	$query->table('persons')->ascending('id')->batch(function($batch)
-	{
-		// Process the batch here
-	});
 
 --------------------------------------------------------
 
