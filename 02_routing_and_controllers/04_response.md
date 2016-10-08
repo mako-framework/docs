@@ -22,7 +22,7 @@ An instance of the response class is always avaiable in all controller classes. 
 
 The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body in an after filter.
 
-	public function afterFilter()
+	public function afterAction()
 	{
 		$this->response->body(strtoupper($this->response->getBody()));
 	}
@@ -58,14 +58,6 @@ The ```status``` method lets you set the response status.
 The ```getStatus``` method returns the current status code.
 
 	$responseStatus = $this->response->getStatus();
-
-The ```back``` method will redirect the user back to the previous page.
-
-	return $this->response->back();
-
-	// You also specify the status header (default is 302)
-
-	return $this->response->back(301);
 
 --------------------------------------------------------
 

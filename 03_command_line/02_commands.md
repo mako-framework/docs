@@ -202,7 +202,7 @@ You can also specify a default return value in the event that the user chooses n
 
 > The ```secret``` method will throw a ```RuntimeException``` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing ```TRUE``` to the optional third parameter.
 
-The ```confirm``` method lets you ask the user for confirm.
+The ```confirm``` method lets you ask the user to confirm their action.
 
 	if($this->confirm('Do you want to delete all your files?'))
 	{
@@ -381,6 +381,8 @@ The `fire` method executes your command in a separate process and lets you handl
 
 	class Proxy extends Command
 	{
+		use FireTrait;
+
 		public function execute()
 		{
 			$this->fire('hello --name=dude', function($buffer)
@@ -401,6 +403,8 @@ If don't want to wait for the command to finish then you can start a background 
 
 	class Manager extends Command
 	{
+		use FireTrait;
+
 		public function execute()
 		{
 			$this->fireAndForget('worker --file=1 >> /var/log/worker');

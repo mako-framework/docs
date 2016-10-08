@@ -26,25 +26,25 @@ The database connection manager provides a simple way of handling database conne
 
 #### Basics
 
-Creating a database connection is done using the ```ConnectionManager::connection``` method.
+Creating a database connection is done using the ```ConnectionManager::connection()``` method.
 
 	// Returns connection object using the "default" database configuration defined in the config file
 
-	$connection = $connection->connection();
+	$connection = $this->database->connection();
 
 	// Returns connection object using the "mydb" database configuration defined in the config file
 
-	$connection = $connection->connection('mydb');
+	$connection = $this->database->connection('mydb');
 
-The ```Connection::query``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
+The ```Connection::query()``` method lets you execute a query. It returns ```TRUE``` on success and ```FALSE``` on failure.
 
 	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
-The ```Connection::first``` method executes a query and returns the first row of the result set.
+The ```Connection::first()``` method executes a query and returns the first row of the result set.
 
 	$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
-The ```Connection::all``` method executes a query and returns an array containing all of the result set rows.
+The ```Connection::all()``` method executes a query and returns an array containing all of the result set rows.
 
 	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
@@ -52,19 +52,19 @@ The ```Connection::all``` method executes a query and returns an array containin
 
 	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana', 'apple']]);
 
-The ```Connection::yield``` method exectues a query and returns a generator that lets you iterate over the result set rows. This is very usefull if you want to process a large dataset without having to worry about memory consumption.
+The ```Connection::yield()``` method exectues a query and returns a generator that lets you iterate over the result set rows. This is very usefull if you want to process a large dataset without having to worry about memory consumption.
 
 	$rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
-The ```Connection::column``` method executes a query and returns the value of the first column of the first row of the result set.
+The ```Connection::column()``` method executes a query and returns the value of the first column of the first row of the result set.
 
 	$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 
-The ```Connection::columns``` method executes a query and returns an array containing the values of the first column.
+The ```Connection::columns()``` method executes a query and returns an array containing the values of the first column.
 
 	$email = $connection->columns('SELECT `email` FROM `users`');
 
-The ```Connection::queryAndCount``` method will return the number of rows modified by the query.
+The ```Connection::queryAndCount()``` method will return the number of rows modified by the query.
 
 	$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
@@ -90,7 +90,7 @@ You can attempt to reconnect using the ```Connection::reconnect()``` method.
 
 You can access the default database connection directly without having to go through the ```connection``` method thanks to the magic ```__call``` method.
 
-	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 
 --------------------------------------------------------
 
@@ -105,23 +105,23 @@ You can access the default database connection directly without having to go thr
 
 > Transactions only work if the storage engine you're using supports them.
 
-You begin a transaction using the ```Connection::beginTransaction``` method.
+You begin a transaction using the ```Connection::beginTransaction()``` method.
 
 	$connection->beginTransaction();
 
-Committing the transaction is done using the ```Connection::commitTransaction``` method.
+Committing the transaction is done using the ```Connection::commitTransaction()``` method.
 
 	$connection->commitTransaction();
 
-Rolling back the transaction is done using the ```Connection::rollBackTransaction``` method.
+Rolling back the transaction is done using the ```Connection::rollBackTransaction()``` method.
 
 	$connection->rollBackTransaction();
 
-You can check whether or not you're already in a transaction using the ```Connection::inTransaction``` method.
+You can check whether or not you're already in a transaction using the ```Connection::inTransaction()``` method.
 
 	$inTransaction = $connection->inTransaction();
 
-The ```Connection::transaction``` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
+The ```Connection::transaction()``` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
 
 	$connection->transaction(function($connection)
 	{
@@ -170,9 +170,9 @@ The parent transaction is unafected and the transfer between user `1` and `2` is
 			$connection->rollbackTransaction();
 	}
 
-Transaction nesting is also possible when using the ```Connection::transaction``` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
+Transaction nesting is also possible when using the ```Connection::transaction()``` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
 
-You can get the transaction nesting level at any point using the ```Connection::getTransactionNestingLevel``` method.
+You can get the transaction nesting level at any point using the ```Connection::getTransactionNestingLevel()``` method.
 
 	$nestingLevel = $connection->getTransactionNestingLevel();
 
