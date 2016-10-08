@@ -163,7 +163,7 @@ The controller action and ```afterAction``` methods will be skipped if the ```be
 	{
 		if($this->gatekeeper->isGuest())
 		{
-			return $this->response->redirect($this->urlBuilder->toRoute('user:login'));
+			return $this->redirectResponse('user:login');
 		}
 	}
 
