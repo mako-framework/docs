@@ -53,10 +53,10 @@ Files should always have the same name as the class they contain. A file should 
 	namespace mako\chrono;
 
 	use DateTime;
-	
+
 	class Time extends DateTime
 	{
-			
+
 	}
 
 --------------------------------------------------------
@@ -199,7 +199,7 @@ Braces associated with a control statement should always be on the next line, in
 
 	public function foo()
 	{
-		
+
 	}
 
 	// Incorrect
@@ -243,13 +243,12 @@ This makes it easy to understand what the code does and it also enables IDEs to 
 
 	/**
 	 * Returns a greeting.
-	 * 
+	 *
 	 * @access  public
 	 * @param   string  $name  Name of the person you want to greet
 	 * @return  string
 	 */
-
-	public function greeting($name)
+	public function greeting(string $name): string
 	{
 		return 'Hello, ' . $name . '!';
 	}

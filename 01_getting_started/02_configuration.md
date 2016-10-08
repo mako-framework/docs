@@ -8,9 +8,7 @@
 
 --------------------------------------------------------
 
-The configuration of the Mako core is done in the ```index.php``` file. This is where you set the error reporting level and define the paths to the application and vendor directories.
-
-You do not need to edit the paths unless you move the application and framework directories out of your webserver's document root.
+The configuration of the Mako core is done in the ```app/init.php``` file. This is where you set the error reporting level and define the paths to the application and vendor directories.
 
 All of the remaining framework configuration is done by editing the files that are located in the ```app/config``` directory.
 
