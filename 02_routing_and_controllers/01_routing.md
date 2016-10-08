@@ -114,7 +114,7 @@ Middleware should (but is not required to) implement the ```MiddlewareInterface`
 
 	class PassthroughMiddleware implements MiddlewareInterface
 	{
-		public function execute(Request $request, Response $response Closure $next): Response
+		public function execute(Request $request, Response $response, Closure $next): Response
 		{
 			return $next($request, $response);
 		}
