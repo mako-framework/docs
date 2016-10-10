@@ -18,7 +18,7 @@ An instance of the request class is always avaiable in all controller classes. I
 
 ### Accessing data
 
-The ```get``` method allows you to access query string data ($_GET).
+The ```get``` method allows you to access query string data.
 
 	// Get all query string data (returns an empty array if there is no data)
 
@@ -32,7 +32,7 @@ The ```get``` method allows you to access query string data ($_GET).
 
 	$foo = $this->request->get('foo', false);
 
-The ```post``` method allows you to access ```POST``` data ($_POST).
+The ```post``` method allows you to access ```POST``` data.
 
 	// Get all POST data (returns an empty array if there is no data)
 
@@ -94,9 +94,17 @@ The ```delete``` method allows you to access ```DELETE``` data.
 
 	$foo = $this->request->delete('foo', false);
 
-The ```body``` method allows you to access the raw request body. This is useful if you know that it's not ```application/x-www-form-urlencoded``` or ```json``` data.
+The ```body``` method allows you to access the raw request body.
 
 	$body = $this->request->body();
+
+The ```bodyAsStream``` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large file uplodads via PUT requests.
+
+	$body = $this->request->bodyAsStream();
+
+	$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
+
+	$filesize = stream_copy_to_stream($body, $storageStream);
 
 The ```data``` method allows you to access data from the current request method.
 
@@ -136,17 +144,36 @@ The ```blacklisted``` methods returns all request data where keys in the blackli
 
 	$blacklisted = $this->request->blacklisted(['foo', 'bar'], ['baz' => 'foo', 'bax' => 'bar']);
 
-The ```file``` method allows you to access file upload data ($_FILES).
+The ```file``` method allows you to access files that have been upload via a POST request.
 
-	// Get all file data (returns an empty array if there is no data)
+	// Get all uploaded files (returns an empty array if there is no data)
 
-	$all = $this->request->file();
+	$files = $this->request->file();
 
-	// Get data from a specific key (will return NULL if the key doesn't exist)
+	// Get a specific file or an array of files if it's a multi-upload.
 
-	$foo = $this->request->file('myfile.size');
+	$file = $this->request->file('myfile');
 
-The ```server``` method lets you access server data ($_SERVER)
+	// If you want to get a specific file from a multi-upload then you'll have to add the array key as well
+
+	$files = $this->request->file('myfile.0');
+
+Uploaded files are represented as a ```UploadedFile``` object. The class extends the ```SplFileInfo``` class with the following methods.
+
+| Method name     | Description                                                                |
+|-----------------|----------------------------------------------------------------------------|
+| getName         | Returns the name of the file that was uploaded.                            |
+| getReportedSize | Returns the size reported by the client.                                   |
+| getReportedType | Returns the mime type reported by the client.                              |
+| hasError        | Returns TRUE if there is an error with the uploaded file and FALSE if not. |
+| getErrorCode    | Returne the error code associated with the error.                          |
+| getErrorMessage | Returns a human friendly error message.                                    |
+| isUploaded      | Returns TRUE if the file is an actual upload and FALSE if not.             |
+| moveTo          | Moves the file to the specified storage location.                          |
+
+> The values reported by the client should not be trusted. Use the ```getSize``` method to retrieve the actual filesize.
+
+The ```server``` method lets you access server data.
 
 	// Get all server data (returns an empty array if there is no data)
 
