@@ -59,7 +59,7 @@ The ```alternator``` method will return a closure that alternates between the ch
 	echo $alt(); // bar
 	echo $alt(); // foo
 
-The ```ascii``` method returns string where all non-ASCII characters have been stripped.
+The ```ascii``` method returns a string where all non-ASCII characters have been stripped.
 
 	// $str will be set to "Hello, world! It Works!"
 
@@ -69,7 +69,7 @@ The ```slug``` method returns a URL friendly string.
 
 	$str = Str::slug('Hello World!'); // $str will be set to "hello-world"
 
-The ```autolink``` method returns a string where all URLs are converted into clickable links.
+The ```autolink``` method returns a string where all URLs have been converted into clickable links.
 
 	$str = Str::autolink($text);
 
