@@ -532,7 +532,7 @@ You can convert an ORM object or result set to an array using the ```toArray``` 
 
 	$json = (string) Article::limit(10)->all();
 
-You can exclude columns from the array and JSON representations by using the ```$protected``` property.
+You can exclude columns and relations from the array and JSON representations by using the ```$protected``` property. You can alter protection at runtime using the ```protect()``` and ```expose()``` methods.
 
 --------------------------------------------------------
 
