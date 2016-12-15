@@ -65,6 +65,8 @@ You might also want to tell your users (or remind yourself) what the command act
 		}
 	}
 
+You can set a custom exit/status code for your command by returning an integer from your `execute` method. The default code if none is provided is `0`.
+
 <a id="basics:registering-commands"></a>
 
 #### Registering commands
