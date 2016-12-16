@@ -4,8 +4,8 @@
 
 * [Basics](#basics)
 	- [Getting started](#basics:getting-started)
-	- [Registering commands](#basics:registering-commands)
 	- [Arguments and options](#basics:arguments-and-options)
+	- [Registering commands](#basics:registering-commands)
 * [Input](#input)
 	- [Helpers](#input:helpers)
 * [Output](#output)
@@ -44,53 +44,13 @@ All commands must extend the ```mako\reactor\Command``` base command and impleme
 		}
 	}
 
-You might also want to tell your users (or remind yourself) what the command actually does. This can easily be done using the ```$commandInformation``` property.
-
-	<?php
-
-	namespace app\console\commands;
-
-	use mako\reactor\Command;
-
-	class Hello extends Command
-	{
-		protected $commandInformation =
-		[
-			'description' => 'Prints a greeting.',
-		];
-
-		public function execute()
-		{
-			$this->write('Hello, World!');
-		}
-	}
-
-You can return a custom exit code from your commands by returning an integer from the `execute` method. The default code if none is returned is `0`.
-
-<a id="basics:registering-commands"></a>
-
-#### Registering commands
-
-You'll have to register your command with the reactor command line tool before you can use it.
-
-Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the command class name.
-
-Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
-
-	'commands' =>
-	[
-		'hello' => 'app\console\commands\Hello',
-	],
-
-You can now call your custom command like this.
-
-	php reactor hello
+> You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
 
 <a id="basics:arguments-and-options"></a>
 
 #### Arguments and options
 
-Passing arguments to a command is easy as you can se in the example below.
+Passing arguments to a command is easy.
 
 	<?php
 
@@ -112,7 +72,7 @@ You can now execute your command from the command line.
 
 	php reactor hello dude
 
-You can also use options or "named arguments".
+You can, of course, also use options or named arguments.
 
 	<?php
 
@@ -175,6 +135,25 @@ Both arguments and options can be documented using the ```$commandInformation```
 	];
 
 It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the ```$isStrict``` property to ```TRUE``` if you want the command to fail if a non-documented argument or option is used.
+
+<a id="basics:registering-commands"></a>
+
+#### Registering commands
+
+You'll have to register your command with the reactor command line tool before you can use it.
+
+Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the command class name.
+
+Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
+
+	'commands' =>
+	[
+		'hello' => 'app\console\commands\Hello',
+	],
+
+You can now call your custom command like this.
+
+	php reactor hello
 
 --------------------------------------------------------
 
