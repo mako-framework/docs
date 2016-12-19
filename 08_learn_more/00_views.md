@@ -74,7 +74,7 @@ You also have access to a few handy methods that you should use to escape untrus
 		<p>Hello, <?= $this->escapeHTML($name, $__charset__); ?>!</p>
 	</div>
 
-| Method          | Desciption                                          |
+| Method          | Description                                         |
 |-----------------|-----------------------------------------------------|
 | escapeHTML      | Escapes data for use in a HTML body context.        |
 | escapeAttribute | Escapes data for use in a HTML attribute context.   |
@@ -226,9 +226,9 @@ Rendering the child template will result in the HTML document displayed below.
 
 Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
 
-Registering a custom renderer is done using the ```extend``` method. The first parameter is the file extention you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
+Registering a custom renderer is done using the ```extend``` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
 
-The renderer will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so all dependecies will automatically be injected.
+The renderer will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so all dependencies will automatically be injected.
 
 	$this->view->extend('.twig', TwigRenderer::class);
 

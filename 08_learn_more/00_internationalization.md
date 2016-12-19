@@ -28,7 +28,7 @@ Mako language files are just simple arrays:
 
 	// examples.php
 
-	return 
+	return
 	[
 		'have_10_apples' => 'I have 10 apples',
 		'have_n_apples'  => 'I have %d apples',
@@ -74,14 +74,14 @@ The ```pluralize``` method returns the plural form of the chosen noun. Unlike mo
 	echo $this->i18n->pluralize('woman', 2); // Will print "women"
 
 You can also pluralize words in translated strings.
-	 
+
 	return array
 	(
 		'new_messages' => 'You have %1$u new <pluralize:%1$u>message</pluralize>.',
 	);
 
 We can now enjoy simple pluralization in our views
-	 
+
 	{{$i18n->get('ui.new_messages', [1])}} // Will print "You have 1 new message."
 
 	{{$i18n->get('ui.new_messages', [10])}} // Will print "You have 10 new messages."
@@ -99,4 +99,4 @@ Language route prefixes can be configured in the ```app/config/application.php``
 		'no' => 'nb_NO',
 	),
 
-Visiting ```http://example.org/no/foo/bar``` set the language to norwegian before executing the ```/foo/bar``` route.
+Visiting ```http://example.org/no/foo/bar``` set the language to Norwegian before executing the ```/foo/bar``` route.

@@ -187,7 +187,7 @@ You can create your own custom validator plugins. They must extend the ```mako\v
 
 > Prefix the ```$ruleName``` value with your package name and two colons (```::```) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views).
 
-You can register the plugin with the validation factory, thus making it avaiable to all future validator instances.
+You can register the plugin with the validation factory, thus making it available to all future validator instances.
 
 	$this->validator->registerPlugin(new IsFooValidator);
 

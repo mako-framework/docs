@@ -213,7 +213,7 @@ The ```write``` method lets you write output.
 
 The method writes to ```STDOUT``` by default but you can make it write to ```STDERR``` like this.
 
-	$this->write('Hello, World!', Ouput::ERROR);
+	$this->write('Hello, World!', Output::ERROR);
 
 There's also a handy ```error``` method that lets you write to ```STDERR```.
 
@@ -235,7 +235,7 @@ You can also make it ring multiple times if you want to.
 
 	$this->bell(3);
 
-The ```countdown``` method will print a countdown that dissapears after n seconds.
+The ```countdown``` method will print a countdown that disappears after n seconds.
 
 	$this->countdown(5);
 

@@ -108,7 +108,7 @@ The ```redirectResponse``` method also allows you to use a [route name](:base_ur
 
 #### Stream response
 
-The ```streamResponse``` method returns a stream response sender. They can be usefull when sending large ammounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+The ```streamResponse``` method returns a stream response sender. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
 
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 

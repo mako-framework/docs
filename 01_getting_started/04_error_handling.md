@@ -46,7 +46,7 @@ A great place to do so is in the ```app/bootstrap.php``` file.
 
 ### Disabling logging of specific exception types
 
-Having error logging enabled can be usefull even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the ```disableLoggingFor``` method.
+Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the ```disableLoggingFor``` method.
 
 	$errorHandler->disableLoggingFor('\mako\http\exceptions\NotFoundException');
 

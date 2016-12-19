@@ -40,7 +40,7 @@ The ```isWritable``` method returns TRUE if the provided path is writable and FA
 
 	$isWritable = $this->fileSystem->isWritable('/foo/bar.txt');
 
-The ```lastModified``` method returs the time (unix timestamp) when the data blocks of a file were being written to, that is, the time when the content of the file was changed.
+The ```lastModified``` method returns the time (unix timestamp) when the data blocks of a file were being written to, that is, the time when the content of the file was changed.
 
 	$lastModified = $this->fileSystem->lastModified('/foo/bar.txt');
 
@@ -56,7 +56,7 @@ The ```mime``` method returns the mime type of the file.  It returns FALSE if th
 
 	$mime = $this->fileSystem->mime('/foo/bar.txt');
 
-> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determinating a mime type. You can disable guessing by setting the second parameter to FALSE.
+> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determining a mime type. You can disable guessing by setting the second parameter to FALSE.
 
 The ```remove``` method will delete a file from disk.
 
@@ -74,11 +74,11 @@ The ```put``` method puts the provided contents to the file. There's an optional
 
 	$this->fileSystem->put('/foo/bar.txt', 'hello, world!');
 
-The ```prepend``` method will prepend the provided conetents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```prepend``` method will prepend the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
 	$this->fileSystem->prepend('/foo/bar.txt', 'hello, world!');
 
-The ```appendContents``` method will append the provided conetents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The ```appendContents``` method will append the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 
 	$this->fileSystem->append('/foo/bar.txt', 'hello, world!');
 

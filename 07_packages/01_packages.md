@@ -75,7 +75,7 @@ Loading configuration files, language strings and views from a package is a litt
 
 	$view = $this->view->create('acme-foo::vista');
 
-By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` propery in your package class.
+By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` property in your package class.
 
 	protected $fileNamespace = 'foo';
 
@@ -116,4 +116,4 @@ So, to install ```acme/foo``` package using composer, you have to issue followin
 
 Publishing your packages is very easy and you can read all about it on the [packagist.org](http://packagist.org/) website.
 
-You can also host your own private repository if you don't want your code to be publicly avaialbe. You can read more about how to set up and manage your own repository on the [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own) website.
+You can also host your own private repository if you don't want your code to be publicly available. You can read more about how to set up and manage your own repository on the [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own) website.
