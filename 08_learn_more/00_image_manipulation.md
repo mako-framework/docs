@@ -36,7 +36,7 @@ The ```snapshot``` method allows you to create a snapshot of your image.
 
 	$image->snapshot();
 
-The ```restore``` method allows you to restore an image snaphot.
+The ```restore``` method allows you to restore an image snapshot.
 
 	$image->restore();
 
@@ -74,7 +74,7 @@ The ```flip``` method allows you to flip and image.
 
 	$image->flip();
 
-	// Flip the image vertiaclly
+	// Flip the image vertically
 
 	$image->flip(Image::FLIP_VERTICAL);
 
@@ -112,7 +112,7 @@ The ```greyscale``` method converts the image to greyscale.
 
 	$image->greyscale();
 
-The ```sepia``` method converts the iamge to sepia.
+The ```sepia``` method converts the image to sepia.
 
 	$image->sepia();
 

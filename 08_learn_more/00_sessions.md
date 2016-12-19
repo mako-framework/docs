@@ -56,7 +56,7 @@ It is also possible to retrieve and remove data with a single method call using 
 
 	$this->session->getAndRemove('name');
 
-If you want to return custom value if the key you're looking for doesn't exist then you can set ut using the optional second parameter. The default return value for non-existing items is NULL.
+If you want to return custom value if the key you're looking for doesn't exist then you can set it using the optional second parameter. The default return value for non-existing items is NULL.
 
 	$this->session->getAndRemove('name', 'John Doe');
 
@@ -88,7 +88,7 @@ You can check if a flash item exists in the session using the ```hasFlash``` met
 
 	$this->session->hasFlash('success');
 
-You can remove flash data using the ```removeFlash``` method. This is usually not needed as flash data expirtes after one request.
+You can remove flash data using the ```removeFlash``` method. This is usually not needed as flash data expires after one request.
 
 	$this->session->removeFlash('success');
 
@@ -120,7 +120,7 @@ The ```regenerateToken``` method lets you generates a new token.
 
 	$token = $this->session->regenerateToken();
 
-> Mako will automatically generate a new token upon a succesful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+> Mako will automatically generate a new token upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
 
 <a id="usage:security:one_time_tokens"></a>
 
@@ -156,7 +156,7 @@ You can tell it to keep the data associated with the old session id
 
 	$this->session->regenerateId(true);
 
-> Mako will automatically regnerate the session id upon a succesful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+> Mako will automatically regenerate the session id upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
 
 <a id="usage:security:session_destruction"></a>
 

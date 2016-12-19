@@ -46,7 +46,7 @@ The ```limitWords``` method will limit the number of words in a string.
 
 	$str = Str::limitWords($input, 300);
 
-The ```increment``` method append an incremental numeric sufix to a string.
+The ```increment``` method append an incremental numeric suffix to a string.
 
 	$str = Str::increment('banana'); // Will return "banana_1"
 	$str = Str::increment('banana_1'); // Will return "banana_2"
@@ -77,7 +77,7 @@ The ```mask``` method will return a masked string where n characters are visible
 
 	$str = Str::mask('password'); // $str will be set to "*****ord"
 
-The ```pluralzie``` method will return the pluralized form of a singular word.
+The ```pluralize``` method will return the pluralized form of a singular word.
 
 	$str = Str::pluralize('apple');
 

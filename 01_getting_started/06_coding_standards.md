@@ -34,7 +34,7 @@ Always use long open tags. Never use short tags or ASP style tags. Class files s
 
 	<?
 
-	// Incorect
+	// Incorrect
 
 	<%
 

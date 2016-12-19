@@ -31,7 +31,7 @@ The ```now``` method allow you to create a Time instance where the time is set t
 
 	$time = Time::now(new DateTimeZone('Europe/Paris'));
 
-The ```createFromFormat``` method allows you to create a Time instance from a time string. The difference between Mako's Time class and PHP's DateTime class is  that the optional second parameter can be either a valid timez one string or a DateTimeZone instance.
+The ```createFromFormat``` method allows you to create a Time instance from a time string. The difference between Mako's Time class and PHP's DateTime class is  that the optional second parameter can be either a valid timezone string or a DateTimeZone instance.
 
 	$time = Time::createFromFormat('Y-m-d', '2014-03-28');
 
@@ -67,7 +67,7 @@ The ```createFromDOSTimestamp``` method allows you to create a Time instance usi
 
 	$time = Time::createFromDOSTimestamp($timestamp, new DateTimeZone('Europe/Paris'));
 
-The ```setTimeZone``` method allows you to change the timzone after instance creation. The timezone parameter accepts either a valid time zone string or a DateTimeZone instance.
+The ```setTimeZone``` method allows you to change the timezone after instance creation. The timezone parameter accepts either a valid time zone string or a DateTimeZone instance.
 
 	$time->setTimeZone('Europe/Paris');
 
@@ -89,11 +89,11 @@ The ```isLeapYear``` method returns TRUE if the year of the Time instance is a l
 
 	$isLeapYear = $time->isLeapYear();
 
-The ```daysInMonth``` method returnst the number of days in the month of the Time instance. The method also takes into account whether it is a leap year or not.
+The ```daysInMonth``` method returns the number of days in the month of the Time instance. The method also takes into account whether it is a leap year or not.
 
 	$daysInMonth = $time->daysInMonth();
 
-The ```daysInMonths``` method returnst an array containing the number of days in each month of the Time instance. The method also takes into account whether it is a leap year or not.
+The ```daysInMonths``` method returns an array containing the number of days in each month of the Time instance. The method also takes into account whether it is a leap year or not.
 
 	$daysInMonths = $time->daysInMonths();
 
@@ -103,10 +103,10 @@ The ```daysInMonths``` method returnst an array containing the number of days in
 
 ### Time zones
 
-The ```getTimeZones``` method retuns an array consisting of all avaiable time zones where the key is a valid time zone string while the value is a presentable name.
+The ```getTimeZones``` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 
 	$timeZones = TimeZone::getTimeZones();
 
-The ```getGroupedTimeZones``` method retuns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
+The ```getGroupedTimeZones``` method returns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
 
 	$timeZones = TimeZone::getGroupedTimeZones();

@@ -15,7 +15,7 @@
 
 The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routing/routes.php``` file and there are three variables avaiable in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Routes are registered in the ```app/routing/routes.php``` file and there are three variables available in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
 --------------------------------------------------------
 
@@ -78,7 +78,7 @@ You can also impose constraints on your parameters using the ```when``` method. 
 	})
 	->when(['id' => '[0-9]+']);
 
-Closure actions get executed by the ```Container::call()``` method so all dependecies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
+Closure actions get executed by the ```Container::call()``` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 	$routes->get('/article/{id}', function(ViewFactory $view, $id)
 	{
@@ -94,7 +94,7 @@ Closure actions get executed by the ```Container::call()``` method so all depend
 
 <a id="route_middleware:defining_middleware"></a>
 
-Route middleware allows you to alter the request and reponse both before and after a route action gets executed.
+Route middleware allows you to alter the request and response both before and after a route action gets executed.
 
 ![middleware](:base_url:/assets/img/middleware.png)
 
@@ -120,7 +120,7 @@ Middleware should (but is not required to) implement the ```MiddlewareInterface`
 		}
 	}
 
-Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables avaiable in the scope, ```$middleware``` (the middleware collection), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables available in the scope, ```$middleware``` (the middleware collection), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
 	$middleware->register('passthrough', PassthroughMiddleware::class);
 
@@ -159,7 +159,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 				return $response->body($cache->get('route.' . $request->path()));
 			}
 
-			$reponse = $next($request, $response);
+			$response = $next($request, $response);
 
 			$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->minutes);
 
@@ -173,7 +173,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 
 #### Assigning middleware
 
-Assigning middleware to a route is done using the ```middleware``` method. You can also pass an array of middleware if your route requires multiple middlewares. Middleware will get executed in the order that they are assigned.
+Assigning middleware to a route is done using the ```middleware``` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->when(['id' => '[0-9]+'])
@@ -193,14 +193,14 @@ You can also pass parameters to your middleware. In the example below we're tell
 
 ### Route groups
 
-Route groups are usefull when you have a set of routes with the same constraints and middleware.
+Route groups are useful when you have a set of routes with the same constraints and middleware.
 
 	$options =
 	[
 
-		'middlware' => 'cache',
-		'when'      => ['id' => '[0-9]+'],
-		'namespace' => 'app\controllers',
+		'middleware' => 'cache',
+		'when'       => ['id' => '[0-9]+'],
+		'namespace'  => 'app\controllers',
 	];
 
 	$routes->group($options, function($routes)
@@ -216,7 +216,7 @@ The following options are available when creating a route group. They are also a
 
 | Option      | Method       | Description                                              |
 |-------------|--------------|----------------------------------------------------------|
-| middleware  | middleware   | A middleware or an array of middlewares                  |
+| middleware  | middleware   | A middleware or an array of middleware                   |
 | namespace   | namespace    | The controller namespace (closures will not be affected) |
 | prefix      | prefix       | Route prefix                                             |
 | when        | when         | An array of parameter constraints                        |

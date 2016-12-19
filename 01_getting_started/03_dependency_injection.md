@@ -94,7 +94,7 @@ We can now resolve the ```Depends``` class using the IoC container. Both its dep
 
 	$depends = $container->get('Depends');
 
-The ```getFresh``` method works just like the ```get``` method except that it returns a fresh instance even if the class that you are resolving is registered as a singlegon.
+The ```getFresh``` method works just like the ```get``` method except that it returns a fresh instance even if the class that you are resolving is registered as a singleton.
 
 	$foo = $container->getFresh('bar');
 
@@ -126,7 +126,7 @@ Sometimes you'll need to inject different implementations of the same interface 
 
 ### Services
 
-Services are an easy and clean way of registering dependecies in the IoC container.
+Services are an easy and clean way of registering dependencies in the IoC container.
 
 Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
@@ -196,7 +196,7 @@ You can also make a class that is instantiated by the container "container aware
 
 > Note that controllers, migrations and tasks are container aware by default.
 
-The IoC container is always avaiable through the ```$container``` property.
+The IoC container is always available through the ```$container``` property.
 
 	$this->container->get('view');
 

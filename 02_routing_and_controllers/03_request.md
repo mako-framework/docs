@@ -10,7 +10,7 @@
 
 The request class provides an object oriented interface to global variables such as ```$_GET```, ```$_POST```, ```$_FILES```, ```$_COOKIE``` and ```$_SERVER``` as well as easy access to request data and other useful request information.
 
-An instance of the request class is always avaiable in all controller classes. It is also easily made avaiable in [route closures](:base_url:/docs/:version:/routing-and-controllers:routing#basics).
+An instance of the request class is always available in all controller classes. It is also easily made available in [route closures](:base_url:/docs/:version:/routing-and-controllers:routing#basics).
 
 --------------------------------------------------------
 
@@ -98,7 +98,7 @@ The ```body``` method allows you to access the raw request body.
 
 	$body = $this->request->body();
 
-The ```bodyAsStream``` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large file uplodads via PUT requests.
+The ```bodyAsStream``` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large file uploads via PUT requests.
 
 	$body = $this->request->bodyAsStream();
 
@@ -233,13 +233,13 @@ The ```header``` method returns the value of the chosen request header.
 
 	$value = $this->request->header('content-type', 'text/plain');
 
-The ```referer``` method returns the address that refered the client to the current resource. NULL is returned if there is no referer.
+The ```referer``` method returns the address that referred the client to the current resource. NULL is returned if there is no referrer.
 
-	// Returns the referer if there is one and NULL if not
+	// Returns the referrer if there is one and NULL if not
 
 	$referer = $this->request->referer();
 
-	// Returns the referer if there is one and the URL to the 'home' route if there isn't one
+	// Returns the referrer if there is one and the URL to the 'home' route if there isn't one
 
 	$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
 

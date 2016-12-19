@@ -12,7 +12,7 @@
 
 The response class helps you build a HTTP response.
 
-An instance of the response class is always avaiable in all controller classes. It is also easily made avaiable in [route closures](:base_url:/docs/:version:/routing-and-controllers:routing#basics).
+An instance of the response class is always available in all controller classes. It is also easily made available in [route closures](:base_url:/docs/:version:/routing-and-controllers:routing#basics).
 
 --------------------------------------------------------
 
@@ -170,7 +170,7 @@ The ```disableCaching``` method disables ```ETag``` caching if it has been enabl
 
 	$this->response->disableCaching();
 
-The ```compress``` method enables output compression. This will save you bandwidh in excahge for a slight bump in CPU usage.
+The ```compress``` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 
 	$this->response->compress();
 

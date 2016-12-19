@@ -2,7 +2,7 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage) 
+* [Usage](#usage)
 	- [Files](#usage:files)
 	- [Dates](#usage:dates)
 
@@ -32,7 +32,7 @@ It will return binary suffixes by default can also make it output file sizes usi
 
 #### Dates
 
-The ```day``` method will return a human friendly representation of the day. If the day isnt within the **yesterday/today/tomorrow** range then it'll return the date in the format specified by the optional second parameter.
+The ```day``` method will return a human friendly representation of the day. If the day isn't within the **yesterday/today/tomorrow** range then it'll return the date in the format specified by the optional second parameter.
 
 	$this->humanizer->day(Time::now()); // Will return "today"
 
@@ -40,7 +40,7 @@ The ```day``` method will return a human friendly representation of the day. If 
 
 	$this->humanizer->day(Time::now()->forward(60*60*24)); // Will return "tomorrow"
 
-The ```time``` method will return a human friendly representation of the time. If the time isnt within the **yesterday/today/tomorrow** range then it'll return the time in the format specified by the optional second parameter. There is also a third parameter that lets you set the clock format.
+The ```time``` method will return a human friendly representation of the time. If the time isn't within the **yesterday/today/tomorrow** range then it'll return the time in the format specified by the optional second parameter. There is also a third parameter that lets you set the clock format.
 
 	$this->humanizer->time(Time::now()); // Will return "a minute ago"
 

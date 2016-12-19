@@ -35,11 +35,11 @@ The ```createGroup``` method allows you to create a new group. A group object is
 
 	$group = $this->gatekeeper->createGroup('admin');
 
-The ```activateUser``` method activates a user by his or her action token. The methor will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
+The ```activateUser``` method activates a user by his or her action token. The method will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
 
 	$activated = $this->gatekeeper->activateUser($token);
 
-The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successfull and a status code if not.
+The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successful and a status code if not.
 
 	$successful = $this->gatekeeper->login($email, $password);
 
@@ -64,7 +64,7 @@ The ```forceLogin``` method allows you to login a user without a password. It wi
 
 	$successful = $this->gatekeeper->forceLogin($email, true);
 
-The ```basicAuth``` method can be usefull when creating APIs or if you don't want to create a full login page. It will return a response object if authentication is required and NULL if not. The best place to call this method is in a before filter ([routes](routing-and-controllers:routing#route_filters) / [controllers](routing-and-controllers:controllers#controller_filters)).
+The ```basicAuth``` method can be useful when creating APIs or if you don't want to create a full login page. It will return a response object if authentication is required and NULL if not. The best place to call this method is in a before filter ([routes](routing-and-controllers:routing#route_filters) / [controllers](routing-and-controllers:controllers#controller_filters)).
 
 	return $this->gatekeeper->basicAuth();
 
@@ -165,7 +165,7 @@ The ```generateActionToken``` method allows you to generate a new action token f
 
 	$user->generateActionToken();
 
-> You should generate a new action token after a successfull action. Note that gatekeeper automatically generates a new action token when activating a user.
+> You should generate a new action token after a successful action. Note that gatekeeper automatically generates a new action token when activating a user.
 
 The ```isMemberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
 

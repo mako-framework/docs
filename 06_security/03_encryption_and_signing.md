@@ -42,7 +42,7 @@ The ```encrypt``` method is used to encrypt your data.
 
 	$encrypted = $encrypter->encrypt('Hello, world!');
 
-The ```decrypt``` method is used to dencrypt your data. It will return FALSE if it's unable to decrypt your data.
+The ```decrypt``` method is used to decrypt your data. It will return FALSE if it's unable to decrypt your data.
 
 	$decrypted = $encrypter->decrypt('Hello, world!');
 
@@ -62,7 +62,7 @@ You can access the default crypto configuration directly without having to go th
 
 Sometimes you'll have to re-encrypt data. This could be because you have generated a new application secret or encryption key. Luckily, this can easily be achieved in a few simple lines of code.
 
-	// Decrypt data using the old key and sectet
+	// Decrypt data using the old key and secret
 
 	$crypto = new Crypto(new OpenSSL(Key::decode($oldKey)), new Signer(Key::decode($oldSecret)));
 
@@ -82,7 +82,7 @@ Note that we're using the `Key::decode()` method since we're assuming that your 
 
 ### Signing
 
-Signing strints allows you to verify both the data integrity and the authentication of your data. A HMAC (hash-based message authentication code) will be prepended to your string upon siging and stripped when validated.
+Signing strings allows you to verify both the data integrity and the authentication of your data. A HMAC (hash-based message authentication code) will be prepended to your string upon signing and stripped when validated.
 
 You can easily sign strings with the application secret using the default signer instance.
 

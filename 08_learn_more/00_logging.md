@@ -53,4 +53,4 @@ The ```emergency``` method is used to log events where the system is unusable.
 
 ### Advanced usage
 
-Check out the [Monolog documentation](https://github.com/Seldaek/monolog) for the full documentation of the library. 
+Check out the [Monolog documentation](https://github.com/Seldaek/monolog) for the full documentation of the library.

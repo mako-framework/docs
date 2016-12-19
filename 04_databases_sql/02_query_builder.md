@@ -19,6 +19,7 @@
 * [HAVING clauses](#having_clauses)
 * [ORDER BY clauses](#order_by_clauses)
 * [LIMIT and OFFSET clauses](#limit_and_offset_clauses)
+* [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
 
 --------------------------------------------------------
@@ -51,7 +52,7 @@ You can create a query builder instance using the ```Connection::builder()``` me
 
 You can also skip the call to the ```Connection::builder()``` method using the ```Connection::table()``` method.
 
-	$query = $conncetion->table('foobar');
+	$query = $connection->table('foobar');
 
 --------------------------------------------------------
 
@@ -122,7 +123,7 @@ If you need to process a large dataset and don't want to put the entire result s
 		// Only a single row is kept in memory at a time
 	}
 
-In addition to using the ```yield``` method to process large ammounts of data you can also use the ```batch``` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
+In addition to using the ```yield``` method to process large amounts of data you can also use the ```batch``` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 
@@ -406,7 +407,7 @@ groupBy()
 
 having(), havingRaw(), orHaving(), orHavingRaw()
 
-	// SELECT `customer`, SUM(`price`) AS `sum FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
+	// SELECT `customer`, SUM(`price`) AS `sum` FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
 
 	$customers = $query->table('orders')
 	->select(['customer', new Raw('SUM(price) as sum')])
@@ -459,6 +460,30 @@ You can also use the [```paginate``` method](:base_url:/docs/:version:/learn-mor
 	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
 	$persons = $query->table('persons')->paginate(10);
+
+<a id="set_operations"></a>
+
+### Set operations
+
+union(), unionAll(), intersect(), intersectAll(), except(), exceptAll()
+
+You can also combine the results of multiple queries into a single result set using set operations.
+
+	// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
+
+	$sales2015 = $connection->builder()->table('sales2015');
+
+	$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016)->all();
+
+You can also use the closure syntax when adding set operations to your queries.
+
+	// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
+
+	$combinedSales = $query->unionAll(function($query)
+	{
+		$query->table('sales2015');
+	})
+	->table('sales2016')->all();
 
 <a id="row_level_locking"></a>
 

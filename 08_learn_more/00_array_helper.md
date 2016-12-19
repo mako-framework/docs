@@ -48,7 +48,7 @@ The ```isAssoc``` method returns TRUE if the array is associative and FALSE if n
 
 The ```pluck``` method returns the values from a single column of the input array, identified by the key.
 
-	$fruits = 
+	$fruits =
 	[
 		['name' => 'apple', 'color' => 'green'],
 		['name' => 'banana', 'color' => 'yellow'];
