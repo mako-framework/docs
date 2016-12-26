@@ -68,7 +68,7 @@ The ```glob``` method returns an array of path names matching the provided patte
 
 The ```get``` method returns the contents of a file.
 
-	$contents = $this->fileSystem->getContents('/foo/bar.txt');
+	$contents = $this->fileSystem->get('/foo/bar.txt');
 
 The ```put``` method puts the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
 

@@ -38,7 +38,7 @@ The query builder currently supports the following dialects:
 * SQLite
 * SQLServer
 
-> All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections. However you have to make that you do not create SQL injection vectors if you're using using raw SQL in your query builder queries!
+> All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections. However you have to make sure that you don't create SQL injection vectors if you're using using raw SQL in your query builder queries!
 
 --------------------------------------------------------
 
