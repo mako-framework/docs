@@ -473,7 +473,7 @@ You can also combine the results of multiple queries into a single result set us
 
 	$sales2015 = $connection->builder()->table('sales2015');
 
-	$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016)->all();
+	$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016')->all();
 
 You can also use the closure syntax when adding set operations to your queries.
 
