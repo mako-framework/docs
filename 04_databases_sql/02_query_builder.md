@@ -281,27 +281,6 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 	->isNotNull('email')
 	->all();
 
-You can also use the eq(), notEq(), lt(), lte(), gt(), gte(), like(), notLike(), orEq(), orNotEq(), orLt(), orLte(), orGt(), orGte(), orLike(), orNotLike(), eqRaw(), notEqRaw(), ltRaw(), lteRaw(), gtRaw(), gteRaw(), likeRaw(), notLikeRaw(), orEqRaw(), orNotEqRaw(), orLtRaw(), orLteRaw(), orGtRaw(), orGteRaw(), orLikeRaw(), orNotLikeRaw() convenience methods.
-
-	// SELECT * FROM `persons` WHERE `age` > 25
-
-	$persons = $query->table('persons')->gt('age', 25)->all();
-
-	// SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
-
-	$persons = $query->table('persons')->gt('age', 25)->orLt('age', 20)->all();
-
-	// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
-
-	$persons = $query->table('persons')
-	->where(function($query)
-	{
-		$query->gt('age', 25);
-		$query->gt('height', 180);
-	})
-	->isNotNull('email')
-	->all();
-
 <a id="where_between_clauses"></a>
 
 ### WHERE BETWEEN clauses
