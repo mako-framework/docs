@@ -183,9 +183,9 @@ You can also pass parameters to your middleware. In the example below we're tell
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->when(['id' => '[0-9]+'])
-	->middleware('cache("minutes":60)');
+	->middleware('cache:{"minutes":60}');
 
-> Middleware parameters are parsed as JSON. So booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
+> Anything after the first colon symbol (```:```) will be parsed as JSON. In the example above we're telling the dispatcher that the value ```60``` should be passed to the ```$minutes``` parameter of the middleware constructor.
 
 --------------------------------------------------------
 
