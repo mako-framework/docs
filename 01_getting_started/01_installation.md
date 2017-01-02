@@ -34,10 +34,6 @@ Next you'll have to make the ```app/storage/*``` directories writable (command m
 
 	chown www-data:www-data -R app/storage
 
-And finally you should generate a new application secret:
-
-	php app/reactor app.generate_secret
-
 Now you're ready to start coding!
 
 > Note that only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
