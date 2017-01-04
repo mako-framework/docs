@@ -203,3 +203,5 @@ The IoC container is always available through the ```$container``` property.
 The ```ContainerAwareTrait``` also implements the magic ```__get()``` method. This allows you to resolve classes through the IoC container using overloading.
 
 	$this->view; // Instance of mako\view\ViewFactory
+
+> Note that resolving classes that are not registered as singletons in the container using overloading will result in a new instance every time. You should assign the resolved instance to a local variable if you need to perform multiple method calls on the object.
