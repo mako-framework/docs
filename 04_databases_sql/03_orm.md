@@ -27,6 +27,7 @@
 * [Array and JSON representations](#array_and_json_representations)
 * [Traits](#traits)
 	- [Timestamped](#traits:timestamped)
+	- [Nullable](#traits:nullable)
 	- [Optimistic locking](#traits:optimistic_locking)
 	- [Read-only records](#traits:read_only_records)
 
@@ -570,6 +571,26 @@ You can also make the ORM touch related records upon saving by listing the relat
 
 You can easily decide which type of changes that should touch related records using the ```$shouldTouchOnInsert```, ```$shouldTouchOnUpdate``` and ```$shouldTouchOnDelete``` properties. All of them are set to ```TRUE``` by default.
 
+<a id="traits:nullable"></a>
+
+#### Nullable
+
+If you have database columns that allow ```null``` values then you can use the ```NullableTrait``` to automatically replace empty strings with ```null``` when inserting or updating records.
+
+All you have to do is to use the trait and configure your nullable columns using the ```$nullable``` property.
+
+	<?php
+
+	use mako\database\midgard\ORM;
+	use mako\database\midgard\traits\NullableTrait;
+
+	class Article extends ORM
+	{
+		use NullableTrait;
+
+		protected $nullable = ['source'];
+	}
+
 <a id="traits:optimistic_locking"></a>
 
 #### Optimistic locking
@@ -605,7 +626,9 @@ The second save in the example below will throw a ```StaleRecordException``` sin
 
 	$article2->reload();
 
-> Optimistic locking will also check for stale records when deleting, although not when deleting in bulk.
+The optimistic locking trait will also check for stale records when deleting.
+
+> Note that optimistic locking only works when working with a single record.
 
 <a id="traits:read_only_records"></a>
 
