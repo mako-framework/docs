@@ -7,6 +7,7 @@
 * [Route middleware](#route_middleware)
 	- [Defining middleware](#route_middleware:defining_middleware)
 	- [Assigning middleware](#route_middleware:assigning_middleware)
+	- [Middleware priority](#route_middleware:middleware_priority)
 * [Route groups](#route_groups)
 * [Reverse routing](#reverse_routing)
 * [Faking request methods](#faking_request_methods)
@@ -98,6 +99,8 @@ Route middleware allows you to alter the request and response both before and af
 
 ![middleware](:base_url:/assets/img/middleware.png)
 
+<a id="route_middleware:defining_middleware"></a>
+
 #### Defining middleware
 
 Middleware should (but is not required to) implement the ```MiddlewareInterface```. The example below is the most basic middleware implementation (it doesn't actually do anything).
@@ -186,6 +189,18 @@ You can also pass parameters to your middleware. In the example below we're tell
 	->middleware('cache("minutes":60)');
 
 > Middleware parameters are parsed as JSON. So booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
+
+<a id="route_middleware:middleware_priority"></a>
+
+#### Middleware priority
+
+As mentioned above, by default middleware get executed in the order that they are assigned to the route. You can however ensure the execution order by configuring middleware priority.
+
+	$middleware->setPriority(['cache' => 1, 'passthrough' => 2]);
+
+In the example above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
+
+You can use middleware priority without having to configure all your middleware. Non-configued middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
 
 --------------------------------------------------------
 
