@@ -147,7 +147,7 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 | CryptoService            | mako\security\crypto\CryptoManager         | crypto           | Crypto manager              | ✘        |
 | DatabaseService          | mako\database\ConnectionManager            | database         | Database connection manager | ✘        |
 | EventService             | mako\event\Event                           | event            | Event handler               | ✘        |
-| GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper autentication    | ✘        |
+| GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper authentication   | ✘        |
 | HTTPService              | mako\http\Request                          | request          | Request                     | ✔        |
 | HTTPService              | mako\http\Response                         | response         | Response                    | ✔        |
 | HTTPService              | mako\http\routing\Routes                   | routes           | Route collection            | ✔        |
@@ -178,7 +178,7 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 | Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
 | InputService             | mako\cli\input\Input               | input            | Input                       | ✔        |
-| OutputService            | mako\cli\output\Ouput              | output           | Output                      | ✔        |
+| OutputService            | mako\cli\output\Output             | output           | Output                      | ✔        |
 | ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
 
 
