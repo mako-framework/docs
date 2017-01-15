@@ -133,11 +133,11 @@ The ```getById``` method returns a user based on his or her id and FALSE if no u
 
 #### Group provider
 
-The ```getByName``` method returns a group based its name and FALSE if no group is found.
+The ```getByName``` method returns a group based on its name and FALSE if no group is found.
 
 	$group = $groupProvider->getByName($name);
 
-The ```getById``` method returns a group based its id and FALSE if no group is found.
+The ```getById``` method returns a group based on its id and FALSE if no group is found.
 
 	$group = $groupProvider->getById($id);
 
