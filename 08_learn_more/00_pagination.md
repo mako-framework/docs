@@ -44,7 +44,7 @@ The first parameter is optional and lets you set the number of items to be displ
 
 <a id="pagination_rendering"></a>
 
-### Pagination redering
+### Pagination rendering
 
 You can render the pagination partial in the article list view using the ```render``` method.
 
