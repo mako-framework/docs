@@ -166,7 +166,7 @@ Uploaded files are represented as a ```UploadedFile``` object. The class extends
 | getReportedSize | Returns the size reported by the client.                                   |
 | getReportedType | Returns the mime type reported by the client.                              |
 | hasError        | Returns TRUE if there is an error with the uploaded file and FALSE if not. |
-| getErrorCode    | Returne the error code associated with the error.                          |
+| getErrorCode    | Returns the error code associated with the error.                          |
 | getErrorMessage | Returns a human friendly error message.                                    |
 | isUploaded      | Returns TRUE if the file is an actual upload and FALSE if not.             |
 | moveTo          | Moves the file to the specified storage location.                          |
