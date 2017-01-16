@@ -4,11 +4,13 @@
 
 * [Application](#application)
 	- [Configuration](#application:configuration)
-* [Framework](#framework)
+	- [Validation](#application:validation)
+	- [Middleware](#application:middleware)
+	- [ORM foreign keys](#application:orm-foreign-keys)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```4.5.x``` to ```5.0.x```.
+This guide takes you through the steps needed to migrate from Mako ```5.0.x``` to ```5.1.x```.
 
 --------------------------------------------------------
 
@@ -20,12 +22,24 @@ This guide takes you through the steps needed to migrate from Mako ```4.5.x``` t
 
 #### Configuration
 
-Make sure that your configuration files are up to date by comparing them to the ones found in the [5.0 branch](https://github.com/mako-framework/app/tree/5.0).
+Add the new ```base_url``` config key to your application [configuration file](https://github.com/mako-framework/app/blob/master/app/config/application.php#L16).
 
---------------------------------------------------------
+<a id="application:validation"></a>
 
-<a id="framework"></a>
+#### Validation
 
-### Framework
+There is a [new syntax](:base_url:/docs/:version:/learn-more:validation) for passing arguments to validation rules.
 
-Mako 5.0 is a major version update that contains a few minor breaking changes. See the changelog for [changelog](:base_url:/changelog) a complete list of changes.
+Piped validation rules (deprecated since Mako 3.6) are no longer supported, use an array instead.
+
+<a id="application:middleware"></a>
+
+#### Middleware
+
+There is a [new syntax](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) for passing arguments to route middleware rules.
+
+<a id="application:orm-foreign-keys"></a>
+
+#### ORM foreign-keys
+
+The ORM now uses ```Str::camel2underscored()``` instead of ```strtolower()``` when generating the foreign key names. Most applications should be unaffected but you can configure the foreign key name using the ```$foreignKeyName``` property so that you don't have to do any changes to your database.
