@@ -22,7 +22,7 @@ This guide takes you through the steps needed to migrate from Mako ```5.0.x``` t
 
 #### Configuration
 
-Add the new ```base_url``` config key to your application [configuration file](https://github.com/mako-framework/app/blob/master/app/config/application.php#L16).
+Add the new ```base_url``` config key to your application [configuration file](https://github.com/mako-framework/app/blob/5.1/app/config/application.php#L16).
 
 <a id="application:validation"></a>
 
