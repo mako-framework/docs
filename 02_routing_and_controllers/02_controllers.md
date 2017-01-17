@@ -10,7 +10,6 @@
 	- [Redirect response](#controller_helpers:redirect_response)
 	- [Stream response](#controller_helpers:stream_response)
 	- [JSON response](#controller_helpers:json_response)
-	- [JSONP response](#controller_helpers:jsonp_response)
 * [Controller events](#controller_events)
 * [Dependency injection](#dependency_injection)
 
@@ -133,21 +132,9 @@ The ```jsonResponse``` method returns a JSON response builder. It will convert t
 
 	return $this->jsonResponse([1, 2, 3]);
 
-<a id="controller_helpers:jsonp_response"></a>
+If you want your API endpoint to be able to serve JSONP as well then you'll have to chain the ```asJsonpWith``` method.
 
-#### JSONP response
-
-The ```jsonResponse``` method returns a JSONP response builder. It will convert the provided data to JSONP and set the correct content type header.
-
-	return $this->jsonpResponse([1, 2, 3]);
-
-The default JSONP callback function is named ```callback```. You can override this using the ```callback```  method.
-
-	return $this->jsonpResponse([1, 2, 3])->callback('foobar');
-
-Consumers can also override the callback name themselves using the ```callback``` query string parameter on the resource URL. You can override the key name using the ```key``` method.
-
-	return $this->jsonpResponse([1, 2, 3])->key('function');
+	return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 
 --------------------------------------------------------
 
