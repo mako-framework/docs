@@ -5,6 +5,7 @@
 * [Application](#application)
 	- [Configuration](#application:configuration)
 * [Framework](#framework)
+	- [JSONP responses](#framework:jsonp_responses)
 	- [Middleware](#framework:middleware)
 	- [ORM foreign keys](#framework:orm-foreign-keys)
 	- [Query builder](#framework:query-builder)
@@ -32,6 +33,12 @@ Add the new ```base_url``` config key to your application [configuration file](h
 --------------------------------------------------------
 
 ### Framework
+
+<a id="framework:jsonp_responses"></a>
+
+#### JSONP responses
+
+Use the JSON response builder for both JSON and JSONP.
 
 <a id="framework:middleware"></a>
 
