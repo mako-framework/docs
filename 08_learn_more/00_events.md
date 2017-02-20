@@ -56,7 +56,7 @@ The ```override``` method will clear all previously registered handlers for an e
 		return 'foobar event 1';
 	});
 
-The ```trigger``` method run all handlers for the registered event and return an array containing all the return values.
+The ```trigger``` method executes all handlers for the registered event and returns an array containing all the return values.
 
 	$values = $this->event->trigger('foobar');
 
