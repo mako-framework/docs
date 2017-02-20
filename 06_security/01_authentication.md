@@ -3,9 +3,9 @@
 --------------------------------------------------------
 
 * [Basic usage](#basic_usage)
-* [Providers](#providers)
-	- [User provider](#providers_user)
-	- [Group provider](#providers_group)
+* [Repositories](#repositories)
+	- [User repository](#repositories_user)
+	- [Group repository](#repositories_group)
 * [Users & groups](#users_and_groups)
 	- [Users](#users_and_groups_users)
 	- [Groups](#users_and_groups_groups)
@@ -64,15 +64,11 @@ The ```forceLogin``` method allows you to login a user without a password. It wi
 
 	$successful = $this->gatekeeper->forceLogin($email, true);
 
-The ```basicAuth``` method can be useful when creating APIs or if you don't want to create a full login page. It will return a response object if authentication is required and NULL if not. The best place to call this method is in a before filter ([routes](routing-and-controllers:routing#route_filters) / [controllers](routing-and-controllers:controllers#controller_filters)).
+The ```basicAuth``` method can be useful when creating APIs or if you don't want to create a full login page. It will return ```true``` if the user is logged in and ```false``` if not.
 
-	return $this->gatekeeper->basicAuth();
-
-You can wrap it in a a if test if you want to execute more code in the event that a user is actually logged in.
-
-	if(($login = $this->gatekeeper->basicAuth()) !== null)
+	if($this->gatekeeper->basicAuth() === false)
 	{
-		return $login;
+		return 'Authentication required.';
 	}
 
 	// Code here gets executed if the user is logged in
@@ -95,51 +91,51 @@ The ```logout()``` method will log out the user and delete the "remember me" coo
 
 	$this->gatekeeper->logout();
 
-The ```getUserProvider``` method returns the gatekeeper [user provider](#providers_user).
+The ```getUserRepository``` method returns the gatekeeper [user repository](#repositories_user).
 
-	$userProvider = $this->gatekeeper->getUserProvider();
+	$userRepository = $this->gatekeeper->getUserRepository();
 
-The ```getGroupProvider``` method returns the gatekeeper [group provider](#providers_user).
+The ```getGroupRepository``` method returns the gatekeeper [group repository](#repositories_group).
 
-	$groupProvider = $this->gatekeeper->getGroupProvider();
+	$groupRepository = $this->gatekeeper->getGroupRepository();
 
 --------------------------------------------------------
 
-<a id="providers"></a>
+<a id="repositories_group"></a>
 
-### Providers
+### Repositories
 
-<a id="providers_user"></a>
+<a id="repositories_user"></a>
 
-#### User provider
+#### User repository
 
 The ```getByActionToken``` method returns a user based on his or her action token and FALSE if no user is found.
 
-	$user = $userProvider->getByActionToken($token);
+	$user = $userRepository->getByActionToken($token);
 
 The ```getByAccessToken``` method returns a user based on his or her access token and FALSE if no user is found.
 
-	$user = $userProvider->getByAccessToken($token);
+	$user = $userRepository->getByAccessToken($token);
 
 The ```getByEmail``` method returns a user based on his or her email address and FALSE if no user is found.
 
-	$user = $userProvider->getByEmail($email);
+	$user = $userRepository->getByEmail($email);
 
 The ```getById``` method returns a user based on his or her id and FALSE if no user is found.
 
-	$user = $userProvider->getById($id);
+	$user = $userRepository->getById($id);
 
-<a id="providers_group"></a>
+<a id="repositories_group"></a>
 
-#### Group provider
+#### Group repository
 
 The ```getByName``` method returns a group based on its name and FALSE if no group is found.
 
-	$group = $groupProvider->getByName($name);
+	$group = $groupRepository->getByName($name);
 
 The ```getById``` method returns a group based on its id and FALSE if no group is found.
 
-	$group = $groupProvider->getById($id);
+	$group = $groupRepository->getById($id);
 
 --------------------------------------------------------
 
