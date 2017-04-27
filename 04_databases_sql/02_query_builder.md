@@ -281,7 +281,7 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 	->isNotNull('email')
 	->all();
 
-The ```wereRaw``` and ```orWhereRaw``` methods allow you to set a "raw" parameter value or to write an entire sql expression.
+The ```wereRaw``` and ```orWhereRaw``` methods allows you to set a "raw" parameter value or to write an entire sql expression.
 
 	// SELECT * FROM `persons` WHERE `age` > AVG(`age`)
 
