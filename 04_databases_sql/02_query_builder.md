@@ -281,6 +281,16 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 	->isNotNull('email')
 	->all();
 
+The ```wereRaw``` and ```orWhereRaw``` methods allow you to set a "raw" parameter value or to write an entire sql expression.
+
+	// SELECT * FROM `persons` WHERE `age` > AVG(`age`)
+
+	$persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
+
+	// SELECT * FROM `persons` WHERE MATCH(`name`) AGAINST ('foobar' IN BOOLEAN MODE)
+
+	$persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLEAN MODE)', ['foobar']);
+
 <a id="where_between_clauses"></a>
 
 ### WHERE BETWEEN clauses
