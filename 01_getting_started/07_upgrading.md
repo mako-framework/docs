@@ -2,72 +2,51 @@
 
 --------------------------------------------------------
 
-* [Application](#application)
-	- [Configuration](#application:configuration)
 * [Framework](#framework)
-	- [JSONP responses](#framework:jsonp_responses)
-	- [Middleware](#framework:middleware)
-	- [ORM foreign keys](#framework:orm-foreign-keys)
-	- [Query builder](#framework:query-builder)
-	- [Validation](#framework:validation)
-	- [Views](#framework:views)
+	- [Cache](#framework:cache)
+	- [Gatekeeper](#framework:gatekeeper)
+	- [Response](#framework:response)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```5.0.x``` to ```5.1.x```.
+This guide takes you through the steps needed to migrate from Mako ```5.1.x``` to ```5.2.x```.
 
 --------------------------------------------------------
-
-<a id="application"></a>
-
-### Application
-
-<a id="application:configuration"></a>
-
-#### Configuration
-
-Add the new ```base_url``` config key to your application [configuration file](https://github.com/mako-framework/app/blob/5.1/app/config/application.php#L16).
 
 <a id="framework"></a>
 
---------------------------------------------------------
-
 ### Framework
 
-<a id="framework:jsonp_responses"></a>
+<a id="framework:cache"></a>
 
-#### JSONP responses
+#### Cache
 
-Use the JSON response builder for both JSON and JSONP.
+The `CacheManager::instance` method will now return an instance of `mako\cache\stores\StoreInterface` instead of a `mako\cache\Cache` instance.
 
-<a id="framework:middleware"></a>
+<a id="framework:gatekeeper"></a>
 
-#### Middleware
+#### Gatekeeper
 
-There is a [new syntax](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) for passing arguments to route middleware rules.
+Gatekeeper has been rewritten from scratch to make it easier to extend and to make it possible add authentication adapters.
 
-<a id="framework:orm-foreign-keys"></a>
+The library has been moved from the `mako\auth` namespace to the `mako\gatekeeper` namespace and some classes have been renamed and/or moved internally so some changes will have to be made if your application is using type hinted dependency injection.
 
-#### ORM foreign-keys
+If you're using Gatekeeper through the container aware trait then no changes will have to made except for updating the namespace of the `User` and `Group` models.
 
-The ORM now uses ```Str::camel2underscored()``` instead of ```strtolower()``` when generating the foreign key names. Most applications should be unaffected but you can configure the foreign key name using the ```$foreignKeyName``` property so that you don't have to do any changes to your database.
+There has also been a couple of method name changes:
 
-<a id="framework:query-builder"></a>
+* `Gatekeeper::getUserProvider()` is now named `Gatekeeper::getGroupRepository()`.
+* `Gatekeeper::getGroupProvider()` is now named `Gatekeeper::getGroupRepository()`.
 
-#### Query builder
+The `Gatekeeper::basicAuth()` method will now always return a boolean. This allows you to set your own message (The `WWW-Authenticate` header and `401` status code will still be set for you automatically).
 
-The query builder convenience trait has been removed. Use the ```where``` methods instead.
+	if($this->gatekeeper->basicAuth() === false)
+	{
+		return 'Authentication required.';
+	}
 
-<a id="framework:validation"></a>
+<a id="framework:response"></a>
 
-#### Validation
+#### Response
 
-There is a [new syntax](:base_url:/docs/:version:/learn-more:validation) for passing arguments to validation rules.
-
-Piped validation rules (deprecated since Mako 3.6) are no longer supported, use an array instead.
-
-<a id="framework:views"></a>
-
-#### Views
-
-Views are no longer auto rendered by the response class. They should be rendered in the controller.
+Response headers will now be set with the case that they where defined with. If your clients adhere to the [spec](https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2) then no changes will have to be made.

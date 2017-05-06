@@ -373,7 +373,7 @@ The `fire` method executes your command in a separate process and lets you handl
 		}
 	}
 
-If don't want to wait for the command to finish then you can start a background process using the `fireAndForget` method.
+If you don't want to wait for the command to finish then you can start a background process using the `fireAndForget` method.
 
 	<?php
 
