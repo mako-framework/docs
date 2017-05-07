@@ -4,6 +4,7 @@
 
 * [Usage](#usage)
 	- [Basics](#usage:basics)
+	- [Incrementing and decrementing](#usage:incrementing_and_decrementing)
 	- [Magic shortcut](#usage:magic_shortcut)
 
 --------------------------------------------------------
@@ -15,7 +16,7 @@ The cache library provides a simple and consistent interface to the most common 
 * File
 * Memcache / Memcached
 * Memory
-* Null
+* NullStore
 * Redis
 * ZendDisk
 * ZendMemory
@@ -46,6 +47,10 @@ To get an instance of the default cache just call the ```CacheManager::instance`
 Adding data to the cache is done using the ```put``` method. The method returns TRUE on success or FALSE on failure.
 
 	$cache->put('my_array', [1, 2, 3, 4], 3600);
+
+You can also add data to the cache only if it doesn't already exist by using the `putIfNotExists` method.
+
+	$cache->putIfNotExists('my_array', [1, 2, 3, 4], 3600);
 
 You can check whether or not an item exists in the cache by using the ```has``` method.
 
@@ -84,6 +89,22 @@ You can clear the entire cache by using the ```clear``` method. The method retur
 	$cache->clear();
 
 > Clearing the cache can affect other applications when using shared memory caching solutions such as APC and Memcache.
+
+<a id="usage:incrementing_and_decrementing"></a>
+
+#### Incrementing and decrementing
+
+The `APCU`, `Memcached`, `Memory`, `NullStore` and `Redis` stores implement the `IncrementDecrementInterface` interface.
+
+The `increment` method allows you to increment a stored number.
+
+ 	$incremented = $cache->increment('counter');
+
+The `decrement` method allows you to decrement a stored number.
+
+	 $incremented = $cache->increment('counter');
+
+Both methods also have an optional second parameter that allows you to set amount by which to increment or decrement the value.
 
 <a id="usage:magic_shortcut"></a>
 

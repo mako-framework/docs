@@ -21,7 +21,7 @@ This guide takes you through the steps needed to migrate from Mako ```5.1.x``` t
 
 #### Cache
 
-The `CacheManager::instance` method will now return an instance of `mako\cache\stores\StoreInterface` instead of a `mako\cache\Cache` instance.
+The `CacheManager::instance` method will now return an instance of `mako\cache\stores\StoreInterface` instead of a `mako\cache\Cache` instance. You'll have to update any type hints where a `mako\cache\Cache` is expected.
 
 <a id="framework:gatekeeper"></a>
 
@@ -31,14 +31,12 @@ Gatekeeper has been rewritten from scratch to make it easier to extend and to ma
 
 The library has been moved from the `mako\auth` namespace to the `mako\gatekeeper` namespace and some classes have been renamed and/or moved internally so some changes will have to be made if your application is using type hinted dependency injection.
 
-If you're using Gatekeeper through the container aware trait then no changes will have to made except for updating the namespace of the `User` and `Group` models.
-
-There has also been a couple of method name changes:
+You must also update the namespace of the `User` and `Group` models and change your code to work with the following method name changes:
 
 * `Gatekeeper::getUserProvider()` is now named `Gatekeeper::getGroupRepository()`.
 * `Gatekeeper::getGroupProvider()` is now named `Gatekeeper::getGroupRepository()`.
 
-The `Gatekeeper::basicAuth()` method will now always return a boolean. This allows you to set your own message (The `WWW-Authenticate` header and `401` status code will still be set for you automatically).
+The final change is that the `Gatekeeper::basicAuth()` method will now always return a boolean. This change allows you to set your own message (the `WWW-Authenticate` header and `401` status code will still be set for you automatically).
 
 	if($this->gatekeeper->basicAuth() === false)
 	{
