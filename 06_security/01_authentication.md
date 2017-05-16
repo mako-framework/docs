@@ -49,12 +49,12 @@ The ```login``` method will attempt to log a user in. The method returns TRUE if
 
 The possible status codes for failed logins are:
 
-| Constant                     | Description                                                                   |
-|------------------------------|-------------------------------------------------------------------------------|
-| Gatekeeper::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
-| Gatekeeper::LOGIN_ACTIVATING | The account has not been activated                                            |
-| Gatekeeper::LOGIN_BANNED     | The account has been banned                                                   |
-| Gatekeeper::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
+| Constant                         | Description                                                                   |
+|----------------------------------|-------------------------------------------------------------------------------|
+| Authentication::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
+| Authentication::LOGIN_ACTIVATING | The account has not been activated                                            |
+| Authentication::LOGIN_BANNED     | The account has been banned                                                   |
+| Authentication::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
 
 The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
 
@@ -155,7 +155,7 @@ The ```generateAccessToken``` method allows you to generate a new access token f
 
 	$user->generateAccessToken();
 
-> Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the ```Gatekeeper::forceLogin``` method to log the user back in in the background to keep the experience seamless.
+> Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the ```Authentication::forceLogin``` method to log the user back in in the background to keep the experience seamless.
 
 The ```generateActionToken``` method allows you to generate a new action token for the user. Should be used to activate a user, to validate "forgot password" requests etc.
 
