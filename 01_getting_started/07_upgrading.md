@@ -33,10 +33,10 @@ The library has been moved from the `mako\auth` namespace to the `mako\gatekeepe
 
 You must also update the namespace of the `User` and `Group` models and change your code to work with the following method name changes:
 
-* `Gatekeeper::getUserProvider()` is now named `Gatekeeper::getGroupRepository()`.
-* `Gatekeeper::getGroupProvider()` is now named `Gatekeeper::getGroupRepository()`.
+* `Gatekeeper::getUserProvider()` is now named `Authentication::getGroupRepository()`.
+* `Gatekeeper::getGroupProvider()` is now named `Authentication::getGroupRepository()`.
 
-The final change is that the `Gatekeeper::basicAuth()` method will now always return a boolean. This change allows you to set your own message (the `WWW-Authenticate` header and `401` status code will still be set for you automatically).
+The final change is that the `Authentication::basicAuth()` method will now always return a boolean. This change allows you to set your own message (the `WWW-Authenticate` header and `401` status code will still be set for you automatically).
 
 	if($this->gatekeeper->basicAuth() === false)
 	{
