@@ -148,6 +148,10 @@ It is also possible to fetch an array containing the values of a single column u
 
 	 $emails = $query->table('persons')->columns('email');
 
+The ```pairs``` method allows you to fetch an array where the first column is used as the array keys and the second is used as the array values.
+
+	$pairs = $query->table->('users')->pairs('id', 'email');
+
 --------------------------------------------------------
 
 <a id="inserting_data"></a>

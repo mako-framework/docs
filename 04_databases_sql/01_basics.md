@@ -64,6 +64,10 @@ The ```Connection::columns()``` method executes a query and returns an array con
 
 	$email = $connection->columns('SELECT `email` FROM `users`');
 
+The ```Connection::pairs()``` method will return an array where the first column is used as array keys and the second column is used as array values.
+
+	$pairs = $connection->pairs('SELECT `id`, `email` FROM `users`');
+
 The ```Connection::queryAndCount()``` method will return the number of rows modified by the query.
 
 	$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);

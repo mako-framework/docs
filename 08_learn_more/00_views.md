@@ -42,6 +42,15 @@ You can also assign global view variables that will be available in all views us
 
 	$this->view->assign('user', $user);
 
+It is also possible to auto assign variables to views using the view factory ```autoAssign``` method. The first parameter is the name of the view (or an array of view names) and the second parameter is a callable that must return an associative array where the keys are the variable names and the values are the variable values.
+
+	$this->view->assign('profile', function()
+	{
+		['name' => 'Foobar'];
+	});
+
+> You can also use ```*``` as a template name to automatically assign a variable to all views.
+
 The ```render``` method returns the rendered output of the view and it also accepts the same optional second parameter as the create method.
 
 	$output = $view->render();

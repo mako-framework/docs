@@ -136,6 +136,10 @@ If you want your API endpoint to be able to serve JSONP as well then you'll have
 
 	return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 
+You can also set the HTTP status code using the ```status``` method.
+
+	return $this->jsonResponse(['message' => 'Page not found'])->status(404);
+
 --------------------------------------------------------
 
 <a id="controller_events"></a>
