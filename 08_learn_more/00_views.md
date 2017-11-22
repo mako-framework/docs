@@ -34,7 +34,7 @@ Assigning variables can be done using the optional second parameter.
 
 	$view = $this->view->create('foo.bar', ['foo' => 'bar']);
 
-You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to and its child views.
+You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to and in views included within it.
 
 	$view->assign('foo', 'bar');
 
