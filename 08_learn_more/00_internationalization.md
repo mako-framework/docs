@@ -86,6 +86,17 @@ We can now enjoy simple pluralization in our views
 
 	{{$i18n->get('ui.new_messages', [10])}} // Will print "You have 10 new messages."
 
+The `number` method returns a number that has been formatted according to the current locale.
+
+	$formatted = $this->i18n->number(1234);
+
+You can also format numbers in translated strings:
+
+return array
+(
+	'new_messages' => 'You have <number>%1$u</number> new <pluralize:%1$u>message</pluralize>.',
+);
+
 --------------------------------------------------------
 
 <a id="language_routing"></a>
