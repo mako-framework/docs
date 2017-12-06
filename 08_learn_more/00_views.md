@@ -155,6 +155,14 @@ Loops is something you'll often need when displaying data. Templates support ```
 	{% endforeach %}
 	</ul>
 
+It is possible to render and capture parts of a template for later use by using a capture block.
+
+	{% capture:captured %}
+		<p>Hello, world!</p>
+	{% endcapture %}
+
+> In the example above, you'll be able to access the captured block using a variable named `$captured` anywhere after the capture losing tag.
+
 You can easily include a partial template in a view.
 
 	{{view:'partials.footer'}}
