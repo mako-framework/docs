@@ -109,7 +109,7 @@ Mako includes a simple templating language that offers a simpler and less verbos
 
 There is almost no overhead associated with using template views as they get compiled into regular PHP views and they won't be re-compiled until you update them.
 
-> You must use the special ```.tpl.php``` extension on your views for them to get rendered using the template engine.
+> Your views must use the custom ```.tpl.php``` extension for them to get rendered by the template renderer.
 
 ##### Printing
 
@@ -119,7 +119,7 @@ Printing an escaped variable for use in a HTML content context is done using the
 
 	{{$foo}}
 
-The ```preserve``` filter will escape output but not double-encode existing html entities.
+The ```preserve``` filter will still escape output but it will prevent double-encoding of existing html entities.
 
 	{{preserve:$foo}}
 
@@ -145,13 +145,9 @@ If you want to print an un-escaped variable then you can use the ```raw``` filte
 
 	{{raw:$foo}}
 
-Sometimes you'll want to set a default value for a variable that might be empty. This can be done like this.
+Sometimes you'll want to print a default value if your variable is empty. This can easily be achieved using the following syntax.
 
 	{{$foo || 'Default value'}}
-
-You can also use functions and methods in your templates.
-
-	<a href="{{$urlbuilder->to('about')}}">{{$i18n->get('about')}}</a>
 
 ##### Conditional statements
 
@@ -187,7 +183,7 @@ It is possible to render and capture parts of a template for later use by using 
 		<p>Hello, world!</p>
 	{% endcapture %}
 
-In the example above, you'll be able to access the captured block using a variable named `$captured` anywhere after the capture losing tag.
+In the example above, you'll be able to access the captured block using a variable named `$captured` anywhere after the capture closing tag.
 
 ##### Nospace blocks
 
@@ -305,7 +301,7 @@ Rendering the child template will result in the HTML document displayed below.
 
 ### Custom view renderers
 
-Mako also makes it easy to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
+Mako also makes it possible to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
 
 Registering a custom renderer is done using the ```extend``` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
 
