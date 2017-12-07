@@ -6,6 +6,14 @@
 * [View renderers](#view_renderers)
 	- [Plain PHP](#view_renderers:plain_php)
 	- [Templates](#view_renderers:templates)
+		- [Printing](#view_renderes:templates:printing)
+		- [Conditional statements](#view_renderes:templates:conditional_statements)
+		- [Loops](#view_renderes:templates:loops)
+		- [Capturing blocks](#view_renderes:templates:capturing_blocks)
+		- [Nospace blocks](#view_renderes:templates:nospace_blocks)
+		- [Verbatim blocks](#view_renderes:templates:verbatim_blocks)
+		- [Including views](#view_renderes:templates:including_views)
+		- [Template inheritance](#view_renderes:templates:template_inheritance)
 * [Custom view renderers](#custom_view_renderers)
 
 --------------------------------------------------------
@@ -65,11 +73,11 @@ You can also render a view directly from the view factory, and as expected it ac
 
 ### View renderers
 
-<a id="view_renderers:plain_php"></a>
+<a id="view_renderers"></a>
 
 #### Plain PHP
 
-<a id="view_renderers:templates"></a>
+<a id="view_renderers:plain_php"></a>
 
 As the name suggests, plain PHP views are just HTML (or whatever you're using to present your data) and PHP.
 
@@ -95,11 +103,17 @@ You also have access to a few handy methods that you should use to escape untrus
 
 #### Templates
 
+<a id="view_renderers:templates"></a>
+
 Mako includes a simple templating language that offers a simpler and less verbose syntax than plain PHP in addition to automatic escaping of all variables.
 
 There is almost no overhead associated with using template views as they get compiled into regular PHP views and they won't be re-compiled until you update them.
 
 > You must use the special ```.tpl.php``` extension on your views for them to get rendered using the template engine.
+
+##### Printing
+
+<a id="view_renderers:templates:printing"></a>
 
 Printing an escaped variable for use in a HTML content context is done using the following syntax:
 
@@ -139,6 +153,10 @@ You can also use functions and methods in your templates.
 
 	<a href="{{$urlbuilder->to('about')}}">{{$i18n->get('about')}}</a>
 
+##### Conditional statements
+
+<a id="view_renderers:templates:conditional_statements"></a>
+
 Conditional statements (```if```, ```elseif``` and ```else```) are also supported.
 
 	{% if($foo === $bar) %}
@@ -146,6 +164,10 @@ Conditional statements (```if```, ```elseif``` and ```else```) are also supporte
 	{% else %}
 		$foo is not equal to $bar
 	{% endif %}
+
+##### Loops
+
+<a id="view_renderers:templates:loops"></a>
 
 Loops is something you'll often need when displaying data. Templates support ```foreach```, ```for``` and ```while``` loops. You can skip an iteration using ```continue``` or break out of the loop using ```break```.
 
@@ -155,13 +177,57 @@ Loops is something you'll often need when displaying data. Templates support ```
 	{% endforeach %}
 	</ul>
 
-It is possible to render and capture parts of a template for later use by using a capture block.
+##### Capturing blocks
+
+<a id="view_renderers:templates:capturing_blocks"></a>
+
+It is possible to render and capture parts of a template for later use by using a `capture` block.
 
 	{% capture:captured %}
 		<p>Hello, world!</p>
 	{% endcapture %}
 
-> In the example above, you'll be able to access the captured block using a variable named `$captured` anywhere after the capture losing tag.
+In the example above, you'll be able to access the captured block using a variable named `$captured` anywhere after the capture losing tag.
+
+##### Nospace blocks
+
+<a id="view_renderers:templates:nospace_blocks"></a>
+
+Sometimes you'll have to write markup without whitespace between tags to get around browser rendering quirks. This can quickly lead to messy and hard to read templates. This is where the `nospace` block comes in handy.
+
+	{% nospace %}
+		<div>
+			<p>Hello, world!</p>
+		</div>
+	{% endnospace %}
+
+All whitespace between the tags will be removed at compile time and thus it will not affect rendering times at all.
+
+If you want to render a dynamic block where all whitespace between tags has been removed then you'll want to add the `buffered` flag. This will delay the whitespace removal until the content is being rendered.
+
+	{% nospace:buffered %}
+		<ul>
+			{% foreach(range(1, 10) as $number) %}
+				<li>{{$number}}</li>
+			{% endforeach %}
+		</ul>
+	{% endnospace %}
+
+> Nospace blocks will remove whitespace between _all_ tags. If you need a space character between blocks then you can use the `&ensp;` entity.
+
+##### Verbatim blocks
+
+<a id="view_renderers:templates:verbatim_blocks"></a>
+
+If you want the template compiler to ignore a section of your template then you can use the `verbatim` blocks.
+
+	{% verbatim %}
+		This {{$will}} not be {{$parsed}}.
+	{% endverbatim %}
+
+##### Including views
+
+<a id="view_renderers:templates:including_view"></a>
 
 You can easily include a partial template in a view.
 
@@ -171,11 +237,9 @@ Included views will automatically inherit all the variables available in the par
 
 	{{view:'partials.footer', ['foo' => 'bar']}}
 
-If you want the template compiler to ignore a section of your template then you can use the verbatim blocks.
+##### Template inheritance
 
-	{% verbatim %}
-		This {{$will}} not be {{$parsed}}.
-	{% endverbatim %}
+<a id="view_renderers:templates:template_inheritance"></a>
 
 Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Let's say you save the template below as ```parent.tpl.php```.
 
