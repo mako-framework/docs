@@ -193,7 +193,7 @@ In the example above, you'll be able to access the captured block using a variab
 
 <a id="view_renderers:templates:nospace_blocks"></a>
 
-Sometimes you'll have to write markup without whitespace between tags to get around browser rendering quirks. This can quickly lead to messy and hard to read templates. This is where the `nospace` block comes in handy.
+Sometimes you'll have to write markup without whitespace between tags as a workaround for browser rendering quirks. This can quickly lead to messy and hard to read templates. This is where the `nospace` block comes in handy.
 
 	{% nospace %}
 		<div>
@@ -201,7 +201,7 @@ Sometimes you'll have to write markup without whitespace between tags to get aro
 		</div>
 	{% endnospace %}
 
-All whitespace between the tags will be removed at compile time and thus it will not affect rendering times at all.
+All whitespace between the tags will be removed at compile time and it will not affect rendering times at all.
 
 If you want to render a dynamic block where all whitespace between tags has been removed then you'll want to add the `buffered` flag. This will delay the whitespace removal until the content is being rendered.
 
@@ -233,7 +233,7 @@ You can easily include a partial template in a view.
 
 	{{view:'partials.footer'}}
 
-Included views will automatically inherit all the variables available in the parent view but you override them or add new ones.
+Included views will automatically inherit all the variables available in the parent view but you can override them or add new ones.
 
 	{{view:'partials.footer', ['foo' => 'bar']}}
 
