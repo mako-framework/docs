@@ -92,10 +92,10 @@ The `number` method returns a number that has been formatted according to the cu
 
 You can also format numbers in translated strings:
 
-return array
-(
-	'new_messages' => 'You have <number>%1$u</number> new <pluralize:%1$u>message</pluralize>.',
-);
+	return
+	[
+		'new_messages' => 'You have <number>%1$u</number> new <pluralize:%1$u>message</pluralize>.',
+	];
 
 --------------------------------------------------------
 

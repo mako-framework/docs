@@ -50,9 +50,9 @@ The Mako ORM does not impose a naming standard on model class names but best pra
 
 If you want to use the ORM on an existing database and don't want to rename all your tables then you can use the ```$tableName``` property to define the name of your table.
 
-All tables are also expected to have an auto incrementing primary key column named id. The name of the primary key column can be configured using the ```$primaryKey``` property.
+All tables are also expected to have an auto incrementing primary key column named `id`. The name of the primary key column can be configured using the ```$primaryKey``` property.
 
-The ORM expects foreign key names to use the following the pattern ```<model name>_id``` (e.g., item_id, user_id). This can be configured when setting up relations and we'll get back to this later on.
+The ORM expects foreign key names to use the following pattern ```<model name>_id``` (e.g., item_id, user_id). This can be configured when setting up relations and we'll get back to this later on.
 
 --------------------------------------------------------
 
@@ -83,7 +83,7 @@ Use the ```$primaryKeyType``` property to define the key type.
 
 #### CRUD
 
-Lets say you have a table called ```articles``` with three columns (id, title and content). This is all you need to interact with the table:
+Lets say you have a table called ```articles``` with three columns (id, title and content). These few lines of code is all you need to interact with the table:
 
 	<?php
 
@@ -98,7 +98,7 @@ Lets say you have a table called ```articles``` with three columns (id, title an
 
 Creating a new record is as simple as this:
 
-	$article = new Article();
+	$article = new Article;
 
 	$article->title   = 'Super awesome stuff';
 	$article->content = 'This is an article about some super awesome stuff.';
@@ -498,9 +498,9 @@ The ORM allows you to use mass assignment when creating or updating records. Thi
 
 	$article->save();
 
-The code above might seem like a good idea until a hacker adds an is_admin field to the POST data and gives himself admin privileges.
+The code above might seem like a good idea until a hacker adds an `is_admin` field to the POST data and gives himself admin privileges.
 
-You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment. But you should really only use this feature when you trust the input data a 100%.
+You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment. It's better to be safe than sorry so you should really only use this feature with trusted data.
 
 --------------------------------------------------------
 

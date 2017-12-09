@@ -16,7 +16,7 @@
 * mbstring
 * PDO
 
-\* _Tested on PHP 7.0.x, 7.1.x and HHVM 3.11.x_
+\* _Tested on PHP 7.0.x, 7.1.x and 7.2.x
 
 --------------------------------------------------------
 
