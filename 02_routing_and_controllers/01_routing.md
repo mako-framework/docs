@@ -180,13 +180,17 @@ Assigning middleware to a route is done using the ```middleware``` method. You c
 	->when(['id' => '[0-9]+'])
 	->middleware('cache');
 
-You can also pass parameters to your middleware. In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
+You can also pass parameters to your middleware. Parameters are parsed as JSON so booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
+
+In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->when(['id' => '[0-9]+'])
 	->middleware('cache("minutes":60)');
 
-> Middleware parameters are parsed as JSON. So booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
+> In the example above we created a middleware that uses named parameters; however, you can also use unnamed parameters (`cache(60)`).
+
+> Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware.
 
 <a id="route_middleware:middleware_priority"></a>
 
