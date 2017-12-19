@@ -103,7 +103,9 @@ Route middleware allows you to alter the request and response both before and af
 
 #### Defining middleware
 
-Middleware should (but is not required to) implement the ```MiddlewareInterface```. The example below is the most basic middleware implementation (it doesn't actually do anything).
+All middleware must implement the ```MiddlewareInterface```. Mako includes a partial implementation that can be extended.
+
+The example below is the most basic middleware implementation (it doesn't actually do anything).
 
 	<?php
 
@@ -113,9 +115,9 @@ Middleware should (but is not required to) implement the ```MiddlewareInterface`
 
 	use mako\http\Request;
 	use mako\http\Response;
-	use mako\http\routing\middleware\MiddlewareInterface;
+	use mako\http\routing\middleware\Middleware;
 
-	class PassthroughMiddleware implements MiddlewareInterface
+	class PassthroughMiddleware extends Middleware
 	{
 		public function execute(Request $request, Response $response, Closure $next): Response
 		{
@@ -146,13 +148,9 @@ Note that all middleware is instantiated through the [dependency injection conta
 	{
 		protected $cache;
 
-		protected $minutes;
-
-		public function __construct(CacheManager $cache, $minutes = null)
+		public function __construct(CacheManager $cache)
 		{
 			$this->cache = $cache;
-
-			$this->minutes = $minutes ?? 10;
 		}
 
 		public function execute(Request $request, Response $response, Closure $next): Response
@@ -164,7 +162,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 
 			$response = $next($request, $response);
 
-			$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->minutes);
+			$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->getParameter('minutes', 10));
 
 			return $response;
 		}
