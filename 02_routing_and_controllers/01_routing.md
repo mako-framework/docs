@@ -71,7 +71,7 @@ If you need to make a parameter optional then you can do so by adding the ```?``
 		return $id . ' ' . $slug;
 	});
 
-You can also impose constraints on your parameters using the ```when``` method. The route will not be matched unless all constraints are satisfied.
+By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the ```when``` method.
 
 	$routes->get('/articles/{id}', function($id)
 	{
@@ -210,7 +210,7 @@ You can use middleware priority without having to configure all your middleware.
 
 ### Route groups
 
-Route groups are useful when you have a set of routes with the same constraints and middleware.
+Route groups are useful when you have a set of routes with the same settings.
 
 	$options =
 	[
@@ -227,7 +227,7 @@ Route groups are useful when you have a set of routes with the same constraints 
 		$routes->get('/photos/{id}', 'Photos::view');
 	});
 
-All routes within the group will now have the same middleware and constraints. You can also nest groups if needed.
+All routes within the group will now use the same middleware, regex pattern and namespace. You can also nest groups if needed.
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 
@@ -236,7 +236,7 @@ The following options are available when creating a route group. They are also a
 | middleware  | middleware   | A middleware or an array of middleware                   |
 | namespace   | namespace    | The controller namespace (closures will not be affected) |
 | prefix      | prefix       | Route prefix                                             |
-| when        | when         | An array of parameter constraints                        |
+| when        | when         | An array of parameter regex patterns                        |
 
 --------------------------------------------------------
 
