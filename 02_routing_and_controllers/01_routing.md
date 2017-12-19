@@ -142,9 +142,9 @@ Note that all middleware is instantiated through the [dependency injection conta
 	use mako\cache\CacheManager;
 	use mako\http\Request;
 	use mako\http\Response;
-	use mako\http\routing\middleware\MiddlewareInterface;
+	use mako\http\routing\middleware\Middleware;
 
-	class CacheMiddleware implements MiddlewareInterface
+	class CacheMiddleware extends Middleware
 	{
 		protected $cache;
 
