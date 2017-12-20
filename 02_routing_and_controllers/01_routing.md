@@ -125,9 +125,9 @@ The example below is the most basic middleware implementation (it doesn't actual
 		}
 	}
 
-Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables available in the scope, ```$middleware``` (the middleware collection), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables available in the scope, ```$dispatcher``` (the route dispatcher), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
 
-	$middleware->register('passthrough', PassthroughMiddleware::class);
+	$dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class);
 
 In the next example we'll create a middleware that returns a cached response if possible.
 
@@ -198,7 +198,7 @@ In the example below we're telling the middleware to cache the response for 60 m
 
 As mentioned above, by default middleware get executed in the order that they are assigned to the route. You can however ensure the execution order by configuring middleware priority.
 
-	$middleware->setPriority(['cache' => 1, 'passthrough' => 2]);
+	$dispatcher->setMiddlewarePriority(['cache' => 1, 'passthrough' => 2]);
 
 In the example above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
 
