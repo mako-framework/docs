@@ -23,4 +23,24 @@ All HTTP middleware must now implement the `mako\http\routing\middleware\Middlew
 
 Middleware parameters are no longer injected through the constructor but instead via a the `setParameters` method (implemented by the abstract base class). Classes extending the included abstract base middleware can also retrieve parameters using the `getParameter` method.
 
+Middleware is now registered with the route dispatcher.
+
+	// Old
+
+	$middleware->register('foo', Foo::class);
+
+	// New
+
+	$dispatcher->registerMiddleware('foo', Foo::class);
+
+Middleware priority is now registered with the route dispatcher.
+
+	// Old
+
+	$middleware->setPriority(['foo' => 1]);
+
+	// New
+
+	$dispatcher->setMiddlewarePriority(['foo' => 1]);
+
 See the routing docs for more details.
