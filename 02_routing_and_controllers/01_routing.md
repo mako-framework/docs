@@ -192,6 +192,10 @@ In the example below we're telling the middleware to cache the response for 60 m
 
 > Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware.
 
+If you have middleware that you want to assign to all your routes then you can set them as global in the ```app/routing/middleware.php``` config file.
+
+	$dispatcher->setMiddlewareAsGlobal(['cache']);
+
 <a id="route_middleware:middleware_priority"></a>
 
 #### Middleware priority
@@ -202,7 +206,7 @@ As mentioned above, by default middleware get executed in the order that they ar
 
 In the example above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
 
-You can use middleware priority without having to configure all your middleware. Non-configued middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
+You can use middleware priority without having to configure all your middleware. Non-configured middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
 
 --------------------------------------------------------
 
