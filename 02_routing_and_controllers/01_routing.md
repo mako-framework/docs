@@ -193,7 +193,7 @@ In the example below we're telling the middleware to cache the response for 60 m
 
 > Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware class.
 
-If you have middleware that you want to assign to all your routes then you can set them as global in the ```app/routing/middleware.php``` config file.
+If you have middleware that you want to assign to all your routes then you can set them as global.
 
 	$dispatcher->setMiddlewareAsGlobal(['cache']);
 
@@ -267,6 +267,10 @@ The first route will be matched if no `X-Api-Version` header is present or if th
 > In the example above we used unnamed parameters for our constraints. You can also use named constraints (`api_version("version":"2.0")`).
 
 > Note that if you use named parameters then you'll have to use the parameter names to access the parameters in the constraint class.
+
+If you have constraints that you want to assign to all your routes then you can set them as global.
+
+	$router->setConstraintAsGlobal(['api_version("2.0")']);
 
 --------------------------------------------------------
 
