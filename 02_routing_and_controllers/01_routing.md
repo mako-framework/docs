@@ -8,6 +8,9 @@
 	- [Defining middleware](#route_middleware:defining_middleware)
 	- [Assigning middleware](#route_middleware:assigning_middleware)
 	- [Middleware priority](#route_middleware:middleware_priority)
+* [Route constraints](#route_constraints)
+	- [Defining constraints](#route_constraints:defining_constraints)
+	- [Assigning constraints](#route_constraints:assigning_constraints)
 * [Route groups](#route_groups)
 * [Reverse routing](#reverse_routing)
 * [Faking request methods](#faking_request_methods)
@@ -92,8 +95,6 @@ Closure actions get executed by the ```Container::call()``` method so all depend
 <a id="route_middleware"></a>
 
 ### Route middleware
-
-<a id="route_middleware:defining_middleware"></a>
 
 Route middleware allows you to alter the request and response both before and after a route action gets executed.
 
@@ -190,7 +191,7 @@ In the example below we're telling the middleware to cache the response for 60 m
 
 > In the example above we created a middleware that uses named parameters; however, you can also use unnamed parameters (`cache(60)`).
 
-> Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware.
+> Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware class.
 
 If you have middleware that you want to assign to all your routes then you can set them as global in the ```app/routing/middleware.php``` config file.
 
@@ -207,6 +208,65 @@ As mentioned above, by default middleware get executed in the order that they ar
 In the example above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
 
 You can use middleware priority without having to configure all your middleware. Non-configured middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
+
+--------------------------------------------------------
+
+<a id="route_constraints"></a>
+
+### Route constraints
+
+Route constraints allow you set additional requirements that must be met before a route is matched.
+
+<a id="route_constraints:defining_constraints"></a>
+
+#### Defining constraints
+
+All constraints must implement the ```ConstraintInterface```. Mako includes a partial implementation that can be extended.
+
+Note that all constraints are instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
+
+The following constraint will match a route if the `X-Api-Version` header matches the desired version. A default value of `2.0` is assumed if no header is present.
+
+	<?php
+
+	namespace app\routing\constraints;
+
+	use mako\http\Request;
+	use mako\http\routing\constraints\Constraint;
+
+	class ApiVersionConstraint extends Constraint
+	{
+		protected $request;
+
+		public function __construct(Request $request)
+		{
+			$this->request = $request;
+		}
+
+		public function isSatisfied(): bool
+		{
+			return $this->request->headers->get('X-Api-Version', '2.0') === $this->getParameter();
+		}
+	}
+
+Constraints have to be registered in the ```app/routing/constraints.php``` file before you can use them. There are three variables available in the scope, ```$router``` (the router), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+
+	$router->registerConstraint('api_version', ApiVersionConstraint::class);
+
+<a id="route_constraints:assigning_constraints"></a>
+
+#### Assigning constraints
+
+Assigning constraints to a route is done using the ```constraint``` method. You can also pass an array of constraints if your route requires multiple constraints.
+
+	$routes->get('/', 'Api2::index')->constraint('api_version("2.0")');
+	$routes->get('/', 'Api1::index')->constraint('api_version("1.0")');
+
+The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
+
+> In the example above we used unnamed parameters for our constraints. You can also use named constraints (`api_version("version":"2.0")`).
+
+> Note that if you use named parameters then you'll have to use the parameter names to access the parameters in the constraint class.
 
 --------------------------------------------------------
 
@@ -238,9 +298,10 @@ The following options are available when creating a route group. They are also a
 | Option      | Method       | Description                                              |
 |-------------|--------------|----------------------------------------------------------|
 | middleware  | middleware   | A middleware or an array of middleware                   |
+| constraint  | constraint   | A constraint or an array of constraints                  |
 | namespace   | namespace    | The controller namespace (closures will not be affected) |
 | prefix      | prefix       | Route prefix                                             |
-| when        | when         | An array of parameter regex patterns                        |
+| when        | when         | An array of parameter regex patterns                     |
 
 --------------------------------------------------------
 
