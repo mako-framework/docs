@@ -2,12 +2,22 @@
 
 --------------------------------------------------------
 
+* [Application](#application)
+
 * [Framework](#framework)
 	- [HTTP Middleware](#framework:http_middleware)
 
 --------------------------------------------------------
 
 This guide takes you through the steps needed to migrate from Mako ```5.2.x``` to ```5.3.x```.
+
+--------------------------------------------------------
+
+<a id="application"></a>
+
+### Application
+
+You'll have to create a `constraints.php` file and a `constraints` directory in your `app/routing` directory (remember to add a `.gitkeep` file in the `constraints` directory).
 
 --------------------------------------------------------
 
