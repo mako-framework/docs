@@ -326,6 +326,38 @@ The ```many to many``` relation is a bit different since it requires a junction 
 
 > You can also pass the primary key value of the record you want to link instead of the object.
 
+Sometimes you'll need to store additional information in your junction table. This can easily be achieved by using the second parameter of the `link` method.
+
+	// Create a single link with attributes
+
+	$user->groups()->link(1, ['foo' => 'data']);
+
+	// Create two links with the same attributes
+
+	$user->groups()->link([1, 2], ['foo' => 'data']);
+
+	// Create two links with different attributes
+
+	$user->groups()->link([1, 2], [['foo' => 'data1'], ['foo' => 'data2']]);
+
+You can also update the junction attributes by using the `updateLink` method.
+
+	// Update a single link
+
+	$user->groups()->updateLink(1, ['foo' => 'data']);
+
+	// Update two links with the same attributes
+
+	$user->groups()->updateLink([1, 2], ['foo' => 'data']);
+
+	// Update two links with different attributes
+
+	$user->groups()->updateLink([1, 2], [['foo' => 'data1'], ['foo' => 'data2']]);
+
+Fetching the junction attributes is done using the `alongWith` method.
+
+	$groups = $user->groups()->alongWith(['foo'])->all();
+
 The ```unlink``` method is used to remove the link between the records:
 
 	$user->groups()->unlink($group);
