@@ -74,13 +74,13 @@ If you need to make a parameter optional then you can do so by adding the ```?``
 		return $id . ' ' . $slug;
 	});
 
-By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the ```when``` method.
+By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the ```patterns``` method.
 
 	$routes->get('/articles/{id}', function($id)
 	{
 		return 'article ' . $id;
 	})
-	->when(['id' => '[0-9]+']);
+	->patterns(['id' => '[0-9]+']);
 
 Closure actions get executed by the ```Container::call()``` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
@@ -88,7 +88,7 @@ Closure actions get executed by the ```Container::call()``` method so all depend
 	{
 		return $view->render('article', ['id' => $id]);
 	})
-	->when(['id' => '[0-9]+']);
+	->patterns(['id' => '[0-9]+']);
 
 --------------------------------------------------------
 
@@ -178,7 +178,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 Assigning middleware to a route is done using the ```middleware``` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
-	->when(['id' => '[0-9]+'])
+	->patterns(['id' => '[0-9]+'])
 	->middleware('cache');
 
 You can also pass parameters to your middleware. Parameters are parsed as JSON so booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
@@ -186,7 +186,7 @@ You can also pass parameters to your middleware. Parameters are parsed as JSON s
 In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
-	->when(['id' => '[0-9]+'])
+	->patterns(['id' => '[0-9]+'])
 	->middleware('cache("minutes":60)');
 
 > In the example above we created a middleware that uses named parameters; however, you can also use unnamed parameters (`cache(60)`).
@@ -284,7 +284,7 @@ Route groups are useful when you have a set of routes with the same settings.
 	[
 
 		'middleware' => 'cache',
-		'when'       => ['id' => '[0-9]+'],
+		'patterns'   => ['id' => '[0-9]+'],
 		'namespace'  => 'app\controllers',
 	];
 
@@ -305,7 +305,7 @@ The following options are available when creating a route group. They are also a
 | constraint  | constraint   | A constraint or an array of constraints                  |
 | namespace   | namespace    | The controller namespace (closures will not be affected) |
 | prefix      | prefix       | Route prefix                                             |
-| when        | when         | An array of parameter regex patterns                     |
+| patterns    | patterns     | An array of parameter regex patterns                     |
 
 --------------------------------------------------------
 

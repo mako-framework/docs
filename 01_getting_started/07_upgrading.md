@@ -5,6 +5,7 @@
 * [Application](#application)
 
 * [Framework](#framework)
+	- [Routing](#framework:routing)
 	- [HTTP Middleware](#framework:http_middleware)
 
 --------------------------------------------------------
@@ -24,6 +25,12 @@ You'll have to create a `constraints.php` file and a `constraints` directory in 
 <a id="framework"></a>
 
 ### Framework
+
+<a id="framework:routing"></a>
+
+#### Routing
+
+The `when` method has been renamed to `patterns`.
 
 <a id="framework:http_middleware"></a>
 
