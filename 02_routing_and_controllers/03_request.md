@@ -51,7 +51,7 @@ The `getData` method returns a parameter collection containing the data correspo
 
 	$data = $this->request->getData();
 
-The the parameter collections also include the following methods in addition to the ones shown in the examples above.
+The parameter collections also include the following methods in addition to the ones shown in the examples above.
 
 | Method name | Description                                                                 |
 |-------------|-----------------------------------------------------------------------------|
