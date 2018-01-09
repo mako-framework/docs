@@ -29,7 +29,7 @@ The `getQuery` method returns a parameter collection containing query string dat
 
 	$queryString = $this->request->getQuery();
 
-The `get` method of the parameter collection returns the value of a parameter and null if it doesn't exist.
+The `get` method of the parameter collection returns the value of a parameter and `null` if it doesn't exist.
 
 	$value = $queryString->get('foo');
 
@@ -88,7 +88,7 @@ The `getCookies` returns a cookie collection that allows to you access both sign
 
 	$cookies = $this->request->getCookies();
 
-The `get` method of the cookie collection returns the value of a cookie and null if it doesn't exist.
+The `get` method of the cookie collection returns the value of a cookie and `null` if it doesn't exist.
 
 	$value = $cookies->get('foobar');
 
@@ -118,7 +118,7 @@ The `getHeaders` method returns a header collection.
 
 	$headers = $this->request->getHeaders();
 
-The `get` method of the header collection returns the value of the header an null it it isn't set.
+The `get` method of the header collection returns the value of the header an `null` it it isn't set.
 
 	$value = $headers->get('content-type');
 
@@ -161,7 +161,7 @@ The `getFiles` method returns a file collection that extends the parameter colle
 
 	$files = $this->request->getFiles();
 
-The `get` method of the file collection returns a `UploadedFile` instance or null if the file doesn't exist.
+The `get` method of the file collection returns a `UploadedFile` instance or `null` if the file doesn't exist.
 
 	$file = $files->get('myfile');
 
@@ -194,17 +194,15 @@ The `getServer` method returns a collection that extends the parameter collectio
 
 	$server = $this->request->getServer();
 
-	$port = $server->get('SERVER_PORT', 80);
-
 --------------------------------------------------------
 
 <a id="request_information"></a>
 
 ### Request information
 
-The ```referer``` method returns the address that referred the client to the current resource. NULL is returned if there is no referrer.
+The ```referer``` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
-	// Returns the referrer if there is one and NULL if not
+	// Returns the referrer if there is one and null if not
 
 	$referer = $this->request->referer();
 
@@ -216,15 +214,15 @@ The ```ip``` method returns IP of the client that made the request.
 
 	$ip = $this->request->ip();
 
-The ```isAjax``` method returns TRUE if the request was made using AJAX and FALSE if not.
+The ```isAjax``` method returns `true` if the request was made using AJAX and `false` if not.
 
 	$isAjax = $this->request->isAjax();
 
-The ```isSecure``` method returns TRUE if the request was made using HTTPS and FALSE if not.
+The ```isSecure``` method returns `true` if the request was made using HTTPS and `false` if not.
 
 	$isSecure = $this->request->isSecure();
 
-The ```isSafe``` method returns TRUE if the request method used is considered safe and FALSE if not. The methods that are considered safe are ```GET``` and ```HEAD```.
+The ```isSafe``` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are ```GET``` and ```HEAD```.
 
 	$isSafe = $this->request->isSafe();
 
@@ -256,15 +254,15 @@ The ```realMethod``` method returns the real request method used to access the r
 
 	$method = $this->request->realMethod();
 
-The ```isFaked``` method returns TRUE if the request method method has been faked and FALSE if not.
+The ```isFaked``` method returns `true` if the request method method has been faked and `false` if not.
 
 	$isFaked = $this->request->isFaked();
 
-The ```username``` method returns a basic HTTP authentication username of NULL if it isn't set.
+The ```username``` method returns a basic HTTP authentication username of `null` if it isn't set.
 
 	$username = $this->request->username();
 
-The ```password``` method returns a basic HTTP authentication password of NULL if it isn't set.
+The ```password``` method returns a basic HTTP authentication password of `null` if it isn't set.
 
 	$password = $this->request->password();
 
