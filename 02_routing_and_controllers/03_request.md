@@ -2,190 +2,81 @@
 
 --------------------------------------------------------
 
-* [Accessing data](#accessing_data)
-* [Reading cookies](#reading_cookies)
+* [Request data](#request_data)
+	- [Query string, post data and parsed body](#request_data:query_string_post_data_and_parsed_body)
+	- [Raw request body](#request_data:raw_request_body)
+* [Cookies](#cookies)
+* [Headers](#headers)
+* [Files](#files)
+* [Server information](#server_information)
 * [Request information](#request_information)
 
 --------------------------------------------------------
 
-The request class provides an object oriented interface to global variables such as ```$_GET```, ```$_POST```, ```$_FILES```, ```$_COOKIE``` and ```$_SERVER``` as well as easy access to request data and other useful request information.
-
-An instance of the request class is always available in all controller classes. It is also easily made available in [route closures](:base_url:/docs/:version:/routing-and-controllers:routing#basics).
+The request class provides an object oriented interface to global variables such as `$_GET`, `$_POST`, `$_FILES`, `$_COOKIE` and `$_SERVER` as well as easy access to other useful request information.
 
 --------------------------------------------------------
 
-<a id="accessing_data"></a>
+<a id="request_data"></a>
 
 ### Accessing data
 
-The ```get``` method allows you to access query string data.
+<a id="request_data:query_string_post_data_and_parsed_body"></a>
 
-	// Get all query string data (returns an empty array if there is no data)
+#### Query string, post data and parsed body
 
-	$all = $this->request->get();
+The `getQuery` method returns a parameter collection containing query string data.
 
-	// Get data from a specific key (will return NULL if the key doesn't exist)
+	$queryString = $this->request->getQuery();
 
-	$foo = $this->request->get('foo');
+The `get` method of the parameter collection returns the value of a parameter and null if it doesn't exist.
 
-	// Get data from a specific key and return FASLE if the key doesn't exist
+	$value = $queryString->get('foo');
 
-	$foo = $this->request->get('foo', false);
+	// You can also specify a custom default return value
 
-The ```post``` method allows you to access ```POST``` data.
+	$value = $queryString->get('foo', false);
 
-	// Get all POST data (returns an empty array if there is no data)
+The `getPost` returns a parameter collection containing post data.
 
-	$all = $this->request->post();
+	// Get all post data
 
-	// Get data from a specific key (will return NULL if the key doesn't exist)
+	$post = $this->request->getPost();
 
-	$foo = $this->request->post('foo');
+The `getBody` method returns a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
 
-	// Get data from a specific key and return FASLE if the key doesn't exist
+	$body = $this->request->getBody();
 
-	$foo = $this->request->post('foo', false);
+The `getData` method returns a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data for `POST` requests and the parsed body for any other type of request).
 
-The ```put``` method allows you to access ```PUT``` data.
+	$data = $this->request->getData();
 
-> The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
+The the parameter collections also include the following methods in addition to the ones shown in the examples above.
 
-	// Get all PUT data (returns an empty array if there is no data)
+| Method name | Description                                                                 |
+|-------------|-----------------------------------------------------------------------------|
+| all         | Returns an array containing all the parameters                              |
+| add         | Adds a parameter                                                            |
+| has         | Returns `true` if the collection has the parameter and `false` if not       |
+| remove      | Removes a parameter                                                         |
+| whitelisted | Returns a whitelisted array of parameters                                   |
+| blacklisted | Returns an array of parameters where the blacklisted keys have been removed |
 
-	$all = $this->request->put();
+<a id="request_data:raw_request_body"></>
 
-	// Get data from a specific key (will return NULL if the key doesn't exist)
+#### Raw request body
 
-	$foo = $this->request->put('foo');
+The `getRawBody()` method returns the raw request body as a string.
 
-	// Get data from a specific key and return FASLE if the key doesn't exist
+	$body = $this->request->getRawBody();
 
-	$foo = $this->request->put('foo', false);
+The `getRawBodyAsStream` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large request bodies.
 
-The ```patch``` method allows you to access ```PATCH``` data.
-
-> The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
-
-	// Get all PATCH data (returns an empty array if there is no data)
-
-	$all = $this->request->patch();
-
-	// Get data from a specific key (will return NULL if the key doesn't exist)
-
-	$foo = $this->request->patch('foo');
-
-	// Get data from a specific key and return FASLE if the key doesn't exist
-
-	$foo = $this->request->patch('foo', false);
-
-The ```delete``` method allows you to access ```DELETE``` data.
-
-> The method expects the request body to be one of the following types; ```application/x-www-form-urlencoded```, ```text/json``` or ```application/json```. If you want to access the raw request body then you'll have to use the ```body``` method instead.
-
-	// Get all DELETE data (returns an empty array if there is no data)
-
-	$all = $this->request->delete();
-
-	// Get data from a specific key (will return NULL if the key doesn't exist)
-
-	$foo = $this->request->delete('foo');
-
-	// Get data from a specific key and return FASLE if the key doesn't exist
-
-	$foo = $this->request->delete('foo', false);
-
-The ```body``` method allows you to access the raw request body.
-
-	$body = $this->request->body();
-
-The ```bodyAsStream``` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large file uploads via PUT requests.
-
-	$body = $this->request->bodyAsStream();
+	$body = $this->request->getRawBodyAsStream();
 
 	$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
 
 	$filesize = stream_copy_to_stream($body, $storageStream);
-
-The ```data``` method allows you to access data from the current request method.
-
-	// Get all request data (returns an empty array if there is no data)
-
-	$all = $this->request->data();
-
-	// Get data from a specific key (will return NULL if the key doesn't exist)
-
-	$foo = $this->request->data('foo');
-
-	// Get data from a specific key and return FASLE if the key doesn't exist
-
-	$foo = $this->request->data('foo', false);
-
-The ```has``` method lets you check if a data key exist.
-
-	$exists = $this->request->has('foo');
-
-The ```whitelisted``` methods returns all request data where keys not in the whitelist have been removed.
-
-	// Returns input data where everything except 'foo' and 'bar' keys have been removed
-
-	$whitelisted = $this->request->whitelisted(['foo', 'bar']);
-
-	// You can also specify default values that will be used if the keys don't exist
-
-	$whitelisted = $this->request->whitelisted(['foo', 'bar'], ['foo' => 'baz', 'bar' => 'bax']);
-
-The ```blacklisted``` methods returns all request data where keys in the blacklist have been removed.
-
-	// Returns input data where the 'foo' and 'bar' keys have been removed
-
-	$blacklisted = $this->request->blacklisted(['foo', 'bar']);
-
-	// You can also specify default values that will be used if the keys don't exist
-
-	$blacklisted = $this->request->blacklisted(['foo', 'bar'], ['baz' => 'foo', 'bax' => 'bar']);
-
-The ```file``` method allows you to access files that have been upload via a POST request.
-
-	// Get all uploaded files (returns an empty array if there is no data)
-
-	$files = $this->request->file();
-
-	// Get a specific file or an array of files if it's a multi-upload.
-
-	$file = $this->request->file('myfile');
-
-	// If you want to get a specific file from a multi-upload then you'll have to add the array key as well
-
-	$files = $this->request->file('myfile.0');
-
-Uploaded files are represented as a ```UploadedFile``` object. The class extends the ```SplFileInfo``` class with the following methods.
-
-| Method name     | Description                                                                |
-|-----------------|----------------------------------------------------------------------------|
-| getName         | Returns the name of the file that was uploaded.                            |
-| getReportedSize | Returns the size reported by the client.                                   |
-| getReportedType | Returns the mime type reported by the client.                              |
-| hasError        | Returns TRUE if there is an error with the uploaded file and FALSE if not. |
-| getErrorCode    | Returns the error code associated with the error.                          |
-| getErrorMessage | Returns a human friendly error message.                                    |
-| isUploaded      | Returns TRUE if the file is an actual upload and FALSE if not.             |
-| moveTo          | Moves the file to the specified storage location.                          |
-
-> The values reported by the client should not be trusted. Use the ```getSize``` method to retrieve the actual filesize.
-
-The ```server``` method lets you access server data.
-
-	// Get all server data (returns an empty array if there is no data)
-
-	$all = $this->request->server();
-
-	// Get data from a specific key (will return NULL if the key doesn't exist)
-
-	$foo = $this->request->server('SERVER_PORT');
-
-	// Get data from a specific key and return '80' if the key doesn't exist
-
-	$foo = $this->request->server('SERVER_PORT', 80);
 
 --------------------------------------------------------
 
@@ -193,45 +84,123 @@ The ```server``` method lets you access server data.
 
 ### Reading cookies
 
-The ```cookie``` method will return the value of the selected cookie.
+The `getCookies` returns a cookie collection that allows to you access both signed and unsigned cookies.
 
-	// Returns the value of the chosen cookie (returns NULL if the cookie doesn't exist)
+	$cookies = $this->request->getCookies();
 
-	$value = $this->request->cookie('chocolate');
+The `get` method of the cookie collection returns the value of a cookie and null if it doesn't exist.
 
-	// Return the value of the chosen cookie and return FASLE if the cookie doesn't exist
+	$value = $cookies->get('foobar');
 
-	$value = $this->request->cookie('chocolate', false);
+	// You can also define a custom default return value
 
-The ```signedCookie``` method will return the value of the selected signed cookie.
+	$value = $cookies->get('foobar', false);
 
-	// Returns the value of the chosen cookie (returns NULL if the cookie doesn't exist)
+> If you want to read a signed cookie then you'll have to use the `getSigned` method. The benefit of using signed cookies is that they can't be tampered with on the client side.
 
-	$value = $this->request->signedCookie('chocolate');
+The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
-	// Return the value of the chosen cookie and return FASLE if the cookie doesn't exist
+| Method name | Description                                            |
+|-------------|--------------------------------------------------------|
+| all         | Returns an array containing all the cookies            |
+| add         | Adds a cookie                                          |
+| addSigned   | Adds a signed cookie                                   |
+| has         | Returns `true` if the cookie exists and `false` if not |
+| remove      | Removes a cookie                                       |
 
-	$value = $this->request->signedCookie('chocolate', false);
+--------------------------------------------------------
 
-> The benefit of using signed cookies over regular cookies is that their values can not be tampered with on the client site.
+<a id="headers"></a>
 
-Setting regular and signed cookies is done using the [response class](:base_url:/docs/:version:/routing-and-controllers:response).
+### Headers
+
+The `getHeaders` method returns a header collection.
+
+	$headers = $this->request->getHeaders();
+
+The `get` method of the header collection returns the value of the header an null it it isn't set.
+
+	$value = $headers->get('content-type');
+
+	// You can also define a custom default return value
+
+	$value = $headers->get('content-type', 'text/plain');
+
+The `acceptableContentTypes` method of the header collection returns an array of acceptable content types in descending order of preference.
+
+	$contentTypes = $headers->acceptableContentTypes();
+
+The `acceptableLanguages` method of the header collection returns an array of acceptable languages in descending order of preference.
+
+	$languages = $headers->acceptableLanguages();
+
+The `acceptableCharsets` method of the header collection returns an array of acceptable character sets in descending order of preference.
+
+	$charsets = $headers->acceptableCharsets();
+
+The `acceptableEncodings` method of the header collection returns an array of acceptable encodings in descending order of preference.
+
+	$charsets = $headers->acceptableEncodings();
+
+The header collection also includes the following methods in addition to the ones shown in the examples above.
+
+| Method name | Description                                            |
+|-------------|--------------------------------------------------------|
+| all         | Returns an array containing all the headers            |
+| add         | Adds a header                                          |
+| has         | Returns `true` if the header exists and `false` if not |
+| remove      | Removes a header                                       |
+
+--------------------------------------------------------
+
+<a id="files"></a>
+
+### Files
+
+The `getFiles` method returns a file collection that extends the parameter collection.
+
+	$files = $this->request->getFiles();
+
+The `get` method of the file collection returns a `UploadedFile` instance or null if the file doesn't exist.
+
+	$file = $files->get('myfile');
+
+	// If you're fetching a file from a multi upload then you'll have to include the key as well
+
+	$file = $files->get('myfile.0');
+
+The```UploadedFile``` class extends the ```SplFileInfo``` class with the following methods.
+
+| Method name     | Description                                                               |
+|-----------------|---------------------------------------------------------------------------|
+| getName         | Returns the name of the file that was uploaded                            |
+| getReportedSize | Returns the size reported by the client                                   |
+| getReportedType | Returns the mime type reported by the client                              |
+| hasError        | Returns TRUE if there is an error with the uploaded file and FALSE if not |
+| getErrorCode    | Returns the error code associated with the error                          |
+| getErrorMessage | Returns a human friendly error message                                    |
+| isUploaded      | Returns TRUE if the file is an actual upload and FALSE if not             |
+| moveTo          | Moves the file to the specified storage location                          |
+
+> The values reported by the client should not be trusted (e.g. use the ```getSize``` method to retrieve the actual filesize).
+
+--------------------------------------------------------
+
+<a id="server_information"></a>
+
+### Server information
+
+The `getServer` method returns a collection that extends the parameter collection.
+
+	$server = $this->request->getServer();
+
+	$port = $server->get('SERVER_PORT', 80);
 
 --------------------------------------------------------
 
 <a id="request_information"></a>
 
 ### Request information
-
-The ```header``` method returns the value of the chosen request header.
-
-	// Returns the value of the chosen header (returns NULL if the header doesn't exist)
-
-	$value = $this->request->header('content-type');
-
-	// Returns the value of the chosen header and returns 'text/plain' if the header doesn't exist
-
-	$value = $this->request->header('content-type', 'text/plain');
 
 The ```referer``` method returns the address that referred the client to the current resource. NULL is returned if there is no referrer.
 
@@ -242,22 +211,6 @@ The ```referer``` method returns the address that referred the client to the cur
 	// Returns the referrer if there is one and the URL to the 'home' route if there isn't one
 
 	$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
-
-The ```acceptableContentTypes``` returns an array of acceptable content types in descending order of preference.
-
-	$acceptableContentTypes = $this->request->acceptableContentTypes();
-
-The ```acceptableLanguages``` returns an array of acceptable languages in descending order of preference.
-
-	$acceptableLanguages = $this->request->acceptableLanguages();
-
-The ```acceptableCharsets``` returns an array of acceptable character sets in descending order of preference.
-
-	$acceptableCharsets = $this->request->acceptableCharsets();
-
-The ```acceptableEncodings``` returns an array of acceptable encodings sets in descending order of preference.
-
-	$acceptableEncodings = $this->request->acceptableEncodings();
 
 The ```ip``` method returns IP of the client that made the request.
 
