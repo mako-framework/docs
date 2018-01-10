@@ -37,7 +37,7 @@ The `get` method of the parameter collection returns the value of a parameter an
 
 	$value = $queryString->get('foo', false);
 
-The `getPost` returns a parameter collection containing post data.
+The `getPost` method returns a parameter collection containing post data.
 
 	// Get all post data
 
@@ -53,14 +53,14 @@ The `getData` method returns a parameter collection containing the data correspo
 
 The parameter collections also include the following methods in addition to the ones shown in the examples above.
 
-| Method name | Description                                                                 |
-|-------------|-----------------------------------------------------------------------------|
-| all         | Returns an array containing all the parameters                              |
-| add         | Adds a parameter                                                            |
-| has         | Returns `true` if the collection has the parameter and `false` if not       |
-| remove      | Removes a parameter                                                         |
-| whitelisted | Returns a whitelisted array of parameters                                   |
-| blacklisted | Returns an array of parameters where the blacklisted keys have been removed |
+| Method                             | Description                                                                 |
+|------------------------------------|-----------------------------------------------------------------------------|
+| all()                              | Returns an array containing all the parameters                              |
+| add($name, $value)                 | Adds a parameter                                                            |
+| has($name)                         | Returns `true` if the collection has the parameter and `false` if not       |
+| remove($name)                      | Removes a parameter                                                         |
+| whitelisted($keys, $defaults = []) | Returns a whitelisted array of parameters                                   |
+| blacklisted($keys, $defaults = []) | Returns an array of parameters where the blacklisted keys have been removed |
 
 <a id="request_data:raw_request_body"></a>
 
@@ -100,13 +100,13 @@ The `get` method of the cookie collection returns the value of a cookie and `nul
 
 The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method name | Description                                            |
-|-------------|--------------------------------------------------------|
-| all         | Returns an array containing all the cookies            |
-| add         | Adds a cookie                                          |
-| addSigned   | Adds a signed cookie                                   |
-| has         | Returns `true` if the cookie exists and `false` if not |
-| remove      | Removes a cookie                                       |
+| Method                   | Description                                            |
+|--------------------------|--------------------------------------------------------|
+| all()                    | Returns an array containing all the cookies            |
+| add($name, $value)       | Adds a cookie                                          |
+| addSigned($name, $value) | Adds a signed cookie                                   |
+| has($name)               | Returns `true` if the cookie exists and `false` if not |
+| remove($name)            | Removes a cookie                                       |
 
 --------------------------------------------------------
 
@@ -144,12 +144,12 @@ The `acceptableEncodings` method of the header collection returns an array of ac
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method name | Description                                            |
-|-------------|--------------------------------------------------------|
-| all         | Returns an array containing all the headers            |
-| add         | Adds a header                                          |
-| has         | Returns `true` if the header exists and `false` if not |
-| remove      | Removes a header                                       |
+| Method             | Description                                            |
+|--------------------|--------------------------------------------------------|
+| all()              | Returns an array containing all the headers            |
+| add($name, $value) | Adds a header                                          |
+| has($name)         | Returns `true` if the header exists and `false` if not |
+| remove($name)      | Removes a header                                       |
 
 --------------------------------------------------------
 
@@ -171,16 +171,16 @@ The `get` method of the file collection returns a `UploadedFile` instance or `nu
 
 The```UploadedFile``` class extends the ```SplFileInfo``` class with the following methods.
 
-| Method name     | Description                                                               |
-|-----------------|---------------------------------------------------------------------------|
-| getName         | Returns the name of the file that was uploaded                            |
-| getReportedSize | Returns the size reported by the client                                   |
-| getReportedType | Returns the mime type reported by the client                              |
-| hasError        | Returns TRUE if there is an error with the uploaded file and FALSE if not |
-| getErrorCode    | Returns the error code associated with the error                          |
-| getErrorMessage | Returns a human friendly error message                                    |
-| isUploaded      | Returns TRUE if the file is an actual upload and FALSE if not             |
-| moveTo          | Moves the file to the specified storage location                          |
+| Method            | Description                                                               |
+|-------------------|---------------------------------------------------------------------------|
+| getName()         | Returns the name of the file that was uploaded                            |
+| getReportedSize() | Returns the size reported by the client                                   |
+| getReportedType() | Returns the mime type reported by the client                              |
+| hasError()        | Returns TRUE if there is an error with the uploaded file and FALSE if not |
+| getErrorCode()    | Returns the error code associated with the error                          |
+| getErrorMessage() | Returns a human friendly error message                                    |
+| isUploaded()      | Returns TRUE if the file is an actual upload and FALSE if not             |
+| moveTo($path)     | Moves the file to the specified storage location                          |
 
 > The values reported by the client should not be trusted (e.g. use the ```getSize``` method to retrieve the actual filesize).
 
