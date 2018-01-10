@@ -42,6 +42,6 @@ The ```matches``` method returns TRUE if the current URL path matches the patter
 
 	$matching = $urlBuilder->matches('/news');
 
-	// You can also use regular expressions
+	// Matching is done using regular expressions so you can also use character classes
 
 	$matching = $urlBuilder->matches('/news/article/([0-9]+)');
