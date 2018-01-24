@@ -80,11 +80,11 @@ The `getRawBodyAsStream` method returns the raw request body as a stream. This c
 
 --------------------------------------------------------
 
-<a id="reading_cookies"></a>
+<a id="cookies"></a>
 
-### Reading cookies
+### Cookies
 
-The `getCookies` returns a cookie collection that allows to you access both signed and unsigned cookies.
+The `getCookies` method returns a cookie collection that allows to you access both signed and unsigned cookies.
 
 	$cookies = $this->request->getCookies();
 

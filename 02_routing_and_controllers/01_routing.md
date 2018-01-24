@@ -215,7 +215,7 @@ You can use middleware priority without having to configure all your middleware.
 
 ### Route constraints
 
-Route constraints allow you set additional requirements that must be met before a route is matched.
+Route constraints allow you to set additional requirements that must be met before a route is matched.
 
 <a id="route_constraints:defining_constraints"></a>
 
