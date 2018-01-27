@@ -5,7 +5,6 @@
 * [Basics](#basics)
 * [Setting cookies](#setting_cookies)
 * [Setting headers](#setting_headers)
-* [Response filters](#response_filters)
 * [Caching and compression](#caching_and_compression)
 
 --------------------------------------------------------
@@ -20,7 +19,7 @@ An instance of the response class is always available in all controller classes.
 
 ### Basics
 
-The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body in an after filter.
+The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body.
 
 	public function afterAction()
 	{
@@ -134,27 +133,6 @@ The ```getHeaders``` method will return an array of all the response headers tha
 The ```clearHeaders``` method will clear all response headers that have been set
 
 	$this->response->clearHeaders();
-
---------------------------------------------------------
-
-<a id="response_filters"></a>
-
-### Response filters
-
-The ```filter``` methods allows you to add a response filter that the response body will be passed through before being sent to the browser. You can define multiple filters and they will be executed in the order that they were defined.
-
-	$this->response->filter(function($responseBody)
-	{
-		return strtoupper($responseBody);
-	});
-
-The ```getFilters``` method will return an array containing all the defined response filters.
-
-	$responseFilters = $this->response->getFilters();
-
-The ```clearFilters``` method will clear all the defined response filters.
-
-	$this->response->clearFilters();
 
 --------------------------------------------------------
 
