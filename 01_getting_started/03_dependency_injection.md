@@ -4,6 +4,7 @@
 
 * [Basics](#basics)
 * [Contextual injection](#contextual_injection)
+* [Replacing registered dependencies](#replacing_registered_dependencies)
 * [Services](#services)
 	- [Core](#services:core)
 	- [Web](#services:web)
@@ -119,6 +120,59 @@ Sometimes you'll need to inject different implementations of the same interface 
 	$container->registerContextualDependency(ClassB::class, FooBarInterface::class, FooBarImplementationB::class);
 
 ```ClassA``` will now get the ```FooBarImplementationA``` implementation of the ```FooBarInterface``` while ```ClassB``` will get the ```FooBarImplementationB``` implementation.
+
+--------------------------------------------------------
+
+<a id="replacing_registered_dependencies"></a>
+
+### Replacing registered dependencies
+
+The container also allows you to replaces previously registered dependencies.
+
+The `replace` method allows you to replace a previously registered dependency in the container.
+
+	$container->replace(FooInterface::class, OtherFoo::class);
+
+The `replaceSingleton` method allows you to replace a previously registered singleton dependency in the container.
+
+	$container->replaceSingleton([BarInterface::class, 'bar'], function($container)
+	{
+		return new OtherBar('parameter value');
+	});
+
+The `replaceInstance` method allows you to replace a previously registered instance dependency in the container.
+
+	$container->replaceInstance([BarInterface::class, 'bar'], new OtherBar('parameter value'));
+
+You can also replace instances that already been injected by the container thanks to the `onReplace` event.
+
+In the following example we'll register an instance of the `Dependency` class along with a factory closure for the `Dependent` class. Inside the factory method we'll tell the container to replace the previous instance of the `Dependency` class using the `Dependent::replaceDependency()` method in the event that it gets replaced.
+
+	$container->registerInstance(Dependency::class, new Dependency('original'));
+
+	$container->register(Dependent::class, function($container)
+	{
+		$dependent = new Dependent($container->get(Dependency::class));
+
+		$container->onReplace(Dependency::class, [$dependent, 'replaceDependency']);
+
+		return $dependent;
+	});
+
+	$dependent = $container->get(Dependent::class);
+
+	var_dump($dependent->dependency->value); // string(8) "original"
+
+	$container->replaceInstance(Dependency::class, new Dependency('replacement'));
+
+	var_dump($dependent->dependency->value); // string(11) "replacement"
+
+In the example above we assumed that the `Dependent` class had a `replaceDependency` method. This might not always be the case so we can also use a closure to achieve the same result.
+
+	$container->onReplace(Dependency::class, (function($dependency)
+	{
+		$this->dependency = $dependency;
+	})->bindTo($dependent, Dependent::class);
 
 --------------------------------------------------------
 
