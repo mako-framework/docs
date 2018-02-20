@@ -23,7 +23,7 @@ Next, add the ```mako\toolbar\ToolbarPackage``` package to your ```app/config/ap
 
 Finally, you need to make sure that the toolbar gets rendered. The quickest way of getting it up and running is to use the included [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 
-	$dispatcher->registerMiddleware('toolbar', ToolbarMiddelware::class);
+	$dispatcher->registerMiddleware('toolbar', ToolbarMiddleware::class);
 
 You should make sure that the middleware gets executed first to ensure that the toolbar is able to collect all the information about your application.
 
