@@ -92,6 +92,8 @@ You can now execute your command from the command line.
 
 	php reactor hello --name=dude
 
+> Note that dash and underscore separated option and argument names are converted to camel case before being passed to the execute method. E.g. `--foo-bar` becomes `$fooBar`.
+
 Options can also be used as boolean flags.
 
 	<?php
