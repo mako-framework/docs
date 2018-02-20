@@ -203,9 +203,16 @@ If you have middleware that you want to assign to all your routes then you can s
 
 As mentioned above, by default middleware get executed in the order that they are assigned to the route. You can however ensure the execution order by configuring middleware priority.
 
+You can set the middleware priority while registering the middleware using the optional third parameter of the `registerMiddleware` method.
+
+	$dispatcher->registerMiddleware('cache', CacheMiddleware::class, 1);
+	$dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class, 2);
+
+Or you can set the priority of all your middleware using the `setMiddlewarePriority` method.
+
 	$dispatcher->setMiddlewarePriority(['cache' => 1, 'passthrough' => 2]);
 
-In the example above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
+In both examples above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
 
 You can use middleware priority without having to configure all your middleware. Non-configured middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
 
