@@ -3,8 +3,8 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
-* [Setting cookies](#setting_cookies)
-* [Setting headers](#setting_headers)
+* [Cookies](#cookies)
+* [Headers](#headers)
 * [Caching and compression](#caching_and_compression)
 
 --------------------------------------------------------
@@ -19,12 +19,7 @@ An instance of the response class is always available in all controller classes.
 
 ### Basics
 
-The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body.
-
-	public function afterAction()
-	{
-		$this->response->body(strtoupper($this->response->getBody()));
-	}
+The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body in [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 
 The ```getBody``` method returns the response body.
 
@@ -60,79 +55,71 @@ The ```getStatus``` method returns the current status code.
 
 --------------------------------------------------------
 
-<a id="setting_cookies"></a>
+<a id="cookies"></a>
 
-### Setting cookies
+### Cookies
 
-The ```cookie``` method adds a cookie to the response.
+The `getCookies` method returns a cookie collection.
+
+	$cookies = $this->response->getCookies();
+
+The `add` method adds a cookie to the response.
 
 	// Sets a cookie that expires when the browser closes
 
-	$this->response->cookie('name', 'value');
+	$cookies->add('name', 'value');
 
 	// Sets a cookie that expires after 1 hour
 
-	$this->response->cookie('name', 'value', 3600);
+	$cookies->add('name', 'value', 3600);
 
-	// You can also set the path, domain, secure and httponly options using the fourth parameter
+	// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
 
-	$this->response->cookie('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.org']);
+	$cookies->add('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.org']);
 
-The ```signedCookie``` method has the same method signature as the ```cookie``` method. The difference is that the cookie will be signed using the application secret defined in the ```app/config/application.php``` config file.
+> If you want to set signed cookies then you'll have to use the `addSigned` method. The benefit of using signed cookies is that they can't be tampered with on the client side.
 
-	$this->response->signedCookie('name', 'value');
+The `delete` method allows you to delete both normal and signed cookies from the client.
 
-> The benefit of using signed cookies over regular cookies is that their values can not be tampered with on the client site.
+	$cookies->delete('name');
 
-The ```hasCookie``` method returns TRUE if the response has the specified cookie and FALSE if not.
+	// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
 
-	$hasCookie = $this->response->hasCookie('name');
+	$cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
 
-The ```removeCookie``` method allows you to remove a cookie from the response.
+The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
-	$this->response->removeCookie('name');
-
-The ```deleteCookie``` method deletes a cookie from the browser. It can be used to delete both normal and signed cookies.
-
-	$this->response->deleteCooke('name');
-
-	// You can also set the path, domain, secure and httponly options using the second parameter
-
-	$this->response->deleteCookie('name', ['path' => '/mydir', 'domain' => '.example.org']);
-
-The ```getCookies``` method returns an array of all the cookies that have been set.
-
-	$responseCookies = $this->response->getCookies();
-
-The ```clearCookies``` method will clear all cookies that have been set.
-
-	$this->response->clearCookies();
+| Method               | Description                                                           |
+|----------------------|-----------------------------------------------------------------------|
+| setOptions($options) | Allows you to override the default cookie options                     |
+| has($name)           | Returns `true` if the response includes the cookie and `false` if not |
+| remove($name)        | Removes the cookie from the response                                  |
+| clear()              | Removes all cookies from the response                                 |
+| all()                | Returns an array containing all the cookies                           |
 
 --------------------------------------------------------
 
-<a id="setting_headers"></a>
+<a id="headers"></a>
 
-### Setting headers
+### Headers
 
-The ```header``` method adds a header to your response. The first parameter is the header field while the second is the header value.
+The `getHeaders` method returns a header collection.
 
-	$this->response->header('access-control-allow-origin', '*');
+	$headers = $this->response->getHeaders();
 
-The ```hasHeader``` method returns TRUE if the response has the specified header and FALSE if not.
+The `add` method adds a header to your response.
 
-	$hasHeader = $this->response->hasHeader('access-control-allow-origin'):
+	$headers->add('X-My-Header', 'value');
 
-The ```removeHeader``` method allows you to remove a previously set header from the response.
+The header collection also includes the following methods in addition to the ones shown in the examples above.
 
-	$this->response->removeHeader('access-control-allow-origin');
+| Method        | Description                                                           |
+|---------------|-----------------------------------------------------------------------|
+| has($name)    | Returns `true` if the response includes the header and `false` if not |
+| remove($name) | Removes the header from the response                                  |
+| clear()       | Removes all headers from the response                                 |
+| all()         | Returns an array containing all the headers                           |
 
-The ```getHeaders``` method will return an array of all the response headers that have been set.
-
-	$responseHeaders = $this->response->getHeaders();
-
-The ```clearHeaders``` method will clear all response headers that have been set
-
-	$this->response->clearHeaders();
 
 --------------------------------------------------------
 

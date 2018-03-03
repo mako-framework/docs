@@ -3,14 +3,14 @@
 --------------------------------------------------------
 
 * [Application](#application)
-
 * [Framework](#framework)
-	- [Routing](#framework:routing)
-	- [HTTP Middleware](#framework:http_middleware)
+	- [Request](#framework:request)
+	- [Response](#framework:response)
+	- [Commands](#framework:commands)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```5.2.x``` to ```5.3.x```.
+This guide takes you through the steps needed to migrate from Mako ```5.3.x``` to ```5.4.x```.
 
 --------------------------------------------------------
 
@@ -18,7 +18,7 @@ This guide takes you through the steps needed to migrate from Mako ```5.2.x``` t
 
 ### Application
 
-You'll have to create a `constraints.php` file and a `constraints` directory in your `app/routing` directory (remember to add a `.gitkeep` file in the `constraints` directory).
+The `MAKO_START` constant has been removed. Use the `Application::startTime()` method instead.
 
 --------------------------------------------------------
 
@@ -26,38 +26,34 @@ You'll have to create a `constraints.php` file and a `constraints` directory in 
 
 ### Framework
 
-<a id="framework:routing"></a>
+<a id="framework:request"></a>
 
-#### Routing
+#### Request
 
-The `when` method has been renamed to `patterns`.
+All methods that were deprecated in 5.3 have been removed. Check out the [request](:base_url:/docs/:version:/routing-and-controllers:request) docs for information on how to upgrade your application.
 
-<a id="framework:http_middleware"></a>
+<a id="framework:response"></a>
 
-#### HTTP Middleware
+#### Response
 
-All HTTP middleware must now implement the `mako\http\routing\middleware\MiddlewareInterface`. An abstract class (`mako\http\routing\middleware\Middleware`) implementing parts of the interface is included.
+Response filters have been removed. [Middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) should be used to achieve the same results.
 
-Middleware parameters are no longer injected through the constructor but instead via a the `setParameters` method (implemented by the abstract base class). Classes extending the included abstract base middleware can also retrieve parameters using the `getParameter` method.
+<a id="framework:commands"></a>
 
-Middleware is now registered with the route dispatcher.
+#### Commands
 
-	// Old
+Parameters passed to the `execute` method of reactor commands are now converted to camel case.
 
-	$middleware->register('foo', Foo::class);
+	// Before: php app/reactor command --cache-path=/foo/bar
 
-	// New
+	public function execute($cache_path)
+	{
+		// ....
+	}
 
-	$dispatcher->registerMiddleware('foo', Foo::class);
+	// Now: php app/reactor command --cache-path=/foo/bar
 
-Middleware priority is now registered with the route dispatcher.
-
-	// Old
-
-	$middleware->setPriority(['foo' => 1]);
-
-	// New
-
-	$dispatcher->setMiddlewarePriority(['foo' => 1]);
-
-See the routing docs for more details.
+	public function execute($cachePath)
+	{
+		// ....
+	}
