@@ -3,9 +3,16 @@
 --------------------------------------------------------
 
 * [Usage](#usage)
+	- [Basics](#usage:basics)
+	- [Nested arrays](#usage:nested_arrays)
+	- [Conditional rules](#usage:conditional_rules)
 * [Validation rules](#validation_rules)
+	- [Base rules](#validation_rules:base)
+	- [Database rules](#validation_rules:database)
+	- [File rules](#validation_rules:file)
+	- [Session rules](#validation_rules:session)
 * [Custom messages](#custom_messages)
-* [Validator plugins](#validator_plugins)
+* [Custom rules](#custom_rules)
 
 --------------------------------------------------------
 
@@ -17,7 +24,11 @@ The mako validator provides a simple and consistent way of validating user input
 
 ### Usage
 
-First you need to define a set of rules you want to use to validate the input.
+<a id="usage:basics"></a>
+
+#### Basics
+
+First you'll need to define a set of rules that you want to validate your input against.
 
 	$rules =
 	[
@@ -26,62 +37,76 @@ First you need to define a set of rules you want to use to validate the input.
 		'email'    => ['required', 'email'],
 	];
 
-The rules defined above will make sure that the username, password and email fields are filled in. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
+The rules defined above will make sure that the username, password and email fields are non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
+> Note that most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `one_time_token` and `token`.
 
-If all of your fields have one or more rule in common, then you can use the ```*``` shortcut.
+Next you'll need to create a validator object. The first parameter is the input data you want to validate and the second is the set of validation rules you just defined.
 
-	$rules =
-	[
-		'*'        => ['required'],
-		'username' => ['min_length(4)', 'max_length(20)'],
-		'email'    => ['email'],
-	];
+	$postData = $this->request->getPost();
 
-> Only non-empty fields or fields marked as required are validated.
+	$validator = $this->validator->create($postData->all(), $rules);
 
-Next you'll need to create a validation object. The first parameter is the input data you want to validate and the second is the validation rules.
-
-	$validator = $this->validator->create($this->request->post(), $rules);
-
-Now you need to check if the input data is valid using the ```isValid``` method.
+Now all that is left is to check if the input data is valid using either the `isValid` method or the `isInvalid` method.
 
 	if($validator->isValid())
 	{
-		// Save to database
+		// Do something
 	}
 	else
 	{
-		// Handle errors
+		// Display errors
 	}
 
-You can also use the ```isInvalid``` method.
-
-	if($validator->isInvalid())
-	{
-		// Handle errors
-	}
-	else
-	{
-		// Save to database
-	}
-
-Retrieving errors is done using the ```getErrors``` method.
+Retrieving error messages is done using the ```getErrors``` method.
 
 	$errors = $validator->getErrors();
 
-Or by using the optional ```$errors``` parameter of the ```isValid``` and ```isInvalid``` methods.
+You can also use the optional ```$errors``` parameter of the ```isValid``` and ```isInvalid``` methods.
 
 	if($validator->isValid($errors))
 	{
-		// Save to database
+		// Do something
 	}
 	else
 	{
-		var_dump($errors);
+		// Display errors
 	}
 
 > An empty array will be returned if there are no errors.
+
+<a id="usage:nested_arrays"></a>
+
+#### Nested arrays
+
+The validator also supports nested arrays. You can assign validation rule sets to nested fields using the "dot notation" syntax.
+
+	$rules =
+	[
+		'user.email' => ['required', 'email'],
+	];
+
+You can also apply rule sets to multiple keys using wildcards.
+
+	$rules =
+	[
+		'users.*.email' => ['email'],
+	];
+
+> Note that wildcard rules will only be added if the input field(s) actually exists.
+
+<a id="usage:conditional_rules"></a>
+
+#### Conditional rules sets
+
+You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
+
+	$validator->addRulesIf('state', ['required', 'valid_us_state'], function() use ($postData)
+	{
+		return $postData->get('country') === 'United States of America';
+	});
+
+> You can also pass a boolean value instead of a closure. Rules added using either of the methods will be merged with any pre-existing rules assigned to the field.
 
 --------------------------------------------------------
 
@@ -91,45 +116,75 @@ Or by using the optional ```$errors``` parameter of the ```isValid``` and ```isI
 
 The following validation rules are included with Mako:
 
+<a id="validation_rules:base"></a>
+
+#### Base rules
+
 | Name                     | Description                                                                                                 |
 |--------------------------|-------------------------------------------------------------------------------------------------------------|
-| required                 | Checks that the field isn't empty.                                                                          |
-| min_length               | Checks that the field value is long enough (```min_length(10)```).                                          |
-| max_length               | Checks that the field value is short enough (```max_length(20)```).                                         |
-| exact_length             | Checks that the field value is of the right length (```exact_length(20)```).                                |
-| less_than                | Checks that the field value is less than x (```less_than(5)```).                                            |
-| less_than_or_equal_to    | Checks that the field value is less than or equal to x (```less_than_or_equal_to(5)```).                    |
-| greater_than             | Checks that the field value is greater than x (```greater_than(5)```).                                      |
-| greater_than_or_equal_to | Checks that the field value is greater than or equal to x (```greater_than_or_equal_to(5)```).              |
-| between                  | Checks that the field value is between x and y (```between(5,10)```).                                       |
-| match                    | Checks that the field value matches the value of another field (```match("password_confirmation")```).      |
-| different                | Checks that the field value is different from the value of another field (```different("old_password")```). |
-| regex                    | Checks that the field value matches a regex pattern (```regex("/[a-z]+/i")```).                             |
-| integer                  | Checks that the field value is a integer.                                                                   |
-| float                    | Checks that the field value is a float.                                                                     |
-| natural                  | Checks that the field value is a natural.                                                                   |
-| natural_non_zero         | Checks that the field value is a natural non zero.                                                          |
-| hex                      | Checks that the field value is valid HEX.                                                                   |
+| after                    | Checks that the field value is a valid date after the provided date (```after("Y-m-d","2012-09-25")```).    |
 | alpha                    | Checks that the field value only contains valid alpha characters.                                           |
+| alpha_dash               | Checks that the field value only contains valid alphanumeric, dash and underscore characters.               |
+| alpha_dash_unicode       | Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.       |
 | alpha_unicode            | Checks that the field value only contains valid alpha unicode characters.                                   |
 | alphanumeric             | Checks that the field value only contains valid alphanumeric characters.                                    |
 | alphanumeric_unicode     | Checks that the field value only contains valid alphanumeric unicode characters.                            |
-| alpha_dash               | Checks that the field value only contains valid alphanumeric, dash and underscore characters.               |
-| alpha_dash_unicode       | Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.       |
+| before                   | Checks that the field value is a valid date before the provided date (```before("Y-m-d","2012-09-25")```).  |
+| between                  | Checks that the field value is between x and y (```between(5,10)```).                                       |
+| date                     | Checks that the field value is a valid date (```date("Y-m-d")```).                                          |
+| different                | Checks that the field value is different from the value of another field (```different("old_password")```). |
 | email                    | Checks that the field value is a valid email address (uses PHP's filter_var function).                      |
 | email_domain             | Checks that the field value contains a valid MX record.                                                     |
-| ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                              |
-| url                      | Checks that the field value is a valid URL (uses PHP's filter_var function).                                |
+| exact_length             | Checks that the field value is of the right length (```exact_length(20)```).                                |
+| float                    | Checks that the field value is a float.                                                                     |
+| greater_than             | Checks that the field value is greater than x (```greater_than(5)```).                                      |
+| greater_than_or_equal_to | Checks that the field value is greater than or equal to x (```greater_than_or_equal_to(5)```).              |
+| hex                      | Checks that the field value is valid HEX.                                                                   |
 | in                       | Checks that the field value contains one of the given values (```in(["foo","bar","baz"])```).               |
+| integer                  | Checks that the field value is a integer.                                                                   |
+| ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                              |
+| less_than                | Checks that the field value is less than x (```less_than(5)```).                                            |
+| less_than_or_equal_to    | Checks that the field value is less than or equal to x (```less_than_or_equal_to(5)```).                    |
+| match                    | Checks that the field value matches the value of another field (```match("password_confirmation")```).      |
+| max_length               | Checks that the field value is short enough (```max_length(20)```).                                         |
+| min_length               | Checks that the field value is long enough (```min_length(10)```).                                          |
+| natural                  | Checks that the field value is a natural.                                                                   |
+| natural_non_zero         | Checks that the field value is a natural non zero.                                                          |
 | not_in                   | Checks that the field value does not contain one of the given values (```not_in(["foo","bar","baz"])```).   |
-| date                     | Checks that the field value is a valid date (```date("Y-m-d")```).                                          |
-| before                   | Checks that the field value is a valid date before the provided date (```before("Y-m-d","2012-09-25")```).  |
-| after                    | Checks that the field value is a valid date after the provided date (```after("Y-m-d","2012-09-25")```).    |
-| token                    | Checks that the field value matches a valid session token.                                                  |
-| one_time_token           | Checks that the field value matches a valid session one time token.                                         |
+| regex                    | Checks that the field value matches a regex pattern (```regex("/[a-z]+/i")```).                             |
+| required                 | Checks that the field isn't empty.                                                                          |
+| url                      | Checks that the field value is a valid URL (uses PHP's filter_var function).                                |
 | uuid                     | Checks that the field value matches a valid uuid.                                                           |
-| unique                   | Checks that the field value doesn't exist in the database (```unique("users","email")```).                  |
-| exists                   | Checks that the field value exist in the database (```exists("users","email")```).                          |
+
+<a id="validation_rules:database"></a>
+
+#### Database rules
+
+| Name                     | Description                                                                                |
+|--------------------------|--------------------------------------------------------------------------------------------|
+| exists                   | Checks that the field value exist in the database (```exists("users","email")```).         |
+| unique                   | Checks that the field value doesn't exist in the database (```unique("users","email")```). |
+
+<a id="validation_rules:file"></a>
+
+#### File rules
+
+| Name                     | Description                                                                                                                |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| is_uploaded              | Checks that the file is a successful upload.                                                                               |
+| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")`).                           |
+| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`). |
+
+> The `max_filesize` and `mimetype` work with `SplFileInfo` objects. The `is_uploaded` rule expects a `mako\http\request\UploadedFile` instance (it extends `SplFileInfo`).
+
+<a id="validation_rules:session"></a>
+
+#### Session rules
+
+| Name                     | Description                                                         |
+|--------------------------|---------------------------------------------------------------------|
+| one_time_token           | Checks that the field value matches a valid session one time token. |
+| token                    | Checks that the field value matches a valid session token.          |
 
 --------------------------------------------------------
 
@@ -164,33 +219,56 @@ You can also add custom field name translations using the ```overrides.fieldname
 
 --------------------------------------------------------
 
-<a id="validator_plugins"></a>
+<a id="custom_rules"></a>
 
-### Validator plugins
+### Custom rules
 
-You can create your own custom validator plugins. They must extend the ```mako\validator\plugins\ValidatorPlugin``` class and implement the ```mako\validator\plugins\ValidatorPluginInterface``` interface.
+You can of course create your own custom validator rule. All rules must implement the `RuleInterface` interface.
 
 	<?php
 
-	use mako\validator\plugins\ValidatorPlugin;
-	use mako\validator\plugins\ValidatorPluginInterface;
+	use mako\validator\rules\RuleInterface;
 
-	class IsFooValidator extends ValidatorPlugin implements ValidatorPluginInterface
+	/**
+	 * Is foo validation rule.
+	 */
+	class IsFooRule implements RuleInterface
 	{
-		protected $ruleName = 'is_foo';
-
-		public function validate($input)
+		/**
+		 * {@inheritdoc}
+		 */
+		public function validateWhenEmpty(): bool
 		{
-			return mb_strtolower($input) === 'foo';
+			return false;
+		}
+
+		/**
+		 * {@inheritdoc}
+		 */
+		public function validate($value, array $input): bool
+		{
+			return mb_strtolower($value) === 'foo';
+		}
+
+		/**
+		 * {@inheritdoc}
+		 */
+		public function getErrorMessage(string $field): string
+		{
+			return sprintf('The value of the %1$s field must be "foo".', $field);
 		}
 	}
 
-> Prefix the ```$ruleName``` value with your package name and two colons (```::```) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views).
+If you validation rules uses parameters then it will have to implement the `WithParametersInterface` interface. If you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
 
-You can register the plugin with the validation factory, thus making it available to all future validator instances.
+> Note that there are reusable traits that implement both interfaces so that you don't have to write the code yourself.
 
-	$this->validator->registerPlugin(new IsFooValidator);
+You can register your custom rules with the validation factory, thus making it available to all future validator instances.
+
+	$this->validator->extend('is_foo', IsFooRule::class);
 
 You can also register it into an existing validator instance.
 
-	$validator->registerPlugin(new IsFooValidator);
+	$validator->extend('is_foo', IsFooRule::class);
+
+> Prefix the rule name with your package name and two colons (```::```) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) to avoid naming collisions.

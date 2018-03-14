@@ -96,9 +96,11 @@ We are now ready to dispatch our command using the ```CommandBus::dispatch()``` 
 	{
 		public function createUser(Request $request, CommandBus $commander)
 		{
-			$email    = $request->post('email');
-			$username = $request->post('username');
-			$password = $request->post('password');
+			$post = $request->getPost();
+
+			$email    = $post->get('email');
+			$username = $post->get('username');
+			$password = $post->get('password');
 
 			$commander->dispatch(new CreateUserCommand($email, $username, $password));
 		}
