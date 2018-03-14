@@ -169,11 +169,11 @@ The following validation rules are included with Mako:
 
 #### File rules
 
-| Name                     | Description                                                                                                                                                                             |
-|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| is_uploaded              | Checks that the file is a successful upload.                                                                                                                                            |
-| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")`). The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`. |
-| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                              |
+| Name                     | Description                                                                                                                                                                            |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| is_uploaded              | Checks that the file is a successful upload.                                                                                                                                           |
+| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
+| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                             |
 
 > The `max_filesize` and `mimetype` expect `SplFileInfo` objects. The `is_uploaded` rule expects an instance of `mako\http\request\UploadedFile` (it extends `SplFileInfo`).
 
