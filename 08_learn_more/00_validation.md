@@ -169,13 +169,13 @@ The following validation rules are included with Mako:
 
 #### File rules
 
-| Name                     | Description                                                                                                                |
-|--------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| is_uploaded              | Checks that the file is a successful upload.                                                                               |
-| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")`).                           |
-| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`). |
+| Name                     | Description                                                                                                                                                                             |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| is_uploaded              | Checks that the file is a successful upload.                                                                                                                                            |
+| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")`). The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`. |
+| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                              |
 
-> The `max_filesize` and `mimetype` work with `SplFileInfo` objects. The `is_uploaded` rule expects a `mako\http\request\UploadedFile` instance (it extends `SplFileInfo`).
+> The `max_filesize` and `mimetype` expect `SplFileInfo` objects. The `is_uploaded` rule expects an instance of `mako\http\request\UploadedFile` (it extends `SplFileInfo`).
 
 <a id="validation_rules:session"></a>
 
@@ -223,7 +223,7 @@ You can also add custom field name translations using the ```overrides.fieldname
 
 ### Custom rules
 
-You can of course create your own custom validator rule. All rules must implement the `RuleInterface` interface.
+You can, of course, create your own custom validator rules. All rules must implement the `RuleInterface` interface.
 
 	<?php
 
@@ -259,7 +259,7 @@ You can of course create your own custom validator rule. All rules must implemen
 		}
 	}
 
-If you validation rules uses parameters then it will have to implement the `WithParametersInterface` interface. If you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
+If you validation rule uses parameters then it will have to implement the `WithParametersInterface` interface and if you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
 
 > Note that there are reusable traits that implement both interfaces so that you don't have to write the code yourself.
 
