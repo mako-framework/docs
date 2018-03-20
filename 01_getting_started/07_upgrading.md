@@ -2,23 +2,13 @@
 
 --------------------------------------------------------
 
-* [Application](#application)
 * [Framework](#framework)
-	- [Request](#framework:request)
 	- [Response](#framework:response)
-	- [Commands](#framework:commands)
+	- [Validation](#framework:validation)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```5.3.x``` to ```5.4.x```.
-
---------------------------------------------------------
-
-<a id="application"></a>
-
-### Application
-
-The `MAKO_START` constant has been removed. Use the `Application::startTime()` method instead.
+This guide takes you through the steps needed to migrate from Mako ```5.4.x``` to ```5.5.x```.
 
 --------------------------------------------------------
 
@@ -26,34 +16,16 @@ The `MAKO_START` constant has been removed. Use the `Application::startTime()` m
 
 ### Framework
 
-<a id="framework:request"></a>
-
-#### Request
-
-All methods that were deprecated in 5.3 have been removed. Check out the [request](:base_url:/docs/:version:/routing-and-controllers:request) docs for information on how to upgrade your application.
-
 <a id="framework:response"></a>
 
 #### Response
 
-Response filters have been removed. [Middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) should be used to achieve the same results.
+All methods that were deprecated in 5.4 have been removed. Check out the [response](:base_url:/docs/:version:/routing-and-controllers:response) docs for information on how to upgrade your application.
 
-<a id="framework:commands"></a>
+<a id="framework:validation"></a>
 
-#### Commands
+#### Validation
 
-Parameters passed to the `execute` method of reactor commands are now converted to camel case.
+The validation library has been rewritten from scratch to provide an easier way to validate arrays and a simpler way of adding advanced custom validation rules.
 
-	// Before: php app/reactor command --cache-path=/foo/bar
-
-	public function execute($cache_path)
-	{
-		// ....
-	}
-
-	// Now: php app/reactor command --cache-path=/foo/bar
-
-	public function execute($cachePath)
-	{
-		// ....
-	}
+There are no breaking changes if you're just using the included validation rules. If you have implemented custom rules then you'll have to re-implement them using the new `RuleInterface`. Check out the [documentation](:base_url:/docs/:version:/learn-more:validation#custom_rules) for details.
