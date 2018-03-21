@@ -6,6 +6,7 @@
 	- [Basics](#usage:basics)
 	- [Nested arrays](#usage:nested_arrays)
 	- [Conditional rules](#usage:conditional_rules)
+	- [Rule builder](#usage:rule_builder)
 * [Validation rules](#validation_rules)
 	- [Base rules](#validation_rules:base)
 	- [Database rules](#validation_rules:database)
@@ -107,6 +108,24 @@ You can add rule sets to your validator instance if a certain condition is met u
 	});
 
 > You can also pass a boolean value instead of a closure. Rules added using either of the methods will be merged with any pre-existing rules assigned to the field.
+
+<a id="usage:rule_builder"></a>
+
+#### Rule builder
+
+The validator class also comes with a handy helper method that makes it easier to build rule sets that have rules with dynamic parameters. The first parameter of the method is the name of the validation rule and any subsequent parameters are treated as rule parameters.
+
+	$rules =
+	[
+		'category' => ['required', Validator::rule('in', $this->getCategoryIds())],
+	];
+
+	// The example above produces the same result as the following code
+
+	$rules =
+	[
+		'category' => ['required', 'in([' . implode(',', $this->getCategoryIds()) . '])'],
+	];
 
 --------------------------------------------------------
 
