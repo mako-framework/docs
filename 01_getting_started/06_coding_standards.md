@@ -244,9 +244,8 @@ This makes it easy to understand what the code does and it also enables IDEs to 
 	/**
 	 * Returns a greeting.
 	 *
-	 * @access  public
-	 * @param   string  $name  Name of the person you want to greet
-	 * @return  string
+	 * @param  string $name Name of the person you want to greet
+	 * @return string
 	 */
 	public function greeting(string $name): string
 	{

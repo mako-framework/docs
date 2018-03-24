@@ -13,7 +13,7 @@
 
 --------------------------------------------------------
 
-Mako 4 comes with an easy to use inversion of control container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
+Mako comes with an easy to use inversion of control container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
 
 > All controllers, migrations and commands are instantiated using the IoC container making it easy to inject dependencies.
 
@@ -184,7 +184,7 @@ Services are an easy and clean way of registering dependencies in the IoC contai
 
 Mako includes a number of services for your convenience and you'll find a complete list in the ```app/config/application.php``` configuration file. You can add your own or remove the ones that you don't need in your application.
 
-Services are split up in 3 groups. ```Core``` services are loaded both web and cli environments while ```web``` and ```cli``` services are only loaded for web requests and command line operations respectively.
+Services are split up in 3 groups. ```Core``` services are loaded in both web and cli environments while ```web``` and ```cli``` services are only loaded for web requests and command line operations respectively.
 
 <a id="services:core"></a>
 
@@ -220,9 +220,9 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 
 #### Web
 
-| Service                  | Type hint                          | Key              | Description                 | Required |
-|--------------------------|------------------------------------|------------------|-----------------------------|----------|
-| ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
+| Service             | Type hint                          | Key              | Description                 | Required |
+|---------------------|------------------------------------|------------------|-----------------------------|----------|
+| ErrorHandlerService | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
 
 
 <a id="services:cli"></a>
@@ -231,8 +231,8 @@ Services are split up in 3 groups. ```Core``` services are loaded both web and c
 
 | Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|
-| InputService             | mako\cli\input\Input               | input            | Input                       | ✔        |
-| OutputService            | mako\cli\output\Output             | output           | Output                      | ✔        |
+|                          | mako\cli\input\Input               | input            | Input                       | ✔        |
+|                          | mako\cli\output\Output             | output           | Output                      | ✔        |
 | ErrorHandlerService      | mako\error\ErrorHandler            | errorHandler     | Error handler               | ✘        |
 
 
