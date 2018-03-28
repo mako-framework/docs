@@ -57,6 +57,7 @@ The ```mime``` method returns the mime type of the file.  It returns FALSE if th
 	$mime = $this->fileSystem->mime('/foo/bar.txt');
 
 > The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determining a mime type. You can disable guessing by setting the second parameter to FALSE.
+{.warning}
 
 The ```remove``` method will delete a file from disk.
 

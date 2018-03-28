@@ -42,12 +42,12 @@ You also have to set the name of your package in the composer.json file. This is
 The example file below only contains the bare minimum so head over to the [composer website](https://getcomposer.org/) for a full overview of the complete composer.json schema.
 
 	{
-	    "name": "acme/foo",
-	    "autoload": {
-	        "psr-4": {
-	            "acme\\foo\\": "src"
-	        }
-	    }
+		"name": "acme/foo",
+		"autoload": {
+			"psr-4": {
+				"acme\\foo\\": "src"
+			}
+		}
 	}
 
 --------------------------------------------------------
@@ -64,9 +64,9 @@ Packages can also have their own configuration files, language strings and views
  	|  ├─ i18n/
 	|  |  └─ en_US/
 	|  |     └─ strings/
-    |  |        └─ ...
-    |  └─ views/
-    |     └─ ...
+	|  |        └─ ...
+	|  └─ views/
+	|     └─ ...
 	├─ src/
  	│  └─ FooPackage.php
 	└─ composer.json

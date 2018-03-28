@@ -66,6 +66,7 @@ You can check if a string exists using the ```has``` method.
 The ```pluralize``` method returns the plural form of the chosen noun. Unlike most other frameworks Mako will use language based inflection rules when pluralizing words.
 
 > The pluralize method will only work if the chosen language pack includes inflection rules.
+{.warning}
 
 	echo $this->i18n->pluralize('woman'); // Will print "women"
 

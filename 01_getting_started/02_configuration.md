@@ -53,6 +53,7 @@ Removing the custom configuration is done using the ```remove``` method:
 	$this->config->remove('crypto.configurations.user');
 
 > Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their ```addConfiguration``` and ```removeConfiguration``` methods instead.
+{.warning}
 
 --------------------------------------------------------
 

@@ -35,6 +35,7 @@ Adding an item to the session is done using the ```put``` method.
 	$this->session->put('name', $name);
 
 > The ```mako.flashdata``` and ```mako.tokens``` keys are used by the framework and should not be used to store data.
+{.warning}
 
 You can check if an item exists in the session using the ```has``` method.
 

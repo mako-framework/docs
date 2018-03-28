@@ -41,7 +41,7 @@ You can also make a route respond to all request methods using the ```all``` met
 
 	$routes->all('/', 'app\controllers\Home::welcome');
 
-> All routes will by default respond to requests made using the ```OPTIONS``` method. ```GET``` routes will also respond to ```HEAD``` requests.
+> All routes respond to requests made using the ```OPTIONS``` method. ```GET``` routes will also respond to ```HEAD``` requests.
 
 If you only want to allow a specific set of methods then you can use the ```register``` method.
 
@@ -170,6 +170,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 	}
 
 > The cache example above is very basic and should probably not be used in a production environment.
+{.warning}
 
 <a id="route_middleware:assigning_middleware"></a>
 

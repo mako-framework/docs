@@ -27,6 +27,7 @@ You can increase the time it takes to calculate the hash by changing the computi
 	$hash = Password::hash('foobar', ['cost' => 14]);
 
 > Note that the length of the password hash may increase if the hashing algorithm is changed. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
+{.warning}
 
 The ```setDefaultComputingOptions``` method allows you to override the default computing options.
 

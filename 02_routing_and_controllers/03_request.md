@@ -183,6 +183,7 @@ The```UploadedFile``` class extends the ```SplFileInfo``` class with the followi
 | moveTo($path)     | Moves the file to the specified storage location                          |
 
 > The values reported by the client should not be trusted (e.g. use the ```getSize``` method to retrieve the actual filesize).
+{.warning}
 
 --------------------------------------------------------
 

@@ -74,6 +74,7 @@ The ```basicAuth``` method can be useful when creating APIs or if you don't want
 	// Code here gets executed if the user is logged in
 
 > The username and password is sent with every subsequent request when using basic authentication so make sure to use ```HTTPS``` whenever possible!
+{.danger}
 
 The ```isGuest``` method returns FALSE if the user is logged in and TRUE if not.
 
@@ -162,6 +163,7 @@ The ```generateActionToken``` method allows you to generate a new action token f
 	$user->generateActionToken();
 
 > You should generate a new action token after a successful action. Note that gatekeeper automatically generates a new action token when activating a user.
+{.warning}
 
 The ```isMemberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
 

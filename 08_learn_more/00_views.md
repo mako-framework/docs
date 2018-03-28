@@ -100,6 +100,7 @@ You also have access to a few handy methods that you should use to escape untrus
 | escapeURL       | Escapes data for use in a URI or parameter context. |
 
 > The ```escapeAttribute``` method is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```escapeJS``` filter.
+{.warning}
 
 #### Templates
 
@@ -128,6 +129,7 @@ The ```attribute``` filter will escape output for use in a HTML attribute contex
 	{{attribute:$foo}}
 
 > The ```attribute``` filter is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```js``` filter.
+{.warning}
 
 The ```js``` filter will escape output for use in a JavaScript context.
 
