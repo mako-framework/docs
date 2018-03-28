@@ -338,6 +338,7 @@ CREATE TABLE `users` (
 	UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ```
+{.language-sql}
 
 Groups table
 
@@ -351,6 +352,7 @@ CREATE TABLE `groups` (
 	UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ```
+{.language-sql}
 
 Junction table
 
@@ -371,6 +373,7 @@ CREATE TABLE `groups_users` (
 		ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ```
+{.language-sql}
 
 <a id="database_schema:postgresql"></a>
 
@@ -396,6 +399,7 @@ CREATE TABLE users (
 	locked_until TIMESTAMP DEFAULT NULL
 );
 ```
+{.language-sql}
 
 Groups table
 
@@ -407,6 +411,7 @@ CREATE TABLE groups (
 	name VARCHAR(255) NOT NULL UNIQUE
 );
 ```
+{.language-sql}
 
 Junction table
 
@@ -417,3 +422,4 @@ CREATE TABLE groups_users (
 	PRIMARY KEY(group_id, user_id)
 );
 ```
+{.language-sql}

@@ -354,6 +354,7 @@ Rendering the child template will result in the HTML document displayed below.
 	</body>
 </html>
 ```
+{.language-markup}
 
 --------------------------------------------------------
 

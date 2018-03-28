@@ -1,4 +1,4 @@
-#Packages
+# Packages
 
 --------------------------------------------------------
 
@@ -55,6 +55,7 @@ The example file below only contains the bare minimum so head over to the [compo
 	}
 }
 ```
+{.language-json}
 
 --------------------------------------------------------
 

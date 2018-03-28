@@ -35,6 +35,7 @@ CREATE TABLE `mako_migrations`
 	`version` varchar(255) NOT NULL
 );
 ```
+{.language-sql}
 
 <a id="usage:creating_migrations"></a>
 
