@@ -20,6 +20,7 @@ Install the package using the following composer command:
 ```
 composer require mako/toolbar
 ```
+{.language-none}
 
 Next, add the `mako\toolbar\ToolbarPackage` package to your `app/config/application.php` config file.
 
