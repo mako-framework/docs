@@ -94,6 +94,7 @@ If you want to sign strings with a different secret then you can do so by creati
 	$signer = new Signer('secret_used_to_sign_data');
 
 > Make sure to use a cryptographically strong secret and to keep it away from prying eyes.
+{.warning}
 
 The ```sign``` method returns a signed version of the provided string.
 
