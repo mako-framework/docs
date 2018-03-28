@@ -77,6 +77,7 @@ You can now execute your command from the command line.
 ```
 php reactor hello dude
 ```
+{.language-none}
 
 You can, of course, also use options or named arguments.
 
@@ -101,6 +102,7 @@ You can now execute your command from the command line.
 ```
 php reactor hello --name=dude
 ```
+{.language-none}
 
 > Note that dash and underscore separated option and argument names are converted to camel case before being passed to the execute method. E.g. `--foo-bar` becomes `$fooBar`.
 
@@ -134,6 +136,7 @@ You can now execute your command from the command line.
 ```
 php reactor hello --shout
 ```
+{.language-none}
 
 Both arguments and options can be documented using the `$commandInformation` property.
 
@@ -176,6 +179,7 @@ You can now call your custom command like this.
 ```
 php reactor hello
 ```
+{.language-none}
 
 --------------------------------------------------------
 
@@ -318,6 +322,7 @@ This code above will result in a table looking like this.
 | R2 C1 | R2 C2 |
 -----------------
 ```
+{.language-none}
 
 The `ol` method lets you output an ordered list.
 
@@ -335,6 +340,7 @@ The example above will output the following list.
    2. two
 4. four
 ```
+{.language-none}
 
 The `ul` method lets you output an unordered list.
 
@@ -352,6 +358,7 @@ The example above will output the following list.
   * two
 * four
 ```
+{.language-none}
 
 <a id="output:formatting"></a>
 

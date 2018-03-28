@@ -25,6 +25,7 @@ There are two files that must be present in a package. A package "boot" class (c
 │  └─ FooPackage.php
 └─ composer.json
 ```
+{.language-none}
 
 The package class is used to register your package with the application that uses it. The minimum information you need to provide is the package name.
 
@@ -79,6 +80,7 @@ Packages can also have their own configuration files, language strings and views
 │  └─ FooPackage.php
 └─ composer.json
 ```
+{.language-none}
 
 Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (`::`).
 
@@ -120,12 +122,14 @@ Installing packages is extremely easy. All you need to do is running a simple [c
 ```
 composer require <vendor>/<package name>:*
 ```
+{.language-none}
 
 So, to install `acme/foo` package using composer, you have to issue following command from the project directory
 
 ```
 composer require acme/foo:*
 ```
+{.language-none}
 
 --------------------------------------------------------
 

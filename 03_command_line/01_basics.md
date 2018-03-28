@@ -19,6 +19,7 @@ To list the available commands just type this in your console:
 ```
 php reactor
 ```
+{.language-none}
 
 It should print the following on a default Mako installation
 
@@ -55,15 +56,18 @@ Available commands:
 | server              | Starts the local development server.            |
 -------------------------------------------------------------------------
 ```
+{.language-none}
 
 Executing a command is done like this:
 
 ```
 php reactor app.routes
 ```
+{.language-none}
 
 You can list detailed information about a specific command like this:
 
 ```
 php reactor app.server --help
 ```
+{.language-none}

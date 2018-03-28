@@ -107,12 +107,14 @@ You can check if there are any outstanding migrations using the `status` command
 ```
 php reactor migrate.status
 ```
+{.language-none}
 
 If there are outstanding migrations then you can run them like this:
 
 ```
 php reactor migrate.up
 ```
+{.language-none}
 
 This will show you the names of the migrations that were executed:
 
@@ -127,6 +129,7 @@ Ran the following migrations:
 | Migration_20140824100019                  | Creates session table |
 +-------------------------------------------+-----------------------+
 ```
+{.language-none}
 
 <a id="usage:rolling_back_migrations"></a>
 
@@ -137,6 +140,7 @@ If you need to revert the changes made to your database then you can use the `do
 ```
 php reactor migrate.down
 ```
+{.language-none}
 
 This will show you the migrations that were rolled back:
 
@@ -151,24 +155,28 @@ Rolled back the following migrations:
 | Migration_20140824100019                  |                       |
 +-------------------------------------------+-----------------------+
 ```
+{.language-none}
 
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
 
 ```
 php reactor migrate.down 2
 ```
+{.language-none}
 
 If you want to roll back all database changes in one go then you can use the `reset` command.
 
 ```
 php reactor migrate.reset
 ```
+{.language-none}
 
 This will prompt you for confirmation. To force the reset just use the `force` option.
 
 ```
 php reactor migrate.reset --force
 ```
+{.language-none}
 
 --------------------------------------------------------
 

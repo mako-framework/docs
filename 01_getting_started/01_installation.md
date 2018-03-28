@@ -31,12 +31,14 @@ First you'll have to create a new project:
 ```
 composer create-project mako/app:5.* <project name>
 ```
+{.language-none}
 
 Next you'll have to make the `app/storage/*` directories writable (command my vary depending on your system):
 
 ```
 chown www-data:www-data -R app/storage
 ```
+{.language-none}
 
 Now you're ready to start coding!
 
@@ -53,5 +55,6 @@ Mako can easily be updated when a new version is released using the following co
 ```
 composer update
 ```
+{.language-none}
 
 > Note that some updates might require some minor code changes. These will be documented in the upgrade guides.

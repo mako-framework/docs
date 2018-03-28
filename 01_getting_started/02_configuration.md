@@ -88,12 +88,14 @@ Setting the environment in Apache:
 ```
 SetEnv MAKO_ENV dev
 ```
+{.language-none}
 
 Setting the environment in Nginx:
 
 ```
 fastcgi_param MAKO_ENV dev;
 ```
+{.language-none}
 
 Setting the environment in a linux/unix shell:
 
@@ -101,9 +103,11 @@ Setting the environment in a linux/unix shell:
 export MAKO_ENV=dev # for Bourne, bash, and related shells
 setenv MAKO_ENV=dev # for csh and related shells
 ```
+{.language-none}
 
 You can also manually set the environment in the CLI using the env option.
 
 ```
 php reactor <command> --env=dev
 ```
+{.language-none}
