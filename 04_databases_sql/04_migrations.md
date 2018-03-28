@@ -56,6 +56,7 @@ php reactor migrate.create --package="vendor/package"
 
 php reactor migrate.create --description="Creates session table"
 ```
+{.language-none}
 
 Running the `create` commands will return the following messages:
 
@@ -66,6 +67,7 @@ Migration created at "/var/www/app/packages/foobar/migrations/Migration_20140824
 
 Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 ```
+{.language-none}
 
 The generated migration will contain a skeleton class with two methods, `up` and `down`. The database connection manager is available in both methods using the `$this->database` property.
 
