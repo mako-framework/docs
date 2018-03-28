@@ -26,17 +26,19 @@ The following coding standards have been used when developing Mako. Please follo
 
 Always use long open tags. Never use short tags or ASP style tags. Class files should never include a closing tag.
 
-	// Correct
+```
+// Correct
 
-	<?php
+<?php
 
-	// Incorrect
+// Incorrect
 
-	<?
+<?
 
-	// Incorrect
+// Incorrect
 
-	<%
+<%
+```
 
 --------------------------------------------------------
 
@@ -46,18 +48,20 @@ Always use long open tags. Never use short tags or ASP style tags. Class files s
 
 Files should always have the same name as the class they contain. A file should never contain more than one class. The file encoding should always be UTF-8.
 
-	// File: /mako/chrono/Time.php
+```
+// File: /mako/chrono/Time.php
 
-	<?php
+<?php
 
-	namespace mako\chrono;
+namespace mako\chrono;
 
-	use DateTime;
+use DateTime;
 
-	class Time extends DateTime
-	{
+class Time extends DateTime
+{
 
-	}
+}
+```
 
 --------------------------------------------------------
 
@@ -67,13 +71,15 @@ Files should always have the same name as the class they contain. A file should 
 
 Namespaces should be written in lower case:
 
-	// Correct
+```
+// Correct
 
-	namespace foo\bar;
+namespace foo\bar;
 
-	// Incorrect
+// Incorrect
 
-	namespace Foo\Bar;
+namespace Foo\Bar;
+```
 
 --------------------------------------------------------
 
@@ -83,21 +89,23 @@ Namespaces should be written in lower case:
 
 Class names should be written in upper CamelCase:
 
-	// Correct
+```
+// Correct
 
-	class Image
+class Image
 
-	// Correct
+// Correct
 
-	class MyImage
+class MyImage
 
-	// Incorrect
+// Incorrect
 
-	class image
+class image
 
-	// Incorrect
+// Incorrect
 
-	class my_image
+class my_image
+```
 
 --------------------------------------------------------
 
@@ -107,17 +115,19 @@ Class names should be written in upper CamelCase:
 
 Method names should be written in lower camelCase:
 
-	// Correct
+```
+// Correct
 
-	public function fooBar()
+public function fooBar()
 
-	// Incorrect
+// Incorrect
 
-	public function FooBar()
+public function FooBar()
 
-	// Incorrect
+// Incorrect
 
-	public function foo_bar()
+public function foo_bar()
+```
 
 --------------------------------------------------------
 
@@ -127,17 +137,19 @@ Method names should be written in lower camelCase:
 
 Variable names should be written in lower camelCase:
 
-	// Correct
+```
+// Correct
 
-	$fooBar = null;
+$fooBar = null;
 
-	// Incorrect
+// Incorrect
 
-	$foobar = null;
+$foobar = null;
 
-	// Incorrect
+// Incorrect
 
-	$foo_bar = null;
+$foo_bar = null;
+```
 
 --------------------------------------------------------
 
@@ -147,21 +159,23 @@ Variable names should be written in lower camelCase:
 
 Constant names should be written in upper case and multiple words should be separated with a underscore:
 
-	// Correct
+```
+// Correct
 
-	const FOO_BAR = 123;
+const FOO_BAR = 123;
 
-	// Correct
+// Correct
 
-	define('FOO_BAR', 123);
+define('FOO_BAR', 123);
 
-	// Incorrect
+// Incorrect
 
-	const foobar = 123;
+const foobar = 123;
 
-	// Incorrect
+// Incorrect
 
-	define('foobar', 123);
+define('foobar', 123);
+```
 
 --------------------------------------------------------
 
@@ -171,21 +185,23 @@ Constant names should be written in upper case and multiple words should be sepa
 
 Arrays should always be defined using the shorthand syntax:
 
-	// Correct
+```
+// Correct
 
-	$array = [1, 2, 3];
+$array = [1, 2, 3];
 
-	// Correct
+// Correct
 
-	$array = ['foo' => 'bar'];
+$array = ['foo' => 'bar'];
 
-	// Incorrect
+// Incorrect
 
-	$array = array(1, 2, 3);
+$array = array(1, 2, 3);
 
-	// Incorrect
+// Incorrect
 
-	$array = array('foo' => 'bar');
+$array = array('foo' => 'bar');
+```
 
 --------------------------------------------------------
 
@@ -195,18 +211,20 @@ Arrays should always be defined using the shorthand syntax:
 
 Braces associated with a control statement should always be on the next line, indented to the same level as the control statement:
 
-	// Correct
+```
+// Correct
 
-	public function foo()
-	{
+public function foo()
+{
 
-	}
+}
 
-	// Incorrect
+// Incorrect
 
-	public function foo() {
+public function foo() {
 
-	}
+}
+```
 
 --------------------------------------------------------
 
@@ -216,20 +234,22 @@ Braces associated with a control statement should always be on the next line, in
 
 Tabs should be used for indentation while spaces should be used to align code:
 
-	<?php
+```
+<?php
 
-	namespace foo;
+namespace foo;
 
-	class Bar
+class Bar
+{
+	public function hello()
 	{
-		public function hello()
-		{
-			$string  = 'Hello ';
-			$string .= 'World!';
+		$string  = 'Hello ';
+		$string .= 'World!';
 
-			echo $string;
-		}
+		echo $string;
 	}
+}
+```
 
 --------------------------------------------------------
 
@@ -241,13 +261,15 @@ All classes, methods and functions are commented using the [PHPDoc](http://en.wi
 
 This makes it easy to understand what the code does and it also enables IDEs to provide improved code completion, type hinting and debugging.
 
-	/**
-	 * Returns a greeting.
-	 *
-	 * @param  string $name Name of the person you want to greet
-	 * @return string
-	 */
-	public function greeting(string $name): string
-	{
-		return 'Hello, ' . $name . '!';
-	}
+```
+/**
+ * Returns a greeting.
+ *
+ * @param  string $name Name of the person you want to greet
+ * @return string
+ */
+public function greeting(string $name): string
+{
+	return 'Hello, ' . $name . '!';
+}
+```

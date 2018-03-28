@@ -25,88 +25,110 @@ Mako comes with an easy to use inversion of control container. Using dependency 
 
 The `register` method allows you to register a dependency in the container.
 
-	$container->register(FooInterface::class, Foo::class);
+```
+$container->register(FooInterface::class, Foo::class);
+```
 
 You can also register a key along with the type hint to so that you can save a few keystrokes when resolving classes.
 
-	$container->register([FooInterface::class, 'foo'], Foo::class);
+```
+$container->register([FooInterface::class, 'foo'], Foo::class);
+```
 
 You can also register your dependencies using a closure. The closure will not be executed before it is required.
 
-	$container->register([BarInterface::class, 'bar'], function($container)
-	{
-		return new Bar('parameter value');
-	});
+```
+$container->register([BarInterface::class, 'bar'], function($container)
+{
+	return new Bar('parameter value');
+});
+```
 
 The `registerSingleton` method does the same as the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
-	$container->registerSingleton([BarInterface::class, 'bar'], function($container)
-	{
-		return new Bar('parameter value');
-	});
+```
+$container->registerSingleton([BarInterface::class, 'bar'], function($container)
+{
+	return new Bar('parameter value');
+});
+```
 
 The `registerInstance` method is similar to the `registerSingleton` method. The only difference is that it allows you to register an existing instance in the container.
 
-	$container->registerInstance([BarInterface::class, 'bar'], new Bar('parameter value'));
+```
+$container->registerInstance([BarInterface::class, 'bar'], new Bar('parameter value'));
+```
 
 The `has` method allows you to check for the presence of an item in the container.
 
-	// Check using the type hint
+```
+// Check using the type hint
 
-	if($container->has(BarInterface::class))
-	{
-		// do something
-	}
+if($container->has(BarInterface::class))
+{
+	// do something
+}
 
-	// Or the optional key
+// Or the optional key
 
-	if($container->has('bar'))
-	{
-		// do something
-	}
+if($container->has('bar'))
+{
+	// do something
+}
+```
 
 The `get` method lets you resolve a dependency through the IoC container.
 
-	// Resolve the class using the type hint
+```
+// Resolve the class using the type hint
 
-	$foo = $container->get(FooInterface::class);
+$foo = $container->get(FooInterface::class);
 
-	// Or the optional key
+// Or the optional key
 
-	$foo = $container->get('foo');
+$foo = $container->get('foo');
+```
 
 The class does not have to be registered in the container to be resolvable.
 
-	<?php
+```
+<?php
 
-	class Depends
+class Depends
+{
+	protected $foo;
+	protected $bar;
+
+	public function __construct(FooInterface $foo, BarInterface $bar)
 	{
-		protected $foo;
-		protected $bar;
-
-		public function __construct(FooInterface $foo, BarInterface $bar)
-		{
-			$this->foo = $foo;
-			$this->bar = $bar;
-		}
+		$this->foo = $foo;
+		$this->bar = $bar;
 	}
+}
+```
 
 We can now resolve the `Depends` class using the IoC container. Both its dependencies will automatically be injected.
 
-	$depends = $container->get('Depends');
+```
+$depends = $container->get('Depends');
+```
 
 The `getFresh` method works just like the `get` method except that it returns a fresh instance even if the class that you are resolving is registered as a singleton.
 
-	$foo = $container->getFresh('bar');
+```
+$foo = $container->getFresh('bar');
+```
 
 > The `getFresh` method might not work as expected for classes registered using the `registerInstance` method.
 
 The `call` method allows you to execute a callable and automatically inject its dependencies.
 
-	$returnValue = $container->call(function(\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
-	{
-		// $foo and $bar will automatically be injected into the callable
-	});
+```
+$returnValue = $container->call(function(\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
+{
+	// $foo and $bar will automatically be injected into the callable
+});
+```
 
 --------------------------------------------------------
 
@@ -116,8 +138,10 @@ The `call` method allows you to execute a callable and automatically inject its 
 
 Sometimes you'll need to inject different implementations of the same interface to different classes. This can easily be achieved with contextual dependency injection.
 
-	$container->registerContextualDependency(ClassA::class, FooBarInterface::class, FooBarImplementationA::class);
-	$container->registerContextualDependency(ClassB::class, FooBarInterface::class, FooBarImplementationB::class);
+```
+$container->registerContextualDependency(ClassA::class, FooBarInterface::class, FooBarImplementationA::class);
+$container->registerContextualDependency(ClassB::class, FooBarInterface::class, FooBarImplementationB::class);
+```
 
 `ClassA` will now get the `FooBarImplementationA` implementation of the `FooBarInterface` while `ClassB` will get the `FooBarImplementationB` implementation.
 
@@ -131,48 +155,58 @@ The container also allows you to replaces previously registered dependencies.
 
 The `replace` method allows you to replace a previously registered dependency in the container.
 
-	$container->replace(FooInterface::class, OtherFoo::class);
+```
+$container->replace(FooInterface::class, OtherFoo::class);
+```
 
 The `replaceSingleton` method allows you to replace a previously registered singleton dependency in the container.
 
-	$container->replaceSingleton([BarInterface::class, 'bar'], function($container)
-	{
-		return new OtherBar('parameter value');
-	});
+```
+$container->replaceSingleton([BarInterface::class, 'bar'], function($container)
+{
+	return new OtherBar('parameter value');
+});
+```
 
 The `replaceInstance` method allows you to replace a previously registered instance dependency in the container.
 
-	$container->replaceInstance([BarInterface::class, 'bar'], new OtherBar('parameter value'));
+```
+$container->replaceInstance([BarInterface::class, 'bar'], new OtherBar('parameter value'));
+```
 
 You can also replace instances that already been injected by the container thanks to the `onReplace` event.
 
 In the following example we'll register an instance of the `Dependency` class along with a factory closure for the `Dependent` class. Inside the factory method we'll tell the container to replace the previous instance of the `Dependency` class using the `Dependent::replaceDependency()` method in the event that it gets replaced.
 
-	$container->registerInstance(Dependency::class, new Dependency('original'));
+```
+$container->registerInstance(Dependency::class, new Dependency('original'));
 
-	$container->register(Dependent::class, function($container)
-	{
-		$dependent = new Dependent($container->get(Dependency::class));
+$container->register(Dependent::class, function($container)
+{
+	$dependent = new Dependent($container->get(Dependency::class));
 
-		$container->onReplace(Dependency::class, [$dependent, 'replaceDependency']);
+	$container->onReplace(Dependency::class, [$dependent, 'replaceDependency']);
 
-		return $dependent;
-	});
+	return $dependent;
+});
 
-	$dependent = $container->get(Dependent::class);
+$dependent = $container->get(Dependent::class);
 
-	var_dump($dependent->dependency->value); // string(8) "original"
+var_dump($dependent->dependency->value); // string(8) "original"
 
-	$container->replaceInstance(Dependency::class, new Dependency('replacement'));
+$container->replaceInstance(Dependency::class, new Dependency('replacement'));
 
-	var_dump($dependent->dependency->value); // string(11) "replacement"
+var_dump($dependent->dependency->value); // string(11) "replacement"
+```
 
 In the example above we assumed that the `Dependent` class had a `replaceDependency` method. This might not always be the case so we can also use a closure to achieve the same result.
 
-	$container->onReplace(Dependency::class, (function($dependency)
-	{
-		$this->dependency = $dependency;
-	})->bindTo($dependent, Dependent::class);
+```
+$container->onReplace(Dependency::class, (function($dependency)
+{
+	$this->dependency = $dependency;
+})->bindTo($dependent, Dependent::class);
+```
 
 --------------------------------------------------------
 
@@ -252,11 +286,15 @@ You can also make a class that is instantiated by the container "container aware
 
 The IoC container is always available through the `$container` property.
 
-	$this->container->get('view');
+```
+$this->container->get('view');
+```
 
 The `ContainerAwareTrait` also implements the magic `__get()` method. This allows you to resolve classes through the IoC container using overloading.
 
-	$this->view; // Instance of mako\view\ViewFactory
+```
+$this->view; // Instance of mako\view\ViewFactory
+```
 
 > Note that resolving classes that are not registered as singletons in the container using overloading will result in a new instance every time. You should assign the resolved instance to a local variable if you need to perform multiple method calls on the object.
 {.warning}

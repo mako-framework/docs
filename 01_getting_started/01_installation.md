@@ -28,11 +28,15 @@ Installing Mako is easy and can be with done in a few simple steps thanks to [co
 
 First you'll have to create a new project:
 
-	composer create-project mako/app:5.* <project name>
+```
+composer create-project mako/app:5.* <project name>
+```
 
 Next you'll have to make the `app/storage/*` directories writable (command my vary depending on your system):
 
-	chown www-data:www-data -R app/storage
+```
+chown www-data:www-data -R app/storage
+```
 
 Now you're ready to start coding!
 
@@ -46,6 +50,8 @@ Now you're ready to start coding!
 
 Mako can easily be updated when a new version is released using the following command:
 
-	composer update
+```
+composer update
+```
 
 > Note that some updates might require some minor code changes. These will be documented in the upgrade guides.

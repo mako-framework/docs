@@ -19,24 +19,28 @@ You can register custom error handlers for different kinds of exception types us
 
 A great place to do so is in the `app/bootstrap.php` file.
 
-	$errorHandler = $container->get('errorHandler');
+```
+$errorHandler = $container->get('errorHandler');
 
-	$errorHandler->handle(PDOException::class, function($exception)
-	{
-		// Do some custom logging here
-	});
+$errorHandler->handle(PDOException::class, function($exception)
+{
+	// Do some custom logging here
+});
+```
 
 > Your error handler should **not** have a return value unless you want it to stop further error handling.
 
-	$errorHandler->handle(Throwable::class, function($exception)
-	{
-		// Do something else here
-	});
+```
+$errorHandler->handle(Throwable::class, function($exception)
+{
+	// Do something else here
+});
 
-	$errorHandler->handle(PDOException::class, function($exception)
-	{
-		// Do some custom logging here
-	});
+$errorHandler->handle(PDOException::class, function($exception)
+{
+	// Do some custom logging here
+});
+```
 
 > You can register multiple error handlers for any type of error. Note that the last one registered is the first one to get executed.
 
@@ -48,14 +52,18 @@ A great place to do so is in the `app/bootstrap.php` file.
 
 Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `disableLoggingFor` method.
 
-	$errorHandler->disableLoggingFor(mako\http\exceptions\NotFoundException::class);
+```
+$errorHandler->disableLoggingFor(mako\http\exceptions\NotFoundException::class);
+```
 
 You can also pass an array of exception types.
 
-	$errorHandler->disableLoggingFor
-	([
-		mako\http\exceptions\NotFoundException::class,
-		mako\http\exceptions\MethodNotAllowedException::class,
-	]);
+```
+$errorHandler->disableLoggingFor
+([
+	mako\http\exceptions\NotFoundException::class,
+	mako\http\exceptions\MethodNotAllowedException::class,
+]);
+```
 
 > Remember to use the fully qualified name of the exception types that you want to ignore.

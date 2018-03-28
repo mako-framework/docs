@@ -139,48 +139,48 @@ The following validation rules are included with Mako:
 
 #### Base rules
 
-| Name                     | Description                                                                                                 |
-|--------------------------|-------------------------------------------------------------------------------------------------------------|
+| Name                     | Description                                                                                             |
+|--------------------------|---------------------------------------------------------------------------------------------------------|
 | after                    | Checks that the field value is a valid date after the provided date (`after("Y-m-d","2012-09-25")`).    |
-| alpha                    | Checks that the field value only contains valid alpha characters.                                           |
-| alpha_dash               | Checks that the field value only contains valid alphanumeric, dash and underscore characters.               |
-| alpha_dash_unicode       | Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.       |
-| alpha_unicode            | Checks that the field value only contains valid alpha unicode characters.                                   |
-| alphanumeric             | Checks that the field value only contains valid alphanumeric characters.                                    |
-| alphanumeric_unicode     | Checks that the field value only contains valid alphanumeric unicode characters.                            |
+| alpha                    | Checks that the field value only contains valid alpha characters.                                       |
+| alpha_dash               | Checks that the field value only contains valid alphanumeric, dash and underscore characters.           |
+| alpha_dash_unicode       | Checks that the field value only contains valid alphanumeric unicode, dash and underscore characters.   |
+| alpha_unicode            | Checks that the field value only contains valid alpha unicode characters.                               |
+| alphanumeric             | Checks that the field value only contains valid alphanumeric characters.                                |
+| alphanumeric_unicode     | Checks that the field value only contains valid alphanumeric unicode characters.                        |
 | before                   | Checks that the field value is a valid date before the provided date (`before("Y-m-d","2012-09-25")`).  |
 | between                  | Checks that the field value is between x and y (`between(5,10)`).                                       |
 | date                     | Checks that the field value is a valid date (`date("Y-m-d")`).                                          |
 | different                | Checks that the field value is different from the value of another field (`different("old_password")`). |
-| email                    | Checks that the field value is a valid email address (uses PHP's filter_var function).                      |
-| email_domain             | Checks that the field value contains a valid MX record.                                                     |
+| email                    | Checks that the field value is a valid email address (uses PHP's filter_var function).                  |
+| email_domain             | Checks that the field value contains a valid MX record.                                                 |
 | exact_length             | Checks that the field value is of the right length (`exact_length(20)`).                                |
-| float                    | Checks that the field value is a float.                                                                     |
+| float                    | Checks that the field value is a float.                                                                 |
 | greater_than             | Checks that the field value is greater than x (`greater_than(5)`).                                      |
 | greater_than_or_equal_to | Checks that the field value is greater than or equal to x (`greater_than_or_equal_to(5)`).              |
-| hex                      | Checks that the field value is valid HEX.                                                                   |
+| hex                      | Checks that the field value is valid HEX.                                                               |
 | in                       | Checks that the field value contains one of the given values (`in(["foo","bar","baz"])`).               |
-| integer                  | Checks that the field value is a integer.                                                                   |
-| ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                              |
+| integer                  | Checks that the field value is a integer.                                                               |
+| ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                          |
 | less_than                | Checks that the field value is less than x (`less_than(5)`).                                            |
 | less_than_or_equal_to    | Checks that the field value is less than or equal to x (`less_than_or_equal_to(5)`).                    |
 | match                    | Checks that the field value matches the value of another field (`match("password_confirmation")`).      |
 | max_length               | Checks that the field value is short enough (`max_length(20)`).                                         |
 | min_length               | Checks that the field value is long enough (`min_length(10)`).                                          |
-| natural                  | Checks that the field value is a natural.                                                                   |
-| natural_non_zero         | Checks that the field value is a natural non zero.                                                          |
+| natural                  | Checks that the field value is a natural.                                                               |
+| natural_non_zero         | Checks that the field value is a natural non zero.                                                      |
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
 | regex                    | Checks that the field value matches a regex pattern (`regex("/[a-z]+/i")`).                             |
-| required                 | Checks that the field isn't empty.                                                                          |
-| url                      | Checks that the field value is a valid URL (uses PHP's filter_var function).                                |
-| uuid                     | Checks that the field value matches a valid uuid.                                                           |
+| required                 | Checks that the field isn't empty.                                                                      |
+| url                      | Checks that the field value is a valid URL (uses PHP's filter_var function).                            |
+| uuid                     | Checks that the field value matches a valid uuid.                                                       |
 
 <a id="validation_rules:database"></a>
 
 #### Database rules
 
-| Name                     | Description                                                                                |
-|--------------------------|--------------------------------------------------------------------------------------------|
+| Name                     | Description                                                                            |
+|--------------------------|----------------------------------------------------------------------------------------|
 | exists                   | Checks that the field value exist in the database (`exists("users","email")`).         |
 | unique                   | Checks that the field value doesn't exist in the database (`unique("users","email")`). |
 

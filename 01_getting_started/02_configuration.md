@@ -20,37 +20,47 @@ All of the remaining framework configuration is done by editing the files that a
 
 Mako config files are just simple arrays:
 
-	<?php
+```
+<?php
 
-	return
-	[
-		'key_1' => 'value',
-		'key_2' => 'value',
-	];
+return
+[
+	'key_1' => 'value',
+	'key_2' => 'value',
+];
+```
 
 And loading a config file is done by using the `get` method.
 
-	$config = $this->config->get('redis'); // Loads the redis.php file
+```
+$config = $this->config->get('redis'); // Loads the redis.php file
+```
 
 You can also fetch config items using `dot notation`.
 
-	$default = $this->config->get('redis.default');
+```
+$default = $this->config->get('redis.default');
+```
 
 It is also possible to override settings or add new configurations at runtime:
 
-	// Adds a new Crypto configuration named "user" that you can
-	// use when creating a Crypto instance "Crypto::instance('user');"
+```
+// Adds a new Crypto configuration named "user" that you can
+// use when creating a Crypto instance "Crypto::instance('user');"
 
-	$this->config->set('crypto.configurations.user',
-	[
-		'library'  => 'openssl',
-		'cipher'   => 'AES-256-OFB',
-		'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
-	]);
+$this->config->set('crypto.configurations.user',
+[
+	'library'  => 'openssl',
+	'cipher'   => 'AES-256-OFB',
+	'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
+]);
+```
 
 Removing the custom configuration is done using the `remove` method:
 
-	$this->config->remove('crypto.configurations.user');
+```
+$this->config->remove('crypto.configurations.user');
+```
 
 > Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their `addConfiguration` and `removeConfiguration` methods instead.
 {.warning}
@@ -75,17 +85,25 @@ Mako supports environment aware configuration. This means that you can have sepa
 
 Setting the environment in Apache:
 
-	SetEnv MAKO_ENV dev
+```
+SetEnv MAKO_ENV dev
+```
 
 Setting the environment in Nginx:
 
-	fastcgi_param MAKO_ENV dev;
+```
+fastcgi_param MAKO_ENV dev;
+```
 
 Setting the environment in a linux/unix shell:
 
-	export MAKO_ENV=dev # for Bourne, bash, and related shells
-	setenv MAKO_ENV=dev # for csh and related shells
+```
+export MAKO_ENV=dev # for Bourne, bash, and related shells
+setenv MAKO_ENV=dev # for csh and related shells
+```
 
 You can also manually set the environment in the CLI using the env option.
 
-	php reactor <command> --env=dev
+```
+php reactor <command> --env=dev
+```
