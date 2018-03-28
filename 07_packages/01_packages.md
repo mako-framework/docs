@@ -21,7 +21,7 @@ Packages are installed using [composer](http://packagist.org/) and can be used t
 There are two files that must be present in a package. A package "boot" class (class must extend the ```mako\application\Package``` class) and a composer.json file.
 
 	├─ src/
- 	│  └─ FooPackage.php
+	│  └─ FooPackage.php
 	└─ composer.json
 
 The package class is used to register your package with the application that uses it. The minimum information you need to provide is the package name.
@@ -59,16 +59,16 @@ The example file below only contains the bare minimum so head over to the [compo
 Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate ```get*Path``` method in your package class.
 
 	├─ config/
- 	|  └─ ...
- 	├─ resources/
- 	|  ├─ i18n/
+	|  └─ ...
+	├─ resources/
+	|  ├─ i18n/
 	|  |  └─ en_US/
 	|  |     └─ strings/
 	|  |        └─ ...
 	|  └─ views/
 	|     └─ ...
 	├─ src/
- 	│  └─ FooPackage.php
+	│  └─ FooPackage.php
 	└─ composer.json
 
 Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (```::```).
