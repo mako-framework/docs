@@ -17,7 +17,9 @@ The Mako REPL package is a runtime developer console, interactive debugger and [
 
 Install the package using the following composer command:
 
-	composer require mako/repl
+```
+composer require mako/repl
+```
 
 Next, add the `mako\repl\ReplPackage` package to your `app/config/application.php` config file.
 
@@ -29,15 +31,19 @@ Next, add the `mako\repl\ReplPackage` package to your `app/config/application.ph
 
 Start the interactive shell using the following reactor command.
 
-	php app/reactor repl
+```
+php app/reactor repl
+```
 
 You should see something similar to this:
 
-	----------------------------------------------
-	Type help to see a list of available commands.
-	----------------------------------------------
-	Psy Shell v0.8.0 (PHP 7.0.14 — cli) by Justin Hileman
-	>>>
+```
+----------------------------------------------
+Type help to see a list of available commands.
+----------------------------------------------
+Psy Shell v0.8.0 (PHP 7.0.14 — cli) by Justin Hileman
+>>>
+```
 
 There's an anonymous container aware class instance available as `$mako` by default. This allows you to easily interact with services registered in the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection#services).
 
@@ -45,14 +51,16 @@ The object also has a public method called `getContainer()` which, as the name s
 
 In the example below we're selecting all records from our `tests` column using the query builder.
 
-	>>> $mako->database->table('tests')->all()
-	=> mako\database\query\ResultSet {#229
-		+0: mako\database\query\Result {#230
-			+id: 1,
-			+created_at: "2016-12-30 10:58:56",
-		},
-		+1: mako\database\query\Result {#231
-			+id: 2,
-			+created_at: "2016-12-31 01:21:20",
-		},
-	}
+```
+>>> $mako->database->table('tests')->all()
+=> mako\database\query\ResultSet {#229
+	+0: mako\database\query\Result {#230
+		+id: 1,
+		+created_at: "2016-12-30 10:58:56",
+	},
+	+1: mako\database\query\Result {#231
+		+id: 2,
+		+created_at: "2016-12-31 01:21:20",
+	},
+}
+```

@@ -31,12 +31,14 @@ The mako validator provides a simple and consistent way of validating user input
 
 First you'll need to define a set of rules that you want to validate your input against.
 
-	$rules =
-	[
-		'username' => ['required', 'min_length(4)', 'max_length(20)'],
-		'password' => ['required'],
-		'email'    => ['required', 'email'],
-	];
+```
+$rules =
+[
+	'username' => ['required', 'min_length(4)', 'max_length(20)'],
+	'password' => ['required'],
+	'email'    => ['required', 'email'],
+];
+```
 
 The rules defined above will make sure that the username, password and email fields are non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
@@ -44,35 +46,43 @@ The rules defined above will make sure that the username, password and email fie
 
 Next you'll need to create a validator object. The first parameter is the input data you want to validate and the second is the set of validation rules you just defined.
 
-	$postData = $this->request->getPost();
+```
+$postData = $this->request->getPost();
 
-	$validator = $this->validator->create($postData->all(), $rules);
+$validator = $this->validator->create($postData->all(), $rules);
+```
 
 Now all that is left is to check if the input data is valid using either the `isValid` method or the `isInvalid` method.
 
-	if($validator->isValid())
-	{
-		// Do something
-	}
-	else
-	{
-		// Display errors
-	}
+```
+if($validator->isValid())
+{
+	// Do something
+}
+else
+{
+	// Display errors
+}
+```
 
 Retrieving error messages is done using the `getErrors` method.
 
-	$errors = $validator->getErrors();
+```
+$errors = $validator->getErrors();
+```
 
 You can also use the optional `$errors` parameter of the `isValid` and `isInvalid` methods.
 
-	if($validator->isValid($errors))
-	{
-		// Do something
-	}
-	else
-	{
-		// Display errors
-	}
+```
+if($validator->isValid($errors))
+{
+	// Do something
+}
+else
+{
+	// Display errors
+}
+```
 
 > An empty array will be returned if there are no errors.
 
@@ -82,17 +92,21 @@ You can also use the optional `$errors` parameter of the `isValid` and `isInvali
 
 The validator also supports nested arrays. You can assign validation rule sets to nested fields using the "dot notation" syntax.
 
-	$rules =
-	[
-		'user.email' => ['required', 'email'],
-	];
+```
+$rules =
+[
+	'user.email' => ['required', 'email'],
+];
+```
 
 You can also apply rule sets to multiple keys using wildcards.
 
-	$rules =
-	[
-		'users.*.email' => ['email'],
-	];
+```
+$rules =
+[
+	'users.*.email' => ['email'],
+];
+```
 
 > Note that wildcard rules will only be added if the input field(s) actually exists.
 
@@ -102,10 +116,12 @@ You can also apply rule sets to multiple keys using wildcards.
 
 You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
 
-	$validator->addRulesIf('state', ['required', 'valid_us_state'], function() use ($postData)
-	{
-		return $postData->get('country') === 'United States of America';
-	});
+```
+$validator->addRulesIf('state', ['required', 'valid_us_state'], function() use ($postData)
+{
+	return $postData->get('country') === 'United States of America';
+});
+```
 
 > You can also pass a boolean value instead of a closure. Rules added using either of the methods will be merged with any pre-existing rules assigned to the field.
 
@@ -115,17 +131,19 @@ You can add rule sets to your validator instance if a certain condition is met u
 
 The validator class also comes with a handy helper method that makes it easier to build rule sets that have rules with dynamic parameters. The first parameter of the method is the name of the validation rule and any subsequent parameters are treated as rule parameters.
 
-	$rules =
-	[
-		'category' => ['required', Validator::rule('in', $this->getCategoryIds())],
-	];
+```
+$rules =
+[
+	'category' => ['required', Validator::rule('in', $this->getCategoryIds())],
+];
 
-	// The example above produces the same result as the following code
+// The example above produces the same result as the following code
 
-	$rules =
-	[
-		'category' => ['required', 'in([' . implode(',', $this->getCategoryIds()) . '])'],
-	];
+$rules =
+[
+	'category' => ['required', 'in([' . implode(',', $this->getCategoryIds()) . '])'],
+];
+```
 
 --------------------------------------------------------
 
@@ -215,26 +233,30 @@ All error messages are defined in the `app/i18n/*/strings/validate.php` language
 
 Adding custom field specific error messages can be done using the `overrides.messages` array:
 
-	'overrides' => array
+```
+'overrides' => array
+(
+	'messages' => array
 	(
-		'messages' => array
+		'username' => array
 		(
-			'username' => array
-			(
-				'required' => 'You need a username!',
-			),
+			'required' => 'You need a username!',
 		),
 	),
+),
+```
 
 You can also add custom field name translations using the `overrides.fieldnames` array:
 
-	'overrides' => array
+```
+'overrides' => array
+(
+	'fieldnames' => array
 	(
-		'fieldnames' => array
-		(
-			'email' => 'email address',
-		),
+		'email' => 'email address',
 	),
+),
+```
 
 --------------------------------------------------------
 
@@ -244,39 +266,41 @@ You can also add custom field name translations using the `overrides.fieldnames`
 
 You can, of course, create your own custom validator rules. All rules must implement the `RuleInterface` interface.
 
-	<?php
+```
+<?php
 
-	use mako\validator\rules\RuleInterface;
+use mako\validator\rules\RuleInterface;
+
+/**
+ * Is foo validation rule.
+ */
+class IsFooRule implements RuleInterface
+{
+	/**
+	 * {@inheritdoc}
+	 */
+	public function validateWhenEmpty(): bool
+	{
+		return false;
+	}
 
 	/**
-	 * Is foo validation rule.
+	 * {@inheritdoc}
 	 */
-	class IsFooRule implements RuleInterface
+	public function validate($value, array $input): bool
 	{
-		/**
-		 * {@inheritdoc}
-		 */
-		public function validateWhenEmpty(): bool
-		{
-			return false;
-		}
-
-		/**
-		 * {@inheritdoc}
-		 */
-		public function validate($value, array $input): bool
-		{
-			return mb_strtolower($value) === 'foo';
-		}
-
-		/**
-		 * {@inheritdoc}
-		 */
-		public function getErrorMessage(string $field): string
-		{
-			return sprintf('The value of the %1$s field must be "foo".', $field);
-		}
+		return mb_strtolower($value) === 'foo';
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getErrorMessage(string $field): string
+	{
+		return sprintf('The value of the %1$s field must be "foo".', $field);
+	}
+}
+```
 
 If you validation rule uses parameters then it will have to implement the `WithParametersInterface` interface and if you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
 
@@ -284,10 +308,14 @@ If you validation rule uses parameters then it will have to implement the `WithP
 
 You can register your custom rules with the validation factory, thus making it available to all future validator instances.
 
-	$this->validator->extend('is_foo', IsFooRule::class);
+```
+$this->validator->extend('is_foo', IsFooRule::class);
+```
 
 You can also register it into an existing validator instance.
 
-	$validator->extend('is_foo', IsFooRule::class);
+```
+$validator->extend('is_foo', IsFooRule::class);
+```
 
 > Prefix the rule name with your package name and two colons (`::`) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) to avoid naming collisions.

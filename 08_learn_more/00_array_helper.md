@@ -16,42 +16,54 @@ The array helper contains methods that can be useful when working with arrays.
 
 The `get` method returns a value from an array using "dot notation".
 
-	$array = ['foo' => ['bar' => 'baz']];
+```
+$array = ['foo' => ['bar' => 'baz']];
 
-	$bar = Arr::get($array, 'foo.bar');
+$bar = Arr::get($array, 'foo.bar');
 
-	// You can also specify a default value if the key doesn't exist
+// You can also specify a default value if the key doesn't exist
 
-	$baz = Arr::get($array, 'foo.baz', 'nope');
+$baz = Arr::get($array, 'foo.baz', 'nope');
+```
 
 The `set` method sets an array value using "dot notation".
 
-	Arr::set($array, 'foo.baz', 'hello world');
+```
+Arr::set($array, 'foo.baz', 'hello world');
+```
 
 The `delete` method deletes an array value using "dot notation".
 
-	Arr::delete($array, 'foo.bar');
+```
+Arr::delete($array, 'foo.bar');
+```
 
 The `random` method returns a random array value.
 
-	Arr::random(['green', 'blue', 'red', 'orange']);
+```
+Arr::random(['green', 'blue', 'red', 'orange']);
+```
 
 The `isAssoc` method returns TRUE if the array is associative and FALSE if not.
 
-	// $assoc will be set to FALSE
+```
+// $assoc will be set to FALSE
 
-	$assoc = Arr::isAssoc([1, 2, 3]);
+$assoc = Arr::isAssoc([1, 2, 3]);
 
-	// $assoc will be set to TRUE
+// $assoc will be set to TRUE
 
-	$assoc = Arr::isAssoc(['one' => 1, 'two' => 2, 'three' => 3]);
+$assoc = Arr::isAssoc(['one' => 1, 'two' => 2, 'three' => 3]);
+```
 
 The `pluck` method returns the values from a single column of the input array, identified by the key.
 
-	$fruits =
-	[
-		['name' => 'apple', 'color' => 'green'],
-		['name' => 'banana', 'color' => 'yellow'];
-	];
+```
+$fruits =
+[
+	['name' => 'apple', 'color' => 'green'],
+	['name' => 'banana', 'color' => 'yellow'];
+];
 
-	$colors = Arr::pluck($fruits, 'color');
+$colors = Arr::pluck($fruits, 'color');
+```

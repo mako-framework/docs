@@ -48,11 +48,15 @@ The query builder currently supports the following dialects:
 
 You can create a query builder instance using the `Connection::builder()` method.
 
-	$query = $connection->builder();
+```
+$query = $connection->builder();
+```
 
 You can also skip the call to the `Connection::builder()` method using the `Connection::table()` method.
 
-	$query = $connection->table('foobar');
+```
+$query = $connection->table('foobar');
+```
 
 --------------------------------------------------------
 
@@ -62,95 +66,119 @@ You can also skip the call to the `Connection::builder()` method using the `Conn
 
 If you only want to retrieve a single row then you can use the `first` method.
 
-	$person = $query->table('persons')->where('id', '=', 1)->first();
+```
+$person = $query->table('persons')->where('id', '=', 1)->first();
+```
 
 Fetching all rows is done using the `all` method.
 
-	$persons = $query->table('persons')->all();
+```
+$persons = $query->table('persons')->all();
+```
 
 You can also specify which columns you want to include in the result set
 
-	$persons = $query->table('persons')->select(['name', 'email'])->all();
+```
+$persons = $query->table('persons')->select(['name', 'email'])->all();
+```
 
 To make a distinct selection use the `distinct` method
 
-	$persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
+```
+$persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
+```
 
 > Note that the `all` method returns a result set. So you'll need to use the `isEmpty` method to check if it's empty.
 
 Selecting from the results of a subquery is also possible.
 
-	$persons = $query->table(function($query)
-	{
-		$query->table('persons')->select(['name'])->distinct();
-	})
-	->where('name', '!=', 'John Doe')
-	->all();
+```
+$persons = $query->table(function($query)
+{
+	$query->table('persons')->select(['name'])->distinct();
+})
+->where('name', '!=', 'John Doe')
+->all();
+```
 
 You can also use the Subquery class instead of a closure if you need a specific table alias.
 
-	$persons = $query->table
-	(
-		new Subquery(function($query)
-		{
-			$query->table('persons')->select(['name'])->distinct();
-		}, 'distinct_names')
-	)
-	->where('name', '!=', 'John Doe')
-	->all();
+```
+$persons = $query->table
+(
+	new Subquery(function($query)
+	{
+		$query->table('persons')->select(['name'])->distinct();
+	}, 'distinct_names')
+)
+->where('name', '!=', 'John Doe')
+->all();
+```
 
 Advanced column selections can also be made using raw SQL and subqueries.
 
-	$persons = $query->table('persons')->select
-	(
-		[
-			'name',
-			'email',
-			new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-			new Subquery(function($query)
-			{
-				$query->table('persons')->select([new Raw('AVG(age)']));
-			}, 'average_age')
-		]
-	)->all();
+```
+$persons = $query->table('persons')->select
+(
+	[
+		'name',
+		'email',
+		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
+		new Subquery(function($query)
+		{
+			$query->table('persons')->select([new Raw('AVG(age)']));
+		}, 'average_age')
+	]
+)->all();
+```
 
 If you need to process a large dataset and don't want to put the entire result set in memory then you can use the `yield` method. It returns a generator that lets you iterate over the result set.
 
-	$persons = $query->table('persons')->select(['name', 'email'])->yield();
+```
+$persons = $query->table('persons')->select(['name', 'email'])->yield();
 
-	foreach($persons as $person)
-	{
-		// Only a single row is kept in memory at a time
-	}
+foreach($persons as $person)
+{
+	// Only a single row is kept in memory at a time
+}
+```
 
 In addition to using the `yield` method to process large amounts of data you can also use the `batch` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 
-	$query->table('persons')->ascending('id')->batch(function($batch)
-	{
-		// Process the batch here
-	});
+```
+$query->table('persons')->ascending('id')->batch(function($batch)
+{
+	// Process the batch here
+});
+```
 
 Fetching the value of a single column is done using the `column` method.
 
-	$email = $query->table('persons')->select(['email'])->where('id', '=', 1)->column();
+```
+$email = $query->table('persons')->select(['email'])->where('id', '=', 1)->column();
 
-	// You can also use the following syntax
+// You can also use the following syntax
 
-	$email = $query->table('persons')->where('id', '=', 1)->column('email');
+$email = $query->table('persons')->where('id', '=', 1)->column('email');
+```
 
 It is also possible to fetch an array containing the values of a single column using the `columns` method.
 
-	 $emails = $query->table('persons')->select(['email'])->columns();
+```
+ $emails = $query->table('persons')->select(['email'])->columns();
 
-	 // You can also use the following syntax
+ // You can also use the following syntax
 
-	 $emails = $query->table('persons')->columns('email');
+ $emails = $query->table('persons')->columns('email');
+ ```
 
 The `pairs` method allows you to fetch an array where the first column is used as the array keys and the second is used as the array values.
 
-	$pairs = $query->table->('users')->pairs('id', 'email');
+```
+$pairs = $query->table->('users')->pairs('id', 'email');
+```
 
 --------------------------------------------------------
 
@@ -160,11 +188,15 @@ The `pairs` method allows you to fetch an array where the first column is used a
 
 Inserting data is done using the `insert` method.
 
-	$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime()]);
+```
+$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime()]);
+```
 
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
-	$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
+```
+$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
+```
 
 > When working with [PostgreSQL](http://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
 
@@ -176,19 +208,23 @@ You can also insert data using the `insertAndGetId` method. It will create the r
 
 Updating data is done using the `update` method.
 
-	$query->table('foobars')
-	->where('id', '=', 10)
-	->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
+```
+$query->table('foobars')
+->where('id', '=', 10)
+->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
+```
 
 There are also shortcuts for incrementing and decrementing column values:
 
-	$query->table('articles')->where('id', '=', 1)->increment('views');
+```
+$query->table('articles')->where('id', '=', 1)->increment('views');
 
-	$query->table('articles')->where('id', '=', 1)->increment('views', 10);
+$query->table('articles')->where('id', '=', 1)->increment('views', 10);
 
-	$query->table('shows')->where('id', '=', 1)->decrement('tickets')
+$query->table('shows')->where('id', '=', 1)->decrement('tickets')
 
-	$query->table('shows')->where('id', '=', 1)->decrement('tickets', 50);
+$query->table('shows')->where('id', '=', 1)->decrement('tickets', 50);
+```
 
 --------------------------------------------------------
 
@@ -198,7 +234,9 @@ There are also shortcuts for incrementing and decrementing column values:
 
 Deleting data is done using the `delete` method.
 
-	$query->table('articles')->where('id', '=', 10)->delete();
+```
+$query->table('articles')->where('id', '=', 10)->delete();
+```
 
 --------------------------------------------------------
 
@@ -208,11 +246,15 @@ Deleting data is done using the `delete` method.
 
 The query builder features a unified syntax for querying JSON data and it currently supports MySQL, Oracle, PostgreSQL, SQLServer and SQLite.
 
-	$foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
+```
+$foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
+```
 
 You can also use the unified syntax to update JSON values. This feature currently supports MySQL and PostgreSQL, SQLServer and SQLite.
 
-	$query->table('articles')->update(['meta->bar' => json_encode(0)]);
+```
+$query->table('articles')->update(['meta->bar' => json_encode(0)]);
+```
 
 --------------------------------------------------------
 
@@ -222,41 +264,43 @@ You can also use the unified syntax to update JSON values. This feature currentl
 
 The query builder also includes a few handy shortcuts to the most common aggregate functions:
 
-	// Counting
+```
+// Counting
 
-	$count = $query->table('persons')->count();
+$count = $query->table('persons')->count();
 
-	$count = $query->table('persons')->where('age', '>', 25)->count();
+$count = $query->table('persons')->where('age', '>', 25)->count();
 
-	// Distinct counting
+// Distinct counting
 
-	$count = $query->table('persons')->countDistinct('age');
+$count = $query->table('persons')->countDistinct('age');
 
-	$count = $query->table('persons')->countDistinct(['age', 'height']);
+$count = $query->table('persons')->countDistinct(['age', 'height']);
 
-	// Average value
+// Average value
 
-	$height = $query->table('persons')->avg('height');
+$height = $query->table('persons')->avg('height');
 
-	$height = $query->table('persons')->where('age', '>', 25)->avg('height');
+$height = $query->table('persons')->where('age', '>', 25)->avg('height');
 
-	// Largest value
+// Largest value
 
-	$height = $query->table('persons')->max('height');
+$height = $query->table('persons')->max('height');
 
-	$height = $query->table('persons')->where('age', '>', 25)->max('height');
+$height = $query->table('persons')->where('age', '>', 25)->max('height');
 
-	// Smallest value
+// Smallest value
 
-	$height = $query->table('persons')->min('height');
+$height = $query->table('persons')->min('height');
 
-	$height = $query->table('persons')->where('age', '>', 25)->min('height');
+$height = $query->table('persons')->where('age', '>', 25)->min('height');
 
-	// Sum
+// Sum
 
-	$height = $query->table('persons')->sum('height');
+$height = $query->table('persons')->sum('height');
 
-	$height = $query->table('persons')->where('age', '>', 25)->sum('height');
+$height = $query->table('persons')->where('age', '>', 25)->sum('height');
+```
 
 --------------------------------------------------------
 
@@ -266,34 +310,38 @@ The query builder also includes a few handy shortcuts to the most common aggrega
 
 where(), whereRaw(), orWhere(), orWhereRaw()
 
-	// SELECT * FROM `persons` WHERE `age` > 25
+```
+// SELECT * FROM `persons` WHERE `age` > 25
 
-	$persons = $query->table('persons')->where('age', '>', 25)->all();
+$persons = $query->table('persons')->where('age', '>', 25)->all();
 
-	// SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
+// SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
 
-	$persons = $query->table('persons')->where('age', '>', 25)->orWhere('age', '<', 20)->all();
+$persons = $query->table('persons')->where('age', '>', 25)->orWhere('age', '<', 20)->all();
 
-	// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
+// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
 
-	$persons = $query->table('persons')
-	->where(function($query)
-	{
-		$query->where('age', '>', 25);
-		$query->where('height', '>', 180);
-	})
-	->isNotNull('email')
-	->all();
+$persons = $query->table('persons')
+->where(function($query)
+{
+	$query->where('age', '>', 25);
+	$query->where('height', '>', 180);
+})
+->isNotNull('email')
+->all();
+```
 
 The `wereRaw` and `orWhereRaw` methods allow you to set a "raw" parameter value or to write an entire sql expression.
 
-	// SELECT * FROM `persons` WHERE `age` > AVG(`age`)
+```
+// SELECT * FROM `persons` WHERE `age` > AVG(`age`)
 
-	$persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
+$persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
 
-	// SELECT * FROM `persons` WHERE MATCH(`name`) AGAINST ('foobar' IN BOOLEAN MODE)
+// SELECT * FROM `persons` WHERE MATCH(`name`) AGAINST ('foobar' IN BOOLEAN MODE)
 
-	$persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLEAN MODE)', ['foobar']);
+$persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLEAN MODE)', ['foobar']);
+```
 
 <a id="where_between_clauses"></a>
 
@@ -301,13 +349,15 @@ The `wereRaw` and `orWhereRaw` methods allow you to set a "raw" parameter value 
 
 between(), orBetween(), notBetween(), orNotBetween()
 
-	// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25
+```
+// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25
 
-	$persons = $query->table('persons')->between('age', 20, 25)->all();
+$persons = $query->table('persons')->between('age', 20, 25)->all();
 
-	// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25 OR `age` BETWEEN 30 AND 35
+// SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25 OR `age` BETWEEN 30 AND 35
 
-	$persons = $query->table('persons')->between('age', 20, 25)->orBetween('age', 30, 35)->all();
+$persons = $query->table('persons')->between('age', 20, 25)->orBetween('age', 30, 35)->all();
+```
 
 <a id="where_in_clauses"></a>
 
@@ -315,18 +365,20 @@ between(), orBetween(), notBetween(), orNotBetween()
 
 in(), orIn(), notIn(), orNotIn()
 
-	// SELECT * FROM `persons` WHERE `id` IN (1, 2, 3, 4, 5)
+```
+// SELECT * FROM `persons` WHERE `id` IN (1, 2, 3, 4, 5)
 
-	$persons = $query->table('persons')->in('id', [1, 2, 3, 4, 5])->all();
+$persons = $query->table('persons')->in('id', [1, 2, 3, 4, 5])->all();
 
-	// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
+// SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
-	$persons = $query->table('persons')
-	->in('id', function($query)
-	{
-		$query->table('persons')->select(['id'])->where('id', '!=', 1);
-	})
-	->all();
+$persons = $query->table('persons')
+->in('id', function($query)
+{
+	$query->table('persons')->select(['id'])->where('id', '!=', 1);
+})
+->all();
+```
 
 <a id="where_is_null_clauses"></a>
 
@@ -334,9 +386,11 @@ in(), orIn(), notIn(), orNotIn()
 
 isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
-	// SELECT * FROM `persons` WHERE `address` IS NULL
+```
+// SELECT * FROM `persons` WHERE `address` IS NULL
 
-	$persons = $query->table('persons')->isNull('address')->all();
+$persons = $query->table('persons')->isNull('address')->all();
+```
 
 <a id="where_exists_clauses"></a>
 
@@ -344,14 +398,16 @@ isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
 exists(), orExists(), notExists(), orNotExists()
 
-	// SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
+```
+// SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
-	$persons = $query->table('persons')
-	->exists(function($query)
-	{
-		$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id');
-	})
-	->all();
+$persons = $query->table('persons')
+->exists(function($query)
+{
+	$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id');
+})
+->all();
+```
 
 <a id="join_clauses"></a>
 
@@ -359,20 +415,22 @@ exists(), orExists(), notExists(), orNotExists()
 
 join(), joinRaw(), leftJoin(), leftJoinRaw()
 
-	// SELECT * FROM `persons` INNER JOIN `phones` ON `persons`.`id` = `phones`.`user_id`
+```
+// SELECT * FROM `persons` INNER JOIN `phones` ON `persons`.`id` = `phones`.`user_id`
 
-	$persons = $query->table('persons')->join('phones', 'persons.id', '=', 'phones.user_id')->all();
+$persons = $query->table('persons')->join('phones', 'persons.id', '=', 'phones.user_id')->all();
 
-	// SELECT * FROM `persons` AS `u` INNER JOIN `phones` AS `p` ON
-	// `u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`
+// SELECT * FROM `persons` AS `u` INNER JOIN `phones` AS `p` ON
+// `u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`
 
-	$persons = $query->table('persons as u')
-	->join('phones as p', function($join)
-	{
-		$join->on('u.id', '=', 'p.user_id');
-		$join->orOn('u.phone_number', '=', 'p.number');
-	})
-	->all();
+$persons = $query->table('persons as u')
+->join('phones as p', function($join)
+{
+	$join->on('u.id', '=', 'p.user_id');
+	$join->orOn('u.phone_number', '=', 'p.number');
+})
+->all();
+```
 
 <a id="group_by_clauses"></a>
 
@@ -380,19 +438,21 @@ join(), joinRaw(), leftJoin(), leftJoinRaw()
 
 groupBy()
 
-	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`
+```
+// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`
 
-	$customers = $query->table('orders')
-	->select(['customer', new Raw('SUM(price) as sum')])
-	->groupBy('customer')
-	->all();
+$customers = $query->table('orders')
+->select(['customer', new Raw('SUM(price) as sum')])
+->groupBy('customer')
+->all();
 
-	// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`, `order_date`
+// SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`, `order_date`
 
-	$customers = $query->table('orders')
-	->select(['customer', 'order_date', new Raw('SUM(price) as sum')])
-	->groupBy(['customer', 'order_date'])
-	->all();
+$customers = $query->table('orders')
+->select(['customer', 'order_date', new Raw('SUM(price) as sum')])
+->groupBy(['customer', 'order_date'])
+->all();
+```
 
 <a id="having_clauses"></a>
 
@@ -400,13 +460,15 @@ groupBy()
 
 having(), havingRaw(), orHaving(), orHavingRaw()
 
-	// SELECT `customer`, SUM(`price`) AS `sum` FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
+```
+// SELECT `customer`, SUM(`price`) AS `sum` FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
 
-	$customers = $query->table('orders')
-	->select(['customer', new Raw('SUM(price) as sum')])
-	->groupBy('customer')
-	->havingRaw('SUM(price)', '<', 2000)
-	->all();
+$customers = $query->table('orders')
+->select(['customer', new Raw('SUM(price) as sum')])
+->groupBy('customer')
+->havingRaw('SUM(price)', '<', 2000)
+->all();
+```
 
 <a id="order_by_clauses"></a>
 
@@ -414,25 +476,27 @@ having(), havingRaw(), orHaving(), orHavingRaw()
 
 orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw()
 
-	// SELECT * FROM `persons` ORDER BY `name` ASC
+```
+// SELECT * FROM `persons` ORDER BY `name` ASC
 
-	$persons = $query->table('persons')->orderBy('name', 'asc')->all();
+$persons = $query->table('persons')->orderBy('name', 'asc')->all();
 
-	// SELECT * FROM `persons` ORDER BY `name` ASC
+// SELECT * FROM `persons` ORDER BY `name` ASC
 
-	$persons = $query->table('persons')->ascending('name')->all();
+$persons = $query->table('persons')->ascending('name')->all();
 
-	// SELECT * FROM `persons` ORDER BY `name` DESC
+// SELECT * FROM `persons` ORDER BY `name` DESC
 
-	$persons = $query->table('persons')->descending('name')->all();
+$persons = $query->table('persons')->descending('name')->all();
 
-	// SELECT * FROM `persons` ORDER BY `name` ASC, `age` DESC
+// SELECT * FROM `persons` ORDER BY `name` ASC, `age` DESC
 
-	$persons = $query->table('persons')->orderBy('name', 'asc')->orderBy('age', 'desc')->all();
+$persons = $query->table('persons')->orderBy('name', 'asc')->orderBy('age', 'desc')->all();
 
-	// SELECT * FROM `persons` ORDER BY `name`, `age` ASC
+// SELECT * FROM `persons` ORDER BY `name`, `age` ASC
 
-	$persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
+$persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
+```
 
 <a id="limit_and_offset_clauses"></a>
 
@@ -440,19 +504,23 @@ orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRa
 
 limit(), offset(), paginate()
 
-	// SELECT * FROM `persons` LIMIT 10
+```
+// SELECT * FROM `persons` LIMIT 10
 
-	$persons = $query->table('persons')->limit(10)->all();
+$persons = $query->table('persons')->limit(10)->all();
 
-	// SELECT * FROM `persons` LIMIT 10 OFFSET 10
+// SELECT * FROM `persons` LIMIT 10 OFFSET 10
 
-	$persons = $query->table('persons')->limit(10)->offset(10)->all();
+$persons = $query->table('persons')->limit(10)->offset(10)->all();
+```
 
 You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
 
-	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
+```
+// SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
-	$persons = $query->table('persons')->paginate(10);
+$persons = $query->table('persons')->paginate(10);
+```
 
 <a id="set_operations"></a>
 
@@ -462,21 +530,25 @@ union(), unionAll(), intersect(), intersectAll(), except(), exceptAll()
 
 You can also combine the results of multiple queries into a single result set using set operations.
 
-	// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
+```
+// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
 
-	$sales2015 = $connection->builder()->table('sales2015');
+$sales2015 = $connection->builder()->table('sales2015');
 
-	$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016')->all();
+$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016')->all();
+```
 
 You can also use the closure syntax when adding set operations to your queries.
 
-	// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
+```
+// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
 
-	$combinedSales = $query->unionAll(function($query)
-	{
-		$query->table('sales2015');
-	})
-	->table('sales2016')->all();
+$combinedSales = $query->unionAll(function($query)
+{
+	$query->table('sales2015');
+})
+->table('sales2016')->all();
+```
 
 <a id="row_level_locking"></a>
 
@@ -484,21 +556,27 @@ You can also use the closure syntax when adding set operations to your queries.
 
 The `lock()` method can be used to enable row-level locking during database transactions.
 
-	// SELECT * FROM `persons` WHERE `age` =  30 FOR UPDATE
+```
+// SELECT * FROM `persons` WHERE `age` =  30 FOR UPDATE
 
-	$persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
+$persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
+```
 
 It will use an exclusive lock by default but you can enable shared locking by passing `FALSE` to the `lock()` method.
 
-	// SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
+```
+// SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
 
-	$persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
+$persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
+```
 
 It is also possible to provide a custom locking clause.
 
-	// SELECT * FROM `persons` WHERE `age` =  30 CUSTOM LOCK
+```
+// SELECT * FROM `persons` WHERE `age` =  30 CUSTOM LOCK
 
-	$persons = $query->table('persons')->where('age', '=', 30)->lock('CUSTOM LOCK')->all();
+$persons = $query->table('persons')->where('age', '=', 30)->lock('CUSTOM LOCK')->all();
+```
 
 Here's an overview of the locking clauses generated for the different RDBMSes that support row-level locking.
 

@@ -23,35 +23,49 @@ The `body` method allows you to set the response body. This is not normally need
 
 The `getBody` method returns the response body.
 
-	$responseBody = $this->response->getBody();
+```
+$responseBody = $this->response->getBody();
+```
 
 The `type` method lets you define the response type as well as the response charset. The default response type is `text/html` and the default charset is `UTF-8`. The default charset is defined in your `app\config\application.php` config file.
 
-	$this->response->type('application/json');
+```
+$this->response->type('application/json');
 
-	// You can also override the default charset
+// You can also override the default charset
 
-	$this->response->type('application/json', 'iso-8859-1');
+$this->response->type('application/json', 'iso-8859-1');
+```
 
 The `getType` method returns the current response type.
 
-	$responseType = $this->response->getType();
+```
+$responseType = $this->response->getType();
+```
 
 The `charset` method lets you set the response charset. The default charset is `UTF-8`and it is defined in your `app\config\application.php` config file.
 
-	$this->response->charset('iso-8859-1');
+```
+$this->response->charset('iso-8859-1');
+```
 
 The `getCharset` returns the current response charset.
 
-	$responseCharset = $this->response->getCharset();
+```
+$responseCharset = $this->response->getCharset();
+```
 
 The `status` method lets you set the response status.
 
-	$this->response->status(404); // Sends the 404 "Not Found" header.
+```
+$this->response->status(404); // Sends the 404 "Not Found" header.
+```
 
 The `getStatus` method returns the current status code.
 
-	$responseStatus = $this->response->getStatus();
+```
+$responseStatus = $this->response->getStatus();
+```
 
 --------------------------------------------------------
 
@@ -61,31 +75,37 @@ The `getStatus` method returns the current status code.
 
 The `getCookies` method returns a cookie collection.
 
-	$cookies = $this->response->getCookies();
+```
+$cookies = $this->response->getCookies();
+```
 
 The `add` method adds a cookie to the response.
 
-	// Sets a cookie that expires when the browser closes
+```
+// Sets a cookie that expires when the browser closes
 
-	$cookies->add('name', 'value');
+$cookies->add('name', 'value');
 
-	// Sets a cookie that expires after 1 hour
+// Sets a cookie that expires after 1 hour
 
-	$cookies->add('name', 'value', 3600);
+$cookies->add('name', 'value', 3600);
 
-	// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
+// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
 
-	$cookies->add('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.org']);
+$cookies->add('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.org']);
+```
 
 > If you want to set signed cookies then you'll have to use the `addSigned` method. The benefit of using signed cookies is that they can't be tampered with on the client side.
 
 The `delete` method allows you to delete both normal and signed cookies from the client.
 
-	$cookies->delete('name');
+```
+$cookies->delete('name');
 
-	// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
+// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
 
-	$cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
+$cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
+```
 
 The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
@@ -105,11 +125,15 @@ The cookie collection also includes the following methods in addition to the one
 
 The `getHeaders` method returns a header collection.
 
-	$headers = $this->response->getHeaders();
+```
+$headers = $this->response->getHeaders();
+```
 
 The `add` method adds a header to your response.
 
-	$headers->add('X-My-Header', 'value');
+```
+$headers->add('X-My-Header', 'value');
+```
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
 
@@ -129,16 +153,24 @@ The header collection also includes the following methods in addition to the one
 
 You can enable `ETag` caching using the `cache` method. Doing so can save bandwidth as the response body will only be sent if it has been modified since the last request.
 
-	$this->response->cache();
+```
+$this->response->cache();
+```
 
 The `disableCaching` method disables `ETag` caching if it has been enabled.
 
-	$this->response->disableCaching();
+```
+$this->response->disableCaching();
+```
 
 The `compress` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 
-	$this->response->compress();
+```
+$this->response->compress();
+```
 
 The `disableCompression` method disables output compression if it has been enabled.
 
-	$this->response->disableCompression();
+```
+$this->response->disableCompression();
+```

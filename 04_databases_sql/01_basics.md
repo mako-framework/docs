@@ -28,51 +28,69 @@ The database connection manager provides a simple way of handling database conne
 
 Creating a database connection is done using the `ConnectionManager::connection()` method.
 
-	// Returns connection object using the "default" database configuration defined in the config file
+```
+// Returns connection object using the "default" database configuration defined in the config file
 
-	$connection = $this->database->connection();
+$connection = $this->database->connection();
 
-	// Returns connection object using the "mydb" database configuration defined in the config file
+// Returns connection object using the "mydb" database configuration defined in the config file
 
-	$connection = $this->database->connection('mydb');
+$connection = $this->database->connection('mydb');
+```
 
 The `Connection::query()` method lets you execute a query. It returns `TRUE` on success and `FALSE` on failure.
 
-	$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+```
+$connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+```
 
 The `Connection::first()` method executes a query and returns the first row of the result set.
 
-	$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+```
+$row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+```
 
 The `Connection::all()` method executes a query and returns an array containing all of the result set rows.
 
-	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+```
+$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
-	// There's also a handy syntax for assigning arrays for use in "IN" clauses
+// There's also a handy syntax for assigning arrays for use in "IN" clauses
 
-	$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana', 'apple']]);
+$rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana', 'apple']]);
+```
 
 The `Connection::yield()` method executes a query and returns a generator that lets you iterate over the result set rows. This is very useful if you want to process a large dataset without having to worry about memory consumption.
 
-	$rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+```
+$rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+```
 
 The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set.
 
-	$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
+```
+$email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
+```
 
 The `Connection::columns()` method executes a query and returns an array containing the values of the first column.
 
-	$email = $connection->columns('SELECT `email` FROM `users`');
+```
+$email = $connection->columns('SELECT `email` FROM `users`');
+```
 
 The `Connection::pairs()` method will return an array where the first column is used as array keys and the second column is used as array values.
 
-	$pairs = $connection->pairs('SELECT `id`, `email` FROM `users`');
+```
+$pairs = $connection->pairs('SELECT `id`, `email` FROM `users`');
+```
 
 The `Connection::queryAndCount()` method will return the number of rows modified by the query.
 
-	$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
+```
+$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
-	$count = $connection->queryAndCount('DELETE FROM `users`');
+$count = $connection->queryAndCount('DELETE FROM `users`');
+```
 
 <a id="connection_status"></a>
 
@@ -80,11 +98,15 @@ The `Connection::queryAndCount()` method will return the number of rows modified
 
 You can check if a connection is still alive using the `Connection::isAlive()` method. It will return TRUE if it is and FALSE if not.
 
-	$isConnectionAlive = $connection->isAlive();
+```
+$isConnectionAlive = $connection->isAlive();
+```
 
 You can attempt to reconnect using the `Connection::reconnect()` method.
 
-	$connection->reconnect();
+```
+$connection->reconnect();
+```
 
 > You can configure the connection to automatically reconnect in the `app/config/database.php` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
 
@@ -94,14 +116,15 @@ You can attempt to reconnect using the `Connection::reconnect()` method.
 
 You can access the default database connection directly without having to go through the `connection` method thanks to the magic `__call` method.
 
-	$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+```
+$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+```
 
 --------------------------------------------------------
 
 <a id="transactions"></a>
 
 ### Transactions
-
 
 <a id="transactions:basics"></a>
 
@@ -111,28 +134,38 @@ You can access the default database connection directly without having to go thr
 
 You begin a transaction using the `Connection::beginTransaction()` method.
 
-	$connection->beginTransaction();
+```
+$connection->beginTransaction();
+```
 
 Committing the transaction is done using the `Connection::commitTransaction()` method.
 
-	$connection->commitTransaction();
+```
+$connection->commitTransaction();
+```
 
 Rolling back the transaction is done using the `Connection::rollBackTransaction()` method.
 
-	$connection->rollBackTransaction();
+```
+$connection->rollBackTransaction();
+```
 
 You can check whether or not you're already in a transaction using the `Connection::inTransaction()` method.
 
-	$inTransaction = $connection->inTransaction();
+```
+$inTransaction = $connection->inTransaction();
+```
 
 The `Connection::transaction()` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
 
-	$connection->transaction(function($connection)
-	{
-		$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
+```
+$connection->transaction(function($connection)
+{
+	$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
-		$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
-	});
+	$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
+});
+```
 
 <a id="transactions:savepoints"></a>
 
@@ -144,41 +177,45 @@ In the example below we'll decrease the cash total of user `1` by `100` and incr
 
 The parent transaction is unaffected and the transfer between user `1` and `2` is still committed. If you want your entire transaction to roll back when the nested transaction fails then you can just re-throw the exception.
 
-	try
+```
+try
+{
+	$connection->beginTransaction();
+
+	$connection->builder()->table('accounts')->where('id', '=', 1)->decrement('cash', 100);
+
+	$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 100);
+
 	{
 		$connection->beginTransaction();
 
-		$connection->builder()->table('accounts')->where('id', '=', 1)->decrement('cash', 100);
-
-		$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 100);
-
+		try
 		{
-			$connection->beginTransaction();
+			$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 1000);
 
-			try
-			{
-				$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 1000);
-
-				$connection->commitTransaction();
-			}
-			catch(PDOException $e)
-			{
-					$connection->rollbackTransaction();
-			}
+			$connection->commitTransaction();
 		}
+		catch(PDOException $e)
+		{
+				$connection->rollbackTransaction();
+		}
+	}
 
-		$connection->commitTransaction();
-	}
-	catch(PDOException $e)
-	{
-			$connection->rollbackTransaction();
-	}
+	$connection->commitTransaction();
+}
+catch(PDOException $e)
+{
+		$connection->rollbackTransaction();
+}
+```
 
 Transaction nesting is also possible when using the `Connection::transaction()` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
 
 You can get the transaction nesting level at any point using the `Connection::getTransactionNestingLevel()` method.
 
-	$nestingLevel = $connection->getTransactionNestingLevel();
+```
+$nestingLevel = $connection->getTransactionNestingLevel();
+```
 
 --------------------------------------------------------
 
@@ -188,11 +225,15 @@ You can get the transaction nesting level at any point using the `Connection::ge
 
 The `Connection::builder()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
 
-	$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
+```
+$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
+```
 
 You can also use the `Connection::table()` convenience method if you want to skip the call to the `Connection::builder()` method.
 
-	$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
+```
+$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
+```
 
 --------------------------------------------------------
 
@@ -202,4 +243,6 @@ You can also use the `Connection::table()` convenience method if you want to ski
 
 You can also access the [PDO](http://php.net/manual/en/book.pdo.php) object directly when needed.
 
-	$serverVersion = $connection->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
+```
+$serverVersion = $connection->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
+```

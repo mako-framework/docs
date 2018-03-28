@@ -27,29 +27,39 @@ The request class provides an object oriented interface to global variables such
 
 The `getQuery` method returns a parameter collection containing query string data.
 
-	$queryString = $this->request->getQuery();
+```
+$queryString = $this->request->getQuery();
+```
 
 The `get` method of the parameter collection returns the value of a parameter and `null` if it doesn't exist.
 
-	$value = $queryString->get('foo');
+```
+$value = $queryString->get('foo');
 
-	// You can also specify a custom default return value
+// You can also specify a custom default return value
 
-	$value = $queryString->get('foo', false);
+$value = $queryString->get('foo', false);
+```
 
 The `getPost` method returns a parameter collection containing post data.
 
-	// Get all post data
+```
+// Get all post data
 
-	$post = $this->request->getPost();
+$post = $this->request->getPost();
+```
 
 The `getBody` method returns a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
 
-	$body = $this->request->getBody();
+```
+$body = $this->request->getBody();
+```
 
 The `getData` method returns a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data for `POST` requests and the parsed body for any other type of request).
 
-	$data = $this->request->getData();
+```
+$data = $this->request->getData();
+```
 
 The parameter collections also include the following methods in addition to the ones shown in the examples above.
 
@@ -68,15 +78,19 @@ The parameter collections also include the following methods in addition to the 
 
 The `getRawBody()` method returns the raw request body as a string.
 
-	$body = $this->request->getRawBody();
+```
+$body = $this->request->getRawBody();
+```
 
 The `getRawBodyAsStream` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large request bodies.
 
-	$body = $this->request->getRawBodyAsStream();
+```
+$body = $this->request->getRawBodyAsStream();
 
-	$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
+$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
 
-	$filesize = stream_copy_to_stream($body, $storageStream);
+$filesize = stream_copy_to_stream($body, $storageStream);
+```
 
 --------------------------------------------------------
 
@@ -86,15 +100,19 @@ The `getRawBodyAsStream` method returns the raw request body as a stream. This c
 
 The `getCookies` method returns a cookie collection that allows to you access both signed and unsigned cookies.
 
-	$cookies = $this->request->getCookies();
+```
+$cookies = $this->request->getCookies();
+```
 
 The `get` method of the cookie collection returns the value of a cookie and `null` if it doesn't exist.
 
-	$value = $cookies->get('foobar');
+```
+$value = $cookies->get('foobar');
 
-	// You can also define a custom default return value
+// You can also define a custom default return value
 
-	$value = $cookies->get('foobar', false);
+$value = $cookies->get('foobar', false);
+```
 
 > If you want to read a signed cookie then you'll have to use the `getSigned` method. The benefit of using signed cookies is that they can't be tampered with on the client side.
 
@@ -116,31 +134,43 @@ The cookie collection also includes the following methods in addition to the one
 
 The `getHeaders` method returns a header collection.
 
-	$headers = $this->request->getHeaders();
+```
+$headers = $this->request->getHeaders();
+```
 
 The `get` method of the header collection returns the value of the header an `null` it it isn't set.
 
-	$value = $headers->get('content-type');
+```
+$value = $headers->get('content-type');
 
-	// You can also define a custom default return value
+// You can also define a custom default return value
 
-	$value = $headers->get('content-type', 'text/plain');
+$value = $headers->get('content-type', 'text/plain');
+```
 
 The `acceptableContentTypes` method of the header collection returns an array of acceptable content types in descending order of preference.
 
-	$contentTypes = $headers->acceptableContentTypes();
+```
+$contentTypes = $headers->acceptableContentTypes();
+```
 
 The `acceptableLanguages` method of the header collection returns an array of acceptable languages in descending order of preference.
 
-	$languages = $headers->acceptableLanguages();
+```
+$languages = $headers->acceptableLanguages();
+```
 
 The `acceptableCharsets` method of the header collection returns an array of acceptable character sets in descending order of preference.
 
-	$charsets = $headers->acceptableCharsets();
+```
+$charsets = $headers->acceptableCharsets();
+```
 
 The `acceptableEncodings` method of the header collection returns an array of acceptable encodings in descending order of preference.
 
-	$charsets = $headers->acceptableEncodings();
+```
+$charsets = $headers->acceptableEncodings();
+```
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
 
@@ -159,15 +189,19 @@ The header collection also includes the following methods in addition to the one
 
 The `getFiles` method returns a file collection that extends the parameter collection.
 
-	$files = $this->request->getFiles();
+```
+$files = $this->request->getFiles();
+```
 
 The `get` method of the file collection returns a `UploadedFile` instance or `null` if the file doesn't exist.
 
-	$file = $files->get('myfile');
+```
+$file = $files->get('myfile');
 
-	// If you're fetching a file from a multi upload then you'll have to include the key as well
+// If you're fetching a file from a multi upload then you'll have to include the key as well
 
-	$file = $files->get('myfile.0');
+$file = $files->get('myfile.0');
+```
 
 The`UploadedFile` class extends the `SplFileInfo` class with the following methods.
 
@@ -193,7 +227,9 @@ The`UploadedFile` class extends the `SplFileInfo` class with the following metho
 
 The `getServer` method returns a collection that extends the parameter collection.
 
-	$server = $this->request->getServer();
+```
+$server = $this->request->getServer();
+```
 
 --------------------------------------------------------
 
@@ -203,70 +239,100 @@ The `getServer` method returns a collection that extends the parameter collectio
 
 The `referer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
-	// Returns the referrer if there is one and null if not
+```
+// Returns the referrer if there is one and null if not
 
-	$referer = $this->request->referer();
+$referer = $this->request->referer();
 
-	// Returns the referrer if there is one and the URL to the 'home' route if there isn't one
+// Returns the referrer if there is one and the URL to the 'home' route if there isn't one
 
-	$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
+$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
+```
 
 The `ip` method returns IP of the client that made the request.
 
-	$ip = $this->request->ip();
+```
+$ip = $this->request->ip();
+```
 
 The `isAjax` method returns `true` if the request was made using AJAX and `false` if not.
 
-	$isAjax = $this->request->isAjax();
+```
+$isAjax = $this->request->isAjax();
+```
 
 The `isSecure` method returns `true` if the request was made using HTTPS and `false` if not.
 
-	$isSecure = $this->request->isSecure();
+```
+$isSecure = $this->request->isSecure();
+```
 
 The `isSafe` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are `GET` and `HEAD`.
 
-	$isSafe = $this->request->isSafe();
+```
+$isSafe = $this->request->isSafe();
+```
 
 The `baseURL` method returns the base URL of the request.
 
-	// A request to 'http://example.org/foo/bar' will return 'http://example.org'
+```
+// A request to 'http://example.org/foo/bar' will return 'http://example.org'
 
-	$baseURL = $this->request->baseURL();
+$baseURL = $this->request->baseURL();
+```
 
 The `path` method will return the request path.
 
-	// A request to 'http://example.org/foo/bar' will return '/foo/bar'
+```
+// A request to 'http://example.org/foo/bar' will return '/foo/bar'
 
-	$path = $this->request->path();
+$path = $this->request->path();
+```
 
 The `language` method returns the request language (see the `app/config/application.php` config file for more information).
 
-	$language = $this->request->language();
+```
+$language = $this->request->language();
+```
 
 The `languagePrefix` method returns the language prefix (see the `app/config/application.php` config file for more information).
 
-	$languagePrefix = $this->request->languagePrefix();
+```
+$languagePrefix = $this->request->languagePrefix();
+```
 
 The `method` method returns the request method used to access the resource.
 
-	$method = $this->request->method();
+```
+$method = $this->request->method();
+```
 
 The `realMethod` method returns the real request method used to access the resource.
 
-	$method = $this->request->realMethod();
+```
+$method = $this->request->realMethod();
+```
 
 The `isFaked` method returns `true` if the request method method has been faked and `false` if not.
 
-	$isFaked = $this->request->isFaked();
+```
+$isFaked = $this->request->isFaked();
+```
 
 The `username` method returns a basic HTTP authentication username of `null` if it isn't set.
 
-	$username = $this->request->username();
+```
+$username = $this->request->username();
+```
 
 The `password` method returns a basic HTTP authentication password of `null` if it isn't set.
 
-	$password = $this->request->password();
+```
+$password = $this->request->password();
+```
 
 The `getRoute` method returns the route that matched the request.
 
-	$route = $this->request->getRoute();
+```
+$route = $this->request->getRoute();
+```

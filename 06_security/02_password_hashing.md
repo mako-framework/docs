@@ -20,29 +20,41 @@ All examples where we override the computing cost assume that `PASSWORD_BCRYPT` 
 
 The `hash` method will return a hashed version of the provided password.
 
-	$hash = Password::hash('foobar');
+```
+$hash = Password::hash('foobar');
+```
 
 You can increase the time it takes to calculate the hash by changing the computing options.
 
-	$hash = Password::hash('foobar', ['cost' => 14]);
+```
+$hash = Password::hash('foobar', ['cost' => 14]);
+```
 
 > Note that the length of the password hash may increase if the hashing algorithm is changed. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
 {.warning}
 
 The `setDefaultComputingOptions` method allows you to override the default computing options.
 
-	Password::setDefaultComputingOptions(['cost' => 14]);
+```
+Password::setDefaultComputingOptions(['cost' => 14]);
+```
 
 The `validate` method will validate hashes generated using the `hash` method.
 
-	$valid = Password::validate('foobar', $hash);
+```
+$valid = Password::validate('foobar', $hash);
+```
 
 The `needsRehash` method returns TRUE if the provided hash needs to be rehashed and FALSE if not.
 
-	$needsRehash = Password::needsRehash($hash);
+```
+$needsRehash = Password::needsRehash($hash);
+```
 
 You can also set the desired computing cost when checking.
 
-	$needsRehash = Password::needsRehash($hash, ['cost' => 14]);
+```
+$needsRehash = Password::needsRehash($hash, ['cost' => 14]);
+```
 
 > Passwords will automatically be rehashed if needed upon login if you're using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.

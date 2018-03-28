@@ -21,55 +21,58 @@ In this example we'll be creating a command and a handler for creating users.
 
 First we'll make our `CreateUserCommand`. As you can see, the command acts as a simple data container.
 
-	<?php
+```
+<?php
 
-	namespace app\commands;
+namespace app\commands;
 
-	use mako\commander\CommandInterface;
+use mako\commander\CommandInterface;
 
-	class CreateUserCommand implements CommandInterface
+class CreateUserCommand implements CommandInterface
+{
+	public $email;
+	public $username;
+	public $password;
+
+	public function __construct($email, $username, $password)
 	{
-		public $email;
-		public $username;
-		public $password;
-
-		public function __construct($email, $username, $password)
-		{
-			$this->email    = $email;
-			$this->username = $username;
-			$this->password = $password;
-		}
+		$this->email    = $email;
+		$this->username = $username;
+		$this->password = $password;
 	}
+}
+```
 
 Next we'll make a `CreateUserHandler`. Command handlers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
 
+```
+<?php
 
-	<?php
+namespace app\commands;
 
-	namespace app\commands;
+use mako\auth\Gatekeeper;
+use mako\commander\CommandInterface;
+use mako\commander\CommandHandlerInterface;
 
-	use mako\auth\Gatekeeper;
-	use mako\commander\CommandInterface;
-	use mako\commander\CommandHandlerInterface;
+class CreateUserHandler implements CommandHandlerInterface
+{
+	protected $gatekeeper;
 
-	class CreateUserHandler implements CommandHandlerInterface
+	public function __construct(Gatekeeper $gatekeeper)
 	{
-		protected $gatekeeper;
-
-		public function __construct(Gatekeeper $gatekeeper)
-		{
-			$this->gatekeeper = $gatekeeper;
-		}
-
-		public function handle(CommandInterface $command)
-		{
-			$email    = $command->email;
-			$username = $command->username;
-			$password = $command->password;
-
-			$this->gatekeeper->createUser($email, $username, $password);
-		}
+		$this->gatekeeper = $gatekeeper;
 	}
+
+	public function handle(CommandInterface $command)
+	{
+		$email    = $command->email;
+		$username = $command->username;
+		$password = $command->password;
+
+		$this->gatekeeper->createUser($email, $username, $password);
+	}
+}
+```
 
 This is a very basic example but you would also want to include input validation in your command handler. The `CommandHandlerInterface::handle()` method can return data that can be used to handle successes and errors.
 
@@ -82,52 +85,56 @@ This is a very basic example but you would also want to include input validation
 
 We are now ready to dispatch our command using the `CommandBus::dispatch()` method. In the following example we'll be creating a user from a controller method.
 
-	<?php
+```
+<?php
 
-	namespace app\controllers;
+namespace app\controllers;
 
-	use app\commands\CreateUserCommand;
+use app\commands\CreateUserCommand;
 
-	use mako\commander\CommandBus;
-	use mako\http\Request;
-	use mako\http\routing\Controller;
+use mako\commander\CommandBus;
+use mako\http\Request;
+use mako\http\routing\Controller;
 
-	class Register extends Controller
+class Register extends Controller
+{
+	public function createUser(Request $request, CommandBus $commander)
 	{
-		public function createUser(Request $request, CommandBus $commander)
-		{
-			$post = $request->getPost();
+		$post = $request->getPost();
 
-			$email    = $post->get('email');
-			$username = $post->get('username');
-			$password = $post->get('password');
+		$email    = $post->get('email');
+		$username = $post->get('username');
+		$password = $post->get('password');
 
-			$commander->dispatch(new CreateUserCommand($email, $username, $password));
-		}
+		$commander->dispatch(new CreateUserCommand($email, $username, $password));
 	}
+}
+```
 
 As previously mentioned, you can re-use your commands anywhere in your application. Here we'll dispatch our command from a console command, and as you can see we haven't had to duplicate any of the user creation code.
 
-	<?php
+```
+<?php
 
-	namespace app\console\commands\users;
+namespace app\console\commands\users;
 
-	use app\commands\CreateUserCommand;
+use app\commands\CreateUserCommand;
 
-	use mako\commander\CommandBus;
-	use mako\reactor\Command;
+use mako\commander\CommandBus;
+use mako\reactor\Command;
 
-	class Create extends Command
+class Create extends Command
+{
+	public function execute(CommandBus $commander)
 	{
-	    public function execute(CommandBus $commander)
-	    {
-	    	$email    = $this->question('Email:');
-	    	$username = $this->question('Username:');
-	    	$password = $this->secret('Password:');
+		$email    = $this->question('Email:');
+		$username = $this->question('Username:');
+		$password = $this->secret('Password:');
 
-	        $commander->dispatch(new CreateUserCommand($email, $username, $password));
-	    }
+		$commander->dispatch(new CreateUserCommand($email, $username, $password));
 	}
+}
+```
 
 --------------------------------------------------------
 
@@ -137,50 +144,56 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 
 Middleware can be used to decorate your command handlers with additional functionality. The example middleware below will wrap your command handler in a database transaction.
 
-	<?php
+```
+<?php
 
-	namespace app\commands\middleware;
+namespace app\commands\middleware;
 
-	use Closure;
-	use PDOException;
+use Closure;
+use PDOException;
 
-	use mako\commander\CommandInterface;
-	use mako\database\ConnectionManager;
+use mako\commander\CommandInterface;
+use mako\database\ConnectionManager;
 
-	class TransactionMiddleware
+class TransactionMiddleware
+{
+	protected $database;
+
+	public function __construct(ConnectionManager $database)
 	{
-		protected $database;
+		$this->database = $database;
+	}
 
-		public function __construct(ConnectionManager $database)
+	public function execute(CommandInterface $command, Closure $next)
+	{
+		try
 		{
-			$this->database = $database;
+			$this->database->beginTransaction();
+
+			$next($command);
+
+			$this->database->commitTransaction();
 		}
-
-		public function execute(CommandInterface $command, Closure $next)
+		catch(PDOException $e)
 		{
-			try
-			{
-				$this->database->beginTransaction();
-
-				$next($command);
-
-				$this->database->commitTransaction();
-			}
-			catch(PDOException $e)
-			{
-				$this->database->rollBackTransaction();
-			}
+			$this->database->rollBackTransaction();
 		}
 	}
+}
+```
 
 Adding middleware to the command bus is done using the `CommandBus::addMiddleware()` method.
 
-	$commander->addMiddleware(TransactionMiddleware::class);
+```
+$commander->addMiddleware(TransactionMiddleware::class);
+```
 
 Adding middleware like shown in the example above will decorate all command handlers executed by the command bus. You can also assign middleware at call-time if you don't want to affect subsequent handlers.
 
-	$middleware = [TransactionMiddleware::class];
+```
+$middleware = [TransactionMiddleware::class];
 
-	$commander->dispatch(new CreateUserCommand($email, $username, $password), [], $middleware);
+$commander->dispatch(new CreateUserCommand($email, $username, $password), [], $middleware);
+```
 
 Middleware is instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
