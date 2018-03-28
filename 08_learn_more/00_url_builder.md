@@ -14,7 +14,7 @@ The URL builder helps you build URLs for your Mako application.
 
 ### Usage
 
-The ```to``` method will return a Mako URL to the chosen path.
+The `to` method will return a Mako URL to the chosen path.
 
 	// Will print http://example.org/foo/bar
 
@@ -24,19 +24,19 @@ The ```to``` method will return a Mako URL to the chosen path.
 
 	$url = $urlBuilder->to('foo/bar', ['key1' => 'value1', 'key2' => 'value2']);
 
-The ```toRoute``` returns the URL of a [named route](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing).
+The `toRoute` returns the URL of a [named route](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing).
 
 	$url = $urlBuilder->toRoute('home');
 
-The ```base``` method will return the base URL of your application.
+The `base` method will return the base URL of your application.
 
 	$url = $urlBuilder->base();
 
-The ```current``` method will return the current URL of the main request.
+The `current` method will return the current URL of the main request.
 
 	$url = $urlBuilder->current();
 
-The ```matches``` method returns TRUE if the current URL path matches the pattern and false if not.
+The `matches` method returns TRUE if the current URL path matches the pattern and false if not.
 
 	// Basic URL matching
 

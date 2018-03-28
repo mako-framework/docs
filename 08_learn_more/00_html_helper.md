@@ -22,7 +22,7 @@ First we'll need to create a HTML instance.
 
 	$html = new HTML(true);
 
-The ```tag``` method can be used to generate nearly any HTML tag.
+The `tag` method can be used to generate nearly any HTML tag.
 
 	// Will print "<br>"
 
@@ -36,19 +36,19 @@ The ```tag``` method can be used to generate nearly any HTML tag.
 
 	echo $html->tag('span', ['id' => 'foo', 'class' => 'bar'], 'Hello, world!');
 
-The ```audio``` method generates HTML5 tags for audio files.
+The `audio` method generates HTML5 tags for audio files.
 
 	echo $html->audio('http://example.org/file.mp3');
 
 	echo $html->audio(['http://example.org/file.mp3', 'http://example.org/file.ogg']);
 
-The ```video``` method generates HTML5 tags for video files.
+The `video` method generates HTML5 tags for video files.
 
 	echo $html->video('http://example.org/file.mp4');
 
 	echo $html->video(['http://example.org/file.mp4', 'http://example.org/file.ogg']);
 
-The ```ul``` method generates HTML tags for an unordered list.
+The `ul` method generates HTML tags for an unordered list.
 
 	$items = ['apple', 'banana', 'orange'];
 
@@ -62,7 +62,7 @@ The ```ul``` method generates HTML tags for an unordered list.
 
 	echo $html->ul($items);
 
-The ```ol``` method generates HTML tags for a ordered list.
+The `ol` method generates HTML tags for a ordered list.
 
 	$items = ['apple', 'banana', 'orange'];
 
@@ -76,7 +76,7 @@ The ```ol``` method generates HTML tags for a ordered list.
 
 	echo $html->ol($items);
 
-The ```extend``` method allows you to register custom tag methods.
+The `extend` method allows you to register custom tag methods.
 
 	HTML::extend('p', function($content, array $attributes = [])
 	{

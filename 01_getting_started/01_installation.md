@@ -30,7 +30,7 @@ First you'll have to create a new project:
 
 	composer create-project mako/app:5.* <project name>
 
-Next you'll have to make the ```app/storage/*``` directories writable (command my vary depending on your system):
+Next you'll have to make the `app/storage/*` directories writable (command my vary depending on your system):
 
 	chown www-data:www-data -R app/storage
 

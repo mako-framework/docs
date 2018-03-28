@@ -26,7 +26,7 @@ First you'll have to create a pagination object. The first parameter is the tota
 
 	$pagination = $this->pagination->create(Articles::count());
 
-Once the pagination object is created we can fetch the articles from the database. Use the ```limit``` and ```offset``` methods to set the range of your query.
+Once the pagination object is created we can fetch the articles from the database. Use the `limit` and `offset` methods to set the range of your query.
 
 	$articles = Articles::limit($pagination->limit())->offset($pagination->offset())->all();
 
@@ -34,7 +34,7 @@ Once the pagination object is created we can fetch the articles from the databas
 
 #### With the query builder
 
-You can also use the ```pagination``` method of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder). It will automatically perform the count and apply the appropriate limit and offset.
+You can also use the `pagination` method of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder). It will automatically perform the count and apply the appropriate limit and offset.
 
 The first parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional second parameter that lets you override the other settings set in the configuration file.
 
@@ -46,11 +46,11 @@ The first parameter is optional and lets you set the number of items to be displ
 
 ### Pagination rendering
 
-You can render the pagination partial in the article list view using the ```render``` method.
+You can render the pagination partial in the article list view using the `render` method.
 
 	$pagination->render('partials.pagination');
 
-If you used the ```paginate``` method of the query builder then you can access the pagination object using the ```getPagination``` method on the result set.
+If you used the `paginate` method of the query builder then you can access the pagination object using the `getPagination` method on the result set.
 
 	$articles->getPagination()->render('partials.pagination');
 

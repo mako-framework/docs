@@ -8,7 +8,7 @@
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako ```5.4.x``` to ```5.5.x```.
+This guide takes you through the steps needed to migrate from Mako `5.4.x` to `5.5.x`.
 
 --------------------------------------------------------
 

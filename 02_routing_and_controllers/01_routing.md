@@ -19,7 +19,7 @@
 
 The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the ```app/routing/routes.php``` file and there are three variables available in the scope, ```$routes``` (the route collection) and ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Routes are registered in the `app/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the IoC container instance).
 
 --------------------------------------------------------
 
@@ -27,23 +27,23 @@ Routes are registered in the ```app/routing/routes.php``` file and there are thr
 
 ### Basics
 
-The following route will forward all ```GET``` requests to the ```/``` route to the ```welcome``` method of the ```app\controllers\Home```controller class.
+The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\controllers\Home`controller class.
 
 	$routes->get('/', 'app\controllers\Home::welcome');
 
-If you want the route to respond to ```POST``` requests instead then you'll have to use the ```post``` method.
+If you want the route to respond to `POST` requests instead then you'll have to use the `post` method.
 
 	$routes->post('/', 'app\controllers\Home::welcome');
 
-The available methods are ```get```, ```post```, ```put```, ```patch```, and ```delete```.
+The available methods are `get`, `post`, `put`, `patch`, and `delete`.
 
-You can also make a route respond to all request methods using the ```all``` method.
+You can also make a route respond to all request methods using the `all` method.
 
 	$routes->all('/', 'app\controllers\Home::welcome');
 
-> All routes respond to requests made using the ```OPTIONS``` method. ```GET``` routes will also respond to ```HEAD``` requests.
+> All routes respond to requests made using the `OPTIONS` method. `GET` routes will also respond to `HEAD` requests.
 
-If you only want to allow a specific set of methods then you can use the ```register``` method.
+If you only want to allow a specific set of methods then you can use the `register` method.
 
 	$routes->register(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
 
@@ -67,14 +67,14 @@ You'll often want to send parameters to your route actions. This is easy and can
 		return $id;
 	});
 
-If you need to make a parameter optional then you can do so by adding the ```?``` suffix.
+If you need to make a parameter optional then you can do so by adding the `?` suffix.
 
 	$routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 	{
 		return $id . ' ' . $slug;
 	});
 
-By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the ```patterns``` method.
+By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the `patterns` method.
 
 	$routes->get('/articles/{id}', function($id)
 	{
@@ -82,7 +82,7 @@ By default parameters match any character except for slashes (`/`); however, you
 	})
 	->patterns(['id' => '[0-9]+']);
 
-Closure actions get executed by the ```Container::call()``` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
+Closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 	$routes->get('/article/{id}', function(ViewFactory $view, $id)
 	{
@@ -104,7 +104,7 @@ Route middleware allows you to alter the request and response both before and af
 
 #### Defining middleware
 
-All middleware must implement the ```MiddlewareInterface```. Mako includes a partial implementation that can be extended.
+All middleware must implement the `MiddlewareInterface`. Mako includes a partial implementation that can be extended.
 
 The example below is the most basic middleware implementation (it doesn't actually do anything).
 
@@ -126,7 +126,7 @@ The example below is the most basic middleware implementation (it doesn't actual
 		}
 	}
 
-Middleware has to be registered in the ```app/routing/middleware.php``` file before you can use them. There are three variables available in the scope, ```$dispatcher``` (the route dispatcher), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Middleware has to be registered in the `app/routing/middleware.php` file before you can use them. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the IoC container instance).
 
 	$dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class);
 
@@ -176,7 +176,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 
 #### Assigning middleware
 
-Assigning middleware to a route is done using the ```middleware``` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
+Assigning middleware to a route is done using the `middleware` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
 
 	$routes->get('/articles/{id}', 'app\controllers\Articles::view')
 	->patterns(['id' => '[0-9]+'])
@@ -213,9 +213,9 @@ Or you can set the priority of all your middleware using the `setMiddlewarePrior
 
 	$dispatcher->setMiddlewarePriority(['cache' => 1, 'passthrough' => 2]);
 
-In both examples above we're making sure that the ```cache``` middleware gets executed first, followed by the ```passthrough``` middleware.
+In both examples above we're making sure that the `cache` middleware gets executed first, followed by the `passthrough` middleware.
 
-You can use middleware priority without having to configure all your middleware. Non-configured middleware will be assigned a default priority of ```100```. This means that if you have a middleware that you want executed last then you can set its priority to a value of ```101``` or above.
+You can use middleware priority without having to configure all your middleware. Non-configured middleware will be assigned a default priority of `100`. This means that if you have a middleware that you want executed last then you can set its priority to a value of `101` or above.
 
 --------------------------------------------------------
 
@@ -229,7 +229,7 @@ Route constraints allow you to set additional requirements that must be met befo
 
 #### Defining constraints
 
-All constraints must implement the ```ConstraintInterface```. Mako includes a partial implementation that can be extended.
+All constraints must implement the `ConstraintInterface`. Mako includes a partial implementation that can be extended.
 
 Note that all constraints are instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
@@ -257,7 +257,7 @@ The following constraint will match a route if the `X-Api-Version` header matche
 		}
 	}
 
-Constraints have to be registered in the ```app/routing/constraints.php``` file before you can use them. There are three variables available in the scope, ```$router``` (the router), ```$app``` (the application instance) and ```$container``` (the IoC container instance).
+Constraints have to be registered in the `app/routing/constraints.php` file before you can use them. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the IoC container instance).
 
 	$router->registerConstraint('api_version', ApiVersionConstraint::class);
 
@@ -265,7 +265,7 @@ Constraints have to be registered in the ```app/routing/constraints.php``` file 
 
 #### Assigning constraints
 
-Assigning constraints to a route is done using the ```constraint``` method. You can also pass an array of constraints if your route requires multiple constraints.
+Assigning constraints to a route is done using the `constraint` method. You can also pass an array of constraints if your route requires multiple constraints.
 
 	$routes->get('/', 'Api2::index')->constraint('api_version("2.0")');
 	$routes->get('/', 'Api1::index')->constraint('api_version("1.0")');
@@ -325,7 +325,7 @@ You can assign names to your routes when you define them. This will allow you to
 
 	$routes->get('/', 'Home::Welcome', 'home');
 
-The route in the example above has been named ```home``` and we can now create a URL to the route using the ```toRoute``` method of the ```URLBuilder``` class.
+The route in the example above has been named `home` and we can now create a URL to the route using the `toRoute` method of the `URLBuilder` class.
 
 	<a href="{{$urlBuilder->toRoute('home')}}">Home</a>
 
@@ -339,8 +339,8 @@ You can also pass parameters to your route URLs.
 
 ### Faking request methods
 
-Most browsers only support sending ```GET``` and ```POST``` requests. You can get around this limitation by performing a ```POST``` request including a ```REQUEST_METHOD_OVERRIDE``` field where you specify the request method you want to use.
+Most browsers only support sending `GET` and `POST` requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
 
 	<input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
 
-Another solution is to send a ```X_HTTP_METHOD_OVERRIDE``` header.
+Another solution is to send a `X_HTTP_METHOD_OVERRIDE` header.

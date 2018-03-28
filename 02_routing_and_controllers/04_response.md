@@ -19,13 +19,13 @@ An instance of the response class is always available in all controller classes.
 
 ### Basics
 
-The ```body``` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body in [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
+The `body` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can however be useful if you want to alter the response body in [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 
-The ```getBody``` method returns the response body.
+The `getBody` method returns the response body.
 
 	$responseBody = $this->response->getBody();
 
-The ```type``` method lets you define the response type as well as the response charset. The default response type is ```text/html``` and the default charset is ```UTF-8```. The default charset is defined in your ```app\config\application.php``` config file.
+The `type` method lets you define the response type as well as the response charset. The default response type is `text/html` and the default charset is `UTF-8`. The default charset is defined in your `app\config\application.php` config file.
 
 	$this->response->type('application/json');
 
@@ -33,23 +33,23 @@ The ```type``` method lets you define the response type as well as the response 
 
 	$this->response->type('application/json', 'iso-8859-1');
 
-The ```getType``` method returns the current response type.
+The `getType` method returns the current response type.
 
 	$responseType = $this->response->getType();
 
-The ```charset``` method lets you set the response charset. The default charset is ```UTF-8```and it is defined in your ```app\config\application.php``` config file.
+The `charset` method lets you set the response charset. The default charset is `UTF-8`and it is defined in your `app\config\application.php` config file.
 
 	$this->response->charset('iso-8859-1');
 
-The ```getCharset``` returns the current response charset.
+The `getCharset` returns the current response charset.
 
 	$responseCharset = $this->response->getCharset();
 
-The ```status``` method lets you set the response status.
+The `status` method lets you set the response status.
 
 	$this->response->status(404); // Sends the 404 "Not Found" header.
 
-The ```getStatus``` method returns the current status code.
+The `getStatus` method returns the current status code.
 
 	$responseStatus = $this->response->getStatus();
 
@@ -127,18 +127,18 @@ The header collection also includes the following methods in addition to the one
 
 ### Caching and compression
 
-You can enable ```ETag``` caching using the ```cache``` method. Doing so can save bandwidth as the response body will only be sent if it has been modified since the last request.
+You can enable `ETag` caching using the `cache` method. Doing so can save bandwidth as the response body will only be sent if it has been modified since the last request.
 
 	$this->response->cache();
 
-The ```disableCaching``` method disables ```ETag``` caching if it has been enabled.
+The `disableCaching` method disables `ETag` caching if it has been enabled.
 
 	$this->response->disableCaching();
 
-The ```compress``` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
+The `compress` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 
 	$this->response->compress();
 
-The ```disableCompression``` method disables output compression if it has been enabled.
+The `disableCompression` method disables output compression if it has been enabled.
 
 	$this->response->disableCompression();

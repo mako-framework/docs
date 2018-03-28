@@ -169,7 +169,7 @@ The `get` method of the file collection returns a `UploadedFile` instance or `nu
 
 	$file = $files->get('myfile.0');
 
-The```UploadedFile``` class extends the ```SplFileInfo``` class with the following methods.
+The`UploadedFile` class extends the `SplFileInfo` class with the following methods.
 
 | Method            | Description                                                               |
 |-------------------|---------------------------------------------------------------------------|
@@ -182,7 +182,7 @@ The```UploadedFile``` class extends the ```SplFileInfo``` class with the followi
 | isUploaded()      | Returns TRUE if the file is an actual upload and FALSE if not             |
 | moveTo($path)     | Moves the file to the specified storage location                          |
 
-> The values reported by the client should not be trusted (e.g. use the ```getSize``` method to retrieve the actual filesize).
+> The values reported by the client should not be trusted (e.g. use the `getSize` method to retrieve the actual filesize).
 {.warning}
 
 --------------------------------------------------------
@@ -201,7 +201,7 @@ The `getServer` method returns a collection that extends the parameter collectio
 
 ### Request information
 
-The ```referer``` method returns the address that referred the client to the current resource or `null` if there is no referrer.
+The `referer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
 	// Returns the referrer if there is one and null if not
 
@@ -211,62 +211,62 @@ The ```referer``` method returns the address that referred the client to the cur
 
 	$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
 
-The ```ip``` method returns IP of the client that made the request.
+The `ip` method returns IP of the client that made the request.
 
 	$ip = $this->request->ip();
 
-The ```isAjax``` method returns `true` if the request was made using AJAX and `false` if not.
+The `isAjax` method returns `true` if the request was made using AJAX and `false` if not.
 
 	$isAjax = $this->request->isAjax();
 
-The ```isSecure``` method returns `true` if the request was made using HTTPS and `false` if not.
+The `isSecure` method returns `true` if the request was made using HTTPS and `false` if not.
 
 	$isSecure = $this->request->isSecure();
 
-The ```isSafe``` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are ```GET``` and ```HEAD```.
+The `isSafe` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are `GET` and `HEAD`.
 
 	$isSafe = $this->request->isSafe();
 
-The ```baseURL``` method returns the base URL of the request.
+The `baseURL` method returns the base URL of the request.
 
 	// A request to 'http://example.org/foo/bar' will return 'http://example.org'
 
 	$baseURL = $this->request->baseURL();
 
-The ```path``` method will return the request path.
+The `path` method will return the request path.
 
 	// A request to 'http://example.org/foo/bar' will return '/foo/bar'
 
 	$path = $this->request->path();
 
-The ```language``` method returns the request language (see the ```app/config/application.php``` config file for more information).
+The `language` method returns the request language (see the `app/config/application.php` config file for more information).
 
 	$language = $this->request->language();
 
-The ```languagePrefix``` method returns the language prefix (see the ```app/config/application.php``` config file for more information).
+The `languagePrefix` method returns the language prefix (see the `app/config/application.php` config file for more information).
 
 	$languagePrefix = $this->request->languagePrefix();
 
-The ```method``` method returns the request method used to access the resource.
+The `method` method returns the request method used to access the resource.
 
 	$method = $this->request->method();
 
-The ```realMethod``` method returns the real request method used to access the resource.
+The `realMethod` method returns the real request method used to access the resource.
 
 	$method = $this->request->realMethod();
 
-The ```isFaked``` method returns `true` if the request method method has been faked and `false` if not.
+The `isFaked` method returns `true` if the request method method has been faked and `false` if not.
 
 	$isFaked = $this->request->isFaked();
 
-The ```username``` method returns a basic HTTP authentication username of `null` if it isn't set.
+The `username` method returns a basic HTTP authentication username of `null` if it isn't set.
 
 	$username = $this->request->username();
 
-The ```password``` method returns a basic HTTP authentication password of `null` if it isn't set.
+The `password` method returns a basic HTTP authentication password of `null` if it isn't set.
 
 	$password = $this->request->password();
 
-The ```getRoute``` method returns the route that matched the request.
+The `getRoute` method returns the route that matched the request.
 
 	$route = $this->request->getRoute();

@@ -22,7 +22,7 @@ Views is where the HTML of your application goes. A view can be an entire web pa
 
 Using views allows you to separate the presentation and business logic of your application, permitting independent development, testing and maintenance of each.
 
-All views must be located in the ```app/resources/views``` directory. You can of course create subdirectories to better organize your view files.
+All views must be located in the `app/resources/views` directory. You can of course create subdirectories to better organize your view files.
 
 --------------------------------------------------------
 
@@ -30,11 +30,11 @@ All views must be located in the ```app/resources/views``` directory. You can of
 
 ### Basics
 
-Creating a view object is done by passing the name of the view file to the ```create``` method of the view factory.
+Creating a view object is done by passing the name of the view file to the `create` method of the view factory.
 
 	$view = $this->view->create('welcome');
 
-If you're organizing your views in subdirectories then you'll have to separate the directory and template names by a dot.  The following example loads the ```bar``` view located in the ```foo``` directory.
+If you're organizing your views in subdirectories then you'll have to separate the directory and template names by a dot.  The following example loads the `bar` view located in the `foo` directory.
 
 	$view = $this->view->create('foo.bar');
 
@@ -42,24 +42,24 @@ Assigning variables can be done using the optional second parameter.
 
 	$view = $this->view->create('foo.bar', ['foo' => 'bar']);
 
-You can also assign variables to a view object by using the ```assign``` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to and in views included within it.
+You can also assign variables to a view object by using the `assign` method of the view class. You can assign any kind of variable, even another view object. The assigned variable is only available in the view you assigned it to and in views included within it.
 
 	$view->assign('foo', 'bar');
 
-It is also possible to auto assign variables to views using the view factory ```autoAssign``` method. The first parameter is the name of the view (or an array of view names) and the second parameter is a callable that must return an associative array where the keys are the variable names and the values are the variable values.
+It is also possible to auto assign variables to views using the view factory `autoAssign` method. The first parameter is the name of the view (or an array of view names) and the second parameter is a callable that must return an associative array where the keys are the variable names and the values are the variable values.
 
 	$this->view->autoAssign('profile', function()
 	{
 		['name' => 'Foobar'];
 	});
 
-You can also assign global view variables that will be available in all views using the ```assign``` method on the view factory instance.
+You can also assign global view variables that will be available in all views using the `assign` method on the view factory instance.
 
 	$this->view->assign('user', $user);
 
-> You can also use ```*``` as a template name to automatically assign a variable to all views.
+> You can also use `*` as a template name to automatically assign a variable to all views.
 
-The ```render``` method returns the rendered output of the view and it also accepts the same optional second parameter as the create method.
+The `render` method returns the rendered output of the view and it also accepts the same optional second parameter as the create method.
 
 	$output = $view->render();
 
@@ -99,7 +99,7 @@ You also have access to a few handy methods that you should use to escape untrus
 | escapeJS        | Escapes data for use in a JavaScript context.       |
 | escapeURL       | Escapes data for use in a URI or parameter context. |
 
-> The ```escapeAttribute``` method is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```escapeJS``` filter.
+> The `escapeAttribute` method is not enough to securely escape complex attributes such as `href`, `src`, `style`, or any of the event handlers like `onmouseover`, `onmouseout` etc. It is extremely important that event handler attributes should be escaped with the `escapeJS` filter.
 {.warning}
 
 #### Templates
@@ -110,7 +110,7 @@ Mako includes a simple templating language that offers a simpler and less verbos
 
 There is almost no overhead associated with using template views as they get compiled into regular PHP views and they won't be re-compiled until you update them.
 
-> Your views must use the custom ```.tpl.php``` extension for them to get rendered by the template renderer.
+> Your views must use the custom `.tpl.php` extension for them to get rendered by the template renderer.
 
 ##### Printing
 
@@ -120,30 +120,30 @@ Printing an escaped variable for use in a HTML content context is done using the
 
 	{{$foo}}
 
-The ```preserve``` filter will still escape output but it will prevent double-encoding of existing html entities.
+The `preserve` filter will still escape output but it will prevent double-encoding of existing html entities.
 
 	{{preserve:$foo}}
 
-The ```attribute``` filter will escape output for use in a HTML attribute context.
+The `attribute` filter will escape output for use in a HTML attribute context.
 
 	{{attribute:$foo}}
 
-> The ```attribute``` filter is not enough to securely escape complex attributes such as ```href```, ```src```, ```style```, or any of the event handlers like ```onmouseover```, ```onmouseout``` etc. It is extremely important that event handler attributes should be escaped with the ```js``` filter.
+> The `attribute` filter is not enough to securely escape complex attributes such as `href`, `src`, `style`, or any of the event handlers like `onmouseover`, `onmouseout` etc. It is extremely important that event handler attributes should be escaped with the `js` filter.
 {.warning}
 
-The ```js``` filter will escape output for use in a JavaScript context.
+The `js` filter will escape output for use in a JavaScript context.
 
 	{{js:$foo}}
 
-The ```css``` filter will escape output for use in a CSS context.
+The `css` filter will escape output for use in a CSS context.
 
 	{{css:$foo}}
 
-The ```url``` filter will escape output for use in a URI parameter context.
+The `url` filter will escape output for use in a URI parameter context.
 
 	{{url:$foo}}
 
-If you want to print an un-escaped variable then you can use the ```raw``` filter.
+If you want to print an un-escaped variable then you can use the `raw` filter.
 
 	{{raw:$foo}}
 
@@ -155,7 +155,7 @@ Sometimes you'll want to print a default value if your variable is empty. This c
 
 <a id="view_renderers:templates:conditional_statements"></a>
 
-Conditional statements (```if```, ```elseif``` and ```else```) are also supported.
+Conditional statements (`if`, `elseif` and `else`) are also supported.
 
 	{% if($foo === $bar) %}
 		$foo equals $bar
@@ -167,7 +167,7 @@ Conditional statements (```if```, ```elseif``` and ```else```) are also supporte
 
 <a id="view_renderers:templates:loops"></a>
 
-Loops is something you'll often need when displaying data. Templates support ```foreach```, ```for``` and ```while``` loops. You can skip an iteration using ```continue``` or break out of the loop using ```break```.
+Loops is something you'll often need when displaying data. Templates support `foreach`, `for` and `while` loops. You can skip an iteration using `continue` or break out of the loop using `break`.
 
 	<ul>
 	{% foreach($articles as $article) %}
@@ -239,7 +239,7 @@ Included views will automatically inherit all the variables available in the par
 
 <a id="view_renderers:templates:template_inheritance"></a>
 
-Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Let's say you save the template below as ```parent.tpl.php```.
+Another useful feature is template inheritance. This allows you to define a parent wrapper view that you can easily extend. Let's say you save the template below as `parent.tpl.php`.
 
 	<!DOCTYPE html>
 	<html lang="en">
@@ -259,7 +259,7 @@ Another useful feature is template inheritance. This allows you to define a pare
 		</body>
 	</html>
 
-You can then create a ```child.tpl.php``` template that extends the parent template.
+You can then create a `child.tpl.php` template that extends the parent template.
 
 	{% extends:'parent' %}
 
@@ -274,7 +274,7 @@ You can then create a ```child.tpl.php``` template that extends the parent templ
 		This is the content.
 	{% endblock %}
 
-> The ```__PARENT__``` string will be replaced by the contents of the parent block.
+> The `__PARENT__` string will be replaced by the contents of the parent block.
 
 Rendering the child template will result in the HTML document displayed below.
 
@@ -305,7 +305,7 @@ Rendering the child template will result in the HTML document displayed below.
 
 Mako also makes it possible to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
 
-Registering a custom renderer is done using the ```extend``` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
+Registering a custom renderer is done using the `extend` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
 
 The renderer will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so all dependencies will automatically be injected.
 
@@ -322,4 +322,4 @@ You can also use a closure if your renderer requires parameters that the contain
 		return $renderer;
 	});
 
-> All custom renderers must implement the ```mako\view\renderers\RendererInterface``` interface.
+> All custom renderers must implement the `mako\view\renderers\RendererInterface` interface.

@@ -20,31 +20,31 @@ First you'll have to decide whether to use GD or ImageMagick. In this example we
 
 > You can reuse the same processor instance as long as you edit your images sequentially.
 
-The ```getHeight``` method returns the height of your image.
+The `getHeight` method returns the height of your image.
 
 	$height = $image->getHeight();
 
-The ```getWidth``` method returns the width of your image.
+The `getWidth` method returns the width of your image.
 
 	$width = $image->getWidth();
 
-The ```getDimensions``` method returns an array containing both the height and width of your image.
+The `getDimensions` method returns an array containing both the height and width of your image.
 
 	$dimensions = $image->getDimensions();
 
-The ```snapshot``` method allows you to create a snapshot of your image.
+The `snapshot` method allows you to create a snapshot of your image.
 
 	$image->snapshot();
 
-The ```restore``` method allows you to restore an image snapshot.
+The `restore` method allows you to restore an image snapshot.
 
 	$image->restore();
 
-The ```rotate``` method allows you to rotate an image n degrees.
+The `rotate` method allows you to rotate an image n degrees.
 
 	$image->rotate(90);
 
-The ```resize``` method allows you to resize an image.
+The `resize` method allows you to resize an image.
 
 	// Resize to 50% of original size
 
@@ -66,11 +66,11 @@ The ```resize``` method allows you to resize an image.
 
 	$image->resize(300, 300, Image::RESIZE_HEIGHT);
 
-The ```crop``` method allows you to crop an image. The two first parameters are the crop size while the last two are the X and Y coordinates of the cropped region's top left corner.
+The `crop` method allows you to crop an image. The two first parameters are the crop size while the last two are the X and Y coordinates of the cropped region's top left corner.
 
 	$image->crop(200, 200, 50, 50);
 
-The ```flip``` method allows you to flip and image.
+The `flip` method allows you to flip and image.
 
 	$image->flip();
 
@@ -78,7 +78,7 @@ The ```flip``` method allows you to flip and image.
 
 	$image->flip(Image::FLIP_VERTICAL);
 
-The ```watermark``` method allows you to add a watermark to your image.
+The `watermark` method allows you to add a watermark to your image.
 
 	$image->watermark('watermark.png');
 
@@ -96,11 +96,11 @@ The ```watermark``` method allows you to add a watermark to your image.
 
 	$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_RIGHT, 50);
 
-The ```sharpen``` method allows you to sharpen the image.
+The `sharpen` method allows you to sharpen the image.
 
 	$image->sharpen();
 
-The ```pixelate``` method will pixelate the image.
+The `pixelate` method will pixelate the image.
 
 	$image->pixelate();
 
@@ -108,23 +108,23 @@ The ```pixelate``` method will pixelate the image.
 
 	$image->pixelate(20);
 
-The ```greyscale``` method converts the image to greyscale.
+The `greyscale` method converts the image to greyscale.
 
 	$image->greyscale();
 
-The ```sepia``` method converts the image to sepia.
+The `sepia` method converts the image to sepia.
 
 	$image->sepia();
 
-The ```negate``` will invert the colors in the image.
+The `negate` will invert the colors in the image.
 
 	$image->negate();
 
-The ```colorize``` method allows you to colorize an image.
+The `colorize` method allows you to colorize an image.
 
 	$image->colorize('FF0000');
 
-The ```brightness``` method allows you adjust the brightness of the image.
+The `brightness` method allows you adjust the brightness of the image.
 
 	$image->brightness();
 
@@ -132,7 +132,7 @@ The ```brightness``` method allows you adjust the brightness of the image.
 
 	$image->brightness(100);
 
-The ```getImageBlob``` returns the raw binary image data.
+The `getImageBlob` returns the raw binary image data.
 
 	$image = $image->getImageBlob();
 
@@ -144,7 +144,7 @@ The ```getImageBlob``` returns the raw binary image data.
 
 	$image = $image->getImageBlob('jpg', 70);
 
-As the name suggests the ```save``` method will save your edited image to disk.
+As the name suggests the `save` method will save your edited image to disk.
 
 	// Override original file
 

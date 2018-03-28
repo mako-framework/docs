@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a command line tool called ```reactor```. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs.
+Mako includes a command line tool called `reactor`. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs.
 
 --------------------------------------------------------
 

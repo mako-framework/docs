@@ -19,7 +19,7 @@ Install the package using the following composer command:
 
 	composer require mako/toolbar
 
-Next, add the ```mako\toolbar\ToolbarPackage``` package to your ```app/config/application.php``` config file.
+Next, add the `mako\toolbar\ToolbarPackage` package to your `app/config/application.php` config file.
 
 Finally, you need to make sure that the toolbar gets rendered. The quickest way of getting it up and running is to use the included [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 

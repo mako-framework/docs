@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-Mako converts all errors to ```ErrorExceptions```. This allows the error handler to display an error page that contains a lot more information than the standard PHP error pages when something bad happens. The default error handler will also log the error if error logging is enabled.
+Mako converts all errors to `ErrorExceptions`. This allows the error handler to display an error page that contains a lot more information than the standard PHP error pages when something bad happens. The default error handler will also log the error if error logging is enabled.
 
 --------------------------------------------------------
 
@@ -15,9 +15,9 @@ Mako converts all errors to ```ErrorExceptions```. This allows the error handler
 
 ### Custom error handling
 
-You can register custom error handlers for different kinds of exception types using the ```ErrorHandler::handle()``` method.
+You can register custom error handlers for different kinds of exception types using the `ErrorHandler::handle()` method.
 
-A great place to do so is in the ```app/bootstrap.php``` file.
+A great place to do so is in the `app/bootstrap.php` file.
 
 	$errorHandler = $container->get('errorHandler');
 
@@ -46,7 +46,7 @@ A great place to do so is in the ```app/bootstrap.php``` file.
 
 ### Disabling logging of specific exception types
 
-Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the ```disableLoggingFor``` method.
+Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `disableLoggingFor` method.
 
 	$errorHandler->disableLoggingFor(mako\http\exceptions\NotFoundException::class);
 

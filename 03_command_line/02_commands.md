@@ -28,7 +28,7 @@ The Mako command line tool comes with a set of useful commands but you can also 
 
 #### Getting started
 
-All commands must extend the ```mako\reactor\Command``` base command and implement the ```execute``` method.
+All commands must extend the `mako\reactor\Command` base command and implement the `execute` method.
 
 	<?php
 
@@ -66,7 +66,7 @@ Passing arguments to a command is easy.
 		}
 	}
 
-> ```$arg0``` is the reactor script and ```$arg1``` is the name of the command.
+> `$arg0` is the reactor script and `$arg1` is the name of the command.
 
 You can now execute your command from the command line.
 
@@ -121,7 +121,7 @@ You can now execute your command from the command line.
 
 	php reactor hello --shout
 
-Both arguments and options can be documented using the ```$commandInformation``` property.
+Both arguments and options can be documented using the `$commandInformation` property.
 
 	protected $commandInformation =
 	[
@@ -136,7 +136,7 @@ Both arguments and options can be documented using the ```$commandInformation```
 		],
 	];
 
-It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the ```$isStrict``` property to ```TRUE``` if you want the command to fail if a non-documented argument or option is used.
+It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the `$isStrict` property to `TRUE` if you want the command to fail if a non-documented argument or option is used.
 
 <a id="basics:registering-commands"></a>
 
@@ -144,7 +144,7 @@ It is generally a good idea to document your arguments and options since this al
 
 You'll have to register your command with the reactor command line tool before you can use it.
 
-Commands are registered in the ```app/config/application.php``` configuration file. The array key is the name of your command and the value is the command class name.
+Commands are registered in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
 
 Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
@@ -167,32 +167,32 @@ You can now call your custom command like this.
 
 #### Helpers
 
-The ```question``` method lets you ask the user for input.
+The `question` method lets you ask the user for input.
 
 	$input = $this->question('How old are you?');
 
-You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is ```NULL```.
+You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is `NULL`.
 
 	$input = $this->question('How old are you?', 25);
 
-The ```secret``` method lets you ask the user for hidden input.
+The `secret` method lets you ask the user for hidden input.
 
 	$input = $this->secret('Password:');
 
-You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is ```NULL```.
+You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is `NULL`.
 
 	$input = $this->secret('Password:', false);
 
-> The ```secret``` method will throw a ```RuntimeException``` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing ```TRUE``` to the optional third parameter.
+> The `secret` method will throw a `RuntimeException` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing `TRUE` to the optional third parameter.
 
-The ```confirm``` method lets you ask the user to confirm their action.
+The `confirm` method lets you ask the user to confirm their action.
 
 	if($this->confirm('Do you want to delete all your files?'))
 	{
 		// Delete all files
 	}
 
-The default answer is ```n``` (false) but you can choose to make ```y``` (true) the default answer.
+The default answer is `n` (false) but you can choose to make `y` (true) the default answer.
 
 	if($this->confirm('Do you want to delete all your files?', 'y'))
 	{
@@ -209,27 +209,27 @@ The default answer is ```n``` (false) but you can choose to make ```y``` (true) 
 
 #### Helpers
 
-The ```write``` method lets you write output.
+The `write` method lets you write output.
 
 	$this->write('Hello, World!');
 
-The method writes to ```STDOUT``` by default but you can make it write to ```STDERR``` like this.
+The method writes to `STDOUT` by default but you can make it write to `STDERR` like this.
 
 	$this->write('Hello, World!', Output::ERROR);
 
-There's also a handy ```error``` method that lets you write to ```STDERR```.
+There's also a handy `error` method that lets you write to `STDERR`.
 
 	$this->error('Hello, World!');
 
-The ```nl``` method writes a newline to the output.
+The `nl` method writes a newline to the output.
 
 	$this->nl();
 
-The ```clear``` method lets you clear all output from the terminal window.
+The `clear` method lets you clear all output from the terminal window.
 
 	$this->clear();
 
-The ```bell``` method rings the terminal bell.
+The `bell` method rings the terminal bell.
 
 	$this->bell();
 
@@ -237,11 +237,11 @@ You can also make it ring multiple times if you want to.
 
 	$this->bell(3);
 
-The ```countdown``` method will print a countdown that disappears after n seconds.
+The `countdown` method will print a countdown that disappears after n seconds.
 
 	$this->countdown(5);
 
-The ```progressBar``` method will let you display a nice progressbar. This is useful if your command is processing multiple items.
+The `progressBar` method will let you display a nice progressbar. This is useful if your command is processing multiple items.
 
 	$items = 100;
 
@@ -252,7 +252,7 @@ The ```progressBar``` method will let you display a nice progressbar. This is us
 		$progressbar->advance();
 	}
 
-The ```table``` method lets you output a nice ASCII table.
+The `table` method lets you output a nice ASCII table.
 
 	$this->table(['Col1', 'Col2'], [['R1 C1', 'R1 C2'], ['R2 C1', 'R2 C2']]);
 
@@ -265,7 +265,7 @@ This code above will result in a table looking like this.
 	| R2 C1 | R2 C2 |
 	-----------------
 
-The ```ol``` method lets you output an ordered list.
+The `ol` method lets you output an ordered list.
 
 	$this->ol(['one', 'two', 'three', ['one', 'two'], 'four']);
 
@@ -278,7 +278,7 @@ The example above will output the following list.
 	   2. two
 	4. four
 
-The ```ul``` method lets you output an unordered list.
+The `ul` method lets you output an unordered list.
 
 	$this->ul(['one', 'two', 'three', ['one', 'two'], 'four']);
 
@@ -303,7 +303,7 @@ You can also nest formatting tags. Just make sure to close them in the right ord
 
 	$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
 
-If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the ```Formatter::addStyle()``` method.
+If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the `Formatter::addStyle()` method.
 
 	$this->output->getFormatter()->addStyle('awesome', ['bg_green', 'black', 'blinking']);
 
@@ -311,7 +311,7 @@ Tags can also be escaped by prepending them with a backslash.
 
 	$this->write('\<blue>Hello, World\</blue>');
 
-If you want to escape all tags in a string then you can use the ```Formatter::escape()``` method.
+If you want to escape all tags in a string then you can use the `Formatter::escape()` method.
 
 	$escaped = $this->output->getFormatter()->escape($string);
 
@@ -343,7 +343,7 @@ If you want to escape all tags in a string then you can use the ```Formatter::es
 
 > Note that formatting will only work on linux/unix and windows consoles with ANSI support.
 
-> Formatting is stripped when the output is redirected (e.g. to a log file ```php reactor command > log.txt```).
+> Formatting is stripped when the output is redirected (e.g. to a log file `php reactor command > log.txt`).
 
 --------------------------------------------------------
 
@@ -420,13 +420,13 @@ Commands are instantiated by the [dependency injection container](:base_url:/doc
 		}
 	}
 
-> Note that commands expect the first two constructor parameters to be instances of the ```Input``` and ```Output``` classes.
+> Note that commands expect the first two constructor parameters to be instances of the `Input` and `Output` classes.
 
-You can also inject your dependencies directly into the ```execute``` method since its executed by the ```Container::call()``` method.
+You can also inject your dependencies directly into the `execute` method since its executed by the `Container::call()` method.
 
 	public function execute(Config $config)
 	{
 		$foo = $config->get('settings.foo');
 	}
 
-Commands are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+Commands are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).

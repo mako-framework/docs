@@ -18,7 +18,7 @@ Packages are installed using [composer](http://packagist.org/) and can be used t
 
 ### Basics
 
-There are two files that must be present in a package. A package "boot" class (class must extend the ```mako\application\Package``` class) and a composer.json file.
+There are two files that must be present in a package. A package "boot" class (class must extend the `mako\application\Package` class) and a composer.json file.
 
 	├─ src/
 	│  └─ FooPackage.php
@@ -56,7 +56,7 @@ The example file below only contains the bare minimum so head over to the [compo
 
 ### Configuration, i18n and views
 
-Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate ```get*Path``` method in your package class.
+Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate `get*Path` method in your package class.
 
 	├─ config/
 	|  └─ ...
@@ -71,11 +71,11 @@ Packages can also have their own configuration files, language strings and views
 	│  └─ FooPackage.php
 	└─ composer.json
 
-Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (```::```).
+Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (`::`).
 
 	$view = $this->view->create('acme-foo::vista');
 
-By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. ```acme/foo``` becomes ```acme-foo```). You can override this by setting the ```$fileNamespace``` property in your package class.
+By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. `acme/foo` becomes `acme-foo`). You can override this by setting the `$fileNamespace` property in your package class.
 
 	protected $fileNamespace = 'foo';
 
@@ -85,7 +85,7 @@ By default the file namespace of a package will be the package name where the sl
 
 ### Commands
 
-Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the ```$commands``` property in your package class.
+Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the `$commands` property in your package class.
 
 	protected $commands =
 	[
@@ -100,11 +100,11 @@ Registering [package](:base_url:/docs/:version:/command-line:custom-commands) co
 
 ### Package installation
 
-Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org/) command and add the package "boot" class to the list of packages in your ```app/config/application.php``` configuration file.
+Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org/) command and add the package "boot" class to the list of packages in your `app/config/application.php` configuration file.
 
 	composer require <vendor>/<package name>:*
 
-So, to install ```acme/foo``` package using composer, you have to issue following command from the project directory
+So, to install `acme/foo` package using composer, you have to issue following command from the project directory
 
 	composer require acme/foo:*
 

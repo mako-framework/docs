@@ -23,7 +23,7 @@ The gatekeeper library allows you to easily implement user authentication in you
 
 ### Basic usage
 
-The ```createUser``` method allows you to create a new user. A user object is returned upon successful creation.
+The `createUser` method allows you to create a new user. A user object is returned upon successful creation.
 
 	$user = $this->gatekeeper->createUser('foo@example.org', 'username', 'password');
 
@@ -31,15 +31,15 @@ The ```createUser``` method allows you to create a new user. A user object is re
 
 	$user = $this->gatekeeper->createUser('foo@example.org', 'username', 'password', true);
 
-The ```createGroup``` method allows you to create a new group. A group object is returned upon successful creation.
+The `createGroup` method allows you to create a new group. A group object is returned upon successful creation.
 
 	$group = $this->gatekeeper->createGroup('admin');
 
-The ```activateUser``` method activates a user by his or her action token. The method will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
+The `activateUser` method activates a user by his or her action token. The method will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
 
 	$activated = $this->gatekeeper->activateUser($token);
 
-The ```login``` method will attempt to log a user in. The method returns TRUE if the login is successful and a status code if not.
+The `login` method will attempt to log a user in. The method returns TRUE if the login is successful and a status code if not.
 
 	$successful = $this->gatekeeper->login($email, $password);
 
@@ -56,7 +56,7 @@ The possible status codes for failed logins are:
 | Authentication::LOGIN_BANNED     | The account has been banned                                                   |
 | Authentication::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
 
-The ```forceLogin``` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
+The `forceLogin` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
 
 	$successful = $this->gatekeeper->forceLogin($email);
 
@@ -64,7 +64,7 @@ The ```forceLogin``` method allows you to login a user without a password. It wi
 
 	$successful = $this->gatekeeper->forceLogin($email, true);
 
-The ```basicAuth``` method can be useful when creating APIs or if you don't want to create a full login page. It will return ```true``` if the user is logged in and ```false``` if not.
+The `basicAuth` method can be useful when creating APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
 
 	if($this->gatekeeper->basicAuth() === false)
 	{
@@ -73,30 +73,30 @@ The ```basicAuth``` method can be useful when creating APIs or if you don't want
 
 	// Code here gets executed if the user is logged in
 
-> The username and password is sent with every subsequent request when using basic authentication so make sure to use ```HTTPS``` whenever possible!
+> The username and password is sent with every subsequent request when using basic authentication so make sure to use `HTTPS` whenever possible!
 {.danger}
 
-The ```isGuest``` method returns FALSE if the user is logged in and TRUE if not.
+The `isGuest` method returns FALSE if the user is logged in and TRUE if not.
 
 	$isGuest = $this->gatekeeper->isGuest();
 
-The ```isLoggedIn``` method returns TRUE of the user is logged in and FALSE if not.
+The `isLoggedIn` method returns TRUE of the user is logged in and FALSE if not.
 
 	$isLoggedIn = $this->gatekeeper->isLoggedIn();
 
-The ```getUser``` method will return a user object if the user is logged in and NULL if not.
+The `getUser` method will return a user object if the user is logged in and NULL if not.
 
 	$user = $this->gatekeeper->getUser();
 
-The ```logout()``` method will log out the user and delete the "remember me" cookie if it is set.
+The `logout()` method will log out the user and delete the "remember me" cookie if it is set.
 
 	$this->gatekeeper->logout();
 
-The ```getUserRepository``` method returns the gatekeeper [user repository](#repositories_user).
+The `getUserRepository` method returns the gatekeeper [user repository](#repositories_user).
 
 	$userRepository = $this->gatekeeper->getUserRepository();
 
-The ```getGroupRepository``` method returns the gatekeeper [group repository](#repositories_group).
+The `getGroupRepository` method returns the gatekeeper [group repository](#repositories_group).
 
 	$groupRepository = $this->gatekeeper->getGroupRepository();
 
@@ -110,19 +110,19 @@ The ```getGroupRepository``` method returns the gatekeeper [group repository](#r
 
 #### User repository
 
-The ```getByActionToken``` method returns a user based on his or her action token and FALSE if no user is found.
+The `getByActionToken` method returns a user based on his or her action token and FALSE if no user is found.
 
 	$user = $userRepository->getByActionToken($token);
 
-The ```getByAccessToken``` method returns a user based on his or her access token and FALSE if no user is found.
+The `getByAccessToken` method returns a user based on his or her access token and FALSE if no user is found.
 
 	$user = $userRepository->getByAccessToken($token);
 
-The ```getByEmail``` method returns a user based on his or her email address and FALSE if no user is found.
+The `getByEmail` method returns a user based on his or her email address and FALSE if no user is found.
 
 	$user = $userRepository->getByEmail($email);
 
-The ```getById``` method returns a user based on his or her id and FALSE if no user is found.
+The `getById` method returns a user based on his or her id and FALSE if no user is found.
 
 	$user = $userRepository->getById($id);
 
@@ -130,11 +130,11 @@ The ```getById``` method returns a user based on his or her id and FALSE if no u
 
 #### Group repository
 
-The ```getByName``` method returns a group based on its name and FALSE if no group is found.
+The `getByName` method returns a group based on its name and FALSE if no group is found.
 
 	$group = $groupRepository->getByName($name);
 
-The ```getById``` method returns a group based on its id and FALSE if no group is found.
+The `getById` method returns a group based on its id and FALSE if no group is found.
 
 	$group = $groupRepository->getById($id);
 
@@ -152,20 +152,20 @@ The user model comes with a [many to many](:base_url:/docs/:version:/databases-s
 
 #### Users
 
-The ```generateAccessToken``` method allows you to generate a new access token for the user.
+The `generateAccessToken` method allows you to generate a new access token for the user.
 
 	$user->generateAccessToken();
 
-> Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the ```Authentication::forceLogin``` method to log the user back in in the background to keep the experience seamless.
+> Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the `Authentication::forceLogin` method to log the user back in in the background to keep the experience seamless.
 
-The ```generateActionToken``` method allows you to generate a new action token for the user. Should be used to activate a user, to validate "forgot password" requests etc.
+The `generateActionToken` method allows you to generate a new action token for the user. Should be used to activate a user, to validate "forgot password" requests etc.
 
 	$user->generateActionToken();
 
 > You should generate a new action token after a successful action. Note that gatekeeper automatically generates a new action token when activating a user.
 {.warning}
 
-The ```isMemberOf``` method allows you to check whether or not a user is a member of a group or a set of groups.
+The `isMemberOf` method allows you to check whether or not a user is a member of a group or a set of groups.
 
 	$isMemberOf = $user->isMemberOf('admin');
 
@@ -173,39 +173,39 @@ The ```isMemberOf``` method allows you to check whether or not a user is a membe
 
 	$isMemberOf = $user->isMemberOf(['staff', 'admin']);
 
-The ```isActivated``` method returns TRUE if the user is activated and FALSE if not.
+The `isActivated` method returns TRUE if the user is activated and FALSE if not.
 
 	$activated = $user->isActivated();
 
-The ```activate``` method activates a user.
+The `activate` method activates a user.
 
 	$user->activate();
 
-The ```deactivate``` method will deactivate a user.
+The `deactivate` method will deactivate a user.
 
 	$user->deactivate();
 
-The ```isBanned``` method will return TRUE if a user is banned and FALSE if not.
+The `isBanned` method will return TRUE if a user is banned and FALSE if not.
 
 	$isBanned = $user->isBanned();
 
-The ```ban``` method will ban a user.
+The `ban` method will ban a user.
 
 	$user->ban();
 
-The ```unban``` method will unban a user.
+The `unban` method will unban a user.
 
 	$user->unban();
 
-The ```save``` method allows you to save changes to the user.
+The `save` method allows you to save changes to the user.
 
 	$user->save();
 
-The ```delete``` method allows you to delete a user.
+The `delete` method allows you to delete a user.
 
 	$user->delete();
 
-The user object also includes the following getters and setters: ```getId```, ```setEmail```, ```getEmail```, ```setUsername```, ```getUsername```, ```setPassword```, ```getPassword```, ```setIp```, ```getIp```, ```getActionToken``` and ```getAccessToken```.
+The user object also includes the following getters and setters: `getId`, `setEmail`, `getEmail`, `setUsername`, `getUsername`, `setPassword`, `getPassword`, `setIp`, `getIp`, `getActionToken` and `getAccessToken`.
 
 > The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/security:password-hashing) so you do not need to hash it yourself.
 
@@ -213,27 +213,27 @@ The user object also includes the following getters and setters: ```getId```, ``
 
 #### Groups
 
-The ```addUser``` method adds a user to the group.
+The `addUser` method adds a user to the group.
 
 	$group->addUser($user);
 
-The ```removeUser``` method removes a user from the group.
+The `removeUser` method removes a user from the group.
 
 	$group->removeUser($user);
 
-The ```isMember``` method returns TRUE if the member is a member of the group and FALSE if not.
+The `isMember` method returns TRUE if the member is a member of the group and FALSE if not.
 
 	$group->isMember($user);
 
-The ```save``` method allows you to save changes to the group.
+The `save` method allows you to save changes to the group.
 
 	$group->save();
 
-The ```delete``` method allows you to delete a group.
+The `delete` method allows you to delete a group.
 
 	$group->delete();
 
-The group object also includes the following getters and setters: ```getId```, ```setName``` and ```getName```.
+The group object also includes the following getters and setters: `getId`, `setName` and `getName`.
 
 --------------------------------------------------------
 

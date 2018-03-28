@@ -25,7 +25,7 @@ Mako migrations are created and executed from the [reactor CLI tool](:base_url:/
 
 #### Enabling migrations
 
-You need to add a table called ```mako_migrations``` to your database. The table will be used to keep track of the migrations that have been ran. Here's the SQL for creating the table using MySQL:
+You need to add a table called `mako_migrations` to your database. The table will be used to keep track of the migrations that have been ran. Here's the SQL for creating the table using MySQL:
 
 	CREATE TABLE `mako_migrations`
 	(
@@ -52,7 +52,7 @@ Creating a migration is done from the reactor CLI tool:
 
 	php reactor migrate.create --description="Creates session table"
 
-Running the ```create``` commands will return the following messages:
+Running the `create` commands will return the following messages:
 
 	Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 
@@ -60,7 +60,7 @@ Running the ```create``` commands will return the following messages:
 
 	Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 
-The generated migration will contain a skeleton class with two methods, ```up``` and ```down```. The database connection manager is available in both methods using the ```$this->database``` property.
+The generated migration will contain a skeleton class with two methods, `up` and `down`. The database connection manager is available in both methods using the `$this->database` property.
 
 	<?php
 
@@ -93,7 +93,7 @@ The generated migration will contain a skeleton class with two methods, ```up```
 
 #### Running migrations
 
-You can check if there are any outstanding migrations using the ```status``` command:
+You can check if there are any outstanding migrations using the `status` command:
 
 	php reactor migrate.status
 
@@ -117,7 +117,7 @@ This will show you the names of the migrations that were executed:
 
 #### Rolling back migrations
 
-If you need to revert the changes made to your database then you can use the ```down``` command. This will roll back the last batch of migrations executed.
+If you need to revert the changes made to your database then you can use the `down` command. This will roll back the last batch of migrations executed.
 
 	php reactor migrate.down
 
@@ -137,11 +137,11 @@ You can roll back multiple batches by telling the rollback command how many batc
 
 	php reactor migrate.down 2
 
-If you want to roll back all database changes in one go then you can use the ```reset``` command.
+If you want to roll back all database changes in one go then you can use the `reset` command.
 
 	php reactor migrate.reset
 
-This will prompt you for confirmation. To force the reset just use the ```force``` option.
+This will prompt you for confirmation. To force the reset just use the `force` option.
 
 	php reactor migrate.reset --force
 
@@ -167,14 +167,14 @@ Migrations are instantiated by the [dependency injection container](:base_url:/d
 		}
 	}
 
-> Note that migrations expect the first constructor parameter to be an instance of the ```ConnectionManager``` class.
+> Note that migrations expect the first constructor parameter to be an instance of the `ConnectionManager` class.
 
 
-You can also inject dependencies directly into the up and down methods since they are executed by the ```Container::call()``` method.
+You can also inject dependencies directly into the up and down methods since they are executed by the `Container::call()` method.
 
 	public function down(LoggerInterface $log)
 	{
 		$log->info('Executed the down method of the ' . static::class . ' migration');
 	}
 
-Migrations are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+Migrations are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).

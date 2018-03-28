@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-The command bus allows you to create ```commands``` that can be dispatched to corresponding ```handlers```.
+The command bus allows you to create `commands` that can be dispatched to corresponding `handlers`.
 
 The main advantage of using this pattern is that the commands can be used from anywhere within your application and thus greatly reduce code duplication.
 
@@ -19,7 +19,7 @@ The main advantage of using this pattern is that the commands can be used from a
 
 In this example we'll be creating a command and a handler for creating users.
 
-First we'll make our ```CreateUserCommand```. As you can see, the command acts as a simple data container.
+First we'll make our `CreateUserCommand`. As you can see, the command acts as a simple data container.
 
 	<?php
 
@@ -41,7 +41,7 @@ First we'll make our ```CreateUserCommand```. As you can see, the command acts a
 		}
 	}
 
-Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
+Next we'll make a `CreateUserHandler`. Command handlers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
 
 
 	<?php
@@ -71,16 +71,16 @@ Next we'll make a ```CreateUserHandler```. Command handlers are instantiated by 
 		}
 	}
 
-This is a very basic example but you would also want to include input validation in your command handler. The ```CommandHandlerInterface::handle()``` method can return data that can be used to handle successes and errors.
+This is a very basic example but you would also want to include input validation in your command handler. The `CommandHandlerInterface::handle()` method can return data that can be used to handle successes and errors.
 
-> Note that all command handlers must follow a strict naming convention. The ```Command``` suffix of your command class will be replaced by a ```Handler``` suffix. If no ```Command``` suffix is present then the word ```Handler``` will just be appended to the class name.
+> Note that all command handlers must follow a strict naming convention. The `Command` suffix of your command class will be replaced by a `Handler` suffix. If no `Command` suffix is present then the word `Handler` will just be appended to the class name.
 
 | Command name      | Handler name      |
 |-------------------|-------------------|
 | CreateUserCommand | CreateUserHandler |
 | CreateUser        | CreateUserHandler |
 
-We are now ready to dispatch our command using the ```CommandBus::dispatch()``` method. In the following example we'll be creating a user from a controller method.
+We are now ready to dispatch our command using the `CommandBus::dispatch()` method. In the following example we'll be creating a user from a controller method.
 
 	<?php
 
@@ -173,7 +173,7 @@ Middleware can be used to decorate your command handlers with additional functio
 		}
 	}
 
-Adding middleware to the command bus is done using the ```CommandBus::addMiddleware()``` method.
+Adding middleware to the command bus is done using the `CommandBus::addMiddleware()` method.
 
 	$commander->addMiddleware(TransactionMiddleware::class);
 

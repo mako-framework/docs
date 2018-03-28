@@ -48,11 +48,11 @@ The Mako ORM does not impose a naming standard on model class names but best pra
 | articles         | Article          |
 | import_jobs      | ImportJob        |
 
-If you want to use the ORM on an existing database and don't want to rename all your tables then you can use the ```$tableName``` property to define the name of your table.
+If you want to use the ORM on an existing database and don't want to rename all your tables then you can use the `$tableName` property to define the name of your table.
 
-All tables are also expected to have an auto incrementing primary key column named `id`. The name of the primary key column can be configured using the ```$primaryKey``` property.
+All tables are also expected to have an auto incrementing primary key column named `id`. The name of the primary key column can be configured using the `$primaryKey` property.
 
-The ORM expects foreign key names to use the following pattern ```<model name>_id``` (e.g., item_id, user_id). This can be configured when setting up relations and we'll get back to this later on.
+The ORM expects foreign key names to use the following pattern `<model name>_id` (e.g., item_id, user_id). This can be configured when setting up relations and we'll get back to this later on.
 
 --------------------------------------------------------
 
@@ -62,7 +62,7 @@ The ORM expects foreign key names to use the following pattern ```<model name>_i
 
 As previously mentioned, the ORM assumes that all your tables have an auto incrementing primary key by default. You can make it generate UUIDs, make your own custom key generator or tell it that your table doesn't have a primary key.
 
-Use the ```$primaryKeyType``` property to define the key type.
+Use the `$primaryKeyType` property to define the key type.
 
 | Key type          | Constant                           |
 |-------------------|------------------------------------|
@@ -71,7 +71,7 @@ Use the ```$primaryKeyType``` property to define the key type.
 | Custom            | ORM::PRIMARY_KEY_TYPE_CUSTOM       |
 | None              | ORM::PRIMARY_KEY_TYPE_NONE         |
 
-> If you choose to use your own custom key generator then you'll have to implement the ```generatePrimaryKey``` method in your model class. You must also make sure that the generated value is unique.
+> If you choose to use your own custom key generator then you'll have to implement the `generatePrimaryKey` method in your model class. You must also make sure that the generated value is unique.
 
 --------------------------------------------------------
 
@@ -83,7 +83,7 @@ Use the ```$primaryKeyType``` property to define the key type.
 
 #### CRUD
 
-Lets say you have a table called ```articles``` with three columns (id, title and content). These few lines of code is all you need to interact with the table:
+Lets say you have a table called `articles` with three columns (id, title and content). These few lines of code is all you need to interact with the table:
 
 	<?php
 
@@ -161,13 +161,13 @@ It will return duplicates for articles that have more than one comment. This can
 
 ### Relations
 
-Being able to set up relations between tables is important when working with databases. The ORM supports ```has one```, ```belongs``` to, ```has many``` and ```many to many``` relations.
+Being able to set up relations between tables is important when working with databases. The ORM supports `has one`, `belongs` to, `has many` and `many to many` relations.
 
 <a id="relations:has_one"></a>
 
 #### Has one
 
-Lets create a user model and a profile model and set up a ```has one``` relation between them.
+Lets create a user model and a profile model and set up a `has one` relation between them.
 
 	<?php
 
@@ -208,7 +208,7 @@ You can now access a users profile like this:
 
 #### Has many
 
-We can now add a ```has many``` relation to our user model.
+We can now add a `has many` relation to our user model.
 
 	public function articles()
 	{
@@ -225,9 +225,9 @@ We can now fetch all the articles that belong to the user like this:
 
 #### Belongs to
 
-The ```belongs``` to relation is the opposite of a ```has one``` or ```has many``` relation.
+The `belongs` to relation is the opposite of a `has one` or `has many` relation.
 
-We can continue to build on the article model and add a ```belongs``` to relation. All we need to get this to work is add a foreign key column named ```user_id``` to the articles table.
+We can continue to build on the article model and add a `belongs` to relation. All we need to get this to work is add a foreign key column named `user_id` to the articles table.
 
 	public function user()
 	{
@@ -244,7 +244,7 @@ Fetching the user that owns the article can now be done line this:
 
 #### Many to many
 
-The ```many to many``` relation requires a [junction table](http://en.wikipedia.org/wiki/Junction_table) between the two related tables. The name of the junction table should be the names of the two tables you want to join in alphabetical order separated by an underscore.
+The `many to many` relation requires a [junction table](http://en.wikipedia.org/wiki/Junction_table) between the two related tables. The name of the junction table should be the names of the two tables you want to join in alphabetical order separated by an underscore.
 
 ![junction table](:base_url:/assets/img/junctionTable.png)
 
@@ -306,9 +306,9 @@ The ORM lets you create related records without having to worry about rememberin
 
 	$user->articles()->create($article);
 
-The article will now be saved and the value of the ```user_id``` foreign key will automatically be set to the users id. This method works for both ```has one``` and ```has many``` relations.
+The article will now be saved and the value of the `user_id` foreign key will automatically be set to the users id. This method works for both `has one` and `has many` relations.
 
-The ```many to many``` relation is a bit different since it requires a junction table. You'll have to use the ```link``` method to create a link between two related records.
+The `many to many` relation is a bit different since it requires a junction table. You'll have to use the `link` method to create a link between two related records.
 
 	$user = User::get(1);
 
@@ -358,7 +358,7 @@ Fetching the junction attributes is done using the `alongWith` method.
 
 	$groups = $user->groups()->alongWith(['foo'])->all();
 
-The ```unlink``` method is used to remove the link between the records:
+The `unlink` method is used to remove the link between the records:
 
 	$user->groups()->unlink($group);
 
@@ -370,21 +370,21 @@ The ```unlink``` method is used to remove the link between the records:
 
 #### Eager loading
 
-Loading related records can sometimes cause the ```1 + N``` query problem. This is where eager loading becomes handy.
+Loading related records can sometimes cause the `1 + N` query problem. This is where eager loading becomes handy.
 
 	foreach(Comment::limit(10)->all() as $comment)
 	{
 		$comment->user->username;
 	}
 
-The code above will execute ```1``` query to fetch ```10``` comments and then ```1``` query per iteration to retrieve the user who wrote the comment. This means that it has to execute ```11``` queries in total. Using eager loading can solve this problem.
+The code above will execute `1` query to fetch `10` comments and then `1` query per iteration to retrieve the user who wrote the comment. This means that it has to execute `11` queries in total. Using eager loading can solve this problem.
 
 	foreach(Comment::including('users')->limit(10)->all() as $comment)
 	{
 		$comment->user->username;
 	}
 
-The code above will produce the same result as the previous example but it will only execute ```2``` queries instead of ```11```.
+The code above will produce the same result as the previous example but it will only execute `2` queries instead of `11`.
 
 You can eager load more relations using an array and nested relations using the dot syntax.
 
@@ -397,11 +397,11 @@ If you need to add query criteria to your relations then you can do so using a c
 		$query->where('approved', '=', true);
 	}, 'comments.users'])->limit(10)->all();
 
-You can also define relations to eager load in the model definition using the ```$including``` property. This is useful if you know that you're going to need to eager load the relations more often than not.
+You can also define relations to eager load in the model definition using the `$including` property. This is useful if you know that you're going to need to eager load the relations more often than not.
 
 	protected $including = ['user', 'comments', 'comments.user'];
 
-You can then disable eager loading of the relations if needed by using the ```excluding``` method:
+You can then disable eager loading of the relations if needed by using the `excluding` method:
 
 	$articles = Article::excluding(['user', 'comments'])->limit(10)->all();
 
@@ -409,9 +409,9 @@ You can then disable eager loading of the relations if needed by using the ```ex
 
 #### Overriding naming conventions
 
-The ORM relations rely on strict naming conventions but they can be overridden using the optional parameters of the relation methods. The first optional parameter lets you set the name of the foreign key. The ```many to many``` relation method has two additional parameters that let you set the junction table name and the junction key.
+The ORM relations rely on strict naming conventions but they can be overridden using the optional parameters of the relation methods. The first optional parameter lets you set the name of the foreign key. The `many to many` relation method has two additional parameters that let you set the junction table name and the junction key.
 
-In the example below we are telling the relation to use a foreign key named ```user``` instead of the default, which should have been ```user_id```.
+In the example below we are telling the relation to use a foreign key named `user` instead of the default, which should have been `user_id`.
 
 	public function articles()
 	{
@@ -424,7 +424,7 @@ In the example below we are telling the relation to use a foreign key named ```u
 
 ### Automatic typecasting
 
-You can configure your model to automatically typecast values on the way in and out of your database. This is done using the ```$cast``` property where the array key is the column name and the array value is the type you want to cast the column value to.
+You can configure your model to automatically typecast values on the way in and out of your database. This is done using the `$cast` property where the array key is the column name and the array value is the type you want to cast the column value to.
 
 <a id="automatic_typecasting:scalars"></a>
 
@@ -432,19 +432,19 @@ You can configure your model to automatically typecast values on the way in and 
 
 	protected $cast = ['id' => 'int', 'published' => 'bool'];
 
-Valid scalar types are ```bool```, ```int```, ```float``` and ```string```.
+Valid scalar types are `bool`, `int`, `float` and `string`.
 
-> Note that the maximum value for ```int``` is ```PHP_INT_MAX```.
+> Note that the maximum value for `int` is `PHP_INT_MAX`.
 
 <a id="automatic_typecasting:datetime"></a>
 
 #### DateTime
 
-The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the ```date``` typecast.
+The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
 
 	protected $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
 
-You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
+You'll now be able to treat the `joined_at` and `last_seen` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
 
 	$user = User::get(1);
 
@@ -456,7 +456,7 @@ You'll now be able to treat the ```joined_at``` and ```last_seen``` values as [D
 
 ### Mutators and accessors
 
-Mutators and accessors allow you to modify data on the way in and out of the database. Mutators are suffixed with ```Mutator``` and accessors and suffixed with ```Accessor```.
+Mutators and accessors allow you to modify data on the way in and out of the database. Mutators are suffixed with `Mutator` and accessors and suffixed with `Accessor`.
 
 The following mutator will encode the value when its assigned.
 
@@ -486,7 +486,7 @@ You can now retrieve the value like any normal value and it will automatically b
 
 ### Scopes
 
-Scopes allow you to specify commonly used query criteria as methods. All scope methods must be prefixed with the ```Scope``` suffix.
+Scopes allow you to specify commonly used query criteria as methods. All scope methods must be prefixed with the `Scope` suffix.
 
 	public function publishedScope($query)
 	{
@@ -532,7 +532,7 @@ The ORM allows you to use mass assignment when creating or updating records. Thi
 
 The code above might seem like a good idea until a hacker adds an `is_admin` field to the POST data and gives himself admin privileges.
 
-You can make mass assignment a bit more secure by using the ```$assignable``` property and define a whitelist of fields that can be set through mass assignment. It's better to be safe than sorry so you should really only use this feature with trusted data.
+You can make mass assignment a bit more secure by using the `$assignable` property and define a whitelist of fields that can be set through mass assignment. It's better to be safe than sorry so you should really only use this feature with trusted data.
 
 --------------------------------------------------------
 
@@ -540,7 +540,7 @@ You can make mass assignment a bit more secure by using the ```$assignable``` pr
 
 ### Cloning records
 
-You can clone records using the ```clone``` keyword:
+You can clone records using the `clone` keyword:
 
 	$clone = clone User::get(1);
 
@@ -561,11 +561,11 @@ You can also clone an entire result set:
 
 ### Array and JSON representations
 
-You can convert an ORM object or result set to an array using the ```toArray``` method and to JSON using the ```toJson``` method. The ORM objects and result sets will also be converted to JSON when casted to a string.
+You can convert an ORM object or result set to an array using the `toArray` method and to JSON using the `toJson` method. The ORM objects and result sets will also be converted to JSON when casted to a string.
 
 	$json = (string) Article::limit(10)->all();
 
-You can exclude columns and relations from the array and JSON representations by using the ```$protected``` property. You can alter protection at runtime using the ```protect()``` and ```expose()``` methods.
+You can exclude columns and relations from the array and JSON representations by using the `$protected` property. You can alter protection at runtime using the `protect()` and `expose()` methods.
 
 --------------------------------------------------------
 
@@ -577,9 +577,9 @@ You can exclude columns and relations from the array and JSON representations by
 
 #### Timestamped
 
-You'll often want to track when a record has been created and when it was updated. The ```TimestampedTrait``` will do this for you automatically.
+You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
 
-The trait requires you to add two DATETIME columns to your database table, ```created_at``` and ```updated_at```. You can override the column names using the ```$createdAtColumn``` and ```$updatedAtColumn``` properties.
+The trait requires you to add two DATETIME columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
 
 	<?php
 
@@ -591,25 +591,25 @@ The trait requires you to add two DATETIME columns to your database table, ```cr
 		use TimestampedTrait;
 	}
 
-You can touch the ```updated_at``` timestamp without having to modify any other data by using the ```touch``` method.
+You can touch the `updated_at` timestamp without having to modify any other data by using the `touch` method.
 
 	$article = Article::get(1);
 
 	$article->touch();
 
-You can also make the ORM touch related records upon saving by listing the relations you want to touch in the ```$touch``` property.
+You can also make the ORM touch related records upon saving by listing the relations you want to touch in the `$touch` property.
 
 	protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 
-You can easily decide which type of changes that should touch related records using the ```$shouldTouchOnInsert```, ```$shouldTouchOnUpdate``` and ```$shouldTouchOnDelete``` properties. All of them are set to ```TRUE``` by default.
+You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `TRUE` by default.
 
 <a id="traits:nullable"></a>
 
 #### Nullable
 
-If you have database columns that allow ```null``` values then you can use the ```NullableTrait``` to automatically replace empty strings with ```null``` when inserting or updating records.
+If you have database columns that allow `null` values then you can use the `NullableTrait` to automatically replace empty strings with `null` when inserting or updating records.
 
-All you have to do is to use the trait and configure your nullable columns using the ```$nullable``` property.
+All you have to do is to use the trait and configure your nullable columns using the `$nullable` property.
 
 	<?php
 
@@ -629,7 +629,7 @@ All you have to do is to use the trait and configure your nullable columns using
 
 When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
 
-To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait. The database table also needs an integer column named ```lock_version```. The name of the column can be configured using the ```$lockingColumn``` property.
+To enable optimistic locking you need to use `OptimisticLockingTrait` trait. The database table also needs an integer column named `lock_version`. The name of the column can be configured using the `$lockingColumn` property.
 
 	<?php
 
@@ -641,7 +641,7 @@ To enable optimistic locking you need to use ```OptimisticLockingTrait``` trait.
 		use OptimisticLockingTrait;
 	}
 
-The second save in the example below will throw a ```StaleRecordException``` since the record is now outdated compared to the one stored in the database.
+The second save in the example below will throw a `StaleRecordException` since the record is now outdated compared to the one stored in the database.
 
 	$article1 = Article::get(1);
 	$article2 = Article::get(1);
@@ -654,7 +654,7 @@ The second save in the example below will throw a ```StaleRecordException``` sin
 
 	$article2->save();
 
- The ```reload``` method can be used to refresh the outdated record.
+ The `reload` method can be used to refresh the outdated record.
 
 	$article2->reload();
 
@@ -666,7 +666,7 @@ The optimistic locking trait will also check for stale records when deleting.
 
 ### Read-only records
 
-You can make your records read-only by using the ```ReadOnlyTrait```.
+You can make your records read-only by using the `ReadOnlyTrait`.
 
 	<?php
 
@@ -678,7 +678,7 @@ You can make your records read-only by using the ```ReadOnlyTrait```.
 		use ReadOnlyTrait;
 	}
 
-This will make it impossible to update or delete the records and a ```ReadOnlyException``` will be thrown if attempted.
+This will make it impossible to update or delete the records and a `ReadOnlyException` will be thrown if attempted.
 
 	// Load a read-only record
 

@@ -46,11 +46,11 @@ The query builder currently supports the following dialects:
 
 ### Getting a query builder instance
 
-You can create a query builder instance using the ```Connection::builder()``` method.
+You can create a query builder instance using the `Connection::builder()` method.
 
 	$query = $connection->builder();
 
-You can also skip the call to the ```Connection::builder()``` method using the ```Connection::table()``` method.
+You can also skip the call to the `Connection::builder()` method using the `Connection::table()` method.
 
 	$query = $connection->table('foobar');
 
@@ -60,11 +60,11 @@ You can also skip the call to the ```Connection::builder()``` method using the `
 
 ### Fetching data
 
-If you only want to retrieve a single row then you can use the ```first``` method.
+If you only want to retrieve a single row then you can use the `first` method.
 
 	$person = $query->table('persons')->where('id', '=', 1)->first();
 
-Fetching all rows is done using the ```all``` method.
+Fetching all rows is done using the `all` method.
 
 	$persons = $query->table('persons')->all();
 
@@ -72,11 +72,11 @@ You can also specify which columns you want to include in the result set
 
 	$persons = $query->table('persons')->select(['name', 'email'])->all();
 
-To make a distinct selection use the ```distinct``` method
+To make a distinct selection use the `distinct` method
 
 	$persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 
-> Note that the ```all``` method returns a result set. So you'll need to use the ```isEmpty``` method to check if it's empty.
+> Note that the `all` method returns a result set. So you'll need to use the `isEmpty` method to check if it's empty.
 
 Selecting from the results of a subquery is also possible.
 
@@ -114,7 +114,7 @@ Advanced column selections can also be made using raw SQL and subqueries.
 		]
 	)->all();
 
-If you need to process a large dataset and don't want to put the entire result set in memory then you can use the ```yield``` method. It returns a generator that lets you iterate over the result set.
+If you need to process a large dataset and don't want to put the entire result set in memory then you can use the `yield` method. It returns a generator that lets you iterate over the result set.
 
 	$persons = $query->table('persons')->select(['name', 'email'])->yield();
 
@@ -123,7 +123,7 @@ If you need to process a large dataset and don't want to put the entire result s
 		// Only a single row is kept in memory at a time
 	}
 
-In addition to using the ```yield``` method to process large amounts of data you can also use the ```batch``` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
+In addition to using the `yield` method to process large amounts of data you can also use the `batch` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 
@@ -132,7 +132,7 @@ You can also set the offset starting point and offset end point using the option
 		// Process the batch here
 	});
 
-Fetching the value of a single column is done using the ```column``` method.
+Fetching the value of a single column is done using the `column` method.
 
 	$email = $query->table('persons')->select(['email'])->where('id', '=', 1)->column();
 
@@ -140,7 +140,7 @@ Fetching the value of a single column is done using the ```column``` method.
 
 	$email = $query->table('persons')->where('id', '=', 1)->column('email');
 
-It is also possible to fetch an array containing the values of a single column using the ```columns``` method.
+It is also possible to fetch an array containing the values of a single column using the `columns` method.
 
 	 $emails = $query->table('persons')->select(['email'])->columns();
 
@@ -148,7 +148,7 @@ It is also possible to fetch an array containing the values of a single column u
 
 	 $emails = $query->table('persons')->columns('email');
 
-The ```pairs``` method allows you to fetch an array where the first column is used as the array keys and the second is used as the array values.
+The `pairs` method allows you to fetch an array where the first column is used as the array keys and the second is used as the array values.
 
 	$pairs = $query->table->('users')->pairs('id', 'email');
 
@@ -158,15 +158,15 @@ The ```pairs``` method allows you to fetch an array where the first column is us
 
 ### Inserting data
 
-Inserting data is done using the ```insert``` method.
+Inserting data is done using the `insert` method.
 
 	$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime()]);
 
-You can also insert data using the ```insertAndGetId``` method. It will create the record and return the generated auto increment id.
+You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
 	$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
 
-> When working with [PostgreSQL](http://www.postgresql.org) the ```insertAndGetId``` method assumes that the sequence follows the default naming convention (```<table_name>_<primary_key_name>_seq```) You can override the default primary key name (```id```) by using the optional second parameter.
+> When working with [PostgreSQL](http://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
 
 --------------------------------------------------------
 
@@ -174,7 +174,7 @@ You can also insert data using the ```insertAndGetId``` method. It will create t
 
 ### Updating data
 
-Updating data is done using the ```update``` method.
+Updating data is done using the `update` method.
 
 	$query->table('foobars')
 	->where('id', '=', 10)
@@ -196,7 +196,7 @@ There are also shortcuts for incrementing and decrementing column values:
 
 ### Deleting data
 
-Deleting data is done using the ```delete``` method.
+Deleting data is done using the `delete` method.
 
 	$query->table('articles')->where('id', '=', 10)->delete();
 
@@ -285,7 +285,7 @@ where(), whereRaw(), orWhere(), orWhereRaw()
 	->isNotNull('email')
 	->all();
 
-The ```wereRaw``` and ```orWhereRaw``` methods allow you to set a "raw" parameter value or to write an entire sql expression.
+The `wereRaw` and `orWhereRaw` methods allow you to set a "raw" parameter value or to write an entire sql expression.
 
 	// SELECT * FROM `persons` WHERE `age` > AVG(`age`)
 
@@ -448,7 +448,7 @@ limit(), offset(), paginate()
 
 	$persons = $query->table('persons')->limit(10)->offset(10)->all();
 
-You can also use the [```paginate``` method](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
+You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
 
 	// SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
@@ -488,7 +488,7 @@ The `lock()` method can be used to enable row-level locking during database tran
 
 	$persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
 
-It will use an exclusive lock by default but you can enable shared locking by passing ```FALSE``` to the ```lock()``` method.
+It will use an exclusive lock by default but you can enable shared locking by passing `FALSE` to the `lock()` method.
 
 	// SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
 

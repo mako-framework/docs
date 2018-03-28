@@ -19,7 +19,7 @@ Install the package using the following composer command:
 
 	composer require mako/repl
 
-Next, add the ```mako\repl\ReplPackage``` package to your ```app/config/application.php``` config file.
+Next, add the `mako\repl\ReplPackage` package to your `app/config/application.php` config file.
 
 --------------------------------------------------------
 

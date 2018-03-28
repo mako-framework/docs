@@ -70,7 +70,7 @@ If you're extending the Mako base controller then you'll get a set of useful con
 
 #### File response
 
-The ```fileResponse``` method returns a file response sender. The file download will be resumable, something that can be very useful when downloading large files.
+The `fileResponse` method returns a file response sender. The file download will be resumable, something that can be very useful when downloading large files.
 
 	return $this->fileResponse('/path/to/file.ext');
 
@@ -91,7 +91,7 @@ You can set a custom file name, mime type, content disposition and a closure to 
 
 #### Redirect response
 
-The ```redirectResponse``` method returns a redirect response sender.
+The `redirectResponse` method returns a redirect response sender.
 
 	return $this->redirectResponse('http://example.org');
 
@@ -99,7 +99,7 @@ You can also set the status header (default is 302) by chaining the status metho
 
 	return $this->redirectResponse('http://example.org')->status(301);
 
-The ```redirectResponse``` method also allows you to use a [route name](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing) instead of an URL.
+The `redirectResponse` method also allows you to use a [route name](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing) instead of an URL.
 
 	return $this->redirectResponse('articles.view', ['id' => 10]);
 
@@ -107,7 +107,7 @@ The ```redirectResponse``` method also allows you to use a [route name](:base_ur
 
 #### Stream response
 
-The ```streamResponse``` method returns a stream response sender. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+The `streamResponse` method returns a stream response sender. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
 
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
@@ -128,15 +128,15 @@ It also allows you to begin transmitting dynamically-generated content before kn
 
 #### JSON response
 
-The ```jsonResponse``` method returns a JSON response builder. It will convert the provided data to JSON and set the correct content type header.
+The `jsonResponse` method returns a JSON response builder. It will convert the provided data to JSON and set the correct content type header.
 
 	return $this->jsonResponse([1, 2, 3]);
 
-If you want your API endpoint to be able to serve JSONP as well then you'll have to chain the ```asJsonpWith``` method.
+If you want your API endpoint to be able to serve JSONP as well then you'll have to chain the `asJsonpWith` method.
 
 	return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 
-You can also set the HTTP status code using the ```status``` method.
+You can also set the HTTP status code using the `status` method.
 
 	return $this->jsonResponse(['message' => 'Page not found'])->status(404);
 
@@ -146,9 +146,9 @@ You can also set the HTTP status code using the ```status``` method.
 
 ### Controller events
 
-All controllers have two special methods. The ```beforeAction``` method which gets executed right before the controller action and the ```afterAction``` method which gets executed right after the controller action.
+All controllers have two special methods. The `beforeAction` method which gets executed right before the controller action and the `afterAction` method which gets executed right after the controller action.
 
-The controller action and ```afterAction``` methods will be skipped if the ```beforeAction``` returns data.
+The controller action and `afterAction` methods will be skipped if the `beforeAction` returns data.
 
 	public function beforeAction()
 	{
@@ -185,11 +185,11 @@ Controllers are instantiated by the [dependency injection container](:base_url:/
 		}
 	}
 
-You can also inject your dependencies directly into a method since controller actions are executed by the ```Container::call()``` method.
+You can also inject your dependencies directly into a method since controller actions are executed by the `Container::call()` method.
 
 	public function view(ViewFactory $view, $id)
 	{
 		return $view->render('article', ['id' => $id]);
 	}
 
-Controllers that extends the framework base controller are also ```container aware```. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+Controllers that extends the framework base controller are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
