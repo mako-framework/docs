@@ -165,7 +165,7 @@ You'll have to register your command with the reactor command line tool before y
 
 Commands are registered in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
 
-Check out the [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
+Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
 ```
 'commands' =>
