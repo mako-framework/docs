@@ -250,7 +250,7 @@ The query builder features a unified syntax for querying JSON data and it curren
 $foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
 ```
 
-You can also use the unified syntax to update JSON values. This feature currently supports MySQL and PostgreSQL, SQLServer and SQLite.
+You can also use the unified syntax to update JSON values. This feature currently supports MySQL, PostgreSQL, SQLServer and SQLite.
 
 ```
 $query->table('articles')->update(['meta->bar' => json_encode(0)]);
