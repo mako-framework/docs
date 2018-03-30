@@ -29,7 +29,7 @@ Installing Mako is easy and can be with done in a few simple steps thanks to [co
 First you'll have to create a new project:
 
 ```
-composer create-project mako/app:5.* <project name>
+composer create-project mako/app <project name>
 ```
 {.language-none}
 

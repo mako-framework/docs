@@ -55,7 +55,7 @@ If you only want to allow a specific set of methods then you can use the `regist
 $routes->register(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
 ```
 
-Routes can also execute closures instead of class methods.
+As previously mentioned, routes can also point to closures instead of class methods.
 
 ```
 $routes->get('/hello-world', function()
@@ -88,7 +88,7 @@ $routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 });
 ```
 
-By default parameters match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the `patterns` method.
+Parameters will match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the `patterns` method.
 
 ```
 $routes->get('/articles/{id}', function($id)
@@ -232,7 +232,7 @@ $dispatcher->setMiddlewareAsGlobal(['cache']);
 
 #### Middleware priority
 
-As mentioned above, by default middleware get executed in the order that they are assigned to the route. You can however ensure the execution order by configuring middleware priority.
+As mentioned above, middleware get executed in the order that they are assigned to the route. You can however dictate the execution order by configuring middleware priority.
 
 You can set the middleware priority while registering the middleware using the optional third parameter of the `registerMiddleware` method.
 
@@ -365,7 +365,7 @@ The following options are available when creating a route group. They are also a
 
 ### Reverse routing
 
-You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your views.
+You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your project.
 
 ```
 $routes->get('/', 'Home::Welcome', 'home');

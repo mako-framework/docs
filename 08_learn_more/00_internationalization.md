@@ -14,7 +14,7 @@ The name of a language pack should use the following convention: `en_US` ([ISO 6
 
 The default language of your application is defined in the `app/config/application.php` file.
 
-> All language packs must be installed in the `app/i18n` directory.
+> All language packs must be installed in the `app/resources/i18n` directory.
 
 --------------------------------------------------------
 

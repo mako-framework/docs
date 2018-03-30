@@ -38,7 +38,7 @@ $connection = $this->database->connection();
 $connection = $this->database->connection('mydb');
 ```
 
-The `Connection::query()` method lets you execute a query. It returns `TRUE` on success and `FALSE` on failure.
+The `Connection::query()` method lets you execute a query. It returns `true` on success and `false` on failure.
 
 ```
 $connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
@@ -96,7 +96,7 @@ $count = $connection->queryAndCount('DELETE FROM `users`');
 
 #### Connection status
 
-You can check if a connection is still alive using the `Connection::isAlive()` method. It will return TRUE if it is and FALSE if not.
+You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
 
 ```
 $isConnectionAlive = $connection->isAlive();

@@ -45,7 +45,7 @@ The `validate` method will validate hashes generated using the `hash` method.
 $valid = Password::validate('foobar', $hash);
 ```
 
-The `needsRehash` method returns TRUE if the provided hash needs to be rehashed and FALSE if not.
+The `needsRehash` method returns `true` if the provided hash needs to be rehashed and `false` if not.
 
 ```
 $needsRehash = Password::needsRehash($hash);

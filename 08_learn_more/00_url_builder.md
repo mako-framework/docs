@@ -44,7 +44,7 @@ The `current` method will return the current URL of the main request.
 $url = $urlBuilder->current();
 ```
 
-The `matches` method returns TRUE if the current URL path matches the pattern and false if not.
+The `matches` method returns `true` if the current URL path matches the pattern and `false` if not.
 
 ```
 // Basic URL matching

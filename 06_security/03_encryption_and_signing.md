@@ -47,7 +47,7 @@ The `encrypt` method is used to encrypt your data.
 $encrypted = $encrypter->encrypt('Hello, world!');
 ```
 
-The `decrypt` method is used to decrypt your data. It will return FALSE if it's unable to decrypt your data.
+The `decrypt` method is used to decrypt your data. It will return `false` if it's unable to decrypt your data.
 
 ```
 $decrypted = $encrypter->decrypt('Hello, world!');
@@ -116,7 +116,7 @@ The `sign` method returns a signed version of the provided string.
 $signed = $signer->sign('Hello, world!');
 ```
 
-The `validate` method will check if your string is valid. It returns the original string if it is and FALSE if not.
+The `validate` method will check if your string is valid. It returns the original string if it is and `false` if not.
 
 ```
 $string = $signer->validate($signed);

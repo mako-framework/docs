@@ -39,13 +39,13 @@ The `createGroup` method allows you to create a new group. A group object is ret
 $group = $this->gatekeeper->createGroup('admin');
 ```
 
-The `activateUser` method activates a user by his or her action token. The method will return TRUE on success and FALSE if the activation fails. The method will also automatically generate a new action token for the user.
+The `activateUser` method activates a user by his or her action token. The method will return `true` on success and `false` if the activation fails. The method will also automatically generate a new action token for the user.
 
 ```
 $activated = $this->gatekeeper->activateUser($token);
 ```
 
-The `login` method will attempt to log a user in. The method returns TRUE if the login is successful and a status code if not.
+The `login` method will attempt to log a user in. The method returns `true` if the login is successful and a status code if not.
 
 ```
 $successful = $this->gatekeeper->login($email, $password);
@@ -64,7 +64,7 @@ The possible status codes for failed logins are:
 | Authentication::LOGIN_BANNED     | The account has been banned                                                   |
 | Authentication::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
 
-The `forceLogin` method allows you to login a user without a password. It will return TRUE if the login is successful and a status code if not.
+The `forceLogin` method allows you to login a user without a password. It will return `true` if the login is successful and a status code if not.
 
 ```
 $successful = $this->gatekeeper->forceLogin($email);
@@ -88,13 +88,13 @@ if($this->gatekeeper->basicAuth() === false)
 > The username and password is sent with every subsequent request when using basic authentication so make sure to use `HTTPS` whenever possible!
 {.danger}
 
-The `isGuest` method returns FALSE if the user is logged in and TRUE if not.
+The `isGuest` method returns `false` if the user is logged in and `true` if not.
 
 ```
 $isGuest = $this->gatekeeper->isGuest();
 ```
 
-The `isLoggedIn` method returns TRUE of the user is logged in and FALSE if not.
+The `isLoggedIn` method returns `true` of the user is logged in and `false` if not.
 
 ```
 $isLoggedIn = $this->gatekeeper->isLoggedIn();
@@ -134,25 +134,25 @@ $groupRepository = $this->gatekeeper->getGroupRepository();
 
 #### User repository
 
-The `getByActionToken` method returns a user based on his or her action token and FALSE if no user is found.
+The `getByActionToken` method returns a user based on his or her action token and `false` if no user is found.
 
 ```
 $user = $userRepository->getByActionToken($token);
 ```
 
-The `getByAccessToken` method returns a user based on his or her access token and FALSE if no user is found.
+The `getByAccessToken` method returns a user based on his or her access token and `false` if no user is found.
 
 ```
 $user = $userRepository->getByAccessToken($token);
 ```
 
-The `getByEmail` method returns a user based on his or her email address and FALSE if no user is found.
+The `getByEmail` method returns a user based on his or her email address and `false` if no user is found.
 
 ```
 $user = $userRepository->getByEmail($email);
 ```
 
-The `getById` method returns a user based on his or her id and FALSE if no user is found.
+The `getById` method returns a user based on his or her id and `false` if no user is found.
 
 ```
 $user = $userRepository->getById($id);
@@ -162,13 +162,13 @@ $user = $userRepository->getById($id);
 
 #### Group repository
 
-The `getByName` method returns a group based on its name and FALSE if no group is found.
+The `getByName` method returns a group based on its name and `false` if no group is found.
 
 ```
 $group = $groupRepository->getByName($name);
 ```
 
-The `getById` method returns a group based on its id and FALSE if no group is found.
+The `getById` method returns a group based on its id and `false` if no group is found.
 
 ```
 $group = $groupRepository->getById($id);
@@ -210,12 +210,12 @@ The `isMemberOf` method allows you to check whether or not a user is a member of
 ```
 $isMemberOf = $user->isMemberOf('admin');
 
-// Returns true if the user is a member of "staff" or "admin"
+// Returns "true" if the user is a member of "staff" or "admin"
 
 $isMemberOf = $user->isMemberOf(['staff', 'admin']);
 ```
 
-The `isActivated` method returns TRUE if the user is activated and FALSE if not.
+The `isActivated` method returns `true` if the user is activated and `false` if not.
 
 ```
 $activated = $user->isActivated();
@@ -233,7 +233,7 @@ The `deactivate` method will deactivate a user.
 $user->deactivate();
 ```
 
-The `isBanned` method will return TRUE if a user is banned and FALSE if not.
+The `isBanned` method will return `true` if a user is banned and `false` if not.
 
 ```
 $isBanned = $user->isBanned();
@@ -283,7 +283,7 @@ The `removeUser` method removes a user from the group.
 $group->removeUser($user);
 ```
 
-The `isMember` method returns TRUE if the member is a member of the group and FALSE if not.
+The `isMember` method returns `true` if the member is a member of the group and `false` if not.
 
 ```
 $group->isMember($user);

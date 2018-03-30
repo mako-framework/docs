@@ -112,7 +112,7 @@ $article->save();
 You can then fetch the article by its primary key value like this:
 
 ```
-$article = Article::get(1); // Will return FALSE if not found
+$article = Article::get(1); // Will return "false" if not found
 ```
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
@@ -707,7 +707,7 @@ You can also make the ORM touch related records upon saving by listing the relat
 protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 ```
 
-You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `TRUE` by default.
+You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `true` by default.
 
 <a id="traits:nullable"></a>
 

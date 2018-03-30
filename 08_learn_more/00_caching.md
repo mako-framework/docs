@@ -46,7 +46,7 @@ $cache = $this->cache->instance();
 $cache = $this->cache->instance('apc');
 ```
 
-Adding data to the cache is done using the `put` method. The method returns TRUE on success or FALSE on failure.
+Adding data to the cache is done using the `put` method. The method returns `true` on success or `false` on failure.
 
 ```
 $cache->put('my_array', [1, 2, 3, 4], 3600);
@@ -67,7 +67,7 @@ if($cache->has('foo'))
 }
 ```
 
-The `get` method is used to retrieve data from the cache. The method returns FALSE if the cached data has expired or if it is not found.
+The `get` method is used to retrieve data from the cache. The method returns `false` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->get('my_array');
@@ -84,25 +84,25 @@ $cached = $cache->getOrElse('foo', function()
 }, 30);
 ```
 
-The `getAndPut` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns FALSE if the cached data has expired or if it is not found.
+The `getAndPut` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns `false` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->getAndPut('my_array', [1, 3, 4, 5], 3600);
 ```
 
-If you need to retrieve and remove a value then you can use the `getAndRemove` method. The method returns FALSE if the cached data has expired or if it is not found.
+If you need to retrieve and remove a value then you can use the `getAndRemove` method. The method returns `false` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->getAndRemove('my_array');
 ```
 
-Removing data from the cache is done by using the `remove` method. The method returns TRUE on success or FALSE on failure.
+Removing data from the cache is done by using the `remove` method. The method returns `true` on success or `false` on failure.
 
 ```
 $cache->remove('my_array');
 ```
 
-You can clear the entire cache by using the `clear` method. The method returns TRUE on success or FALSE on failure. Note that clearing the cache might also affect other applications.
+You can clear the entire cache by using the `clear` method. The method returns `true` on success or `false` on failure. Note that clearing the cache might also affect other applications.
 
 ```
 $cache->clear();

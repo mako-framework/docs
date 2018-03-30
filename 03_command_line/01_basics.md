@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a command line tool called `reactor`. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs.
+Mako includes a command line tool called `reactor`. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs or queue workers.
 
 --------------------------------------------------------
 
@@ -14,17 +14,17 @@ Mako includes a command line tool called `reactor`. Reactor comes with a set of 
 
 ### Usage
 
-To list the available commands just type this in your console:
+To list the available commands just type the following in your console:
 
 ```
 php reactor
 ```
 {.language-none}
 
-It should print the following on a default Mako installation
+It should print something similar to the following on a default Mako installation.
 
 ```
-MAKO FRAMEWORK [ 5.0.0 ]
+MAKO FRAMEWORK [ 5.5.0 ]
 
 Usage:
 
@@ -58,14 +58,14 @@ Available commands:
 ```
 {.language-none}
 
-Executing a command is done like this:
+Executing a command is easy and can be done like this:
 
 ```
 php reactor app.routes
 ```
 {.language-none}
 
-You can list detailed information about a specific command like this:
+You can list detailed information about a specific command using the `--help` flag.
 
 ```
 php reactor app.server --help

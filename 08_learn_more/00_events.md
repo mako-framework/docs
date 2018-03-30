@@ -47,7 +47,7 @@ class FoobarHandler implements EventHandlerInterface
 }
 ```
 
-The `has` method will return TRUE if an event handler has been registered and FALSE if not.
+The `has` method will return `true` if an event handler has been registered and `false` if not.
 
 ```
 $registered = $this->event->has('foobar');
@@ -80,7 +80,7 @@ You can also pass arguments your handlers using the optional second parameter.
 $values = $this->event->trigger('foobar', [1, 2, 3]);
 ```
 
-The third optional parameter lets you stop event handling if one of the handlers return `FALSE`.
+The third optional parameter lets you stop event handling if one of the handlers return `false`.
 
 ```
 $values = $this->event->trigger('foobar', [1, 2, 3], true);

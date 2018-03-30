@@ -26,7 +26,7 @@ The `fileSize` method converts a file size in bytes to a more human friendly for
 $this->humanizer->fileSize(1024); // Will return "1 KiB"
 ```
 
-It will return binary suffixes by default can also make it output file sizes using decimal suffixes by setting the optional second parameter to FALSE.
+It will return binary suffixes by default can also make it output file sizes using decimal suffixes by setting the optional second parameter to `false`.
 
 ```
 $this->humanizer->fileSize(1024, false); // Will return "1.02 KB"

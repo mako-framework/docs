@@ -155,7 +155,7 @@ protected $commandInformation =
 ];
 ```
 
-It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the `$isStrict` property to `TRUE` if you want the command to fail if a non-documented argument or option is used.
+It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the `$isStrict` property to `true` if you want the command to fail if a non-documented argument or option is used.
 
 <a id="basics:registering-commands"></a>
 
@@ -215,7 +215,7 @@ You can also specify a default return value in the event that the user chooses n
 $input = $this->secret('Password:', false);
 ```
 
-> The `secret` method will throw a `RuntimeException` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing `TRUE` to the optional third parameter.
+> The `secret` method will throw a `RuntimeException` if its unable to hide the user input. You can make the method fall back to non-hidden input by passing `true` to the optional third parameter.
 
 The `confirm` method lets you ask the user to confirm their action.
 

@@ -16,37 +16,37 @@ The `FileSystem` class contains methods that assist in working with the file sys
 
 You can create a new FileSystem object or fetch the instance present in the [IoC container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
 
-The `has` method return TRUE if the provided path exists and FALSE if not.
+The `has` method return `true` if the provided path exists and `false` if not.
 
 ```
 $exists = $this->fileSystem->has('/foo/bar.txt');
 ```
 
-The `isFile` method return TRUE if the provided path is a file and FALSE if not.
+The `isFile` method return `true` if the provided path is a file and `false` if not.
 
 ```
 $isFile = $this->fileSystem->isFile('/foo/bar.txt');
 ```
 
-The `isDirectory` method returns TRUE if the provided path is a directory and FALSE if not.
+The `isDirectory` method returns `true` if the provided path is a directory and `false` if not.
 
 ```
 $isDirectory = $this->fileSystem->isDirectory('/foo');
 ```
 
-The `isEmpty` method returns TRUE if the provided path is an empty file or directory and FALSE if not.
+The `isEmpty` method returns `true` if the provided path is an empty file or directory and `false` if not.
 
 ```
 $isEmpty = $this->fileSystem->isEmpty('/foo');
 ```
 
-The `isReadable` method returns TRUE if the provided path is readable and FALSE if not.
+The `isReadable` method returns `true` if the provided path is readable and `false` if not.
 
 ```
 $isReadable = $this->fileSystem->isReadable('/foo/bar.txt');
 ```
 
-The `isWritable` method returns TRUE if the provided path is writable and FALSE if not.
+The `isWritable` method returns `true` if the provided path is writable and `false` if not.
 
 ```
 $isWritable = $this->fileSystem->isWritable('/foo/bar.txt');
@@ -70,13 +70,13 @@ The `extension` method returns the extension of the file.
 $extension = $this->fileSystem->extension('/foo/bar.txt');
 ```
 
-The `mime` method returns the mime type of the file.  It returns FALSE if the mime type is not found.
+The `mime` method returns the mime type of the file.  It returns `false` if the mime type is not found.
 
 ```
 $mime = $this->fileSystem->mime('/foo/bar.txt');
 ```
 
-> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determining a mime type. You can disable guessing by setting the second parameter to FALSE.
+> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determining a mime type. You can disable guessing by setting the second parameter to `false`.
 {.warning}
 
 The `remove` method will delete a file from disk.
@@ -97,25 +97,25 @@ The `get` method returns the contents of a file.
 $contents = $this->fileSystem->get('/foo/bar.txt');
 ```
 
-The `put` method puts the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The `put` method puts the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to `true`.
 
 ```
 $this->fileSystem->put('/foo/bar.txt', 'hello, world!');
 ```
 
-The `prepend` method will prepend the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The `prepend` method will prepend the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to `true`.
 
 ```
 $this->fileSystem->prepend('/foo/bar.txt', 'hello, world!');
 ```
 
-The `appendContents` method will append the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to TRUE.
+The `appendContents` method will append the provided contents to the file. There's an optional third parameter that will set an exclusive write lock if set to `true`.
 
 ```
 $this->fileSystem->append('/foo/bar.txt', 'hello, world!');
 ```
 
-The `truncate` method will truncate the contents of the file. There's an optional second parameter that will set an exclusive write lock if set to TRUE.
+The `truncate` method will truncate the contents of the file. There's an optional second parameter that will set an exclusive write lock if set to `true`.
 
 ```
 $this->fileSystem->truncate('/foo/bar.txt');

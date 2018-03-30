@@ -147,7 +147,7 @@ The `getToken` returns a token that can be used in forms and AJAX requests to pr
 $token = $this->session->getToken();
 ```
 
-The `validateToken` method allows you to validate a token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the `token` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
+The `validateToken` method allows you to validate a token. It will return `true` if the token is valid and `false` if not. You can also validate tokens using the `token` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
 ```
 $valid = $this->session->validateToken($token);
@@ -175,7 +175,7 @@ The `generateOneTimeToken` method allows you to generate a one time token that c
 $token = $this->session->generateOneTimeToken();
 ```
 
-The `validateOneTimeToken` method allows you to validate a one time token. It will return TRUE if the token is valid and FALSE if not. You can also validate tokens using the `one_time_token` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
+The `validateOneTimeToken` method allows you to validate a one time token. It will return `true` if the token is valid and `false` if not. You can also validate tokens using the `one_time_token` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
 One time tokens that have been validated once are no longer considered valid so they are not well suited for use with AJAX requests.
 

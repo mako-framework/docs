@@ -44,14 +44,14 @@ The `random` method returns a random array value.
 Arr::random(['green', 'blue', 'red', 'orange']);
 ```
 
-The `isAssoc` method returns TRUE if the array is associative and FALSE if not.
+The `isAssoc` method returns `true` if the array is associative and `false` if not.
 
 ```
-// $assoc will be set to FALSE
+// $assoc will be set to "false"
 
 $assoc = Arr::isAssoc([1, 2, 3]);
 
-// $assoc will be set to TRUE
+// $assoc will be set to "true"
 
 $assoc = Arr::isAssoc(['one' => 1, 'two' => 2, 'three' => 3]);
 ```

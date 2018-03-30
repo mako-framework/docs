@@ -205,16 +205,16 @@ $file = $files->get('myfile.0');
 
 The`UploadedFile` class extends the `SplFileInfo` class with the following methods.
 
-| Method            | Description                                                               |
-|-------------------|---------------------------------------------------------------------------|
-| getName()         | Returns the name of the file that was uploaded                            |
-| getReportedSize() | Returns the size reported by the client                                   |
-| getReportedType() | Returns the mime type reported by the client                              |
-| hasError()        | Returns TRUE if there is an error with the uploaded file and FALSE if not |
-| getErrorCode()    | Returns the error code associated with the error                          |
-| getErrorMessage() | Returns a human friendly error message                                    |
-| isUploaded()      | Returns TRUE if the file is an actual upload and FALSE if not             |
-| moveTo($path)     | Moves the file to the specified storage location                          |
+| Method            | Description                                                                   |
+|-------------------|-------------------------------------------------------------------------------|
+| getName()         | Returns the name of the file that was uploaded                                |
+| getReportedSize() | Returns the size reported by the client                                       |
+| getReportedType() | Returns the mime type reported by the client                                  |
+| hasError()        | Returns `true` if there is an error with the uploaded file and `false` if not |
+| getErrorCode()    | Returns the error code associated with the error                              |
+| getErrorMessage() | Returns a human friendly error message                                        |
+| isUploaded()      | Returns `true` if the file is an actual upload and `false` if not             |
+| moveTo($path)     | Moves the file to the specified storage location                              |
 
 > The values reported by the client should not be trusted (e.g. use the `getSize` method to retrieve the actual filesize).
 {.warning}

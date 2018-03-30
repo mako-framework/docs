@@ -29,13 +29,13 @@ The `register` method allows you to register a dependency in the container.
 $container->register(FooInterface::class, Foo::class);
 ```
 
-You can also register a key along with the type hint to so that you can save a few keystrokes when resolving classes.
+It is possible to register a key along with the type hint. This will save a few keystrokes when resolving classes and also make it possible to access dependencies using overloading in [container aware](#container_aware) classes.
 
 ```
 $container->register([FooInterface::class, 'foo'], Foo::class);
 ```
 
-You can also register your dependencies using a closure. The closure will not be executed before it is required.
+Additionally, the container allows you to register your dependencies using a closure.
 
 ```
 $container->register([BarInterface::class, 'bar'], function($container)
@@ -44,7 +44,7 @@ $container->register([BarInterface::class, 'bar'], function($container)
 });
 ```
 
-The `registerSingleton` method does the same as the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
+The `registerSingleton` method works just like the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
 ```
 $container->registerSingleton([BarInterface::class, 'bar'], function($container)
@@ -110,7 +110,7 @@ class Depends
 We can now resolve the `Depends` class using the IoC container. Both its dependencies will automatically be injected.
 
 ```
-$depends = $container->get('Depends');
+$depends = $container->get(Depends::class);
 ```
 
 The `getFresh` method works just like the `get` method except that it returns a fresh instance even if the class that you are resolving is registered as a singleton.

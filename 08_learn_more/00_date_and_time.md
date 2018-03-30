@@ -35,7 +35,7 @@ $time = Time::now('Europe/Paris');
 $time = Time::now(new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromFormat` method allows you to create a Time instance from a time string. The difference between Mako's Time class and PHP's DateTime class is  that the optional second parameter can be either a valid timezone string or a DateTimeZone instance.
+The `createFromFormat` method allows you to create a Time instance from a time string. The difference between Mako's Time class and PHP's DateTime class is  that the optional third parameter can be either a valid timezone string or a DateTimeZone instance.
 
 ```
 $time = Time::createFromFormat('Y-m-d', '2014-03-28');
@@ -105,7 +105,7 @@ The `getDOSTimestamp` method returns the DOS timestamp of the Time instance.
 $dosTimestamp = $time->getDOSTimestamp();
 ```
 
-The `isLeapYear` method returns TRUE if the year of the Time instance is a leap year and FALSE if not.
+The `isLeapYear` method returns `true` if the year of the Time instance is a leap year and `false` if not.
 
 ```
 $isLeapYear = $time->isLeapYear();

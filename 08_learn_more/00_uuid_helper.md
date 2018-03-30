@@ -14,12 +14,12 @@ The UUID class contains methods used to validate and generate [UUIDs](http://en.
 
 ### Usage
 
-The `validate` method checks if a string is a valid UUID. It will return TRUE if is does and FALSE if not.
+The `validate` method checks if a string is a valid UUID. It will return `true` if is does and `false` if not.
 
 ```
-$valid = UUID::validate('f47ac10b-58cc-4372-a567-0e02b2c3d479'); // TRUE
+$valid = UUID::validate('f47ac10b-58cc-4372-a567-0e02b2c3d479'); // "true"
 
-$valid = UUID::validate('x47ac10b-58cc-4372-a567-0e02b2c3d479'); // FALSE
+$valid = UUID::validate('x47ac10b-58cc-4372-a567-0e02b2c3d479'); // "false"
 ```
 
 The `v3` method will generate and return a version 3 UUID.

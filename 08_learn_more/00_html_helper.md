@@ -19,7 +19,7 @@ First we'll need to create a HTML instance.
 ```
 $html = new HTML;
 
-// You can make it return XHTML by setting the $xhtml parameter to TRUE
+// You can make it return XHTML by setting the $xhtml parameter to "true"
 
 $html = new HTML(true);
 ```
