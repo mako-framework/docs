@@ -108,7 +108,7 @@ You can clear the entire cache by using the `clear` method. The method returns T
 $cache->clear();
 ```
 
-> Clearing the cache can affect other applications when using shared memory caching solutions such as APC and Memcache.
+> Clearing the cache can affect other applications when using shared memory caching solutions such as APCU and Memcached.
 {.warning}
 
 <a id="usage:incrementing_and_decrementing"></a>
