@@ -51,7 +51,7 @@ Getting an item from the session is done using the `get` method.
 $this->session->get('name');
 ```
 
-You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is NULL.
+You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is `null`.
 
 ```
 $this->session->get('name', 'John Doe');
@@ -69,7 +69,7 @@ It is also possible to retrieve and remove data with a single method call using 
 $this->session->getAndRemove('name');
 ```
 
-If you want to return custom value if the key you're looking for doesn't exist then you can set it using the optional second parameter. The default return value for non-existing items is NULL.
+If you want to return custom value if the key you're looking for doesn't exist then you can set it using the optional second parameter. The default return value for non-existing items is `null`.
 
 ```
 $this->session->getAndRemove('name', 'John Doe');
@@ -103,7 +103,7 @@ Retrieving flash data is done using the `getFlash` method.
 $data = $this->session->getFlash('success');
 ```
 
-You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is NULL.
+You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is `null`.
 
 ```
 $data = $this->session->getFlash('success', 'Some other message.');

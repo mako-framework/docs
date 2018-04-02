@@ -240,7 +240,7 @@ $server = $this->request->getServer();
 The `referer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
 ```
-// Returns the referrer if there is one and null if not
+// Returns the referrer if there is one and "null" if not
 
 $referer = $this->request->referer();
 

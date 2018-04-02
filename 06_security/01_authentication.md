@@ -100,7 +100,7 @@ The `isLoggedIn` method returns `true` of the user is logged in and `false` if n
 $isLoggedIn = $this->gatekeeper->isLoggedIn();
 ```
 
-The `getUser` method will return a user object if the user is logged in and NULL if not.
+The `getUser` method will return a user object if the user is logged in and `null` if not.
 
 ```
 $user = $this->gatekeeper->getUser();
