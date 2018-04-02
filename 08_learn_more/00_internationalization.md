@@ -127,10 +127,10 @@ return
 Language route prefixes can be configured in the `app/config/application.php` config file.
 
 ```
-'languages' => array
-(
+'languages' =>
+[
 	'no' => 'nb_NO',
-),
+],
 ```
 
 Visiting `http://example.org/no/foo/bar` set the language to Norwegian before executing the `/foo/bar` route.

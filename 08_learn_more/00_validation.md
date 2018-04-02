@@ -234,28 +234,28 @@ All error messages are defined in the `app/i18n/*/strings/validate.php` language
 Adding custom field specific error messages can be done using the `overrides.messages` array:
 
 ```
-'overrides' => array
-(
-	'messages' => array
-	(
-		'username' => array
-		(
+'overrides' =>
+[
+	'messages' =>
+	[
+		'username' =>
+		[
 			'required' => 'You need a username!',
-		),
-	),
-),
+		],
+	],
+],
 ```
 
 You can also add custom field name translations using the `overrides.fieldnames` array:
 
 ```
-'overrides' => array
-(
-	'fieldnames' => array
-	(
+'overrides' =>
+[
+	'fieldnames' =>
+	[
 		'email' => 'email address',
-	),
-),
+	],
+],
 ```
 
 --------------------------------------------------------
