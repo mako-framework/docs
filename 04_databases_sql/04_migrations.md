@@ -78,10 +78,7 @@ class Migration_20120824100019 extends Migration
 {
 	/**
 	 * Makes changes to the database structure.
-	 *
-	 * @access  public
 	 */
-
 	public function up()
 	{
 
@@ -89,10 +86,7 @@ class Migration_20120824100019 extends Migration
 
 	/**
 	 * Reverts the database changes.
-	 *
-	 * @access  public
 	 */
-
 	public function down()
 	{
 
