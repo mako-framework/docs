@@ -129,7 +129,7 @@ Language route prefixes can be configured in the `app/config/application.php` co
 ```
 'languages' =>
 [
-	'no' => 'nb_NO',
+	'no' => ['strings' => 'nb_NO', 'locale' => [LC_ALL => ['nb_NO.UTF-8', 'nb_NO.utf8', 'C'], LC_NUMERIC => 'C']],
 ],
 ```
 
