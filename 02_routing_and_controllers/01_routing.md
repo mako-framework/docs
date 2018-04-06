@@ -47,9 +47,9 @@ You can also make a route respond to all request methods using the `all` method.
 $routes->all('/', 'app\controllers\Home::welcome');
 ```
 
-> All routes respond to requests made using the `OPTIONS` method. `GET` routes will also respond to `HEAD` requests.
+> All routes respond to requests made using the `OPTIONS` request method. `GET` routes will also respond to `HEAD` requests.
 
-If you only want to allow a specific set of methods then you can use the `register` method.
+It is also possible to register a route that responds to a custom set of request methods using the `register` method.
 
 ```
 $routes->register(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
@@ -70,7 +70,7 @@ $routes->get('/hello-world', function()
 
 ### Route parameters
 
-You'll often want to send parameters to your route actions. This is easy and can be done like this.
+You'll often want to send parameters to your route actions. This can easily be achieved using the following syntax.
 
 ```
 $routes->get('/articles/{id}', function($id)
@@ -79,7 +79,7 @@ $routes->get('/articles/{id}', function($id)
 });
 ```
 
-If you need to make a parameter optional then you can do so by adding the `?` suffix.
+Parameters can be marked as optional by suffixing them with a question mark (`?`).
 
 ```
 $routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
@@ -88,7 +88,7 @@ $routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 });
 ```
 
-Parameters will match any character except for slashes (`/`); however, you can make sure parameters match custom patterns using the `patterns` method.
+Parameters will match any character except for slashes (`/`); however, you can define your own custom parameter patterns using the `patterns` method.
 
 ```
 $routes->get('/articles/{id}', function($id)
