@@ -184,7 +184,7 @@ If you want to print an un-escaped variable then you can use the `raw` filter.
 Sometimes you'll want to print a default value if your variable is empty. This can easily be achieved using the following syntax.
 
 ```
-{{$foo || 'Default value'}}
+{{$foo or 'Default value'}} // You can also use "||" instead of "or"
 ```
 
 ##### Conditional statements
@@ -222,7 +222,7 @@ Loops is something you'll often need when displaying data. Templates support `fo
 It is possible to render and capture parts of a template for later use by using a `capture` block.
 
 ```
-{% capture:captured %}
+{% capture:$captured %}
 	<p>Hello, world!</p>
 {% endcapture %}
 ```
