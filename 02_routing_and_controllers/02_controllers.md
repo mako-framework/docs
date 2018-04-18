@@ -105,17 +105,30 @@ The `redirectResponse` method returns a redirect response sender.
 return $this->redirectResponse('http://example.org');
 ```
 
-You can also set the status header (default is 302) by chaining the status method.
+The method also allows you to use a [route name](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing) instead of an URL.
+
+```
+return $this->redirectResponse('articles.view', ['id' => 10]);
+```
+
+The default status code is set to `302` but you can override it by using the chainable `status` method.
 
 ```
 return $this->redirectResponse('http://example.org')->status(301);
 ```
 
-The `redirectResponse` method also allows you to use a [route name](:base_url:/docs/:version:/routing-and-controllers:routing#reverse_routing) instead of an URL.
+It is also possible to use one of the following chainable methods instead of setting the status code with the `status` method.
 
-```
-return $this->redirectResponse('articles.view', ['id' => 10]);
-```
+| Method name       | Description                   |
+|-------------------|-------------------------------|
+| multipleChoices   | Sets the status code to `300` |
+| movedPermanently  | Sets the status code to `301` |
+| found             | Sets the status code to `302` |
+| seeOther          | Sets the status code to `303` |
+| notModified       | Sets the status code to `304` |
+| useProxy          | Sets the status code to `305` |
+| temporaryRedirect | Sets the status code to `307` |
+| permanentRedirect | Sets the status code to `308` |
 
 <a id="controller_helpers:stream_response"></a>
 
