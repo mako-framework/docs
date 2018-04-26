@@ -625,7 +625,7 @@ $article->save();
 ```
 
 > The code above might seem like a good idea until a hacker adds an `is_admin` field to the POST data and gives himself admin privileges.
-{.warning}
+{.danger}
 
 > You can make mass assignment a bit more secure by using the `$assignable` property and define a whitelist of fields that can be set through mass assignment. It's better to be safe than sorry so you should really only use this feature with trusted data.
 
