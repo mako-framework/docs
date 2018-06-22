@@ -35,9 +35,10 @@ The `get` method of the parameter collection returns the value of a parameter an
 
 ```
 $value = $queryString->get('foo');
+```
+You can also specify a custom default return value.
 
-// You can also specify a custom default return value
-
+```
 $value = $queryString->get('foo', false);
 ```
 
@@ -108,9 +109,11 @@ The `get` method of the cookie collection returns the value of a cookie and `nul
 
 ```
 $value = $cookies->get('foobar');
+```
 
-// You can also define a custom default return value
+You can also define a custom default return value.
 
+```
 $value = $cookies->get('foobar', false);
 ```
 
@@ -142,9 +145,10 @@ The `get` method of the header collection returns the value of the header an `nu
 
 ```
 $value = $headers->get('content-type');
+```
+You can also define a custom default return value.
 
-// You can also define a custom default return value
-
+```
 $value = $headers->get('content-type', 'text/plain');
 ```
 
@@ -197,9 +201,11 @@ The `get` method of the file collection returns a `UploadedFile` instance or `nu
 
 ```
 $file = $files->get('myfile');
+```
 
-// If you're fetching a file from a multi upload then you'll have to include the key as well
+If you're fetching a file from a multi upload then you'll have to include the key as well.
 
+```
 $file = $files->get('myfile.0');
 ```
 
@@ -273,19 +279,21 @@ The `isSafe` method returns `true` if the request method used is considered safe
 $isSafe = $this->request->isSafe();
 ```
 
-The `baseURL` method returns the base URL of the request.
+The `basePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
 
 ```
-// A request to 'http://example.org/foo/bar' will return 'http://example.org'
+$basePath = $this->request->basePath();
+```
 
+The `baseURL` method returns the base URL of the request. A request to `http://example.org/foo/bar` will return `http://example.org`.
+
+```
 $baseURL = $this->request->baseURL();
 ```
 
-The `path` method will return the request path.
+The `path` method will return the request path. A request to `http://example.org/index.php/foo/bar` or `http://example.org/foo/bar` will return `/foo/bar`.
 
 ```
-// A request to 'http://example.org/foo/bar' will return '/foo/bar'
-
 $path = $this->request->path();
 ```
 
