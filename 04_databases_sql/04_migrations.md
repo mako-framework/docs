@@ -81,7 +81,10 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function up()
 	{
-
+		$this->getConnection()->query
+		(
+			// Write your SQL here
+		);
 	}
 
 	/**
@@ -89,7 +92,10 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function down()
 	{
-
+		$this->getConnection()->query
+		(
+			// Write your SQL here
+		);
 	}
 }
 ```
@@ -153,10 +159,10 @@ Rolled back the following migrations:
 ```
 {.language-none}
 
-You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
+You can roll back multiple batches by telling the rollback command how many batches you want to roll back using the `batches` option.
 
 ```
-php reactor migrate.down 2
+php reactor migrate.down --batches=2
 ```
 {.language-none}
 

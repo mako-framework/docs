@@ -35,7 +35,6 @@ Global options:
 ----------------------------------------------------------
 | Option     | Description                               |
 ----------------------------------------------------------
-| --database | Overrides the default database connection |
 | --env      | Overrides the Mako environment            |
 | --mute     | Mutes all output                          |
 ----------------------------------------------------------
