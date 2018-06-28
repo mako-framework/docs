@@ -100,7 +100,7 @@ class Migration_20120824100019 extends Migration
 }
 ```
 
-> Every migration is executed inside a transaction if the database supports transactional DDL (Postgres and SQLite). You can disable the use of transactions by setting the `$useTransaction` property to `false`.
+> Every migration is executed inside a transaction if the database supports transactional DDL (PostgreSQL and SQLite). You can disable the use of transactions by setting the `$useTransaction` property to `false`.
 
 <a id="usage:running_migrations"></a>
 
