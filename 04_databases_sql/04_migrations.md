@@ -182,7 +182,9 @@ php reactor migrate.reset --force
 ```
 {.language-none}
 
-> All transactions are normally executed against the default database but you can override this by using the `$connectionName` property. Running migrations for the non-default database requires you to use the optional `database` option of the `migrate.status`, `migrate.up`, `migrate.down` and `migrate.reset` commands.
+> All transactions are normally executed against the default database of your application. You can override this by using the `$connectionName` property of the migration class.
+>
+> Running migrations for the non-default database requires you to use the optional `database` option of the `migrate.status`, `migrate.up`, `migrate.down` and `migrate.reset` commands.
 >
 > Note that each database requires its own `mako_migrations` table.
 
