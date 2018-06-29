@@ -554,6 +554,8 @@ $combinedSales = $query->unionAll(function($query)
 
 ### Row-level locking
 
+lock(), sharedLock()
+
 The `lock()` method can be used to enable row-level locking during database transactions.
 
 ```
@@ -562,7 +564,7 @@ The `lock()` method can be used to enable row-level locking during database tran
 $persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
 ```
 
-It will use an exclusive lock by default but you can enable shared locking by passing `false` to the `lock()` method.
+It will use an exclusive lock by default but you can enable shared locking by passing `false` to the `lock()` method or by using the `sharedLock()` method.
 
 ```
 // SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
