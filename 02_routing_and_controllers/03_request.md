@@ -273,19 +273,21 @@ The `isSafe` method returns `true` if the request method used is considered safe
 $isSafe = $this->request->isSafe();
 ```
 
-The `baseURL` method returns the base URL of the request.
+The `basePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
 
 ```
-// A request to 'http://example.org/foo/bar' will return 'http://example.org'
+$basePath = $this->request->basePath();
+```
 
+The `baseURL` method returns the base URL of the request. A request to `http://example.org/foo/bar` will return `http://example.org`.
+
+```
 $baseURL = $this->request->baseURL();
 ```
 
-The `path` method will return the request path.
+The `path` method will return the request path. A request to `http://example.org/index.php/foo/bar` or `http://example.org/foo/bar` will return `/foo/bar`.
 
 ```
-// A request to 'http://example.org/foo/bar' will return '/foo/bar'
-
 $path = $this->request->path();
 ```
 

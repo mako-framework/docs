@@ -69,7 +69,7 @@ Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 ```
 {.language-none}
 
-The generated migration will contain a skeleton class with two methods, `up` and `down`. The database connection manager is available in both methods using the `$this->database` property.
+The generated migration will contain a skeleton class with two methods, `up` and `down`.
 
 ```
 <?php
@@ -81,7 +81,10 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function up()
 	{
-
+		$this->getConnection()->query
+		(
+			// Write your SQL here
+		);
 	}
 
 	/**
@@ -89,10 +92,15 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function down()
 	{
-
+		$this->getConnection()->query
+		(
+			// Write your SQL here
+		);
 	}
 }
 ```
+
+> Every migration is executed inside a transaction if the database supports transactional DDL (PostgreSQL and SQLite). You can disable the use of transactions by setting the `$useTransaction` property to `false`.
 
 <a id="usage:running_migrations"></a>
 
@@ -153,10 +161,10 @@ Rolled back the following migrations:
 ```
 {.language-none}
 
-You can roll back multiple batches by telling the rollback command how many batches you want to roll back.
+You can roll back multiple batches by telling the rollback command how many batches you want to roll back using the `batches` option.
 
 ```
-php reactor migrate.down 2
+php reactor migrate.down --batches=2
 ```
 {.language-none}
 
@@ -173,6 +181,12 @@ This will prompt you for confirmation. To force the reset just use the `force` o
 php reactor migrate.reset --force
 ```
 {.language-none}
+
+> All transactions are normally executed against the default database of your application. You can override this by using the `$connectionName` property of the migration class.
+>
+> Running migrations for the non-default database requires you to use the optional `database` option of the `migrate.status`, `migrate.up`, `migrate.down` and `migrate.reset` commands.
+>
+> Note that each database requires its own `mako_migrations` table.
 
 --------------------------------------------------------
 

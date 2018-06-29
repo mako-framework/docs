@@ -205,7 +205,7 @@ In the example above we assumed that the `Dependent` class had a `replaceDepende
 $container->onReplace(Dependency::class, (function($dependency)
 {
 	$this->dependency = $dependency;
-})->bindTo($dependent, Dependent::class);
+})->bindTo($dependent, Dependent::class));
 ```
 
 --------------------------------------------------------
