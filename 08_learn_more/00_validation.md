@@ -180,6 +180,7 @@ The following validation rules are included with Mako:
 | in                       | Checks that the field value contains one of the given values (`in(["foo","bar","baz"])`).               |
 | integer                  | Checks that the field value is a integer.                                                               |
 | ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                          |
+| json                     | Checks that the field value contains valid JSON.                                                        |
 | less_than                | Checks that the field value is less than x (`less_than(5)`).                                            |
 | less_than_or_equal_to    | Checks that the field value is less than or equal to x (`less_than_or_equal_to(5)`).                    |
 | match                    | Checks that the field value matches the value of another field (`match("password_confirmation")`).      |
