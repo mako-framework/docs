@@ -76,6 +76,9 @@ $replies = $redis->pipeline(function($redis)
 });
 ```
 
+> Note that pipelining will not work as expected when working with a Redis cluster.
+{.warning}
+
 <a id="usage:magic_shortcut"></a>
 
 #### Magic shortcut
