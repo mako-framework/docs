@@ -76,7 +76,7 @@ $replies = $redis->pipeline(function($redis)
 });
 ```
 
-> Note that pipelining will not work as expected when working with a Redis cluster.
+> Note that pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node. It is therefore not advisable to use pipelining in a cluster environment.
 {.warning}
 
 <a id="usage:magic_shortcut"></a>
