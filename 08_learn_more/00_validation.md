@@ -166,6 +166,7 @@ The following validation rules are included with Mako:
 | alpha_unicode            | Checks that the field value only contains valid alpha unicode characters.                               |
 | alphanumeric             | Checks that the field value only contains valid alphanumeric characters.                                |
 | alphanumeric_unicode     | Checks that the field value only contains valid alphanumeric unicode characters.                        |
+| array                    | Checks that the field value is an array.                                                                |
 | before                   | Checks that the field value is a valid date before the provided date (`before("Y-m-d","2012-09-25")`).  |
 | between                  | Checks that the field value is between x and y (`between(5,10)`).                                       |
 | date                     | Checks that the field value is a valid date (`date("Y-m-d")`).                                          |
