@@ -12,6 +12,7 @@
 * [Database schema](#database_schema)
 	- [MySQL](#database_schema:mysql)
 	- [PostgreSQL](#database_schema:postgresql)
+	- [SQLite](#database_schema:sqlite)
 
 --------------------------------------------------------
 
@@ -315,6 +316,7 @@ The authentication library requires three database tables: a users table, a grou
 
 #### MySQL
 
+[collapse:Click to view]
 Users table
 
 ```
@@ -374,11 +376,13 @@ CREATE TABLE `groups_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ```
 {.language-sql}
+[/collapse]
 
 <a id="database_schema:postgresql"></a>
 
 #### PostgreSQL
 
+[collapse:Click to view]
 Users table
 
 ```
@@ -423,16 +427,18 @@ CREATE TABLE groups_users (
 );
 ```
 {.language-sql}
+[/collapse]
 
 <a id="database_schema:sqlite"></a>
 
 #### SQLite
 
+[collapse:Click to view]
 Users table
 
 ```
 CREATE TABLE `users` (
-	`id` INTEGER PRIMARY KEY AUTOINCREMENT, -- Alias for ROWID, can't be unsigned
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`created_at` TEXT NOT NULL,
 	`updated_at` TEXT NOT NULL,
 	`ip` TEXT(255) NOT NULL,
@@ -483,3 +489,4 @@ CREATE INDEX `group_id` ON `groups_users` (`group_id`);
 CREATE INDEX `user_id` ON `groups_users` (`user_id`);
 ```
 {.language-sql}
+[/collapse]
