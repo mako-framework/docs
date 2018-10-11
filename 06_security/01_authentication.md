@@ -423,3 +423,63 @@ CREATE TABLE groups_users (
 );
 ```
 {.language-sql}
+
+<a id="database_schema:sqlite"></a>
+
+#### SQLite
+
+Users table
+
+```
+CREATE TABLE `users` (
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT, -- Alias for ROWID, can't be unsigned
+	`created_at` TEXT NOT NULL,
+	`updated_at` TEXT NOT NULL,
+	`ip` TEXT(255) NOT NULL,
+	`username` TEXT(255) NOT NULL,
+	`email` TEXT(255) NOT NULL,
+	`password` TEXT(255) NOT NULL,
+	`action_token` TEXT(64) DEFAULT '',
+	`access_token` TEXT(64) DEFAULT '',
+	`activated` TINYINT NOT NULL DEFAULT 0,
+	`banned` TINYINT NOT NULL DEFAULT 0,
+	`failed_attempts` INTEGER NOT NULL DEFAULT 0,
+	`last_fail_at` TEXT DEFAULT NULL,
+	`locked_until` TEXT DEFAULT NULL,
+	CONSTRAINT `username` UNIQUE (`username`),
+	CONSTRAINT `email` UNIQUE (`email`)
+);
+```
+{.language-sql}
+
+Groups table
+
+```
+CREATE TABLE `groups` (
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`created_at` TEXT NOT NULL,
+	`updated_at` TEXT NOT NULL,
+	`name` TEXT(255) NOT NULL,
+	CONSTRAINT `name` UNIQUE (`name`)
+);
+```
+{.language-sql}
+
+Junction table
+
+```
+CREATE TABLE `groups_users` (
+	`group_id` INTEGER NOT NULL,
+	`user_id` INTEGER NOT NULL,
+	CONSTRAINT `group_user` UNIQUE (`group_id`, `user_id`),
+	FOREIGN KEY (`group_id`)
+		REFERENCES `users` (`id`)
+		ON DELETE CASCADE ON UPDATE NO ACTION,
+	FOREIGN KEY (`group_id`)
+		REFERENCES `users` (`id`)
+		ON DELETE CASCADE ON UPDATE NO ACTION
+);
+CREATE INDEX `group_id` ON `groups_users` (`group_id`);
+CREATE INDEX `user_id` ON `groups_users` (`user_id`);
+```
+{.language-sql}
