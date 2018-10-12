@@ -2,15 +2,26 @@
 
 --------------------------------------------------------
 
+* [Hashers](#hashers)
 * [Usage](#usage)
 
 --------------------------------------------------------
 
-Using md5 or sha1 hashes for storing passwords is not recommended, as they are easy to brute-force with modern hardware. The password hashing class makes it easy to hash and validate your passwords using a secure method.
+Using `md5` or `sha1` hashes for storing passwords is **not recommended** as they are easy to brute-force with modern hardware. The password hashers included with the framework make it easy to hash and verify your passwords using modern, secure and robust hashing algorithms.
 
-The password hashing class uses PHP's `password_*` methods internally. Passwords are currently hashed using the `PASSWORD_BCRYPT` algorithm (default as of PHP 5.5.0) but this may change over time as new and stronger algorithms are added to PHP.
+--------------------------------------------------------
 
-All examples where we override the computing cost assume that `PASSWORD_BCRYPT` is the default hashing algorithm on your system. See the [PHP documentation](http://php.net/manual/en/function.password-hash.php) for valid options for your default hashing algorithm.
+<a id="hashers"></a>
+
+### Hashers
+
+| Hasher   | Requirements                                                   |
+|----------|----------------------------------------------------------------|
+| Bcrypt   | Always available                                               |
+| Argon2i  | Available if PHP (7.2+) has been compiled with Argon2i support |
+| Argon2id | Available if PHP (7.3+) has been compiled with Argon2i support |
+
+> The [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library uses the Bcrypt hasher by default.
 
 --------------------------------------------------------
 
@@ -18,43 +29,35 @@ All examples where we override the computing cost assume that `PASSWORD_BCRYPT` 
 
 ### Usage
 
-The `hash` method will return a hashed version of the provided password.
+We'll be using the Bcrypt hasher in all our examples but all the hashers implement the same interface.
 
 ```
-$hash = Password::hash('foobar');
+$hasher = new Bcrypt;
+
+// You can also pass an array of algorithm options
+
+$hahser = new Bcrypt(['cost' => 14]);
 ```
 
-You can increase the time it takes to calculate the hash by changing the computing options.
+> Check out the official [PHP documentation](http://php.net/manual/en/function.password-hash.php) for details regarding the different algorithm options.
+
+The `create` method will return a hash of the provided password.
 
 ```
-$hash = Password::hash('foobar', ['cost' => 14]);
+$hash = $hasher->create('foobar');
 ```
 
-> Note that the length of the password hash may increase if the hashing algorithm is changed. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
+> Note that the length of the password hash may varies depending on the hashing algorithm is. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
 {.warning}
 
-The `setDefaultComputingOptions` method allows you to override the default computing options.
+The `verify` method will validate hashes generated using the `create` method.
 
 ```
-Password::setDefaultComputingOptions(['cost' => 14]);
-```
-
-The `validate` method will validate hashes generated using the `hash` method.
-
-```
-$valid = Password::validate('foobar', $hash);
+$valid = $hasher->verify('foobar', $hash);
 ```
 
 The `needsRehash` method returns `true` if the provided hash needs to be rehashed and `false` if not.
 
 ```
-$needsRehash = Password::needsRehash($hash);
+$needsRehash = $hasher->needsRehash($hash);
 ```
-
-You can also set the desired computing cost when checking.
-
-```
-$needsRehash = Password::needsRehash($hash, ['cost' => 14]);
-```
-
-> Passwords will automatically be rehashed if needed upon login if you're using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.

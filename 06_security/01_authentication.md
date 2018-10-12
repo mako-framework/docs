@@ -8,6 +8,7 @@
 	- [Group repository](#repositories_group)
 * [Users & groups](#users_and_groups)
 	- [Users](#users_and_groups_users)
+		- [Password hashing](#users_and_groups_users_password_hashing)
 	- [Groups](#users_and_groups_groups)
 * [Database schema](#database_schema)
 	- [MySQL](#database_schema:mysql)
@@ -266,7 +267,21 @@ $user->delete();
 
 The user object also includes the following getters and setters: `getId`, `setEmail`, `getEmail`, `setUsername`, `getUsername`, `setPassword`, `getPassword`, `setIp`, `getIp`, `getActionToken` and `getAccessToken`.
 
-> The password will automatically be hashed using a [salted bcrypt hash](:base_url:/docs/:version:/security:password-hashing) so you do not need to hash it yourself.
+<a id="users_and_groups_users_password_hashing"></a>
+
+##### Password hashing
+
+Passwords are hashed using [hashing library]((:base_url:/docs/:version:/security:password-hashing)). You can change the hashing algorithm or the default computing cost by reimplementing the `getHasher` method of the `User` class.
+
+```
+protected function getHasher(): HasherInterface
+{
+	return new Bcrypt(['cost' => 14]);
+}
+```
+
+> Passwords will automatically be rehashed using the new algorithm or computing cost upon successful login.
+{.info}
 
 <a id="users_and_groups_groups"></a>
 
