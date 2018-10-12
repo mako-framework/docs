@@ -21,8 +21,6 @@ Using `md5` or `sha1` hashes for storing passwords is **not recommended** as the
 | Argon2i  | Available if PHP (7.2+) has been compiled with Argon2i support |
 | Argon2id | Available if PHP (7.3+) has been compiled with Argon2i support |
 
-> The [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library uses the Bcrypt hasher by default.
-
 --------------------------------------------------------
 
 <a id="usage"></a>
