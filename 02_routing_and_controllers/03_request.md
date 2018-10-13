@@ -55,7 +55,7 @@ The `getBody` method returns a parameter collection containing data from a parse
 $body = $this->request->getBody();
 ```
 
-The `getData` method returns a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data for `POST` requests and the parsed body for any other type of request).
+The `getData` method returns a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data or a parsed body for `POST` requests and the parsed body for any other type of request).
 
 ```
 $data = $this->request->getData();
