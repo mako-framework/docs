@@ -173,31 +173,31 @@ $connection->transaction(function($connection)
 
 Nested transactions are also supported using savepoints.
 
-In the example below we'll decrease the cash total of user `1` by `100` and increase the cash total of user `2` by `100`. The nested transaction that would have increased the cash total of user `1` by another `1000` fails and is rolled back since the table name is misspelled.
+In the example below we'll create a user named `foo`. The nested transaction that would have created a second user named `bar` will fail since the table name is misspelled.
 
-The parent transaction is unaffected and the transfer between user `1` and `2` is still committed. If you want your entire transaction to roll back when the nested transaction fails then you can just re-throw the exception.
+The parent transaction is unaffected and `foo` user is still created. If you want your entire transaction to roll back when the nested transaction fails then you can just re-throw the exception.
 
 ```
 try
 {
 	$connection->beginTransaction();
 
-	$connection->builder()->table('accounts')->where('id', '=', 1)->decrement('cash', 100);
-
-	$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 100);
+	$connection->builder()->table('users')->insert(['username' => 'foo']);
 
 	{
 		$connection->beginTransaction();
 
 		try
 		{
-			$connection->builder()->table('accounts')->where('id', '=', 2)->increment('cash', 1000);
+			$connection->builder()->table('usesr')->insert(['username' => 'bar']);
 
 			$connection->commitTransaction();
 		}
 		catch(PDOException $e)
 		{
 				$connection->rollbackTransaction();
+
+				// throw $e; // Re-throw the exception to roll back the parent transaction as well
 		}
 	}
 
@@ -209,13 +209,13 @@ catch(PDOException $e)
 }
 ```
 
-Transaction nesting is also possible when using the `Connection::transaction()` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
-
 You can get the transaction nesting level at any point using the `Connection::getTransactionNestingLevel()` method.
 
 ```
 $nestingLevel = $connection->getTransactionNestingLevel();
 ```
+
+Transaction nesting is also possible when using the `Connection::transaction()` method but keep in mind that the entire transaction will be rolled back if any of the nested transactions fail.
 
 --------------------------------------------------------
 
