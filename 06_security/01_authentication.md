@@ -494,9 +494,9 @@ CREATE TABLE `groups_users` (
 	`user_id` INTEGER NOT NULL,
 	CONSTRAINT `group_user` UNIQUE (`group_id`, `user_id`),
 	FOREIGN KEY (`group_id`)
-		REFERENCES `users` (`id`)
+		REFERENCES `groups` (`id`)
 		ON DELETE CASCADE ON UPDATE NO ACTION,
-	FOREIGN KEY (`group_id`)
+	FOREIGN KEY (`user_id`)
 		REFERENCES `users` (`id`)
 		ON DELETE CASCADE ON UPDATE NO ACTION
 );
