@@ -171,7 +171,7 @@ The following validation rules are included with Mako:
 | between                  | Checks that the field value is between x and y (`between(5,10)`).                                       |
 | date                     | Checks that the field value is a valid date (`date("Y-m-d")`).                                          |
 | different                | Checks that the field value is different from the value of another field (`different("old_password")`). |
-| email                    | Checks that the field value is a valid email address (uses PHP's filter_var function).                  |
+| email                    | Checks that the field value is a valid email address.                                                   |
 | email_domain             | Checks that the field value contains a valid MX record.                                                 |
 | exact_length             | Checks that the field value is of the right length (`exact_length(20)`).                                |
 | float                    | Checks that the field value is a float.                                                                 |
@@ -180,7 +180,7 @@ The following validation rules are included with Mako:
 | hex                      | Checks that the field value is valid HEX.                                                               |
 | in                       | Checks that the field value contains one of the given values (`in(["foo","bar","baz"])`).               |
 | integer                  | Checks that the field value is a integer.                                                               |
-| ip                       | Checks that the field value is an IP address (uses PHP's filter_var function).                          |
+| ip                       | Checks that the field value is an IP address (`ip`, `ip("v4")` or `ip("v6")`).                          |
 | json                     | Checks that the field value contains valid JSON.                                                        |
 | less_than                | Checks that the field value is less than x (`less_than(5)`).                                            |
 | less_than_or_equal_to    | Checks that the field value is less than or equal to x (`less_than_or_equal_to(5)`).                    |
@@ -192,7 +192,7 @@ The following validation rules are included with Mako:
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
 | regex                    | Checks that the field value matches a regex pattern (`regex("/[a-z]+/i")`).                             |
 | required                 | Checks that the field isn't empty.                                                                      |
-| url                      | Checks that the field value is a valid URL (uses PHP's filter_var function).                            |
+| url                      | Checks that the field value is a valid URL.                                                             |
 | uuid                     | Checks that the field value matches a valid uuid.                                                       |
 
 <a id="validation_rules:database"></a>
