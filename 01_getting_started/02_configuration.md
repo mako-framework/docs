@@ -2,9 +2,10 @@
 
 --------------------------------------------------------
 
-* [Config Files](#config_files)
-* [Cascading configuration](#cascading_configuration)
-* [Environment aware configuration](#environment_aware_configuration)
+- [Configuration](#configuration)
+	- [Config Files](#config-files)
+	- [Cascading configuration](#cascading-configuration)
+	- [Environment aware configuration](#environment-aware-configuration)
 
 --------------------------------------------------------
 
@@ -16,11 +17,11 @@ All of the remaining framework configuration is done by editing the files that a
 
 <a id="config_files"></a>
 
-### Config Files
+## Config Files
 
 Mako config files are just simple arrays:
 
-```
+```php
 <?php
 
 return
@@ -32,19 +33,19 @@ return
 
 And loading a config file is done by using the `get` method.
 
-```
+```php
 $config = $this->config->get('redis'); // Loads the redis.php file
 ```
 
 You can also fetch config items using `dot notation`.
 
-```
+```php
 $default = $this->config->get('redis.default');
 ```
 
 It is also possible to override settings or add new configurations at runtime:
 
-```
+```php
 // Adds a new Crypto configuration named "user" that you can
 // use when creating a Crypto instance "Crypto::instance('user');"
 
@@ -58,7 +59,7 @@ $this->config->set('crypto.configurations.user',
 
 Removing the custom configuration is done using the `remove` method:
 
-```
+```php
 $this->config->remove('crypto.configurations.user');
 ```
 
@@ -69,7 +70,7 @@ $this->config->remove('crypto.configurations.user');
 
 <a id="cascading_configuration"></a>
 
-### Cascading configuration
+## Cascading configuration
 
 Sometimes you might want to edit the configuration files of a third party package. You can edit the package config file directly but the changes you make will be overwritten when you update the package. This is where cascading config files come become handy.
 
@@ -79,35 +80,31 @@ Lets say you have a packaged named `foobar` with a config file. Just copy the fi
 
 <a id="environment_aware_configuration"></a>
 
-### Environment aware configuration
+## Environment aware configuration
 
 Mako supports environment aware configuration. This means that you can have separate configuration files for your different environments. All you have to do is create a subdirectory with the name of your environment in the `app/config` directory and copy the environment specific files into it.
 
 Setting the environment in Apache:
 
-```
+```none
 SetEnv MAKO_ENV dev
 ```
-{.language-apacheconf}
 
 Setting the environment in Nginx:
 
-```
+```nginx
 fastcgi_param MAKO_ENV dev;
 ```
-{.language-nginx}
 
 Setting the environment in a linux/unix shell:
 
-```
+```bash
 export MAKO_ENV=dev # for Bourne, bash, and related shells
 setenv MAKO_ENV=dev # for csh and related shells
 ```
-{.language-bash}
 
 You can also manually set the environment in the CLI using the env option.
 
-```
+```bash
 php reactor <command> --env=dev
 ```
-{.language-none}

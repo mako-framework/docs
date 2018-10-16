@@ -2,8 +2,9 @@
 
 --------------------------------------------------------
 
-* [Custom error handling](#custom_error_handling)
-* [Disabling logging of specific exception types](#disabling_logging_of_specific_exception_types)
+- [Error handling](#error-handling)
+	- [Custom error handling](#custom-error-handling)
+	- [Disabling logging of specific exception types](#disabling-logging-of-specific-exception-types)
 
 --------------------------------------------------------
 
@@ -13,13 +14,13 @@ Mako converts all errors to `ErrorExceptions`. This allows the error handler to 
 
 <a id="custom_error_handling"></a>
 
-### Custom error handling
+## Custom error handling
 
 You can register custom error handlers for different kinds of exception types using the `ErrorHandler::handle()` method.
 
 A great place to do so is in the `app/bootstrap.php` file.
 
-```
+```php
 $errorHandler = $container->get('errorHandler');
 
 $errorHandler->handle(PDOException::class, function($exception)
@@ -30,7 +31,7 @@ $errorHandler->handle(PDOException::class, function($exception)
 
 > Your error handler should **not** have a return value unless you want it to stop further error handling.
 
-```
+```php
 $errorHandler->handle(Throwable::class, function($exception)
 {
 	// Do something else here
@@ -48,17 +49,17 @@ $errorHandler->handle(PDOException::class, function($exception)
 
 <a id="disabling_logging_of_specific_exception_types"></a>
 
-### Disabling logging of specific exception types
+## Disabling logging of specific exception types
 
 Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `disableLoggingFor` method.
 
-```
+```php
 $errorHandler->disableLoggingFor(mako\http\exceptions\NotFoundException::class);
 ```
 
 You can also pass an array of exception types.
 
-```
+```php
 $errorHandler->disableLoggingFor
 ([
 	mako\http\exceptions\NotFoundException::class,

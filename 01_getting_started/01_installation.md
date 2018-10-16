@@ -2,43 +2,42 @@
 
 --------------------------------------------------------
 
-* [Requirements](#requirements)
-* [Setup](#setup)
-* [Updating](#updating)
+- [Installation](#installation)
+    - [Requirements](#requirements)
+    - [Setup](#setup)
+    - [Updating](#updating)
 
 --------------------------------------------------------
 
 <a id="requirements"></a>
 
-### Requirements
+## Requirements
 
-* PHP 7.0.0 or higher *
-* mbstring
-* PDO
+- PHP 7.0.0 or higher *
+- mbstring
+- PDO
 
-\* Tested on PHP 7.0.x, 7.1.x and 7.2.x
+\* _Tested on PHP 7.0, 7.1 and 7.2_
 
 --------------------------------------------------------
 
 <a id="setup"></a>
 
-### Setup
+## Setup
 
 Installing Mako is easy and can be with done in a few simple steps thanks to [composer](https://packagist.org/).
 
 First you'll have to create a new project:
 
-```
+```bash
 composer create-project mako/app <project name>
 ```
-{.language-none}
 
 Next you'll have to make the `app/storage/*` directories writable (command my vary depending on your system):
 
-```
+```bash
 chown www-data:www-data -R app/storage
 ```
-{.language-none}
 
 Now you're ready to start coding!
 
@@ -48,13 +47,12 @@ Now you're ready to start coding!
 
 <a id="updating"></a>
 
-### Updating
+## Updating
 
 Mako can easily be updated when a new version is released using the following command:
 
-```
+```bash
 composer update
 ```
-{.language-none}
 
 > Note that some updates might require some minor code changes. These will be documented in the upgrade guides.
