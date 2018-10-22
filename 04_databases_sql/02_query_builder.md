@@ -90,7 +90,7 @@ To make a distinct selection use the `distinct` method
 $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 ```
 
-> Note that the `all` and `paginate` methods returns a result set object and not an array so you'll need to use the `isEmpty` method to check if it's empty.
+> Note that the `all` and `paginate` methods return a result set object and not an array so you'll need to use the `isEmpty` method to check if it's empty.
 
 Selecting from the results of a subquery is also possible.
 
