@@ -583,7 +583,7 @@ $arrayOfNumbers = $model->numbers;
 
 ### Scopes
 
-Scopes allow you to specify commonly used query criteria as methods. All scope methods must be prefixed with the `Scope` suffix.
+Scopes allow you to specify commonly used query criteria as methods. All scope methods must be suffixed with the `Scope` suffix.
 
 ```
 public function publishedScope($query)
@@ -624,13 +624,13 @@ The ORM allows you to use mass assignment when creating or updating records. Thi
 ```
 // Create a new record using mass assignment
 
-User::create($_POST);
+User::create($this->request->getPost()->all());
 
 // Update an existing record using mass assignment
 
 $article = User::get(1);
 
-$article->assign($_POST);
+$article->assign($this->request->getPost()->all());
 
 $article->save();
 ```
@@ -671,9 +671,9 @@ foreach($clones as $clone)
 
 ### Array and JSON representations of results
 
-You can convert your ORM results and result sets to arrays and JSON just like you can with plain [query builder](:base_url:/docs/:version:/databases-sql:query-builder#array_and_json_representations) results and result sets.
+You can convert both your result and result set objects to arrays and JSON when using the ORM [just like you can with plain query builder result and result set objects](:base_url:/docs/:version:/databases-sql:query-builder#array_and_json_representations).
 
-It is possible to exclude loaded columns and relations from the array and JSON representations by using the `$protected` property. You can also alter protection at runtime using the `protect()` and `expose()` methods.
+> It is possible to exclude loaded columns and relations from the array and JSON representations by using the `$protected` property. You can also alter protection at runtime using the `protect()` and `expose()` methods.
 
 --------------------------------------------------------
 
@@ -687,7 +687,7 @@ It is possible to exclude loaded columns and relations from the array and JSON r
 
 You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
 
-The trait requires you to add two DATETIME columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
+The trait requires you to add two `DATETIME` columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
 
 ```
 <?php

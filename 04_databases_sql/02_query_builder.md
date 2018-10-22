@@ -9,16 +9,17 @@
 * [Deleting data](#deleting_data)
 * [JSON data](#JSON_data)
 * [Aggregates](#aggregates)
-* [WHERE clauses](#where_clauses)
-* [WHERE BETWEEN clauses](#where_between_clauses)
-* [WHERE IN clauses](#where_in_clauses)
-* [WHERE IS NULL clauses](#where_is_null_clauses)
-* [WHERE EXISTS clauses](#where_exists_clauses)
-* [JOIN clauses](#join_clauses)
-* [GROUP BY clauses](#group_by_clauses)
-* [HAVING clauses](#having_clauses)
-* [ORDER BY clauses](#order_by_clauses)
-* [LIMIT and OFFSET clauses](#limit_and_offset_clauses)
+* [Clauses](#clauses)
+	* [WHERE clauses](#clauses:where_clauses)
+	* [WHERE BETWEEN clauses](#clauses:where_between_clauses)
+	* [WHERE IN clauses](#clauses:where_in_clauses)
+	* [WHERE IS NULL clauses](#clauses:where_is_null_clauses)
+	* [WHERE EXISTS clauses](#clauses:where_exists_clauses)
+	* [JOIN clauses](#clauses:join_clauses)
+	* [GROUP BY clauses](#clauses:group_by_clauses)
+	* [HAVING clauses](#clauses:having_clauses)
+	* [ORDER BY clauses](#clauses:order_by_clauses)
+	* [LIMIT and OFFSET clauses](#clauses:limit_and_offset_clauses)
 * [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
 * [Array and JSON representations of results](#array_and_json_representations)
@@ -190,13 +191,13 @@ $pairs = $query->table->('users')->pairs('id', 'email');
 Inserting data is done using the `insert` method.
 
 ```
-$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime()]);
+$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
 ```
-$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime()]);
+$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 > When working with [PostgreSQL](http://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
@@ -212,7 +213,7 @@ Updating data is done using the `update` method.
 ```
 $query->table('foobars')
 ->where('id', '=', 10)
-->update(['field1' => 'foo', 'field2' => 'bar', 'field3' => time()]);
+->update(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 There are also shortcuts for incrementing and decrementing column values:
@@ -245,13 +246,13 @@ $query->table('articles')->where('id', '=', 10)->delete();
 
 ### JSON data
 
-The query builder features a unified syntax for querying JSON data and it currently supports MySQL, Oracle, PostgreSQL, SQLServer and SQLite.
+The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
 
 ```
 $foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
 ```
 
-You can also use the unified syntax to update JSON values. This feature currently supports MySQL, PostgreSQL, SQLServer and SQLite.
+You can also use the unified syntax to update JSON values. This feature currently supports `MySQL`, `PostgreSQL` (jsonb), `SQLServer` and `SQLite`.
 
 ```
 $query->table('articles')->update(['meta->bar' => json_encode(0)]);
@@ -305,9 +306,13 @@ $height = $query->table('persons')->where('age', '>', 25)->sum('height');
 
 --------------------------------------------------------
 
-<a id="where_clauses"></a>
+<a id="clauses"></a>
 
-### WHERE clauses
+### Clauses
+
+<a id="clauses:where_clauses"></a>
+
+#### WHERE clauses
 
 where(), whereRaw(), orWhere(), orWhereRaw()
 
@@ -324,7 +329,7 @@ $persons = $query->table('persons')->where('age', '>', 25)->orWhere('age', '<', 
 
 $person = $query->table('persons')->where(['username', 'email'], '=', ['foo', 'foo@example.org'])->first();
 
-// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
+// SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180)
 
 $persons = $query->table('persons')
 ->where(function($query)
@@ -332,7 +337,6 @@ $persons = $query->table('persons')
 	$query->where('age', '>', 25);
 	$query->where('height', '>', 180);
 })
-->isNotNull('email')
 ->all();
 ```
 
@@ -348,9 +352,9 @@ $persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
 $persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLEAN MODE)', ['foobar']);
 ```
 
-<a id="where_between_clauses"></a>
+<a id="clauses:where_between_clauses"></a>
 
-### WHERE BETWEEN clauses
+#### WHERE BETWEEN clauses
 
 between(), orBetween(), notBetween(), orNotBetween()
 
@@ -364,9 +368,9 @@ $persons = $query->table('persons')->between('age', 20, 25)->all();
 $persons = $query->table('persons')->between('age', 20, 25)->orBetween('age', 30, 35)->all();
 ```
 
-<a id="where_in_clauses"></a>
+<a id="clauses:where_in_clauses"></a>
 
-### WHERE IN clauses
+#### WHERE IN clauses
 
 in(), orIn(), notIn(), orNotIn()
 
@@ -385,9 +389,9 @@ $persons = $query->table('persons')
 ->all();
 ```
 
-<a id="where_is_null_clauses"></a>
+<a id="clauses:where_is_null_clauses"></a>
 
-### WHERE IS NULL clauses
+#### WHERE IS NULL clauses
 
 isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
@@ -397,9 +401,9 @@ isNull(), orIsNull(), isNotNull(), orIsNotNull()
 $persons = $query->table('persons')->isNull('address')->all();
 ```
 
-<a id="where_exists_clauses"></a>
+<a id="clauses:where_exists_clauses"></a>
 
-### WHERE EXISTS clauses
+#### WHERE EXISTS clauses
 
 exists(), orExists(), notExists(), orNotExists()
 
@@ -414,9 +418,9 @@ $persons = $query->table('persons')
 ->all();
 ```
 
-<a id="join_clauses"></a>
+<a id="clauses:join_clauses"></a>
 
-### JOIN clauses
+#### JOIN clauses
 
 join(), joinRaw(), leftJoin(), leftJoinRaw()
 
@@ -426,7 +430,7 @@ join(), joinRaw(), leftJoin(), leftJoinRaw()
 $persons = $query->table('persons')->join('phones', 'persons.id', '=', 'phones.user_id')->all();
 
 // SELECT * FROM `persons` AS `u` INNER JOIN `phones` AS `p` ON
-// `u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`
+// (`u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`)
 
 $persons = $query->table('persons as u')
 ->join('phones as p', function($join)
@@ -437,9 +441,9 @@ $persons = $query->table('persons as u')
 ->all();
 ```
 
-<a id="group_by_clauses"></a>
+<a id="clauses:group_by_clauses"></a>
 
-### GROUP BY clauses
+#### GROUP BY clauses
 
 groupBy()
 
@@ -459,9 +463,9 @@ $customers = $query->table('orders')
 ->all();
 ```
 
-<a id="having_clauses"></a>
+<a id="clauses:having_clauses"></a>
 
-### HAVING clauses
+#### HAVING clauses
 
 having(), havingRaw(), orHaving(), orHavingRaw()
 
@@ -475,9 +479,9 @@ $customers = $query->table('orders')
 ->all();
 ```
 
-<a id="order_by_clauses"></a>
+<a id="clauses:order_by_clauses"></a>
 
-### ORDER BY clauses
+#### ORDER BY clauses
 
 orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw()
 
@@ -485,6 +489,7 @@ orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRa
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
 $persons = $query->table('persons')->orderBy('name', 'asc')->all();
+
 
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
@@ -503,9 +508,9 @@ $persons = $query->table('persons')->orderBy('name', 'asc')->orderBy('age', 'des
 $persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
 ```
 
-<a id="limit_and_offset_clauses"></a>
+<a id="clauses:limit_and_offset_clauses"></a>
 
-### LIMIT and OFFSET clauses
+#### LIMIT and OFFSET clauses
 
 limit(), offset(), paginate()
 
@@ -526,6 +531,8 @@ You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pa
 
 $persons = $query->table('persons')->paginate(10);
 ```
+
+--------------------------------------------------------
 
 <a id="set_operations"></a>
 
@@ -554,6 +561,8 @@ $combinedSales = $query->unionAll(function($query)
 })
 ->table('sales2016')->all();
 ```
+
+--------------------------------------------------------
 
 <a id="row_level_locking"></a>
 
@@ -605,7 +614,9 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 
 ### Array and JSON representations of results
 
-You can convert both result and result set objects to arrays using the `toArray` method and to JSON using the `toJson` method, encoding them with `json_encode` or by casting the objects to strings.
+You can convert both single result and result set objects to arrays and JSON using the `toArray` and `toJson` methods respectively. JSON encoding of your results can also be achieved by using the [`json_encode`](http://php.net/manual/en/function.json-encode.php) function or by casting the objects to strings.
+
+> The `toJson` method accepts the same optional option flags as the [`json_encode`](http://php.net/manual/en/function.json-encode.php) function.
 
 ```
 $json = (string) $query->table('articles')->select(['id', 'title', 'content'])->limit(10)->all();
@@ -622,7 +633,7 @@ The code above will result in the following JSON:
 	{"id": 10, "title": "Article 10", "content": "Article 10 content"},
 ]
 ```
-Data fetched using the `paginate` method will return a JSON object instead of an array where the records are available as `data` while pagination information is available as `pagination`:
+Data fetched using the `paginate` method will return a JSON object instead of an array. The records are available as `data` while pagination information is available as `pagination`:
 
 ```
 {
