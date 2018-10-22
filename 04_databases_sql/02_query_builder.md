@@ -21,6 +21,7 @@
 * [LIMIT and OFFSET clauses](#limit_and_offset_clauses)
 * [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
+* [Array and JSON representations of results](#array_and_json_representations)
 
 --------------------------------------------------------
 
@@ -88,7 +89,7 @@ To make a distinct selection use the `distinct` method
 $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 ```
 
-> Note that the `all` method returns a result set. So you'll need to use the `isEmpty` method to check if it's empty.
+> Note that the `all` and `paginate` methods returns a result set object and not an array so you'll need to use the `isEmpty` method to check if it's empty.
 
 Selecting from the results of a subquery is also possible.
 
@@ -318,6 +319,10 @@ $persons = $query->table('persons')->where('age', '>', 25)->all();
 // SELECT * FROM `persons` WHERE `age` > 25 OR `age` < 20
 
 $persons = $query->table('persons')->where('age', '>', 25)->orWhere('age', '<', 20)->all();
+
+// SELECT * FROM `persons` WHERE (`username`, `email`) = ('foo', 'foobar@example.org') LIMIT 1
+
+$person = $query->table('persons')->where(['username', 'email'], '=', ['foo', 'foo@example.org'])->first();
 
 // SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180) AND `email` IS NOT NULL
 
@@ -593,3 +598,50 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 | SQLServer  | WITH (UPDLOCK, ROWLOCK) | WITH (HOLDLOCK, ROWLOCK)    |
 
 > Row-level locking will gracefully degrade for any RDBMS that doesn't support the feature.
+
+--------------------------------------------------------
+
+<a id="array_and_json_representations"></a>
+
+### Array and JSON representations of results
+
+You can convert both result and result set objects to arrays using the `toArray` method and to JSON using the `toJson` method, encoding them with `json_encode` or by casting the objects to strings.
+
+```
+$json = (string) $query->table('articles')->select(['id', 'title', 'content'])->limit(10)->all();
+```
+
+The code above will result in the following JSON:
+
+```
+[
+	{"id": 1, "title": "Article 1", "content": "Article 1 content"},
+	{"id": 2, "title": "Article 2", "content": "Article 2 content"},
+	...
+	{"id": 9, "title": "Article 9", "content": "Article 9 content"},
+	{"id": 10, "title": "Article 10", "content": "Article 10 content"},
+]
+```
+Data fetched using the `paginate` method will return a JSON object instead of an array where the records are available as `data` while pagination information is available as `pagination`:
+
+```
+{
+	"data": [
+		{"id": 1, "title": "Article 1", "content": "Article 1 content"},
+		{"id": 2, "title": "Article 2", "content": "Article 2 content"},
+		...
+		{"id": 9, "title": "Article 9", "content": "Article 9 content"},
+		{"id": 10, "title": "Article 10", "content": "Article 10 content"},
+	],
+	"pagination": {
+		"current_page": 1,
+		"number_of_pages": 1,
+		"items": 10,
+		"items_per_page": 50,
+		"first": "https:\/\/example.org\/api\/articles?page=1",
+		"last": "https:\/\/example.org\/api\/articles?page=1",
+		"next": null,
+		"previous": null
+	}
+}
+```

@@ -24,7 +24,7 @@
 * [Mass assignment](#mass_assignment)
 * [Optimistic locking](#optimistic_locking)
 * [Cloning records](#cloning_records)
-* [Array and JSON representations](#array_and_json_representations)
+* [Array and JSON representations of results](#array_and_json_representations)
 * [Traits](#traits)
 	- [Timestamped](#traits:timestamped)
 	- [Nullable](#traits:nullable)
@@ -451,7 +451,7 @@ The code above will produce the same result as the previous example but it will 
 You can eager load more relations using an array and nested relations using the dot syntax.
 
 ```
-$articles = Article::including(['user', 'comments', 'comments.users'])->limit(10)->all();
+$articles = Article::including(['user', 'comments', 'comments.user'])->limit(10)->all();
 ```
 
 If you need to add query criteria to your relations then you can do so using a closure.
@@ -460,7 +460,7 @@ If you need to add query criteria to your relations then you can do so using a c
 $articles = Article::including(['user', 'comments' => function($query)
 {
 	$query->where('approved', '=', true);
-}, 'comments.users'])->limit(10)->all();
+}, 'comments.user'])->limit(10)->all();
 ```
 
 You can also define relations to eager load in the model definition using the `$including` property. This is useful if you know that you're going to need to eager load the relations more often than not.
@@ -473,6 +473,17 @@ You can then disable eager loading of the relations if needed by using the `excl
 
 ```
 $articles = Article::excluding(['user', 'comments'])->limit(10)->all();
+```
+
+It is also possible to eager load relations using the `include` method on both model and result set instances. You can check if a model already has loaded a relation using the `includes` method.
+
+```
+$article = Article::get(1);
+
+if(!$article->includes('comments'))
+{
+	$article->include(['comments', 'comments.user']);
+}
 ```
 
 <a id="relations:overriding_naming_conventions"></a>
@@ -658,15 +669,11 @@ foreach($clones as $clone)
 
 <a id="array_and_json_representations"></a>
 
-### Array and JSON representations
+### Array and JSON representations of results
 
-You can convert an ORM object or result set to an array using the `toArray` method and to JSON using the `toJson` method. The ORM objects and result sets will also be converted to JSON when casted to a string.
+You can convert your ORM results and result sets to arrays and JSON just like you can with plain [query builder](:base_url:/docs/:version:/databases-sql:query-builder#array_and_json_representations) results and result sets.
 
-```
-$json = (string) Article::limit(10)->all();
-```
-
-You can exclude columns and relations from the array and JSON representations by using the `$protected` property. You can alter protection at runtime using the `protect()` and `expose()` methods.
+It is possible to exclude loaded columns and relations from the array and JSON representations by using the `$protected` property. You can also alter protection at runtime using the `protect()` and `expose()` methods.
 
 --------------------------------------------------------
 
