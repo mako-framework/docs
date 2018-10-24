@@ -47,7 +47,7 @@ The `encrypt` method is used to encrypt your data.
 $encrypted = $encrypter->encrypt('Hello, world!');
 ```
 
-The `decrypt` method is used to decrypt your data. It will return `false` if it's unable to decrypt your data.
+The `decrypt` method is used to decrypt your data. It throws a `CryptoException` if it's unable to decrypt your data.
 
 ```
 $decrypted = $encrypter->decrypt('Hello, world!');

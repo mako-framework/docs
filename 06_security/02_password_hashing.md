@@ -45,7 +45,7 @@ The `create` method will return a hash of the provided password.
 $hash = $hasher->create('foobar');
 ```
 
-> Note that the length of the password hash may varies depending on the hashing algorithm is. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
+> Note that the length of the password hash may vary depending on the chosen hashing algorithm. Therefore, it is recommended to store the result in a database column that can expand beyond 60 characters (255 characters would be a good choice).
 {.warning}
 
 The `verify` method will validate hashes generated using the `create` method.

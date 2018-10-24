@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-Mako includes a command line tool called `reactor`. Reactor comes with a set of useful commands out of the box and it allows you to create your own custom commands. This is especially useful when creating long running tasks such as cronjobs or queue workers.
+Mako includes a command line tool called `reactor`. Reactor comes with a set of useful commands out of the box and you can also create your own custom commands. Commands are especially useful when creating long running tasks such as cron jobs or queue workers.
 
 --------------------------------------------------------
 
@@ -32,12 +32,12 @@ php reactor [command] [arguments] [options]
 
 Global options:
 
-----------------------------------------------------------
-| Option     | Description                               |
-----------------------------------------------------------
-| --env      | Overrides the Mako environment            |
-| --mute     | Mutes all output                          |
-----------------------------------------------------------
+-------------------------------------------
+| Option | Description                    |
+-------------------------------------------
+| --env  | Overrides the Mako environment |
+| --mute | Mutes all output               |
+-------------------------------------------
 
 Available commands:
 
@@ -47,6 +47,9 @@ Available commands:
 | app.generate_key    | Generates a 256-bit encryption key.             |
 | app.generate_secret | Generates a new application secret.             |
 | app.routes          | Lists all registered routes.                    |
+| cache.clear         | Clears the cache.                               |
+| cache.remove        | Removes the chosen key from the cache.          |
+| greeting            | Greets the user.                                |
 | migrate.create      | Creates a new migration.                        |
 | migrate.down        | Rolls back the last batch of migrations.        |
 | migrate.reset       | Rolls back the last batch of migrations.        |
@@ -56,6 +59,8 @@ Available commands:
 -------------------------------------------------------------------------
 ```
 {.language-none}
+
+> Note that the list of available commands may vary depending on which services you have enabled.
 
 Executing a command is easy and can be done like this:
 
