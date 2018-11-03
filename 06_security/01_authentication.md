@@ -271,7 +271,7 @@ The user object also includes the following getters and setters: `getId`, `setEm
 
 ##### Password hashing
 
-Passwords are hashed using [hashing library](:base_url:/docs/:version:/security:password-hashing). You can change the hashing algorithm or the default computing cost by reimplementing the `getHasher` method of the `User` class.
+Passwords are hashed using the [hashing library](:base_url:/docs/:version:/security:password-hashing). You can change the hashing algorithm or the default computing cost by reimplementing the `getHasher` method of the `User` class.
 
 ```
 protected function getHasher(): HasherInterface
