@@ -92,4 +92,4 @@ opcache.fast_shutdown=1
 >
 > This can be done by reloading or restarting the php-fpm process, by calling `opcache_reset()` (this must be done via php-fpm and not php-cli) or by using [cachetool](https://github.com/gordalina/cachetool).
 
-You can also use [cachetool](https://github.com/gordalina/cachetool) to check the OPcache status. This can use useful if you want to see if you need to tweak some of the configuration values.
+[Cachetool](https://github.com/gordalina/cachetool) can also be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
