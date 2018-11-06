@@ -40,7 +40,14 @@ chown www-data:www-data -R app/storage
 ```
 {.language-none}
 
-Now you're ready to start coding!
+You can now start a simple development server with the following command:
+
+```
+php app/reactor server
+```
+{.language-none}
+
+Open `http://localhost:8000` in your browser of choice and you're ready to start coding!
 
 > Note that only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
 
@@ -50,11 +57,11 @@ Now you're ready to start coding!
 
 ### Updating
 
-Mako can easily be updated when a new version is released using the following command:
+Mako can easily be updated when a new patch release is made available using the following command:
 
 ```
 composer update
 ```
 {.language-none}
 
-> Note that some updates might require some minor code changes. These will be documented in the upgrade guides.
+> If you want to bump the version (e.g. from `5.6.*` to `5.7.*`) then you'll have to update your `composer.json` file before running the update command. Note that some releases might require some minor code changes. These will be documented in the upgrade guides.
