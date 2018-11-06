@@ -50,7 +50,7 @@ server
 ```
 {.language-nginx}
 
-> Note that you can also use php-fpm over a unix socket instead of tcp. Just make sure that the [rlimit_files](http://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
+> Note that you can also use [php-fpm](https://php-fpm.org) over a unix socket instead of tcp. Just make sure that the [rlimit_files](http://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
 
 --------------------------------------------------------
 
