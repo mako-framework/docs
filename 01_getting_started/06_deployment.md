@@ -77,7 +77,7 @@ composer dump-autoload --optimize --no-dev --classmap-authoritative
 
 You should make sure that your production server has the [OPcache](http://php.net/manual/en/book.opcache.php) extension installed and enabled. OPcache will improve PHP performance by storing your application as compiled bytecode in shared memory, thereby removing the need for PHP to load and parse scripts on each request.
 
-The following OPcache settings have been known to boost performance of a Mako application in production:
+The following OPcache settings have been known to work well with a Mako application in production:
 
 ```
 opcache.memory_consumption=256
