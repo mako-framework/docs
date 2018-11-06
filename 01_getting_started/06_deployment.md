@@ -90,6 +90,6 @@ opcache.fast_shutdown=1
 
 > Note that setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
 >
-> This can be done by reloading or restarting the php-fpm process, by calling `opcache_reset()` (this must be done via php-fpm) as part of your deployment or by using [cachetool](https://github.com/gordalina/cachetool).
+> This can be done by reloading or restarting the php-fpm process, by calling `opcache_reset()` (this must be done via php-fpm and not php-cli) or by using [cachetool](https://github.com/gordalina/cachetool).
 
 You can also use [cachetool](https://github.com/gordalina/cachetool) to check the OPcache status. This can use useful if you want to see if you need to tweak some of the configuration values.
