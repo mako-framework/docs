@@ -630,7 +630,7 @@ The code above will result in the following JSON:
 	{"id": 2, "title": "Article 2", "content": "Article 2 content"},
 	...
 	{"id": 9, "title": "Article 9", "content": "Article 9 content"},
-	{"id": 10, "title": "Article 10", "content": "Article 10 content"},
+	{"id": 10, "title": "Article 10", "content": "Article 10 content"}
 ]
 ```
 Data fetched using the `paginate` method will return a JSON object instead of an array. The records are available as `data` while pagination information is available as `pagination`:
@@ -642,7 +642,7 @@ Data fetched using the `paginate` method will return a JSON object instead of an
 		{"id": 2, "title": "Article 2", "content": "Article 2 content"},
 		...
 		{"id": 9, "title": "Article 9", "content": "Article 9 content"},
-		{"id": 10, "title": "Article 10", "content": "Article 10 content"},
+		{"id": 10, "title": "Article 10", "content": "Article 10 content"}
 	],
 	"pagination": {
 		"current_page": 1,
