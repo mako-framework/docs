@@ -4,6 +4,7 @@
 
 * [Basics](#basics)
 * [Configuration, i18n and views](#configuration_i18n_and_views)
+	- [Overriding configuration, i18n and views](#configuration_i18n_and_views:overriding_configuration_i18n_and_views)
 * [Commands](#commands)
 * [Package installation](#package_installation)
 * [Publishing packages](#publishing_packages)
@@ -94,6 +95,16 @@ By default the file namespace of a package will be the package name where the sl
 protected $fileNamespace = 'foo';
 ```
 
+<a id="configuration_i18n_and_views:overriding_configuration_i18n_and_views"></a>
+
+#### Overriding configuration, i18n and views
+
+Sometimes you might want to modify the configuration, i18n strings or views of a third party package. You can edit the them directly but the changes you make will be overwritten when you update the package. This is where the cascading file lookup comes in handy.
+
+Lets say you have a packaged named `acme-foo` with a config file you want to modify. Just copy the file into `app/config/packages/acme-foo` and the application will load your copy instead of the one located in the package. This makes it possible to update the package while keeping your custom settings. The same convention also works for i18n and view files.
+
+> You can also override the default Mako error views using this method. Just create a `app/resources/views/packages/mako-error` directory and add a file named `404.tpl.php` to create your own custom 404 template.
+
 --------------------------------------------------------
 
 <a id="commands"></a>
@@ -120,14 +131,14 @@ protected $commands =
 Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org/) command and add the package "boot" class to the list of packages in your `app/config/application.php` configuration file.
 
 ```
-composer require <vendor>/<package name>:*
+composer require <vendor>/<package name>
 ```
 {.language-none}
 
 So, to install `acme/foo` package using composer, you have to issue following command from the project directory
 
 ```
-composer require acme/foo:*
+composer require acme/foo
 ```
 {.language-none}
 

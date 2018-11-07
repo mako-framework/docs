@@ -10,6 +10,10 @@
 
 --------------------------------------------------------
 
+Mako works well with all major webservers but we suggest using [Nginx](http://nginx.org) along with [php-fpm](https://php-fpm.org) for optimal performance.
+
+--------------------------------------------------------
+
 <a id="server_configuration"></a>
 
 ### Server configuration
@@ -18,7 +22,7 @@
 
 #### Nginx
 
-Basic [Nginx](http://nginx.org) configuration for a Mako application:
+Basic Nginx configuration that you can build upon:
 
 ```
 server
@@ -50,7 +54,7 @@ server
 ```
 {.language-nginx}
 
-> Note that you can also use [php-fpm](https://php-fpm.org) over a unix socket instead of tcp. Just make sure that the [rlimit_files](http://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
+> You can also use php-fpm over a unix socket instead of tcp. Just make sure that the [rlimit_files](http://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
 
 --------------------------------------------------------
 
@@ -88,8 +92,8 @@ opcache.fast_shutdown=1
 ```
 {.language-none}
 
+[Cachetool](https://github.com/gordalina/cachetool) can be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
+
 > Note that setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
 >
-> This can be done by reloading or restarting the php-fpm process, by calling `opcache_reset()` (this must be done via php-fpm and not php-cli) or by using [cachetool](https://github.com/gordalina/cachetool).
-
-[Cachetool](https://github.com/gordalina/cachetool) can also be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
+> This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](http://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.

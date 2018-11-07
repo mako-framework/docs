@@ -2,9 +2,10 @@
 
 --------------------------------------------------------
 
-* [Config Files](#config_files)
-* [Cascading configuration](#cascading_configuration)
+* [Config files](#config_files)
 * [Environment aware configuration](#environment_aware_configuration)
+	- [Setting the environment](#environment_aware_configuration:setting_the_environment)
+* [Package configuration](#package_configuration)
 
 --------------------------------------------------------
 
@@ -16,7 +17,7 @@ All of the remaining framework configuration is done by editing the files that a
 
 <a id="config_files"></a>
 
-### Config Files
+### Config files
 
 Mako config files are just simple arrays:
 
@@ -67,21 +68,15 @@ $this->config->remove('crypto.configurations.user');
 
 --------------------------------------------------------
 
-<a id="cascading_configuration"></a>
-
-### Cascading configuration
-
-Sometimes you might want to edit the configuration files of a third party package. You can edit the package config file directly but the changes you make will be overwritten when you update the package. This is where cascading config files come become handy.
-
-Lets say you have a packaged named `foobar` with a config file. Just copy the file into `app/config/packages/foobar` and the application will load that file instead of the one located in the package. This makes it possible to update the package while keeping your custom settings.
-
---------------------------------------------------------
-
 <a id="environment_aware_configuration"></a>
 
 ### Environment aware configuration
 
 Mako supports environment aware configuration. This means that you can have separate configuration files for your different environments. All you have to do is create a subdirectory with the name of your environment in the `app/config` directory and copy the environment specific files into it.
+
+<a id="environment_aware_configuration:setting_the_environment"></a>
+
+#### Setting the environment
 
 Setting the environment in Apache:
 
@@ -105,9 +100,17 @@ setenv MAKO_ENV=dev # for csh and related shells
 ```
 {.language-bash}
 
-You can also manually set the environment in the CLI using the env option.
+You can also manually set the environment in the [CLI](:base_url:/docs/:version:/command-line:basics) using the env option.
 
 ```
 php reactor <command> --env=dev
 ```
 {.language-none}
+
+--------------------------------------------------------
+
+<a id="package_configuration"></a>
+
+### Package configuration
+
+Check out the [package documentation](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) for more information regarding package configuration.
