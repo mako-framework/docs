@@ -203,7 +203,7 @@ $file = $files->get('myfile');
 $file = $files->get('myfile.0');
 ```
 
-The`UploadedFile` class extends the `SplFileInfo` class with the following methods.
+The`UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class with the following methods.
 
 | Method            | Description                                                                   |
 |-------------------|-------------------------------------------------------------------------------|

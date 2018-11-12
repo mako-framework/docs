@@ -2,27 +2,28 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage)
+* [File system](#file_system)
+* [File info](#file_info)
 
 --------------------------------------------------------
 
-The `FileSystem` class contains methods that assist in working with the file system.
+The file library contains classes that assist you with working with the files and the file system.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="file_system"></a>
 
-### Usage
+### File system
 
-You can create a new FileSystem object or fetch the instance present in the [IoC container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
+You can create a new `FileSystem` object or fetch the instance present in the [IoC container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
 
-The `has` method return `true` if the provided path exists and `false` if not.
+The `has` method returns `true` if the provided path exists and `false` if not.
 
 ```
 $exists = $this->fileSystem->has('/foo/bar.txt');
 ```
 
-The `isFile` method return `true` if the provided path is a file and `false` if not.
+The `isFile` method returns `true` if the provided path is a file and `false` if not.
 
 ```
 $isFile = $this->fileSystem->isFile('/foo/bar.txt');
@@ -69,15 +70,6 @@ The `extension` method returns the extension of the file.
 ```
 $extension = $this->fileSystem->extension('/foo/bar.txt');
 ```
-
-The `mime` method returns the mime type of the file.  It returns `false` if the mime type is not found.
-
-```
-$mime = $this->fileSystem->mime('/foo/bar.txt');
-```
-
-> The method will try to guess the mimetype by using the file extension if the [finfo_open()](http://php.net/manual/en/function.finfo-open.php) function doesn't exist. Note that this is not a very reliable way of determining a mime type. You can disable guessing by setting the second parameter to `false`.
-{.warning}
 
 The `remove` method will delete a file from disk.
 
@@ -145,20 +137,64 @@ The `requireOnce` method will require a file if it hasn't already been required.
 $this->fileSystem->requireOnce('/foo/bar.txt');
 ```
 
-The `hash` method generates a hash value using the contents of the given file. The default hashing algorithm is `sha256` but you can override it using the optional second parameter.
+The `info` method will return a `FileInfo` instance.
 
 ```
-$hash = $this->fileSystem->hash('/foo/bar.txt');
+$info = $this->fileSystem->info('/foo/bar.txt');
 ```
 
-The `hmac` method a keyed hash value using the HMAC method using the contents of the given file. The default hashing algorithm is `sha256` but you can override it using the optional third parameter.
-
-```
-$hash = $this->fileSystem->hmac('/foo/bar.txt', $secret);
-```
-
-The `file` method will return a [SplFileObject](http://php.net/manual/en/class.splfileobject.php).
+The `file` method will return a [SplFileObject](http://php.net/manual/en/class.splfileobject.php) instance.
 
 ```
 $file = $this->fileSystem->file('/foo/bar.txt', 'r');
+```
+
+--------------------------------------------------------
+
+<a id="file_info"></a>
+
+### File info
+
+You can create a new `FileInfo` instance using the constructor or by getting an instance via the `FileSystem::info()` method. The `FileInfo` class extends the [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php) class with a set of useful methods that we'll document below.
+
+```
+$info = new FileInfo('/foo/bar.txt');
+```
+
+The `getMimeType` method will return the MIME type of the file.
+
+```
+$mime = $info->getMimeType();
+```
+
+The `getMimeTypeExtension` method will return the file extension appropriate for a the MIME type detected in the file.
+
+```
+$mime = $info->getMimeTypeExtension();
+```
+
+You can generate a hash based on the contents of the file using the `getHash` method. The default algorithm is `sha256` but you can specify which one you would like to use using the optional first parameter. You can also tell the method to return the hash in its raw binary form by setting the optional second parameter to `true`.
+
+```
+$hash = $info->getHash();
+```
+
+You can validate a file against a known hash using the `validateHash` method. If you didn't use the default `sha256` algorithm when generating the hash then you'll have to specify which one you used using the optional second parameter. If the hash you're comparing against is provided in its raw binary form then you'll have to set the  optional third parameter to `true`.
+
+```
+$valid = $info->validateHash($hash);
+```
+A keyed hash can be generated using the `getHmac` method. The default algorithm is `sha256` but you can specify which one you would like to use using the optional second parameter. You can also tell the method to return the hash in its raw binary form by setting the optional third parameter to `true`.
+
+```
+$hash = $info->getHmac($key);
+```
+
+> You should provide a cryptographically secure key when generating the hash. You can easily generate your own secure keys using the `app.generate_key` reactor command.
+{.danger}
+
+Validating files against the keyed hash is done using the `validateHmac` method. If you didn't use the default `sha256` algorithm when generating the hash then you'll have to specify which one you used using the optional third parameter. If the hash you're comparing against is provided in its raw binary form then you'll have to set the  optional fourth parameter to `true`.
+
+```
+$valid = $info->validateHmac($hash, $key);
 ```

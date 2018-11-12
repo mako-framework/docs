@@ -214,7 +214,7 @@ The following validation rules are included with Mako:
 | max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
 | mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                             |
 
-> The `max_filesize` and `mimetype` expect `SplFileInfo` objects. The `is_uploaded` rule expects an instance of `mako\http\request\UploadedFile` (it extends `SplFileInfo`).
+> The `max_filesize` and `mimetype` rules expect [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) objects. The `is_uploaded` rule expects an instance of [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files).
 
 <a id="validation_rules:session"></a>
 
