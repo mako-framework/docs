@@ -167,10 +167,10 @@ The `getMimeType` method will return the MIME type of the file.
 $mime = $info->getMimeType();
 ```
 
-The `getMimeTypeExtension` method will return the file extension appropriate for a the MIME type detected in the file.
+The `getMimeEncoding` method will return the MIME encoding of the file.
 
 ```
-$mime = $info->getMimeTypeExtension();
+$encoding = $info->getMimeEncoding();
 ```
 
 You can generate a hash based on the contents of the file using the `getHash` method. The default algorithm is `sha256` but you can specify which one you would like to use using the optional first parameter. You can also tell the method to return the hash in its raw binary form by setting the optional second parameter to `true`.
