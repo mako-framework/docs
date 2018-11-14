@@ -11,6 +11,7 @@
 	- [Base rules](#validation_rules:base)
 	- [Database rules](#validation_rules:database)
 	- [File rules](#validation_rules:file)
+		- [Image rules](#validation_rules:file:image)
 	- [Session rules](#validation_rules:session)
 * [Custom messages](#custom_messages)
 * [Custom rules](#custom_rules)
@@ -218,7 +219,26 @@ The following validation rules are included with Mako:
 
 > The default hash algorithm for the `hash` and `hmac` rules is `sha256`. Any algorithm supported by [`hash_file`](http://php.net/manual/en/function.hash-file.php) can be used.
 
-> The `hash`, `hmac`, `max_filesize` and `mimetype` rules expect [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) objects. The `is_uploaded` rule expects an instance of [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) (it extends the `FileInfo` class).
+> The `max_filesize` rule expects [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+>
+> The `hash`, `hmac`, and `mimetype` rules expect [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+>
+> The `is_uploaded` rule expects [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+
+<a id="validation_rules:file:image"></a>
+
+##### Image rules
+
+| Name             | Description                                                                                       |
+|------------------|---------------------------------------------------------------------------------------------------|
+| aspect_ratio     | Checks that the image matches the expected aspect ratio (`aspect_ratio(4, 3)`).                   |
+| exact_dimensions | Checks that the image matches the expected dimensions (`exact_dimensions(800, 600)`).             |
+| max_dimensions   | Check that the image is smaller than or equal to the max dimensions (`max_dimensions(800, 600)`). |
+| min_dimensions   | Check that the image is larger than or equal to the min dimensions (`min_dimensions(800, 600)`).  |
+
+> The image validation rules expect [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+
+> The rules use the [`getimagesize`](http://php.net/manual/en/function.getimagesize.php) function to get the image size. You should make sure that the file you're validating is an image using the `mimetype` rule before using any of the image specific rules.
 {.warning}
 
 <a id="validation_rules:session"></a>
