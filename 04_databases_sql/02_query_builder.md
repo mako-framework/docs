@@ -145,6 +145,9 @@ foreach($persons as $person)
 }
 ```
 
+> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](http://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
+{.warning}
+
 In addition to using the `yield` method to process large amounts of data you can also use the `batch` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.

@@ -66,6 +66,9 @@ The `Connection::yield()` method executes a query and returns a generator that l
 $rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 ```
 
+> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](http://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
+{.warning}
+
 The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set.
 
 ```
