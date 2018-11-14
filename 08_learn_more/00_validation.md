@@ -11,6 +11,7 @@
 	- [Base rules](#validation_rules:base)
 	- [Database rules](#validation_rules:database)
 	- [File rules](#validation_rules:file)
+		- [Basic rules](#validation_rules:file:basic)
 		- [Image rules](#validation_rules:file:image)
 	- [Session rules](#validation_rules:session)
 * [Custom messages](#custom_messages)
@@ -208,6 +209,10 @@ The following validation rules are included with Mako:
 <a id="validation_rules:file"></a>
 
 #### File rules
+
+<a id="validation_rules:file:basic"></a>
+
+##### Basic rules
 
 | Name                     | Description                                                                                                                                                                            |
 |--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
