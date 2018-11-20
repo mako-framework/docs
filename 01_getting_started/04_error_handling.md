@@ -20,7 +20,7 @@ You can register custom error handlers for different kinds of exception types us
 A great place to do so is in the `app/bootstrap.php` file.
 
 ```
-$errorHandler = $container->get('errorHandler');
+$errorHandler = $container->get(ErrorHandler::class);
 
 $errorHandler->handle(PDOException::class, function($exception)
 {

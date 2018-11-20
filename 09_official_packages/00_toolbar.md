@@ -96,5 +96,5 @@ Next, we'll need to create a view for our toolbar.
 All we have to do now is to add our custom panel to the toolbar:
 
 ```
-$toolbar->addPanel(new HelloWorldPanel($container->get('view')));
+$toolbar->addPanel(new HelloWorldPanel($container->get(ViewFactory::class)));
 ```
