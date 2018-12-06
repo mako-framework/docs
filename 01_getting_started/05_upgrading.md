@@ -60,7 +60,7 @@ The `mako\security\Password` class has been removed. If you were using it they y
 
 <a id="framework:database:query_builder"></a>
 
-The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as data and pagination information will be available as pagination. See the [query builder documentation](databases-sql:query-builder#array_and_json_representations) for more details.
+The JSON representation of a result set returned by the `Query::paginate()` method will now be an object where the results are available as data and pagination information will be available as pagination. See the [query builder documentation](:base_url:/docs/:version:/databases-sql:query-builder#array_and_json_representations) for more details.
 
 ##### ORM
 
