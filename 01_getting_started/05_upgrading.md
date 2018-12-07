@@ -30,8 +30,6 @@ This guide takes you through the steps needed to migrate from Mako `5.6.x` to `5
 
 The `forceLogin` method will now return `true` when a login is successful and a status code instead of `false` when the login fails.
 
---------------------------------------------------------
-
 ##### Password hashing
 
 <a id="framework:security:password_hashing"></a>
