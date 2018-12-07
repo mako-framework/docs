@@ -3,7 +3,7 @@
 --------------------------------------------------------
 
 * [Framework](#framework)
-	- [security](#framework:security)
+	- [Security](#framework:security)
 		- [Gatekeeper](#framework:security:gatekeeper)
 		- [Password hashing](#framework:security:password_hashing)
 	- [Database](#framework:database)
@@ -30,21 +30,7 @@ This guide takes you through the steps needed to migrate from Mako `5.6.x` to `5
 
 The `forceLogin` method will now return `true` when a login is successful and a status code instead of `false` when the login fails.
 
-```
-// Before
-
-if($gatekeeper->forceLogin($identifier) === false)
-{
-
-}
-
-// Now
-
-if($gatekeeper->forceLogin($identifier) !== true)
-{
-
-}
-```
+--------------------------------------------------------
 
 ##### Password hashing
 
