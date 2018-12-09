@@ -80,7 +80,7 @@ class Migration_20120824100019 extends Migration
 	/**
 	 * Makes changes to the database structure.
 	 */
-	public function up()
+	public function up(): void
 	{
 		$this->getConnection()->query
 		(
@@ -91,7 +91,7 @@ class Migration_20120824100019 extends Migration
 	/**
 	 * Reverts the database changes.
 	 */
-	public function down()
+	public function down(): void
 	{
 		$this->getConnection()->query
 		(
@@ -225,7 +225,7 @@ class Migration_20120824100019 extends Migration
 You can also inject dependencies directly into the up and down methods since they are executed by the `Container::call()` method.
 
 ```
-public function down(LoggerInterface $log)
+public function down(LoggerInterface $log): void
 {
 	$log->info('Executed the down method of the ' . static::class . ' migration');
 }

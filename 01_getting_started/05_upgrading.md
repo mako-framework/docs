@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 * [Application](#application)
+	- [Migrations](#application:migrations)
 	- [Services](#application:services)
 * [Packages](#packages)
 * [Framework](#framework)
@@ -17,9 +18,35 @@ This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6
 
 ### Application
 
+<a id="application:migrations"></a>
+
+#### Migrations
+
+The return type of the `up` and `down` methods of your [migrations](:base_url:/docs/:version:/databases-sql:migrations) must be `void`.
+
+```
+/**
+ * Makes changes to the database structure.
+ */
+public function up(): void
+{
+
+}
+
+/**
+ * Reverts the database changes.
+ */
+public function down(): void
+{
+
+}
+```
+
+> This requirement also applies for package migrations.
+
 <a id="application:services"></a>
 
-### Services
+#### Services
 
 The return type of the `register` method of your custom [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) must be `void`.
 
