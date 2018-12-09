@@ -24,7 +24,7 @@ php reactor
 It should print something similar to the following on a default Mako installation.
 
 ```
-MAKO FRAMEWORK [ 5.5.0 ]
+MAKO FRAMEWORK [ 6.0.0 ]
 
 Usage:
 

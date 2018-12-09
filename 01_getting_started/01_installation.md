@@ -13,11 +13,11 @@
 
 ### Requirements
 
-* PHP 7.0.0 or higher *
+* PHP 7.2.0 or higher *
 * mbstring
 * PDO
 
-\* Tested on PHP 7.0.x, 7.1.x, 7.2.x and 7.3.x
+\* Tested on PHP 7.2.x and 7.3.x
 
 --------------------------------------------------------
 
@@ -73,7 +73,7 @@ composer update
 ```
 {.language-none}
 
-If you want to bump the Mako version (e.g. from `5.6.*` to `5.7.*`) then you'll have to update your `composer.json` file before running the update command.
+If you want to bump the Mako version (e.g. from `5.7.*` to `6.0.*`) then you'll have to update your `composer.json` file before running the update command.
 
 > Some releases might require some minor code changes. These will be documented in the upgrade guides.
 {.warning}
