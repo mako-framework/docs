@@ -2,11 +2,10 @@
 
 --------------------------------------------------------
 
-* [Application](#application)
-	- [Migrations](#application:migrations)
-	- [Services](#application:services)
+* [FileSystem](#filesystem)
+* [Migrations](#migrations)
 * [Packages](#packages)
-* [Framework](#framework)
+* [Services](#services)
 
 --------------------------------------------------------
 
@@ -14,13 +13,21 @@ This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6
 
 --------------------------------------------------------
 
-<a id="application"></a>
+<a id="filesystem"></a>
 
-### Application
+### FileSystem
 
-<a id="application:migrations"></a>
+The following methods that were deprecated in Mako 5.7.0 have been removed:
 
-#### Migrations
+* `FileSystem::mime()`
+* `FileSystem::hash()`
+* `FileSystem::hmac()`
+
+The same functionality (and more) can now be found in the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class.
+
+<a id="migrations"></a>
+
+### Migrations
 
 The return type of the `up` and `down` methods of your [migrations](:base_url:/docs/:version:/databases-sql:migrations) must be `void`.
 
@@ -42,26 +49,6 @@ public function down(): void
 }
 ```
 
-> This requirement also applies for package migrations.
-
-<a id="application:services"></a>
-
-#### Services
-
-The return type of the `register` method of your custom [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) must be `void`.
-
-```
-/**
- * {@inheritdoc}
- */
-public function register(): void
-{
-
-}
-```
-
---------------------------------------------------------
-
 <a id="packages"></a>
 
 ### Packages
@@ -78,16 +65,18 @@ protected function bootstrap(): void
 }
 ```
 
---------------------------------------------------------
+<a id="services"></a>
 
-<a id="framework"></a>
+### Services
 
-### Framework
+The return type of the `register` method of your custom [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) must be `void`.
 
-The following methods that were deprecated in Mako 5.7.0 have been removed:
+```
+/**
+ * {@inheritdoc}
+ */
+public function register(): void
+{
 
-* `FileSystem::mime()`
-* `FileSystem::hash()`
-* `FileSystem::hmac()`
-
-The same functionality (and more) can now be found in the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class.
+}
+```
