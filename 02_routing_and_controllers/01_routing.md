@@ -132,7 +132,6 @@ The example below is the most basic middleware implementation (it doesn't actual
 namespace app\routing\middleware;
 
 use Closure;
-
 use mako\http\Request;
 use mako\http\Response;
 use mako\http\routing\middleware\Middleware;
@@ -162,7 +161,6 @@ Note that all middleware is instantiated through the [dependency injection conta
 namespace app\routing\middleware;
 
 use Closure;
-
 use mako\cache\CacheManager;
 use mako\http\Request;
 use mako\http\Response;
