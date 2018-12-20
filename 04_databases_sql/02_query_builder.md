@@ -636,6 +636,8 @@ The code above will result in the following JSON:
 	{"id": 10, "title": "Article 10", "content": "Article 10 content"}
 ]
 ```
+{.language-json}
+
 Data fetched using the `paginate` method will return a JSON object instead of an array. The records are available as `data` while pagination information is available as `pagination`:
 
 ```
@@ -659,3 +661,4 @@ Data fetched using the `paginate` method will return a JSON object instead of an
 	}
 }
 ```
+{.language-json}

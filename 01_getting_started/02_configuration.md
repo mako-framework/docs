@@ -98,7 +98,7 @@ Setting the environment in a linux/unix shell:
 export MAKO_ENV=dev # for Bourne, bash, and related shells
 setenv MAKO_ENV=dev # for csh and related shells
 ```
-{.language-bash}
+{.language-none}
 
 You can also manually set the environment in the [CLI](:base_url:/docs/:version:/command-line:basics) using the env option.
 
