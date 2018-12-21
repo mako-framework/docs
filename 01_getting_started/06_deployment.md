@@ -90,7 +90,7 @@ opcache.max_accelerated_files=20000
 opcache.validate_timestamps=0
 opcache.fast_shutdown=1
 ```
-{.language-none}
+{.language-ini}
 
 [Cachetool](https://github.com/gordalina/cachetool) can be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
 
