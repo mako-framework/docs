@@ -226,7 +226,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 | Service                  | Type hint                                  | Key              | Description                 | Required |
 |--------------------------|--------------------------------------------|------------------|-----------------------------|----------|
-|                          | mako\syringe\Syringe                       | container        | IoC container               | Yes      |
+|                          | mako\syringe\Container                     | container        | IoC container               | Yes      |
 |                          | mako\application\Application               | app              | Application                 | Yes      |
 |                          | mako\file\FileSystem                       | fileSystem       | File system abstraction     | Yes      |
 |                          | mako\config\Config                         | config           | Config loader               | Yes      |
