@@ -273,7 +273,7 @@ If you want the template compiler to ignore a section of your template then you 
 
 ##### Including views
 
-<a id="view_renderers:templates:including_view"></a>
+<a id="view_renderers:templates:including_views"></a>
 
 You can easily include a partial template in a view.
 
