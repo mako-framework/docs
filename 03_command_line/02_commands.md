@@ -79,7 +79,7 @@ php reactor hello dude
 ```
 {.language-none}
 
-You can, of course, also use options or named arguments.
+You can, of course, also use options.
 
 ```
 <?php
@@ -104,7 +104,7 @@ php reactor hello --name=dude
 ```
 {.language-none}
 
-> Note that dash and underscore separated option and argument names are converted to camel case before being passed to the execute method. E.g. `--foo-bar` becomes `$fooBar`.
+> Note that dash and underscore separated option names are converted to camel case before being passed to the execute method. E.g. `--foo-bar` becomes `$fooBar`.
 
 Options can also be used as boolean flags.
 
