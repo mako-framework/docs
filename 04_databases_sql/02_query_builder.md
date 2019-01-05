@@ -493,7 +493,6 @@ orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRa
 
 $persons = $query->table('persons')->orderBy('name', 'asc')->all();
 
-
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
 $persons = $query->table('persons')->ascending('name')->all();
