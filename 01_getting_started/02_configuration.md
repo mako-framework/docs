@@ -51,8 +51,8 @@ It is also possible to override settings or add new configurations at runtime:
 
 $this->config->set('crypto.configurations.user',
 [
-	'library'  => 'openssl',
-	'cipher'   => 'AES-256-OFB',
+	'library' => 'openssl',
+	'cipher'  => 'AES-256-OFB',
 	'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
 ]);
 ```
