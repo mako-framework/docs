@@ -440,6 +440,10 @@ CREATE TABLE "groups_users" (
 	"user_id" INTEGER NOT NULL REFERENCES "users" ON DELETE CASCADE,
 	UNIQUE ("group_id", "user_id")
 );
+
+CREATE INDEX "groups_users_group_id_idx" ON "groups_users" USING btree("group_id");
+
+CREATE INDEX "groups_users_user_id_idx" ON "groups_users" USING btree("user_id");
 ```
 {.language-sql}
 [/collapse]
