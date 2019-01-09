@@ -401,7 +401,7 @@ CREATE TABLE `groups_users` (
 Users table
 
 ```
-CREATE TABLE users (
+CREATE TABLE "users" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
 	"created_at" TIMESTAMP NOT NULL,
 	"updated_at" TIMESTAMP NOT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE users (
 Groups table
 
 ```
-CREATE TABLE groups (
+CREATE TABLE "groups" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
 	"created_at" TIMESTAMP NOT NULL,
 	"updated_at" TIMESTAMP NOT NULL,
@@ -435,7 +435,7 @@ CREATE TABLE groups (
 Junction table
 
 ```
-CREATE TABLE groups_users (
+CREATE TABLE "groups_users" (
 	"group_id" INTEGER NOT NULL REFERENCES "groups" ON DELETE CASCADE,
 	"user_id" INTEGER NOT NULL REFERENCES "users" ON DELETE CASCADE,
 	UNIQUE ("group_id", "user_id")
