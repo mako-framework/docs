@@ -402,20 +402,20 @@ Users table
 
 ```
 CREATE TABLE users (
-	id SERIAL NOT NULL PRIMARY KEY,
-	created_at TIMESTAMP NOT NULL,
-	updated_at TIMESTAMP NOT NULL,
-	ip VARCHAR(255) NOT NULL,
-	username VARCHAR(255) NOT NULL UNIQUE,
-	email VARCHAR(255) NOT NULL UNIQUE,
-	password VARCHAR(255) NOT NULL,
-	action_token CHAR(64) DEFAULT '',
-	access_token CHAR(64) DEFAULT '',
-	activated BOOLEAN NOT NULL DEFAULT FALSE,
-	banned BOOLEAN NOT NULL DEFAULT FALSE,
-	failed_attempts INTEGER NOT NULL DEFAULT 0,
-	last_fail_at TIMESTAMP DEFAULT NULL,
-	locked_until TIMESTAMP DEFAULT NULL
+	"id" SERIAL NOT NULL PRIMARY KEY,
+	"created_at" TIMESTAMP NOT NULL,
+	"updated_at" TIMESTAMP NOT NULL,
+	"ip" VARCHAR(255) NOT NULL,
+	"username" VARCHAR(255) NOT NULL UNIQUE,
+	"email" VARCHAR(255) NOT NULL UNIQUE,
+	"password" VARCHAR(255) NOT NULL,
+	"action_token" CHAR(64) DEFAULT '',
+	"access_token" CHAR(64) DEFAULT '',
+	"activated" BOOLEAN NOT NULL DEFAULT FALSE,
+	"banned" BOOLEAN NOT NULL DEFAULT FALSE,
+	"failed_attempts" INTEGER NOT NULL DEFAULT 0,
+	"last_fail_at" TIMESTAMP DEFAULT NULL,
+	"locked_until" TIMESTAMP DEFAULT NULL
 );
 ```
 {.language-sql}
@@ -424,10 +424,10 @@ Groups table
 
 ```
 CREATE TABLE groups (
-	id SERIAL NOT NULL PRIMARY KEY,
-	created_at TIMESTAMP NOT NULL,
-	updated_at TIMESTAMP NOT NULL,
-	name VARCHAR(255) NOT NULL UNIQUE
+	"id" SERIAL NOT NULL PRIMARY KEY,
+	"created_at" TIMESTAMP NOT NULL,
+	"updated_at" TIMESTAMP NOT NULL,
+	"name" VARCHAR(255) NOT NULL UNIQUE
 );
 ```
 {.language-sql}
@@ -436,9 +436,9 @@ Junction table
 
 ```
 CREATE TABLE groups_users (
-	group_id INTEGER NOT NULL REFERENCES groups ON DELETE CASCADE,
-	user_id INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
-	PRIMARY KEY(group_id, user_id)
+	"group_id" INTEGER NOT NULL REFERENCES "groups" ON DELETE CASCADE,
+	"user_id" INTEGER NOT NULL REFERENCES "users" ON DELETE CASCADE,
+	UNIQUE ("group_id", "user_id")
 );
 ```
 {.language-sql}
