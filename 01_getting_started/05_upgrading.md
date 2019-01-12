@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 * [FileSystem](#filesystem)
+* [HTTP](#http)
 * [Migrations](#migrations)
 * [Packages](#packages)
 * [Services](#services)
@@ -24,6 +25,12 @@ The following methods that were deprecated in Mako 5.7.0 have been removed:
 * `FileSystem::hmac()`
 
 The same functionality (and more) can now be found in the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class.
+
+<a id="http"></a>
+
+### HTTP
+
+The `RequestException` has been renamed to `HttpException`.
 
 <a id="migrations"></a>
 
