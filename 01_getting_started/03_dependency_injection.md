@@ -66,14 +66,14 @@ The `has` method allows you to check for the presence of an item in the containe
 
 if($container->has(BarInterface::class))
 {
-	// do something
+	// Do something
 }
 
 // Or the optional key
 
 if($container->has('bar'))
 {
-	// do something
+	// Do something
 }
 ```
 

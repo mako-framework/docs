@@ -54,35 +54,38 @@ $postData = $this->request->getPost();
 $validator = $this->validator->create($postData->all(), $rules);
 ```
 
-Now all that is left is to check if the input data is valid using either the `isValid` method or the `isInvalid` method.
+Now all that is left is to check if the input data is valid using either of the following methods: `validate`, `isValid` or `isInvalid`.
+
+The `validate` method returns the validated input data and throws a `ValidatorException` if any of the rules fail. You can retrieve the validation errors using the `ValidatorException::getErrors()` method.
+
+```
+$validatedInput = $validator->validate();
+```
+
+> Note that only validated input (input fields with at least one rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
+{.warning}
+
+The `isValid` method returns `true` if the input is valid and `false` if not, while the `isInvalid` method returns `false` when the input validates and `true` when not.
 
 ```
 if($validator->isValid())
 {
 	// Do something
 }
-else
-{
-	// Display errors
-}
 ```
 
-Retrieving error messages is done using the `getErrors` method.
+Retrieving the error messages is done using the `getErrors` method
 
 ```
 $errors = $validator->getErrors();
 ```
 
-You can also use the optional `$errors` parameter of the `isValid` and `isInvalid` methods.
+You can also assign it to a variable by passing it to either of the `isValid` or `isInvalid` methods.
 
 ```
 if($validator->isValid($errors))
 {
 	// Do something
-}
-else
-{
-	// Display errors
 }
 ```
 
@@ -192,6 +195,7 @@ The following validation rules are included with Mako:
 | natural                  | Checks that the field value is a natural.                                                               |
 | natural_non_zero         | Checks that the field value is a natural non zero.                                                      |
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
+| optional                 | This is a special validation rule that never fails.                                                     |
 | regex                    | Checks that the field value matches a regex pattern (`regex("/[a-z]+/i")`).                             |
 | required                 | Checks that the field isn't empty.                                                                      |
 | url                      | Checks that the field value is a valid URL.                                                             |
