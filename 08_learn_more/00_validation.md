@@ -89,8 +89,6 @@ if($validator->isValid($errors))
 }
 ```
 
-> An empty array will be returned if there are no errors.
-
 <a id="usage:nested_arrays"></a>
 
 #### Nested arrays
