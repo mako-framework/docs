@@ -2,6 +2,7 @@
 
 --------------------------------------------------------
 
+* [Application config](#application_configuration)
 * [FileSystem](#filesystem)
 * [HTTP](#http)
 * [Migrations](#migrations)
@@ -13,6 +14,12 @@
 This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6.0.x`.
 
 --------------------------------------------------------
+
+<a id="application_configuration"></a>
+
+### Application configuration
+
+The `base_url` key of the `application` config file should be set to `null` instead of an empty string if the application is using auto-detection.
 
 <a id="filesystem"></a>
 
