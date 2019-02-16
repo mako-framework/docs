@@ -336,9 +336,9 @@ class IsFooRule implements RuleInterface
 }
 ```
 
-If you validation rule uses parameters then it will have to implement the `WithParametersInterface` interface and if you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
+If you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
 
-> Note that there are reusable traits that implement both interfaces so that you don't have to write the code yourself.
+> Note that there is a reusable trait (`I18nAwareTrait`) that implements the interface so that you don't have to write the code yourself.
 
 You can register your custom rules with the validation factory, thus making it available to all future validator instances.
 
