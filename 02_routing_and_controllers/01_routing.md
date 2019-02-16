@@ -276,20 +276,20 @@ use mako\http\routing\constraints\ConstraintInterface;
 
 class ApiVersionConstraint implements ConstraintInterface
 {
-	protected $apiVersion;
+	protected $version;
 
 	protected $request;
 
-	public function __construct(string $apiVersion, Request $request)
+	public function __construct(string $version, Request $request)
 	{
-		$this->apiVersion = $apiVersion;
+		$this->version = $version;
 
 		$this->request = $request;
 	}
 
 	public function isSatisfied(): bool
 	{
-		return $this->request->getHeaders()->get('X-Api-Version', '2.0') === $this->apiVersion;
+		return $this->request->getHeaders()->get('X-Api-Version', '2.0') === $this->version;
 	}
 }
 ```
