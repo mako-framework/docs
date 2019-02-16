@@ -196,6 +196,7 @@ The following validation rules are included with Mako:
 | optional                 | This is a special validation rule that never fails.                                                     |
 | regex                    | Checks that the field value matches a regex pattern (`regex("/[a-z]+/i")`).                             |
 | required                 | Checks that the field isn't empty.                                                                      |
+| time_zone                | Checks that the field value contains a valid PHP time zone.                                             |
 | url                      | Checks that the field value is a valid URL.                                                             |
 | uuid                     | Checks that the field value matches a valid uuid.                                                       |
 
