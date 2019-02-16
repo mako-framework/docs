@@ -5,6 +5,10 @@
 * [Application config](#application_configuration)
 * [FileSystem](#filesystem)
 * [HTTP](#http)
+	- [Exceptions](#http:exceptions)
+	- [Routing](#http:routing)
+		- [Constraints](#http:routing:constraints)
+		- [Middleware](#http:routing:middleware)
 * [Migrations](#migrations)
 * [Packages](#packages)
 * [Services](#services)
@@ -21,6 +25,8 @@ This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6
 
 The `base_url` key of the `application` config file should be set to `null` instead of an empty string if the application is using auto-detection.
 
+--------------------------------------------------------
+
 <a id="filesystem"></a>
 
 ### FileSystem
@@ -33,11 +39,35 @@ The following methods that were deprecated in Mako 5.7.0 have been removed:
 
 The same functionality (and more) can now be found in the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class.
 
+--------------------------------------------------------
+
 <a id="http"></a>
 
 ### HTTP
 
+<a id="http:exceptions"></a>
+
+#### Exceptions
+
 The `RequestException` has been renamed to `HttpException`.
+
+<a id="http:routing"></a>
+
+#### Routing
+
+<a id="http:routing:constraints"></a>
+
+##### Constraints
+
+Constraint parameters are now injected through the constructor and the `Constraint` base class has been removed. Constraints should now implement the `ConstraintInterface`. Check out the [documentation](:base_url:/docs/:version:/routing-and-controllers:routing#route_constraints) for more details.
+
+<a id="http:routing:middleware"></a>
+
+##### Middleware
+
+Middleware parameters are now injected through the constructor and the `Middleware` base class has been removed. Middleware should now implement the `MiddlewareInterface`. Check out the [documentation](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) for more details.
+
+--------------------------------------------------------
 
 <a id="migrations"></a>
 
@@ -63,6 +93,8 @@ public function down(): void
 }
 ```
 
+--------------------------------------------------------
+
 <a id="packages"></a>
 
 ### Packages
@@ -78,6 +110,8 @@ protected function bootstrap(): void
 
 }
 ```
+
+--------------------------------------------------------
 
 <a id="services"></a>
 

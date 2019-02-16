@@ -122,8 +122,6 @@ Route middleware allows you to alter the request and response both before and af
 
 #### Defining middleware
 
-All middleware must implement the `MiddlewareInterface`. Mako includes a partial implementation that can be extended.
-
 The example below is the most basic middleware implementation (it doesn't actually do anything).
 
 ```
@@ -134,9 +132,9 @@ namespace app\routing\middleware;
 use Closure;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\routing\middleware\Middleware;
+use mako\http\routing\middleware\MiddlewareInterface;
 
-class PassthroughMiddleware extends Middleware
+class PassthroughMiddleware implements MiddlewareInterface
 {
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
@@ -164,14 +162,18 @@ use Closure;
 use mako\cache\CacheManager;
 use mako\http\Request;
 use mako\http\Response;
-use mako\http\routing\middleware\Middleware;
+use mako\http\routing\middleware\MiddlewareInterface;
 
-class CacheMiddleware extends Middleware
+class CacheMiddleware implements MiddlewareInterface
 {
+	protected $minutes;
+
 	protected $cache;
 
-	public function __construct(CacheManager $cache)
+	public function __construct(int $minutes = 10, CacheManager $cache)
 	{
+		$this->minutes = $minutes;
+
 		$this->cache = $cache;
 	}
 
@@ -184,7 +186,7 @@ class CacheMiddleware extends Middleware
 
 		$response = $next($request, $response);
 
-		$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->getParameter('minutes', 10));
+		$this->cache->put('route.' . $request->path(), $response->getBody(), 60 * $this->minutes);
 
 		return $response;
 	}
@@ -217,8 +219,7 @@ $routes->get('/articles/{id}', 'app\controllers\Articles::view')
 ```
 
 > In the example above we created a middleware that uses named parameters; however, you can also use unnamed parameters (`cache(60)`).
-
-> Note that if you use unnamed parameters then you'll have to use numeric keys to access the parameters in the middleware class.
+> Note that if you use unnamed parameters then you'll have to make sure that the order of the parameters is correct.
 
 If you have middleware that you want to assign to all your routes then you can set them as global.
 
@@ -261,8 +262,6 @@ Route constraints allow you to set additional requirements that must be met befo
 
 #### Defining constraints
 
-All constraints must implement the `ConstraintInterface`. Mako includes a partial implementation that can be extended.
-
 Note that all constraints are instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
 The following constraint will match a route if the `X-Api-Version` header matches the desired version. A default value of `2.0` is assumed if no header is present.
@@ -273,20 +272,24 @@ The following constraint will match a route if the `X-Api-Version` header matche
 namespace app\routing\constraints;
 
 use mako\http\Request;
-use mako\http\routing\constraints\Constraint;
+use mako\http\routing\constraints\ConstraintInterface;
 
-class ApiVersionConstraint extends Constraint
+class ApiVersionConstraint implements ConstraintInterface
 {
+	protected $apiVersion;
+
 	protected $request;
 
-	public function __construct(Request $request)
+	public function __construct(string $apiVersion, Request $request)
 	{
+		$this->apiVersion = $apiVersion;
+
 		$this->request = $request;
 	}
 
 	public function isSatisfied(): bool
 	{
-		return $this->request->headers->get('X-Api-Version', '2.0') === $this->getParameter();
+		return $this->request->getHeaders()->get('X-Api-Version', '2.0') === $this->apiVersion;
 	}
 }
 ```
@@ -311,8 +314,6 @@ $routes->get('/', 'Api1::index')->constraint('api_version("1.0")');
 The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
 
 > In the example above we used unnamed parameters for our constraints. You can also use named constraints (`api_version("version":"2.0")`).
-
-> Note that if you use named parameters then you'll have to use the parameter names to access the parameters in the constraint class.
 
 If you have constraints that you want to assign to all your routes then you can set them as global.
 
