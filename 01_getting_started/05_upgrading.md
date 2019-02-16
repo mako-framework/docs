@@ -12,6 +12,7 @@
 * [Migrations](#migrations)
 * [Packages](#packages)
 * [Services](#services)
+* [Validator](#validator)
 
 --------------------------------------------------------
 
@@ -128,3 +129,11 @@ public function register(): void
 
 }
 ```
+
+--------------------------------------------------------
+
+<a id="validator"></a>
+
+### Validator
+
+Custom validation rules that take parameters must no longer implement the `WithParametersInterface`. Parameters will have to be injected through the constructor.
