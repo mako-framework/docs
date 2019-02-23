@@ -16,7 +16,7 @@
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6.0.x`.
+This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6.0.x`. You should also take a look at the changelog for a full list of changes to internal classes and methods.
 
 --------------------------------------------------------
 

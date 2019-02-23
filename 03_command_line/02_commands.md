@@ -360,6 +360,14 @@ The example above will output the following list.
 ```
 {.language-none}
 
+The `alert` method lets you output alert panels that will auto-wrap your text to fit the console window. You can use one of the predefined templates (default, info, success, warning, and danger) or pass your own.
+
+```
+$this->alert('This is a success alert.', Alert::SUCCESS);
+
+$this->alert('This is a custom alert.', '<bg_purple><white>%s</white></bg_purple>');
+```
+
 <a id="output:formatting"></a>
 
 #### Formatting
@@ -421,7 +429,7 @@ $escaped = $this->output->getFormatter()->escape($string);
 | bg_white   | white background             |
 
 > Note that formatting will only work on linux/unix and windows consoles with ANSI support.
-
+>
 > Formatting is stripped when the output is redirected (e.g. to a log file `php reactor command > log.txt`).
 
 --------------------------------------------------------
