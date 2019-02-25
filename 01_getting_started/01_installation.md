@@ -13,11 +13,10 @@
 
 ### Requirements
 
-* PHP 7.2.0 or higher *
-* mbstring
-* PDO
+* PHP 7.2.0 or higher
+* `ext-mbstring`
 
-\* Tested on PHP 7.2.x and 7.3.x
+You should also consider having `ext-json` and `ext-pdo` installed.
 
 --------------------------------------------------------
 
