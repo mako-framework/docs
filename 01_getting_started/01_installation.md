@@ -14,9 +14,10 @@
 ### Requirements
 
 * PHP 7.2.0 or higher
+* `ext-json`
 * `ext-mbstring`
 
-You should also consider having `ext-json` and `ext-pdo` installed.
+If you plan to use the database library then you'll also need to install `ext-pdo`.
 
 --------------------------------------------------------
 
