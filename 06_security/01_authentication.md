@@ -59,12 +59,12 @@ $successful = $this->gatekeeper->login($email, $password, true);
 
 The possible status codes for failed logins are:
 
-| Constant                         | Description                                                                   |
-|----------------------------------|-------------------------------------------------------------------------------|
-| Authentication::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
-| Authentication::LOGIN_ACTIVATING | The account has not been activated                                            |
-| Authentication::LOGIN_BANNED     | The account has been banned                                                   |
-| Authentication::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
+| Constant                     | Description                                                                   |
+|------------------------------|-------------------------------------------------------------------------------|
+| Gatekeeper::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
+| Gatekeeper::LOGIN_ACTIVATING | The account has not been activated                                            |
+| Gatekeeper::LOGIN_BANNED     | The account has been banned                                                   |
+| Gatekeeper::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
 
 The `forceLogin` method allows you to login a user without a password. It will return `true` if the login is successful and a status code if not.
 

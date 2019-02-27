@@ -3,6 +3,7 @@
 --------------------------------------------------------
 
 * [Application config](#application_configuration)
+* [Authentication](#authentication)
 * [FileSystem](#filesystem)
 * [HTTP](#http)
 	- [Exceptions](#http:exceptions)
@@ -25,6 +26,14 @@ This guide takes you through the steps needed to migrate from Mako `5.7.x` to `6
 ### Application configuration
 
 The `base_url` key of the `application` config file should be set to `null` instead of an empty string if the application is using auto-detection.
+
+--------------------------------------------------------
+
+<a id="authentication"></a>
+
+### Authentication
+
+The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\Gatekeeper`. Any type hints or uses of the class constants must be updated to use the new class name.
 
 --------------------------------------------------------
 

@@ -235,7 +235,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 | CryptoService            | mako\security\crypto\CryptoManager         | crypto           | Crypto manager              | No       |
 | DatabaseService          | mako\database\ConnectionManager            | database         | Database connection manager | No       |
 | EventService             | mako\event\Event                           | event            | Event handler               | No       |
-| GatekeeperService        | mako\auth\Gatekeeper                       | gatekeeper       | Gatekeeper authentication   | No       |
+| GatekeeperService        | mako\gatekeeper\Gatekeeper                 | gatekeeper       | Gatekeeper authentication   | No       |
 | HTTPService              | mako\http\Request                          | request          | Request                     | Yes      |
 | HTTPService              | mako\http\Response                         | response         | Response                    | Yes      |
 | HTTPService              | mako\http\routing\Routes                   | routes           | Route collection            | Yes      |
