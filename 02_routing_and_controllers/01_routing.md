@@ -231,7 +231,7 @@ $dispatcher->setMiddlewareAsGlobal(['cache']);
 
 #### Middleware priority
 
-As mentioned above, middleware get executed in the order that they are assigned to the route. You can however dictate the execution order by configuring middleware priority.
+As mentioned above, middleware get executed in the order that they are assigned to the route. You can dictate the execution order by configuring middleware priority.
 
 You can set the middleware priority while registering the middleware using the optional third parameter of the `registerMiddleware` method.
 

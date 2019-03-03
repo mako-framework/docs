@@ -14,6 +14,7 @@
 	- [MySQL](#database_schema:mysql)
 	- [PostgreSQL](#database_schema:postgresql)
 	- [SQLite](#database_schema:sqlite)
+* [Adapters](#adapters)
 
 --------------------------------------------------------
 
@@ -198,7 +199,7 @@ $user->generateAccessToken();
 
 > Generating a new token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the `Authentication::forceLogin` method to log the user back in in the background to keep the experience seamless.
 
-The `generateActionToken` method allows you to generate a new action token for the user. Should be used to activate a user, to validate "forgot password" requests etc.
+The `generateActionToken` method allows you to generate a new action token for the user. Action tokens should be used to activate a user, to validate "forgot password" requests etc.
 
 ```
 $user->generateActionToken();
@@ -509,3 +510,46 @@ CREATE INDEX `user_id` ON `groups_users` (`user_id`);
 ```
 {.language-sql}
 [/collapse]
+
+--------------------------------------------------------
+
+<a id="adapters"></a>
+
+### Adapters
+
+Gatekeeper comes with a session based adapter by default but you can implement your own custom adapters as well.
+
+In the examples above we have chosen to use the gatekeeper class as a proxy to the default adapter. You can specify which adapter to use by calling the `adapter` method.
+
+```
+// Default adapter
+
+$adapter = $this->gatekeeper->adapter();
+
+// Custom adapter
+
+$adapter = $this->gatekeeper->adapter('custom');
+```
+
+You can choose to replace the default adapter by creating a custom [`GatekeeperService`](:base_url:/docs/:version:/getting-started:dependency-injection#services) or you can add additional adapters by registering them using the `extend` method.
+
+```
+// Register an instance
+
+$this->gatekeeper->extend(new CustomAdapter);
+
+// Register a lazy adapter factory
+
+$this->gatekeeper->extend('custom', function()
+{
+	return new CustomAdapter;
+})
+```
+
+> Note that all adapters must implement the `AdapterInterface`.
+
+You can switch the default adapter at any time by using the `useAsDefaultAdapter` method.
+
+```
+$this->gatekeeper->useAsDefaultAdapter('custom');
+````
