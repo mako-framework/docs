@@ -120,7 +120,7 @@ The `status` method of the `JSON` response builder has been renamed to `setStatu
 
 ##### Redirect
 
-The `status` method of the `Redirect` redirect sender has been renamed to `setStatus`.
+The `status` method of the `Redirect` response sender has been renamed to `setStatus`.
 
 <a id="http:exceptions"></a>
 
