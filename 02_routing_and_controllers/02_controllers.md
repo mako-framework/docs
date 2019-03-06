@@ -139,8 +139,6 @@ The `streamResponse` method returns a stream response sender. They can be useful
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
 ```
-$this->response->setType('text/plain');
-
 return $this->streamResponse(function($stream)
 {
 	$stream->flush('Hello, world!');
@@ -148,8 +146,15 @@ return $this->streamResponse(function($stream)
 	sleep(2);
 
 	$stream->flush('Hello, world!');
-});
+}, 'text/plain');
 ```
+
+You can also set the content type and character set using the following chainable methods.
+
+| Method name | Description            |
+|-------------|------------------------|
+| setType     | Sets the content type  |
+| setCharset  | Sets the character set |
 
 > Stream responses might not always work as expected as some webservers and reverse proxies will buffer the output before sending it.
 
@@ -169,11 +174,12 @@ If you want your API endpoint to be able to serve JSONP as well then you'll have
 return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 ```
 
-You can also set the HTTP status code using the `setStatus` method.
+You can also set the character set and status code using the following chainable methods.
 
-```
-return $this->jsonResponse(['message' => 'Page not found'])->setStatus(404);
-```
+| Method name | Description            |
+|-------------|------------------------|
+| setCharset  | Sets the character set |
+| setStatus   | Sets the status code   |
 
 --------------------------------------------------------
 
