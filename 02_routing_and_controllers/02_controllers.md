@@ -84,14 +84,14 @@ return $this->fileResponse('/path/to/file.ext');
 
 You can set a custom file name, mime type, content disposition and a closure to be executed after a completed download using a set of chainable methods.
 
-| Method name   | Description                                                                                      |
-|---------------|--------------------------------------------------------------------------------------------------|
-| name          | The file name sent to the client                                                                 |
-| disposition   | Content-disposition (default is attachment)                                                      |
-| type          | The framework will try to detect the mime type for you but you can override it using this method |
-| done          | Closure that will be executed when the download has been completed                               |
+| Method name      | Description                                                                                      |
+|------------------|--------------------------------------------------------------------------------------------------|
+| setName          | The file name sent to the client                                                                 |
+| setDisposition   | Content-disposition (default is attachment)                                                      |
+| setType          | The framework will try to detect the mime type for you but you can override it using this method |
+| done             | Closure that will be executed when the download has been completed                               |
 
-	return $this->fileResponse('/path/to/file.ext')->name('foo.ext')->type('text/plain');
+	return $this->fileResponse('/path/to/file.ext')->setName('foo.ext')->setType('text/plain');
 
 > Note that any errors that happen in the closure will not be displayed as it happens after the output has been sent to the client. You'll have to check your logs for errors.
 
@@ -111,13 +111,13 @@ The method also allows you to use a [route name](:base_url:/docs/:version:/routi
 return $this->redirectResponse('articles.view', ['id' => 10]);
 ```
 
-The default status code is set to `302` but you can override it by using the chainable `status` method.
+The default status code is set to `302` but you can override it by using the chainable `setStatus` method.
 
 ```
-return $this->redirectResponse('http://example.org')->status(301);
+return $this->redirectResponse('http://example.org')->setStatus(301);
 ```
 
-It is also possible to use one of the following chainable methods instead of setting the status code with the `status` method.
+It is also possible to use one of the following chainable methods instead of setting the status code with the `setStatus` method.
 
 | Method name       | Description                   |
 |-------------------|-------------------------------|
@@ -139,7 +139,7 @@ The `streamResponse` method returns a stream response sender. They can be useful
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
 ```
-$this->response->type('text/plain');
+$this->response->setType('text/plain');
 
 return $this->streamResponse(function($stream)
 {
@@ -169,10 +169,10 @@ If you want your API endpoint to be able to serve JSONP as well then you'll have
 return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 ```
 
-You can also set the HTTP status code using the `status` method.
+You can also set the HTTP status code using the `setStatus` method.
 
 ```
-return $this->jsonResponse(['message' => 'Page not found'])->status(404);
+return $this->jsonResponse(['message' => 'Page not found'])->setStatus(404);
 ```
 
 --------------------------------------------------------

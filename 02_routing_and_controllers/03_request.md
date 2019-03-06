@@ -148,28 +148,28 @@ $value = $headers->get('content-type');
 $value = $headers->get('content-type', 'text/plain');
 ```
 
-The `acceptableContentTypes` method of the header collection returns an array of acceptable content types in descending order of preference.
+The `getAcceptableContentTypes` method of the header collection returns an array of acceptable content types in descending order of preference.
 
 ```
-$contentTypes = $headers->acceptableContentTypes();
+$contentTypes = $headers->getAcceptableContentTypes();
 ```
 
-The `acceptableLanguages` method of the header collection returns an array of acceptable languages in descending order of preference.
+The `getAcceptableLanguages` method of the header collection returns an array of acceptable languages in descending order of preference.
 
 ```
-$languages = $headers->acceptableLanguages();
+$languages = $headers->getAcceptableLanguages();
 ```
 
-The `acceptableCharsets` method of the header collection returns an array of acceptable character sets in descending order of preference.
+The `getAcceptableCharsets` method of the header collection returns an array of acceptable character sets in descending order of preference.
 
 ```
-$charsets = $headers->acceptableCharsets();
+$charsets = $headers->getAcceptableCharsets();
 ```
 
-The `acceptableEncodings` method of the header collection returns an array of acceptable encodings in descending order of preference.
+The `getAcceptableEncodings` method of the header collection returns an array of acceptable encodings in descending order of preference.
 
 ```
-$charsets = $headers->acceptableEncodings();
+$charsets = $headers->getAcceptableEncodings();
 ```
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
@@ -203,7 +203,7 @@ $file = $files->get('myfile');
 $file = $files->get('myfile.0');
 ```
 
-The`UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class with the following methods.
+The `UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) class with the following methods.
 
 | Method            | Description                                                                   |
 |-------------------|-------------------------------------------------------------------------------|
@@ -237,22 +237,28 @@ $server = $this->request->getServer();
 
 ### Request information
 
-The `referer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
+The `getContentType` method returns the content type of the request body.
+
+```
+$contentType = $this->request->getContentType();
+```
+
+The `getReferrer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
 ```
 // Returns the referrer if there is one and "null" if not
 
-$referer = $this->request->referer();
+$referrer = $this->request->getReferrer();
 
 // Returns the referrer if there is one and the URL to the 'home' route if there isn't one
 
-$referer = $this->request->referer($this->urlBuilder->toRoute('home'));
+$referrer = $this->request->getReferrer($this->urlBuilder->toRoute('home'));
 ```
 
-The `ip` method returns IP of the client that made the request.
+The `getIp` method returns IP of the client that made the request.
 
 ```
-$ip = $this->request->ip();
+$ip = $this->request->getIp();
 ```
 
 The `isAjax` method returns `true` if the request was made using AJAX and `false` if not.
@@ -273,46 +279,46 @@ The `isSafe` method returns `true` if the request method used is considered safe
 $isSafe = $this->request->isSafe();
 ```
 
-The `basePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
+The `getBasePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
 
 ```
-$basePath = $this->request->basePath();
+$basePath = $this->request->getBasePath();
 ```
 
-The `baseURL` method returns the base URL of the request. A request to `http://example.org/foo/bar` will return `http://example.org`.
+The `getBaseURL` method returns the base URL of the request. A request to `http://example.org/foo/bar` will return `http://example.org`.
 
 ```
-$baseURL = $this->request->baseURL();
+$baseURL = $this->request->getBaseURL();
 ```
 
-The `path` method will return the request path. A request to `http://example.org/index.php/foo/bar` or `http://example.org/foo/bar` will return `/foo/bar`.
+The `getPath` method will return the request path. A request to `http://example.org/index.php/foo/bar` or `http://example.org/foo/bar` will return `/foo/bar`.
 
 ```
-$path = $this->request->path();
+$path = $this->request->getPath();
 ```
 
-The `language` method returns the request language (see the `app/config/application.php` config file for more information).
+The `getLanguage` method returns the request language (see the `app/config/application.php` config file for more information).
 
 ```
-$language = $this->request->language();
+$language = $this->request->getLanguage();
 ```
 
-The `languagePrefix` method returns the language prefix (see the `app/config/application.php` config file for more information).
+The `getLanguagePrefix` method returns the language prefix (see the `app/config/application.php` config file for more information).
 
 ```
-$languagePrefix = $this->request->languagePrefix();
+$languagePrefix = $this->request->getLanguagePrefix();
 ```
 
-The `method` method returns the request method used to access the resource.
+The `getMethod` method returns the request method used to access the resource.
 
 ```
-$method = $this->request->method();
+$method = $this->request->getMethod();
 ```
 
-The `realMethod` method returns the real request method used to access the resource.
+The `getRealMethod` method returns the real request method used to access the resource.
 
 ```
-$method = $this->request->realMethod();
+$method = $this->request->getRealMethod();
 ```
 
 The `isFaked` method returns `true` if the request method method has been faked and `false` if not.
@@ -321,16 +327,16 @@ The `isFaked` method returns `true` if the request method method has been faked 
 $isFaked = $this->request->isFaked();
 ```
 
-The `username` method returns a basic HTTP authentication username of `null` if it isn't set.
+The `getUsername` method returns a basic HTTP authentication username of `null` if it isn't set.
 
 ```
-$username = $this->request->username();
+$username = $this->request->getUsername();
 ```
 
-The `password` method returns a basic HTTP authentication password of `null` if it isn't set.
+The `getPassword` method returns a basic HTTP authentication password of `null` if it isn't set.
 
 ```
-$password = $this->request->password();
+$password = $this->request->getPassword();
 ```
 
 The `getRoute` method returns the route that matched the request.

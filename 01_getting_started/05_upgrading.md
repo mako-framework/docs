@@ -6,6 +6,11 @@
 * [Authentication](#authentication)
 * [FileSystem](#filesystem)
 * [HTTP](#http)
+	- [Request](#http:request)
+		- [Headers](#http:request:headers)
+	- [Response](#http:response)
+		- [JSON](#http:response:json)
+		- [Redirect](#http:response:redirect)
 	- [Exceptions](#http:exceptions)
 	- [Routing](#http:routing)
 		- [Constraints](#http:routing:constraints)
@@ -54,6 +59,68 @@ The same functionality (and more) can now be found in the [`FileInfo`](:base_url
 <a id="http"></a>
 
 ### HTTP
+
+<a id="http:request"></a>
+
+#### Request
+
+Several of the `mako\http\Request` methods have been renamed for consistency.
+
+| Before         | Now               |
+|----------------|-------------------|
+| basePath       | getBasePath       |
+| baseURL        | getBaseURL        |
+| contentType    | getContentType    |
+| ip             | getIp             |
+| language       | getLanguage       |
+| languagePrefix | getLanguagePrefix |
+| method         | getMethod         |
+| password       | getPassword       |
+| path           | getPath           |
+| realMethod     | getRealMethod     |
+| referer        | getReferrer       |
+| scriptName     | getScriptName     |
+| username       | getUsername       |
+
+<a id="http:request:headers"></a>
+
+##### Headers
+
+Several of the `mako\http\request\Headers` methods have been renamed for consistency.
+
+| Before                 | Now                       |
+|------------------------|---------------------------|
+| acceptableContentTypes | getAcceptableContentTypes |
+| acceptableLanguages    | getAcceptableLanguages    |
+| acceptableCharsets     | getAcceptableCharsets     |
+| acceptableEncodings    | getAcceptableEncodings    |
+
+<a id="http:response"></a>
+
+#### Response
+
+Several of the `mako\http\Response` methods have been renamed for consistency.
+
+| Before       | Now              |
+|-------------|-------------------|
+| body        | setBody           |
+| cache       | enableCaching     |
+| charset     | setCharset        |
+| compression | enableCompression |
+| status      | setStatus         |
+| type        | setType           |
+
+<a id="http:response:json"></a>
+
+##### JSON
+
+The `status` method of the `JSON` response builder has been renamed to `setStatus`.
+
+<a id="http:response:redirect"></a>
+
+##### Redirect
+
+The `status` method of the `Redirect` redirect sender has been renamed to `setStatus`.
 
 <a id="http:exceptions"></a>
 
