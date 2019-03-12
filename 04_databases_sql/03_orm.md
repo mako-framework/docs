@@ -600,17 +600,21 @@ public function popularAndPublishedScope($query, $count)
 You can now retrieve published articles like this:
 
 ```
-$articles = Article::published()->all();
+$articles = Article::scope('published')->all();
 
-$articles = Article::popularAndPublished(1000)->all();
+$articles = Article::scope('popularAndPublished', 1000)->all();
+
+// Camel cased scope names can also be written using snake case
+
+$articles = User::get(1)->articles()->scope('popular_and_published', 1000)->all();
 ```
 
 Scopes also work through relations:
 
 ```
-$articles = User::get(1)->articles()->published()->all();
+$articles = User::get(1)->articles()->scope('published')->all();
 
-$articles = User::get(1)->articles()->popularAndPublished(1000)->all();
+$articles = User::get(1)->articles()->scope('popularAndPublished', 1000)->all();
 ```
 
 --------------------------------------------------------

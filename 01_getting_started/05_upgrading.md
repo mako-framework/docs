@@ -4,6 +4,8 @@
 
 * [Application config](#application_configuration)
 * [Authentication](#authentication)
+* [Database](#database)
+	- [ORM](#database:orm)
 * [FileSystem](#filesystem)
 * [HTTP](#http)
 	- [Request](#http:request)
@@ -39,6 +41,18 @@ The `base_url` key of the `application` config file should be set to `null` inst
 ### Authentication
 
 The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\Gatekeeper`. Any type hints or uses of the class constants must be updated to use the new class name.
+
+--------------------------------------------------------
+
+<a id="database"></a>
+
+### Database
+
+<a id="database:orm"></a>
+
+#### ORM
+
+Magic scope methods have been removed. Use the [`scope`](:base_url:/docs/:version:/databases-sql:orm#scopes) method instead.
 
 --------------------------------------------------------
 
