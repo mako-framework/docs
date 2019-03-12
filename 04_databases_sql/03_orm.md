@@ -606,15 +606,15 @@ $articles = Article::scope('popularAndPublished')->all();
 
 // Camel cased scope names can also be written using snake case
 
-$articles = User::get(1)->articles()->scope('popular_and_published', 2000)->all();
+$articles = User::get(1)->articles()->scope('popular_and_published')->all();
 ```
 
-Scopes also work through relations:
+Scopes also work through relations, and you can of course pass parameters to your scopes:
 
 ```
 $articles = User::get(1)->articles()->scope('published')->all();
 
-$articles = User::get(1)->articles()->scope('popularAndPublished')->all();
+$articles = User::get(1)->articles()->scope('popularAndPublished', 2000)->all();
 ```
 
 --------------------------------------------------------
