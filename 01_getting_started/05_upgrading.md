@@ -52,7 +52,7 @@ The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\
 
 #### ORM
 
-Magic scope methods have been removed. Use the [`scope`](:base_url:/docs/:version:/databases-sql:orm#scopes) method instead.
+Support for magic scope methods has been removed. Use the [`scope`](:base_url:/docs/:version:/databases-sql:orm#scopes) method instead.
 
 --------------------------------------------------------
 
