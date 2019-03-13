@@ -588,12 +588,12 @@ Scopes allow you to specify commonly used query criteria as methods. All scope m
 ```
 public function publishedScope($query)
 {
-	return $query->where('published', '=', 1);
+	$query->where('published', '=', 1);
 }
 
 public function popularAndPublishedScope($query, $minViewCount = 1000)
 {
-	return $query->where('published', '=', 1)->where('views', '>', $minViewCount);
+	$query->where('published', '=', 1)->where('views', '>', $minViewCount);
 }
 ```
 
