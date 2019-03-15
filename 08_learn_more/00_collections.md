@@ -88,7 +88,7 @@ $collection->push('foo');
 $collection[] = 'bar';
 ```
 
-Both the `getItems` and `getValues` methods will return an array containing all if the collection items. The difference is that `getItems` will maintain the keys while `getValues` will not.
+Both the `getItems` and `getValues` methods will return an array containing all of the collection items. The difference is that `getItems` will maintain the keys while `getValues` will not.
 
 ```
 $collection = new Collection([1 => 'foo', 2 => 'bar']);
