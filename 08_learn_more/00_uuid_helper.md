@@ -51,3 +51,23 @@ $uuid = UUID::v5('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'foobar');
 
 $uuid = UUID::v5(UUID::OID, 'foobar');
 ```
+
+The `sequential` methods lets you generate sequential UUIDs where the first 48 bit are reserved for the timestamp.
+
+```
+$uuid = UUID::sequential();
+```
+
+> Note that the the timestamp part of the UUID is only precise down to 10 microseconds so if you generate UUIDs in a loop where nothing else happens then you might end up with values that are not sequential (they should still be unique though).
+
+The `toBinary` method converts a UUID from a hexadecimal representation to binary.
+
+```
+$binary = UUID::toBinary('f47ac10b-58cc-4372-a567-0e02b2c3d479');
+```
+
+The `toHexadecimal` method converts a binary representation of a UUID to a hexadecimal representation.
+
+```
+$hexadecimal = UUUID::toHexadecimal($binary);
+```
