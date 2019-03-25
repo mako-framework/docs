@@ -538,14 +538,10 @@ You can choose to replace the default adapter by creating a custom [`GatekeeperS
 
 $this->gatekeeper->extend(new CustomAdapter);
 
-// Register a lazy adapter factory
+// Register an adapter factory where the first array element 
+// is the adapter name while the second is the factory
 
-$factory = function()
-{
-	return new CustomAdapter;
-};
-
-$this->gatekeeper->extend(['custom', $factory])
+$this->gatekeeper->extend(['custom', function() { return new CustomAdapter; }])
 ```
 
 > Note that all adapters must implement the `AdapterInterface`.
