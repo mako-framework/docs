@@ -88,10 +88,10 @@ $items = ['foo', 'bar', ['bar', 'foo']);
 echo $html->ol($items);
 ```
 
-The `extend` method allows you to register custom tag methods.
+The `addMethod` method allows you to register custom tag methods.
 
 ```
-HTML::extend('p', function($content, array $attributes = [])
+HTML::addMethod('p', function($content, array $attributes = [])
 {
 	return $this->tag('p', $attributes, $content);
 });
