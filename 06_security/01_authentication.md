@@ -540,10 +540,12 @@ $this->gatekeeper->extend(new CustomAdapter);
 
 // Register a lazy adapter factory
 
-$this->gatekeeper->extend('custom', function()
+$factory = function()
 {
 	return new CustomAdapter;
-})
+};
+
+$this->gatekeeper->extend(['custom', $factory])
 ```
 
 > Note that all adapters must implement the `AdapterInterface`.
