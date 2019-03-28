@@ -42,6 +42,8 @@ The `base_url` key of the `application` config file should be set to `null` inst
 
 The `mako\gatekeeper\Authentication` class has been renamed to `mako\gatekeeper\Gatekeeper`. Any type hints or uses of the class constants must be updated to use the new class name.
 
+The [`policies`](https://github.com/mako-framework/app/blob/d28f95e4f2744af1e12f651b7d7b27e065f143aa/app/config/gatekeeper.php#L38-L49) key must be added to the `app/config/gatekeeper.php` config file.
+
 --------------------------------------------------------
 
 <a id="database"></a>
