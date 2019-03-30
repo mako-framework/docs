@@ -66,14 +66,14 @@ Open `http://localhost:8000` in your browser of choice and you're ready to start
 
 ### Updating
 
-Mako and all your other dependencies can easily be updated when a new release is made available using the following command:
+Mako and all your other dependencies can easily be updated when a new patch release is made available using the following command:
 
 ```
 composer update
 ```
 {.language-none}
 
-If you want to bump the Mako version (e.g. from `5.7.*` to `6.0.*`) then you'll have to update your `composer.json` file before running the update command.
+If you want to bump the Mako version (e.g. from `6.0.*` to `6.1.*`) then you'll have to update your `composer.json` file before running the update command.
 
 > Some releases might require some minor code changes. These will be documented in the upgrade guides.
 {.warning}
