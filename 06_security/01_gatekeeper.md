@@ -10,6 +10,8 @@
 		- [Group repository](#users_and_groups:groups:group_repository)
 * [Authentication](#authentication)
 * [Authorization](#authorization)
+	- [Policies](#authorization:policies)
+	- [Authorizing](#authorization:authorizing)
 * [Database schema](#database_schema)
 	- [MySQL](#database_schema:mysql)
 	- [PostgreSQL](#database_schema:postgresql)
@@ -264,6 +266,117 @@ $this->gatekeeper->logout();
 <a id="authorization"></a>
 
 ### Authorization
+
+The authorization component of the gatekeeper library allows you to check if a user is allowed to perform a specific action on a entity.
+
+<a id="authorization:policies"></a>
+
+#### Policies
+
+Authorization logic is defined in policy classes so that it can be reused anywhere in your application. In the example below we'll create a simple policy that authorizes the `view`, `create`, and `edit` actions on a article entity.
+
+```
+<?php
+
+namespace app\policies;
+
+use mako\gatekeeper\authorization\policies\Policy;
+use mako\gatekeeper\entities\user\UserEntityInterface;
+
+class ArticlePolicy extends Policy
+{
+	public function view(?UserEntityInterface $user, $entity): bool
+	{
+		return true;	
+	}
+
+	public function create(?UserEntityInterface $user, $entity): bool
+	{
+		if($user !== null && $user->isMemberOf('editors'))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public function edit(?UserEntityInterface $user, $entity): bool
+	{
+		if($user !== null && $user->getId() === $entity->user_id)
+		{
+			return true;
+		}
+
+		return false;
+	}
+}
+```
+
+The policy above extends the `Policy` class but you can choose to implement the `PolicyInterface` interface yourself if you want to implement the `before` method which lets you perform common checks in a single place.
+
+```
+public function before(?UserEntityInterface $user, string $action, $entity): ?bool
+{
+	if($user !== null && $user->isMemberOf('admins'))
+	{
+		return true;
+	}
+
+	return null;
+}
+```
+
+> Returning a boolean value will prevent further authorization checks while returning `null` ensures normal authorization.
+
+Before we can use the policy we'll have to associate it with the corresponding entity. This is done in the `app/config/gatekeeper.php` configuration file. The array key is the class name of the entity and the value is the class name of the corresponding policy.
+
+```
+[
+	Article::class => ArticlePolicy::class,
+]
+```
+
+<a id="authorization:authorizing"></a>
+
+#### Authorizing
+
+There are multiple ways of checking if a user is authorized to perform a certain action. The authorizer `can` method lets you authorize both guests and authenticated users.
+
+```
+if($this->authorizer->can($user, 'view', $artcile) === false)
+{
+	throw new ForbiddenException;
+}
+
+...
+```
+
+If you already know that you have an authenticated user then you can use the `can` method of the user class.
+
+```
+if($user->can('edit', $artcile) === false)
+{
+	throw new ForbiddenException;
+}
+
+...
+```
+
+And finally if your controller uses the `AuthorizationTrait` trait then you can use the `authorize` method that allows you to authorize both guests and authenticated users. It will automatically throw a `ForbiddenException` if the authorization fails.
+
+```
+$this->authorize('view', $article);
+
+...
+```
+
+You'll not always be able to authorize actions on a entity instance so it also possible to pass the class name.
+
+```
+$this->authorize('create', Article::class);
+
+...
+```
 
 --------------------------------------------------------
 
