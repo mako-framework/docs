@@ -343,7 +343,7 @@ Before we can use the policy we'll have to associate it with the corresponding e
 There are multiple ways of checking if a user is authorized to perform a certain action. The authorizer `can` method lets you authorize both guests and authenticated users.
 
 ```
-if($this->authorizer->can($user, 'view', $artcile) === false)
+if($this->authorizer->can($user, 'view', $article) === false)
 {
 	throw new ForbiddenException;
 }
@@ -354,7 +354,7 @@ if($this->authorizer->can($user, 'view', $artcile) === false)
 If you already know that you have an authenticated user then you can use the `can` method of the user class.
 
 ```
-if($user->can('edit', $artcile) === false)
+if($user->can('edit', $article) === false)
 {
 	throw new ForbiddenException;
 }
