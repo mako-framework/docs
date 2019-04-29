@@ -146,6 +146,12 @@ The `sepia` method converts the image to sepia.
 $image->sepia();
 ```
 
+The `bitonal` method converts the image to bitonal.
+
+```
+$image->bitonal();
+```
+
 The `negate` will invert the colors in the image.
 
 ```
