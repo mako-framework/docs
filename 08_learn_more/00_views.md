@@ -184,7 +184,7 @@ If you want to print an un-escaped variable then you can use the `raw` filter.
 Sometimes you'll want to print a default value if your variable is empty. This can easily be achieved using the following syntax.
 
 ```
-{{$foo || 'Default value'}} // You can also use "or" instead of "||"
+{{$foo or 'Default value'}}
 ```
 
 ##### Conditional statements
