@@ -187,6 +187,8 @@ Sometimes you'll want to print a default value if your variable is empty. This c
 {{$foo or 'Default value'}}
 ```
 
+>  You must use the `||` operator if you're printing the result of a ternary expression as the `or` operator will come in conflict with the `or` template syntax.
+
 ##### Conditional statements
 
 <a id="view_renderers:templates:conditional_statements"></a>
