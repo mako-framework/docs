@@ -252,7 +252,10 @@ $query->table('articles')->where('id', '=', 10)->delete();
 The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
 
 ```
-$foos = $query->table('articles')->select(['meta->foo as foo'])->where('meta->bar', '=', 1)->all();
+$foos = $query->table('articles')
+->select(['meta->foo as foo'])
+->where('meta->bar', '=', json_encode(1))
+->all();
 ```
 
 You can also use the unified syntax to update JSON values. This feature currently supports `MySQL`, `PostgreSQL` (jsonb), `SQLServer` and `SQLite`.
