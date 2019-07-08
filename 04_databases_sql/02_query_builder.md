@@ -618,7 +618,7 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 
 ### Dialect specific SQL
 
-Sometimes you'll find yourself in situations where you have to use dialect specific features in your queries. This is where the `forCompiler` method comes in handy. 
+Sometimes you'll find yourself in situations where you have to use dialect specific features in your queries while still supporting multiple databases. This is where the `forCompiler` method comes in handy. 
 
 The first parameter is the compiler class name and the second one is a closure where you can build upon the query.
 
