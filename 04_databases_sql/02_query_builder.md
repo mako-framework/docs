@@ -7,7 +7,6 @@
 * [Inserting data](#inserting_data)
 * [Updating data](#updating_data)
 * [Deleting data](#deleting_data)
-* [JSON data](#JSON_data)
 * [Aggregates](#aggregates)
 * [Clauses](#clauses)
 	* [WHERE clauses](#clauses:where_clauses)
@@ -22,11 +21,15 @@
 	* [LIMIT and OFFSET clauses](#clauses:limit_and_offset_clauses)
 * [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
+* [Dialect specific SQL](#dialect_specific_sql)
+* [JSON data](#JSON_data)
 * [Array and JSON representations of results](#array_and_json_representations)
 
 --------------------------------------------------------
 
 The query builder allows you to programmatically build SQL queries.
+
+> All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections. However, you have to make sure that you don't create SQL injection vectors if you're using using raw SQL in your query builder queries!
 
 The query builder currently supports the following dialects:
 
@@ -40,7 +43,7 @@ The query builder currently supports the following dialects:
 * SQLite
 * SQLServer
 
-> All queries executed by the query builder use prepared statements, thus mitigating the risk of SQL injections. However, you have to make sure that you don't create SQL injection vectors if you're using using raw SQL in your query builder queries!
+> The example SQL in the documentation is generated using the MySQL compiler.
 
 --------------------------------------------------------
 
@@ -245,27 +248,6 @@ $query->table('articles')->where('id', '=', 10)->delete();
 
 --------------------------------------------------------
 
-<a id="JSON_data"></a>
-
-### JSON data
-
-The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
-
-```
-$foos = $query->table('articles')
-->select(['meta->foo as foo'])
-->where('meta->bar', '=', json_encode(1))
-->all();
-```
-
-You can also use the unified syntax to update JSON values. This feature currently supports `MySQL`, `PostgreSQL` (jsonb), `SQLServer` and `SQLite`.
-
-```
-$query->table('articles')->update(['meta->bar' => json_encode(0)]);
-```
-
---------------------------------------------------------
-
 <a id="aggregates"></a>
 
 ### Aggregates
@@ -320,7 +302,7 @@ $height = $query->table('persons')->where('age', '>', 25)->sum('height');
 
 #### WHERE clauses
 
-where(), whereRaw(), orWhere(), orWhereRaw()
+where(), whereRaw(), orWhere(), orWhereRaw(), whereDate(), orWhereDate()
 
 ```
 // SELECT * FROM `persons` WHERE `age` > 25
@@ -358,11 +340,19 @@ $persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
 $persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLEAN MODE)', ['foobar']);
 ```
 
+The `whereDate` and `orWhereDate` methods allow you to easily match records based on the date portion of a datetime column. The methods accept dates in the `YYYY-MM-DD` format and instances of `DateTimeInterface`.
+
+```
+// SELECT * FROM `articles` WHERE `created_at` > '2019-07-08 23:59:59.999999'
+
+$articles = $query->table('articles')->whereDate('created_at', '>', '2019-07-08')->all();
+```
+
 <a id="clauses:where_between_clauses"></a>
 
 #### WHERE BETWEEN clauses
 
-between(), orBetween(), notBetween(), orNotBetween()
+between(), orBetween(), notBetween(), orNotBetween(), betweenDate(), orBetweenDate(), notBetweenDate(), orNotBetweenDate()
 
 ```
 // SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25
@@ -372,6 +362,15 @@ $persons = $query->table('persons')->between('age', 20, 25)->all();
 // SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25 OR `age` BETWEEN 30 AND 35
 
 $persons = $query->table('persons')->between('age', 20, 25)->orBetween('age', 30, 35)->all();
+```
+
+The `betweenDate`, `orBetweenDate`, `notBetweenDate` and `orNotBetweenDate` methods make it easy to match records between two dates using the date portion of a datetime column. The methods accept dates in the `YYYY-MM-DD` format and instances of `DateTimeInterface`.
+
+```
+// SELECT * FROM `articles` WHERE `created_at` 
+// BETWEEN '2019-07-01 00:00:00.000000' AND '2019-07-31 23:59:59.999999'
+
+$articles = $query->table('articles')->betweenDate('created_at', '2019-07-01', '2019-07-31')->all();
 ```
 
 <a id="clauses:where_in_clauses"></a>
@@ -612,6 +611,50 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 | SQLServer  | WITH (UPDLOCK, ROWLOCK) | WITH (HOLDLOCK, ROWLOCK)    |
 
 > Row-level locking will gracefully degrade for any RDBMS that doesn't support the feature.
+
+--------------------------------------------------------
+
+<a id="dialect_specific_sql"></a>
+
+### Dialect specific SQL
+
+Sometimes you'll find yourself in situations where you have to use dialect specific features in your queries. This is where the `forCompiler` method comes in handy. 
+
+The first parameter is the compiler class name and the second one is a closure where you can build upon the query.
+
+```
+$events = $query->table('events')
+->forCompiler(PostgreSQL::class, function($query)
+{
+	$query->whereRaw('EXTRACT(YEAR FROM "date") = ?', ['1337']);
+})
+->forCompiler(MySQL::class, function($query)
+{
+	$query->whereRaw('YEAR(`date`) = ?', ['1337']);
+})
+->all();
+```
+
+--------------------------------------------------------
+
+<a id="JSON_data"></a>
+
+### JSON data
+
+The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
+
+```
+$foos = $query->table('articles')
+->select(['meta->foo as foo'])
+->where('meta->bar', '=', json_encode(1))
+->all();
+```
+
+You can also use the unified syntax to update JSON values. This feature currently supports `MySQL`, `PostgreSQL` (jsonb), `SQLServer` and `SQLite`.
+
+```
+$query->table('articles')->update(['meta->bar' => json_encode(0)]);
+```
 
 --------------------------------------------------------
 
