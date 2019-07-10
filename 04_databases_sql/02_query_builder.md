@@ -302,7 +302,7 @@ $height = $query->table('persons')->where('age', '>', 25)->sum('height');
 
 #### WHERE clauses
 
-where(), whereRaw(), orWhere(), orWhereRaw(), whereDate(), orWhereDate()
+where(), orWhere(), whereColumn(), orWhereColumn(), whereRaw(), orWhereRaw(), whereDate(), orWhereDate()
 
 ```
 // SELECT * FROM `persons` WHERE `age` > 25
@@ -326,6 +326,14 @@ $persons = $query->table('persons')
 	$query->where('height', '>', 180);
 })
 ->all();
+```
+
+The `whereColumn` and `orWhereColumn` methods allow you to compare two columns.
+
+```
+// SELECT * FROM `persons` WHERE `first_name` = `last_name`
+
+$persons = $query->table('persons')->whereColumn('first_name', '=', 'last_name')->all();
 ```
 
 The `wereRaw` and `orWhereRaw` methods allow you to set a "raw" parameter value or to write an entire sql expression.
