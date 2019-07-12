@@ -181,7 +181,7 @@ If you want to print an un-escaped variable then you can use the `raw` filter.
 {{raw:$foo}}
 ```
 
-Sometimes you'll want to print a default value if your variable is empty. This can easily be achieved using the following syntax.
+Sometimes you'll want to print a default value if a variable is undefined or empty (`''`, `null` and `false`). This can easily be achieved using the following syntax.
 
 ```
 {{$foo, default: 'Default value'}}
