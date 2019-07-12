@@ -184,10 +184,8 @@ If you want to print an un-escaped variable then you can use the `raw` filter.
 Sometimes you'll want to print a default value if your variable is empty. This can easily be achieved using the following syntax.
 
 ```
-{{$foo or 'Default value'}}
+{{$foo, default: 'Default value'}}
 ```
-
->  You must use the `||` operator if you're printing the result of a ternary expression as the `or` operator will come in conflict with the `or` template syntax.
 
 ##### Conditional statements
 

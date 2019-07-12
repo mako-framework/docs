@@ -14,4 +14,4 @@ This guide takes you through the steps needed to migrate from Mako `6.1.x` to `6
 
 ### Views
 
-The `{{$foo || 'Default'}}` syntax has been deprecated since it will cause unexpected behaviour when printing the output of a ternary expression using the `||` operator. Use the `{{$foo or 'Default'}}` syntax instead.
+The `{{$foo || 'Default'}}` and `{{$foo or 'Default'}}` syntax has been deprecated since it will cause unexpected behaviour when printing the output of a ternary expression using the `||` and `or` operators. Use the new `{{$foo, default: 'Default'}}` syntax instead.
