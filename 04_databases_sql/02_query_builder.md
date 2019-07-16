@@ -19,6 +19,7 @@
 	* [HAVING clauses](#clauses:having_clauses)
 	* [ORDER BY clauses](#clauses:order_by_clauses)
 	* [LIMIT and OFFSET clauses](#clauses:limit_and_offset_clauses)
+* [Common table expressions](#common_table_expressions)
 * [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
 * [Dialect specific SQL](#dialect_specific_sql)
@@ -543,6 +544,56 @@ You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pa
 
 $persons = $query->table('persons')->paginate(10);
 ```
+
+--------------------------------------------------------
+
+<a id="common_table_expressions"></a>
+
+### Common table expressions
+
+with(), withRecursive()
+
+The `with` method allows you to add common table expressions to your queries.
+
+```
+// WITH `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
+
+$result = $query->with('cte', [], function($query)
+{
+	$query->selectRaw('1, 2, 3');
+})
+->table('cte')->all();
+
+// WITH `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
+
+$result = $query->with('cte', ['one', 'two', 'three'], function($query)
+{
+	$query->selectRaw('1, 2, 3');
+})
+->table('cte')->all();
+```
+
+You can also add recursive common table expressions using the `withRecursive` method.
+
+```
+// WITH RECURSIVE `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
+
+$result = $query->withRecursive('cte', [], function($query)
+{
+	$query->selectRaw('1, 2, 3');
+})
+->table('cte')->all();
+
+// WITH RECURSIVE `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
+
+$result = $query->withRecursive('cte', ['one', 'two', 'three'], function($query)
+{
+	$query->selectRaw('1, 2, 3');
+})
+->table('cte')->all();
+```
+
+> The query builder allows you add multiple common table expressions to your queries and it even supports nesting.
 
 --------------------------------------------------------
 
