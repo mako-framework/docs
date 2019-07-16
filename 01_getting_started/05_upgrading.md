@@ -18,4 +18,4 @@ The `{{$foo || 'Default'}}` and `{{$foo or 'Default'}}` syntax has been deprecat
 
 The new `default` syntax also has a small change in behaviour. It will print out the value for variables containing `0`, `0.0` and `"0"`.
 
-> Note that the old syntax will not be removed until versio `7.0` but it's still a good idea to update your templates now.
+> Note that the old syntax will not be removed until version `7.0` but it's still a good idea to update your templates now.
