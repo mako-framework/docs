@@ -116,7 +116,7 @@ Registering [package](:base_url:/docs/:version:/command-line:custom-commands) co
 ```
 protected $commands =
 [
-	'acme-foo::command' => 'acme\foo\commands\Command',
+	'acme-foo::command' => acme\foo\commands\Command::class,
 ];
 ```
 

@@ -170,7 +170,7 @@ Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of t
 ```
 'commands' =>
 [
-	'hello' => 'app\console\commands\Hello',
+	'hello' => app\console\commands\Hello::class,
 ],
 ```
 
