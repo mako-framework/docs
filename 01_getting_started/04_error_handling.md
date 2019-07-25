@@ -50,20 +50,29 @@ $errorHandler->handle(PDOException::class, function($exception)
 
 ### Disabling logging of specific exception types
 
-Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `disableLoggingFor` method.
+Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `error_handler.disable_logging_for` config key in your application config file.
+
+```
+'error_handler' =>
+[
+	'disable_logging_for' =>
+	[
+		mako\http\exceptions\NotFoundException::class,
+		mako\http\exceptions\MethodNotAllowedException::class,
+	],
+],
+```
+
+You can also disable logging programmatically using the `disableLoggingFor` method.
 
 ```
 $errorHandler->disableLoggingFor(mako\http\exceptions\NotFoundException::class);
-```
 
-You can also pass an array of exception types.
+// You can also pass an array of exception types.
 
-```
 $errorHandler->disableLoggingFor
 ([
 	mako\http\exceptions\NotFoundException::class,
 	mako\http\exceptions\MethodNotAllowedException::class,
 ]);
 ```
-
-> Remember to use the fully qualified name of the exception types that you want to ignore.
