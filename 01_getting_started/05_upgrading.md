@@ -2,11 +2,20 @@
 
 --------------------------------------------------------
 
+* [Error handling](#error_handling)
 * [Views](#views)
 
 --------------------------------------------------------
 
 This guide takes you through the steps needed to migrate from Mako `6.0.x` to `6.1.x`.
+
+--------------------------------------------------------
+
+<a id="error_handling"></a>
+
+### Error handling
+
+The `ErrorHandler::disableLoggingFor()` method has been deprecated and will be removed in version `7.0`. Use the new `ErrorHandler::dontLog()` method or the new `application.error_handler.dont_log` config key instead.
 
 --------------------------------------------------------
 
