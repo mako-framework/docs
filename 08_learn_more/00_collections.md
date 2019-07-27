@@ -221,6 +221,22 @@ $filtered = $collection->filter(function($value)
 });
 ```
 
+You can create a new collection where items not included in the whitelist have been removed using the `whith` method.
+
+```
+$collection1 = new Collection(['foo' => 1, 'bar' => 2, 'baz' => 3]);
+
+$collection2 = $collection1->with(['foo', 'baz']);
+```
+
+If you want to use a blacklist instead of a whitelist then you can use the `without` method.
+
+```
+$collection1 = new Collection(['foo' => 1, 'bar' => 2, 'baz' => 3]);
+
+$collection2 = $collection1->without(['bar']);
+```
+
 Two collections can be merged using the `merge` method.
 
 ```
