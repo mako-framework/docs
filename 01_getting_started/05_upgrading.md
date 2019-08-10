@@ -2,38 +2,44 @@
 
 --------------------------------------------------------
 
-* [Error handling](#error_handling)
-* [Views](#views)
+* [Command line](#command_line)
+    - [Commands](#command_line:commands)
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako `6.0.x` to `6.1.x`.
+This guide takes you through the steps needed to migrate from Mako `6.1.x` to `6.2.x`.
 
 --------------------------------------------------------
 
-<a id="error_handling"></a>
+<a id="command_line"></a>
 
-### Error handling
+### Command line
 
-The `ErrorHandler::disableLoggingFor()` method has been deprecated. Use the new `ErrorHandler::dontLog()` method or the new `application.error_handler.dont_log` config key instead.
+<a id="command_line:commands"></a>
 
-> Note that the method will not be removed until version `7.0` but it's still a good idea to update your code now.
+#### Commands
 
---------------------------------------------------------
+> If you have documented your command and command arguments using the `$commandInformation` property and your commands aren't using positional arguments then you'll most likely be good to go until Mako `7.0`.
+>
+> It is still a good idea to go over your commands to make sure that they still work and update them to take full advantage of the new and vastly improved command line argument parser.
 
-<a id="views"></a>
-
-### Views
-
-The `{{$foo || 'Default'}}` and `{{$foo or 'Default'}}` syntax has been deprecated since it will cause unexpected behaviour when printing the output of a ternary expression using the `||` and `or` operators. Use the new `{{$foo, default: 'Default'}}` syntax instead.
-
-The new `default` syntax also has a small change in behaviour. It will print out the value for variables containing `0`, `0.0` and `"0"`.
-
-You can use the following regex to find your echo tags that still use the deprecated syntax:
+The command description has been moved to the `$description` property.
 
 ```
-\{\{([^view:][^}]+)((\|\|){1}|\s+(or)\s+)([^}]+)\}\}
+protected $description = 'Command description';
 ```
-{.language-regex}
 
-> Note that the old syntax will not be removed until version `7.0` but it's still a good idea to update your templates now.
+Positional arguments and options must now defined using the `getArguments` method.
+
+```
+public function getArguments(): array
+{
+    return
+    [
+        new Argument('--argument1', 'Description'),
+        new Argument('--argument2', 'Description', Argument::IS_OPTIONAL),
+    ];
+}
+```
+
+Head over to the [documentation](:base_url:/docs/:version:/command-line:commands#input:arguments-and-options) for more information about the available flags and features.

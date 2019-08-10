@@ -4,9 +4,10 @@
 
 * [Basics](#basics)
 	- [Getting started](#basics:getting-started)
-	- [Arguments and options](#basics:arguments-and-options)
 	- [Registering commands](#basics:registering-commands)
 * [Input](#input)
+	- [Arguments and options](#input:arguments-and-options)
+		- [Flags](#input:arguments-and-options:flags)
 	- [Helpers](#input:helpers)
 * [Output](#output)
 	- [Helpers](#output:helpers)
@@ -39,6 +40,8 @@ use mako\reactor\Command;
 
 class Hello extends Command
 {
+	protected $description = 'Prints out "Hello, World!".';
+
 	public function execute()
 	{
 		$this->write('Hello, World!');
@@ -47,115 +50,6 @@ class Hello extends Command
 ```
 
 > You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
-
-<a id="basics:arguments-and-options"></a>
-
-#### Arguments and options
-
-Passing arguments to a command is easy.
-
-```
-<?php
-
-namespace app\console\commands;
-
-use mako\reactor\Command;
-
-class Hello extends Command
-{
-	public function execute($arg2)
-	{
-		$this->write('Hello, ' . $arg2 . '!');
-	}
-}
-```
-
-> `$arg0` is the reactor script and `$arg1` is the name of the command.
-
-You can now execute your command from the command line.
-
-```
-php reactor hello dude
-```
-{.language-none}
-
-You can, of course, also use options.
-
-```
-<?php
-
-namespace app\console\commands;
-
-use mako\reactor\Command;
-
-class Hello extends Command
-{
-	public function execute($name)
-	{
-		$this->write('Hello, ' . $name . '!');
-	}
-}
-```
-
-You can now execute your command from the command line.
-
-```
-php reactor hello --name=dude
-```
-{.language-none}
-
-> Note that dash and underscore separated option names are converted to camel case before being passed to the execute method. E.g. `--foo-bar` becomes `$fooBar`.
-
-Options can also be used as boolean flags.
-
-```
-<?php
-
-namespace app\console\commands;
-
-use mako\reactor\Command;
-
-class Hello extends Command
-{
-	public function execute($shout = false)
-	{
-		$greeting = 'Hello, World!';
-
-		if($shout !== false)
-		{
-			$greeting = strtoupper($greeting);
-		}
-
-		$this->write($greeting);
-	}
-}
-```
-
-You can now execute your command from the command line.
-
-```
-php reactor hello --shout
-```
-{.language-none}
-
-Both arguments and options can be documented using the `$commandInformation` property.
-
-```
-protected $commandInformation =
-[
-	'description' => 'Print out a greeting.',
-	'options' =>
-	[
-		'shout' =>
-		[
-			'optional'    => true,
-			'description' => 'Should we output upper-case?',
-		],
-	],
-];
-```
-
-It is generally a good idea to document your arguments and options since this allows for a more user friendly error message if a required argument or option is omitted. You can also set the `$isStrict` property to `true` if you want the command to fail if a non-documented argument or option is used.
 
 <a id="basics:registering-commands"></a>
 
@@ -186,6 +80,64 @@ php reactor hello
 <a id="input"></a>
 
 ### Input
+
+<a id="input:arguments-and-options"></a>
+
+#### Arguments and options
+
+You'll most likely want to pass arguments to your commands and to do so you'll have to define them in the `getArguments` method.
+
+```
+public function getArguments(): array
+{
+	return
+	[
+		new Argument('argument', 'This is a positional argument'),
+		new Argument('--option1', 'This is an option argument'),
+		new Argument('-o|--option2', 'This is an option argument with an alias'),
+		new Argument('--option3', 'This is an optional option argument', Argument::IS_OPTIONAL),
+	];
+}
+```
+
+> Note that there are 4 reserved argument names: `command`, `--env`, `--help` and `--mute`.
+
+Next you'll have to add matching camel cased arguments to your `execute` method.
+
+```
+public function execute(string $argument, string $option1, string $option2, string $option3 = null)
+{
+	// ...
+}
+```
+
+You can now pass values to your command like this:
+
+```
+php reactor command "argument value" --option1="option1 value" -o "option3 value"
+```
+
+<a id="input:arguments-and-options:flags"></a>
+
+##### Flags
+
+In the example above we made one of our arguments optional by using the `Argument::IS_OPTIONAL` flag. Below you'll see the complete list of available flags that you can use:
+
+| Flag                  | Description                                                                      |
+|-----------------------|----------------------------------------------------------------------------------|
+| Argument::IS_OPTIONAL | The argument is considered optional                                              |
+| Argument::IS_BOOL     | The argument is considered to be a boolean flag                                  |
+| Argument::IS_ARRAY    | The argument is considered to be an array and subsequent values will be appended |
+| Argument::IS_INT      | The argument will only accept values that can be cast to an integer              |
+| Argument::IS_FLOAT    | The argument will only accept values that can be cast to a float                 |
+
+You can also make your own combination of flags:
+
+```
+new Argument('--arg', 'Description', Argument::IS_OPTIONAL | Argument::IS_ARRAY | Argument::IS_INT);
+```
+
+> Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
 
 <a id="input:helpers"></a>
 

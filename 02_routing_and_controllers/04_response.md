@@ -141,13 +141,13 @@ $headers->add('X-My-Header', 'value');
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method        | Description                                                           |
-|---------------|-----------------------------------------------------------------------|
-| has($name)    | Returns `true` if the response includes the header and `false` if not |
-| remove($name) | Removes the header from the response                                  |
-| clear()       | Removes all headers from the response                                 |
-| all()         | Returns an array containing all the headers                           |
-
+| Method                  | Description                                                             |
+|-------------------------|-------------------------------------------------------------------------|
+| has($name)              | Returns `true` if the response includes the header and `false` if not   |
+| hasValue($name, $value) | Returns `true` if the header has the specified value and `false` if not |
+| remove($name)           | Removes the header from the response                                    |
+| clear()                 | Removes all headers from the response                                   |
+| all()                   | Returns an array containing all the headers                             |
 
 --------------------------------------------------------
 
@@ -166,6 +166,14 @@ The `disableCaching` method disables `ETag` caching if it has been enabled.
 ```
 $this->response->disableCaching();
 ```
+
+The `isCacheable` method returns `true` if the response in its current state is considered cacheable and `false` if not.
+
+```
+$isCacheable = $this->response->isCacheable();
+```
+
+> Note that `ETag` caching will only be used if the response is considered cacheable.
 
 The `enableCompression` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 

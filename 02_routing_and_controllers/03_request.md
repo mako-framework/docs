@@ -273,10 +273,22 @@ The `isSecure` method returns `true` if the request was made using HTTPS and `fa
 $isSecure = $this->request->isSecure();
 ```
 
-The `isSafe` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are `GET` and `HEAD`.
+The `isSafe` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are `GET`, `HEAD`, `OPTIONS` and `TRACE`.
 
 ```
 $isSafe = $this->request->isSafe();
+```
+
+The `isCacheable` method returns `true` if the request method used is considered cacheable and `false` if not. The methods that are considered cacheable are `GET` and `HEAD`.
+
+```
+$isCacheable = $this->request->isCacheable();
+```
+
+The `isIdempotent` method returns `true` if the request method used is considered idempotent and `false` if not. The methods that are considered idempotent are `DELETE`, `GET`, `HEAD`, `OPTIONS`, `PUT` and `TRACE`.
+
+```
+$isIdempotent = $this->request->isIdempotent();
 ```
 
 The `getBasePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
