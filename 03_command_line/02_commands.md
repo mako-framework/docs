@@ -8,8 +8,9 @@
 * [Input](#input)
 	- [Arguments and options](#input:arguments-and-options)
 		- [Flags](#input:arguments-and-options:flags)
-	- [Helpers](#input:helpers)
+	- [Interactive input](#input:interactive_input)
 * [Output](#output)
+	- [Basics](#output:basics)
 	- [Helpers](#output:helpers)
 	- [Formatting](#output:formatting)
 * [Calling commands from commands](#calling_commands_from_commands)
@@ -139,9 +140,9 @@ new Argument('--arg', 'Description', Argument::IS_OPTIONAL | Argument::IS_ARRAY 
 
 > Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
 
-<a id="input:helpers"></a>
+<a id="input:interactive_input"></a>
 
-#### Helpers
+#### Interactive input
 
 The `question` method lets you ask the user for input.
 
@@ -193,9 +194,9 @@ if($this->confirm('Do you want to delete all your files?', 'y'))
 
 ### Output
 
-<a id="output:helpers"></a>
+<a id="output:basics"></a>
 
-#### Helpers
+#### Basics
 
 The `write` method lets you write output.
 
@@ -226,6 +227,10 @@ The `clear` method lets you clear all output from the terminal window.
 ```
 $this->clear();
 ```
+
+<a id="output:helpers"></a>
+
+#### Helpers
 
 The `bell` method rings the terminal bell.
 
