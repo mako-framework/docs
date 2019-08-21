@@ -20,7 +20,7 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 #### Basics
 
-Creating a database connection is done using the `ConnectionManager::connection` method.
+Creating a database connection is done using the `ConnectionManager::connection()` method.
 
 ```
 // Returns connection object using the "default" redis configuration defined in the config file
