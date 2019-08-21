@@ -15,7 +15,7 @@ The file library contains classes that assist you with working with the files an
 
 ### File system
 
-You can create a new `FileSystem` object or fetch the instance present in the [IoC container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
+You can create a new `FileSystem` object or fetch the instance present in the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
 
 The `has` method returns `true` if the provided path exists and `false` if not.
 

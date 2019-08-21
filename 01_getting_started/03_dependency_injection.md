@@ -13,9 +13,9 @@
 
 --------------------------------------------------------
 
-Mako comes with an easy to use inversion of control container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
+Mako comes with an easy to use dependency injection container. Using dependency injection makes your application more maintainable and decoupled. Another benefit of using the dependency injection pattern is that it greatly increases the testability of the code, thus making it less prone to bugs.
 
-> All controllers, migrations and commands are instantiated using the IoC container making it easy to inject dependencies.
+> All controllers, migrations and commands are instantiated using the container making it easy to inject dependencies.
 
 --------------------------------------------------------
 
@@ -77,7 +77,7 @@ if($container->has('bar'))
 }
 ```
 
-The `get` method lets you resolve a dependency through the IoC container.
+The `get` method lets you resolve a dependency through the container.
 
 ```
 // Resolve the class using the type hint
@@ -107,7 +107,7 @@ class Depends
 }
 ```
 
-We can now resolve the `Depends` class using the IoC container. Both its dependencies will automatically be injected.
+We can now resolve the `Depends` class using the container. Both its dependencies will automatically be injected.
 
 ```
 $depends = $container->get(Depends::class);
@@ -174,7 +174,7 @@ The `replaceInstance` method allows you to replace a previously registered insta
 $container->replaceInstance([BarInterface::class, 'bar'], new OtherBar('parameter value'));
 ```
 
-You can also replace instances that already been injected by the container thanks to the `onReplace` event.
+You can also replace instances that already have been injected by the container thanks to the `onReplace` event.
 
 In the following example we'll register an instance of the `Dependency` class along with a factory closure for the `Dependent` class. Inside the factory method we'll tell the container to replace the previous instance of the `Dependency` class using the `Dependent::replaceDependency()` method in the event that it gets replaced.
 
@@ -214,7 +214,7 @@ $container->onReplace(Dependency::class, (function($dependency)
 
 ### Services
 
-Services are an easy and clean way of registering dependencies in the IoC container.
+Services are an easy and clean way of registering dependencies in the container.
 
 Mako includes a number of services for your convenience and you'll find a complete list in the `app/config/application.php` configuration file. You can add your own or remove the ones that you don't need in your application.
 
@@ -226,7 +226,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 | Service                  | Type hint                                         | Key              | Description                 | Required |
 |--------------------------|---------------------------------------------------|------------------|-----------------------------|----------|
-|                          | mako\syringe\Container                            | container        | IoC container               | Yes      |
+|                          | mako\syringe\Container                            | container        | Container                   | Yes      |
 |                          | mako\application\Application                      | app              | Application                 | Yes      |
 |                          | mako\file\FileSystem                              | fileSystem       | File system abstraction     | Yes      |
 |                          | mako\config\Config                                | config           | Config loader               | Yes      |
@@ -281,17 +281,17 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 ### Container aware
 
-You can also make a class that is instantiated by the container "container aware" by using the `ContainerAwareTrait`. This means that you can use the IoC container as a service locator if you prefer that.
+You can also make a class that is instantiated by the container "container aware" by using the `ContainerAwareTrait`. This means that you can use the container as a service locator if you prefer that.
 
 > Note that controllers, migrations and tasks are container aware by default.
 
-The IoC container is always available through the `$container` property.
+The container is always available through the `$container` property.
 
 ```
 $this->container->get('view');
 ```
 
-The `ContainerAwareTrait` also implements the magic `__get()` method. This allows you to resolve classes through the IoC container using overloading.
+The `ContainerAwareTrait` also implements the magic `__get()` method. This allows you to resolve classes through the container using overloading.
 
 ```
 $this->view; // Instance of mako\view\ViewFactory

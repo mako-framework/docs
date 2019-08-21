@@ -11,7 +11,7 @@
 
 The configuration of the Mako core is done in the `app/init.php` file. This is where you set the error reporting level and define the paths to the application and vendor directories.
 
-All of the remaining framework configuration is done by editing the files that are located in the `app/config` directory.
+All of the remaining application configuration is done by editing the files that are located in the `app/config` directory.
 
 --------------------------------------------------------
 

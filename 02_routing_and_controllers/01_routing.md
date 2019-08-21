@@ -19,7 +19,7 @@
 
 The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the `app/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the IoC container instance).
+Routes are registered in the `app/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the container instance).
 
 --------------------------------------------------------
 
@@ -143,7 +143,7 @@ class PassthroughMiddleware implements MiddlewareInterface
 }
 ```
 
-Middleware has to be registered in the `app/routing/middleware.php` file before you can use them. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the IoC container instance).
+Middleware has to be registered in the `app/routing/middleware.php` file before you can use them. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
 
 ```
 $dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class);
@@ -294,7 +294,7 @@ class ApiVersionConstraint implements ConstraintInterface
 }
 ```
 
-Constraints have to be registered in the `app/routing/constraints.php` file before you can use them. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the IoC container instance).
+Constraints have to be registered in the `app/routing/constraints.php` file before you can use them. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
 
 ```
 $router->registerConstraint('api_version', ApiVersionConstraint::class);

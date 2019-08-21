@@ -50,7 +50,7 @@ $encrypted = $encrypter->encrypt('Hello, world!');
 The `decrypt` method is used to decrypt your data. It throws a `CryptoException` if it's unable to decrypt your data.
 
 ```
-$decrypted = $encrypter->decrypt('Hello, world!');
+$decrypted = $encrypter->decrypt($encrypted);
 ```
 
 > Note that data will automatically be signed with the application secret when encrypted and validated when decrypting when using the Crypto class.
