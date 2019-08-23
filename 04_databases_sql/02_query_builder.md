@@ -636,7 +636,7 @@ lock(), sharedLock()
 The `lock()` method can be used to enable row-level locking during database transactions.
 
 ```
-// SELECT * FROM `persons` WHERE `age` =  30 FOR UPDATE
+// SELECT * FROM `persons` WHERE `age` = 30 FOR UPDATE
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
 ```
@@ -644,7 +644,7 @@ $persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
 It will use an exclusive lock by default but you can enable shared locking by passing `false` to the `lock()` method or by using the `sharedLock()` method.
 
 ```
-// SELECT * FROM `persons` WHERE `age` =  30 LOCK IN SHARE MODE
+// SELECT * FROM `persons` WHERE `age` = 30 LOCK IN SHARE MODE
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
 ```
@@ -652,7 +652,7 @@ $persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
 It is also possible to provide a custom locking clause.
 
 ```
-// SELECT * FROM `persons` WHERE `age` =  30 CUSTOM LOCK
+// SELECT * FROM `persons` WHERE `age` = 30 CUSTOM LOCK
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock('CUSTOM LOCK')->all();
 ```
