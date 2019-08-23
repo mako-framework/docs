@@ -99,24 +99,21 @@ $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all(
 Selecting from the results of a subquery is also possible.
 
 ```
-$persons = $query->table(function($query)
+$persons = $query->table(new Subquery(function($query)
 {
 	$query->table('persons')->select(['name'])->distinct();
-})
+}, 'distinct_names'))
 ->where('name', '!=', 'John Doe')
 ->all();
 ```
 
-You can also use the Subquery class instead of a closure if you need a specific table alias.
+You can also use the `as` method of the `Subquery` to set the subquery table alias.
 
 ```
-$persons = $query->table
-(
-	new Subquery(function($query)
-	{
-		$query->table('persons')->select(['name'])->distinct();
-	}, 'distinct_names')
-)
+$persons = $query->table((new Subquery(function($query)
+{
+	$query->table('persons')->select(['name'])->distinct();
+}))->as('distinct_names'))
 ->where('name', '!=', 'John Doe')
 ->all();
 ```
@@ -125,17 +122,16 @@ Advanced column selections can also be made using raw SQL and subqueries.
 
 ```
 $persons = $query->table('persons')->select
-(
-	[
-		'name',
-		'email',
-		new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-		new Subquery(function($query)
-		{
-			$query->table('persons')->select([new Raw('AVG(age)']));
-		}, 'average_age')
-	]
-)->all();
+([
+	'name',
+	'email',
+	new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
+	new Subquery(function($query)
+	{
+		$query->table('persons')->select([new Raw('AVG(age)']));
+	}, 'average_age')
+])
+->all();
 ```
 
 If you need to process a large dataset and don't want to put the entire result set in memory then you can use the `yield` method. It returns a generator that lets you iterate over the result set.
@@ -396,10 +392,10 @@ $persons = $query->table('persons')->in('id', [1, 2, 3, 4, 5])->all();
 // SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
 $persons = $query->table('persons')
-->in('id', function($query)
+->in('id', new Subquery(function($query)
 {
 	$query->table('persons')->select(['id'])->where('id', '!=', 1);
-})
+}))
 ->all();
 ```
 
@@ -425,10 +421,10 @@ exists(), orExists(), notExists(), orNotExists()
 // SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
 $persons = $query->table('persons')
-->exists(function($query)
+->exists(new Subquery(function($query)
 {
 	$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id');
-})
+}))
 ->all();
 ```
 
@@ -558,18 +554,20 @@ The `with` method allows you to add common table expressions to your queries.
 ```
 // WITH `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->with('cte', [], function($query)
+$cte = $connection->builder()->selectRaw('1, 2, 3');
+
+$result = $query->with('cte', [], new Subquery(function($query)
 {
 	$query->selectRaw('1, 2, 3');
-})
+}))
 ->table('cte')->all();
 
 // WITH `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->with('cte', ['one', 'two', 'three'], function($query)
+$result = $query->with('cte', ['one', 'two', 'three'], new Subquery(function($query)
 {
 	$query->selectRaw('1, 2, 3');
-})
+}))
 ->table('cte')->all();
 ```
 
@@ -578,18 +576,18 @@ You can also add recursive common table expressions using the `withRecursive` me
 ```
 // WITH RECURSIVE `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->withRecursive('cte', [], function($query)
+$result = $query->withRecursive('cte', [], new Subquery(function($query)
 {
 	$query->selectRaw('1, 2, 3');
-})
+}))
 ->table('cte')->all();
 
 // WITH RECURSIVE `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->withRecursive('cte', ['one', 'two', 'three'], function($query)
+$result = $query->withRecursive('cte', ['one', 'two', 'three'], new Subquery(function($query)
 {
 	$query->selectRaw('1, 2, 3');
-})
+}))
 ->table('cte')->all();
 ```
 
@@ -608,20 +606,10 @@ You can also combine the results of multiple queries into a single result set us
 ```
 // SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
 
-$sales2015 = $connection->builder()->table('sales2015');
-
-$combinedSales = $connection->builder()->unionAll($sales2015)->table('sales2016')->all();
-```
-
-You can also use the closure syntax when adding set operations to your queries.
-
-```
-// SELECT * FROM `sales2015` UNION ALL SELECT * FROM `sales2016`
-
-$combinedSales = $query->unionAll(function($query)
+$combinedSales = $query->unionAll(new Subquery(function($query)
 {
 	$query->table('sales2015');
-})
+}))
 ->table('sales2016')->all();
 ```
 
