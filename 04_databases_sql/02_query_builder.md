@@ -554,9 +554,10 @@ The `with` method allows you to add common table expressions to your queries.
 ```
 // WITH `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$cte = $connection->builder()->selectRaw('1, 2, 3');
-
-$result = $connection->builder()->with('cte', [], new Subquery($cte))->table('cte')->all();
+$result = $query->with('cte', [], new Subquery(function($query)
+{
+	$query->selectRaw('1, 2, 3');
+}))->table('cte')->all();
 
 // WITH `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
@@ -572,9 +573,10 @@ You can also add recursive common table expressions using the `withRecursive` me
 ```
 // WITH RECURSIVE `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$cte = $connection->builder()->selectRaw('1, 2, 3');
-
-$result = $connection->builder()->withRecursive('cte', [], new Subquery($cte))->table('cte')->all();
+$result = $query->withRecursive('cte', [], new Subquery(function($query)
+{
+	$query->selectRaw('1, 2, 3');
+}))->table('cte')->all();
 
 // WITH RECURSIVE `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
