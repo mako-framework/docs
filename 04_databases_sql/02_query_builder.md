@@ -604,7 +604,9 @@ You can also combine the results of multiple queries into a single result set us
 
 $result = $query->table('sales2015')->union()->table('sales2016')->all();
 
-// SELECT * FROM ((SELECT * FROM `sales2015`) UNION (SELECT * FROM `sales2016`)) as `sales` ORDER BY `date` DESC
+// SELECT * FROM 
+// ((SELECT * FROM `sales2015`) UNION (SELECT * FROM `sales2016`)) as `sales` 
+// ORDER BY `date` DESC
 
 $result = $query->table(new Subquery(function($query)
 {
