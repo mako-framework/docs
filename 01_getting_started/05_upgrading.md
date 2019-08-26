@@ -56,7 +56,7 @@ Head over to the [documentation](:base_url:/docs/:version:/command-line:commands
 
 #### Query builder
 
-Passing a `Query` instance to the `Subquery` constructor is deprecated and will stop workingin in `7.0`. All you have to do to future proof your application is to build your subquery queries using a closure.
+Passing a `Query` instance to the `Subquery` constructor is deprecated and will stop workingin in `7.0`. All you have to do to future proof your application is to build your subqueries using a closure:
 
 ```
 $subquery = new Subquery(function($query)
