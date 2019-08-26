@@ -57,6 +57,7 @@ Head over to the [documentation](:base_url:/docs/:version:/command-line:commands
 #### Query builder
 
 Passing a `Closure` or `Query` instance to represent a subquery to the following methods is deprecated and will stop working in `7.0` (an instance of `Subquery` should be passed instead):
+
 * `Query::table()`
 * `Query::from()`
 * `Query::into()`
@@ -68,16 +69,10 @@ Passing a `Closure` or `Query` instance to represent a subquery to the following
 * `Query::orExists()`
 * `Query::notExists()`
 * `Query::orNotExists()`
-* `Query::union()`
-* `Query::unionAll()`
-* `Query::intersect()`
-* `Query::intersectAll()`
-* `Query::except()`
-* `Query::exceptAll()`
 * `Query::with()`
 * `Query::withRecursive()`
 
-All you have to do to make your application future proof is wraping your `Closure` and `Query` instances in a `Subquery` before passing them to any of the methods listed above.
+All you have to do to make your application future proof is to pass an instance of `Subquery` instead:
 
 ```
 // Before:
@@ -97,4 +92,29 @@ $results = $query->table(new Subquery(function($query)
     $query->table('users');
 }, 'users'))
 ->all();
+```
+
+Passing a `Closure`, `Query` or `Subquery` instance to the following methods is deprecated and will stop working in `7.0`:
+
+* `Query::union()`
+* `Query::unionAll()`
+* `Query::intersect()`
+* `Query::intersectAll()`
+* `Query::except()`
+* `Query::exceptAll()`
+
+All you have to do to make your application future proof is to update your union queries to the new and improved syntax:
+
+```
+// Before:
+
+$combinedSales = $query->unionAll(function($query)
+{
+	$query->table('sales2015');
+})
+->table('sales2016')->all();
+
+// After:
+
+$combinedSales = $query->table('sales2015')->unionAll()->table('sales2016');
 ```
