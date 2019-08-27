@@ -56,16 +56,6 @@ Head over to the [documentation](:base_url:/docs/:version:/command-line:commands
 
 #### Query builder
 
-Passing a `Query` instance to the `Subquery` constructor is deprecated and will stop workingin in `7.0`. All you have to do to future proof your application is to build your subqueries using a closure:
-
-```
-$subquery = new Subquery(function($query)
-{
-    $query->table('users')->select(['username', 'email']);
-});
-```
-
-
 Passing a `Closure` or `Query` instance to represent a subquery to the following methods is deprecated and will stop working in `7.0`:
 
 * `Query::table()`
