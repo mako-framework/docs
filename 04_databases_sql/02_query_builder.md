@@ -600,7 +600,7 @@ union(), unionAll(), intersect(), intersectAll(), except(), exceptAll()
 You can also combine the results of multiple queries into a single result set using set operations.
 
 ```
-// (SELECT * FROM `sales2015`) UNION (SELECT * FROM `sales2016`)
+// SELECT * FROM `sales2015` UNION SELECT * FROM `sales2016`
 
 $result = $query->table('sales2015')->union()->table('sales2016')->all();
 ```
