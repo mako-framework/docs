@@ -32,7 +32,7 @@ $redis = $this->redis->connection();
 $redis = $this->redis->connection('mydb');
 ```
 
-The Redis class uses the magic `__call` method so every current (and future) [Redis command](http://redis.io/commands) is a valid method.
+The Redis client uses the magic `__call` method to build commands method so almost every current (and future) [Redis command](http://redis.io/commands) is a valid method.
 
 ```
 // Add some dummy data
