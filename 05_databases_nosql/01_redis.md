@@ -85,7 +85,7 @@ $replies = $redis->pipeline(function($redis)
 > Note that pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node.
 {.warning}
 
-<a id="usage:pubsub"></a>
+<a id="usage:pub_sub"></a>
 
 #### Pub/Sub
 
