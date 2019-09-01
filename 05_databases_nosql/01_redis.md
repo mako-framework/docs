@@ -4,7 +4,9 @@
 
 * [Usage](#usage)
 	- [Basics](#usage:basics)
-	- [Magic shortcut](#magic_shortcut)
+	- [Pipelining](#usage:pipelining)
+	- [Pub/Sub](#usage:pub_sub)
+	- [Magic shortcut](#usage:magic_shortcut)
 
 --------------------------------------------------------
 
@@ -32,7 +34,7 @@ $redis = $this->redis->connection();
 $redis = $this->redis->connection('mydb');
 ```
 
-The Redis client uses the magic `__call` method to build commands method so almost every current (and future) [Redis command](http://redis.io/commands) is a valid method.
+The Redis client uses the magic `__call` method to build commands method so every current (and future) [Redis command](http://redis.io/commands) is a valid method.
 
 ```
 // Add some dummy data
@@ -62,6 +64,10 @@ $redis->configGet('*max-*-entries*');
 $redis->config_get('*max-*-entries*');
 ```
 
+<a id="usage:pipelining"></a>
+
+#### Pipelining
+
 The `pipeline` method allows you to send multiple commands to the Redis server without having to wait for the replies. Using pipelining can be useful if you need to send a large number of commands as you will not be paying the cost of round-trip time for every single call.
 
 ```
@@ -78,6 +84,39 @@ $replies = $redis->pipeline(function($redis)
 
 > Note that pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node.
 {.warning}
+
+<a id="usage:pubsub"></a>
+
+#### Pub/Sub
+
+The `subscribeTo` and `subscribeToPattern` methods allow you to subscribe to channels or [patterns](https://redis.io/commands/psubscribe) matching channel names.
+
+> Message subscribers are blocking and should *not* be used in controllers. Command line [commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks.
+
+```
+$redis->subscribeTo(['channel1', 'channel2'], function($message)
+{
+	$this->write($message);
+});
+```
+
+By default the subscribers will only receive messages (`message` and `pmessage`). You can however subscribe to more messages types using the optional third parameter.
+
+```
+$redis->subscribeTo(['channel1', 'channel2'], function($message)
+{
+	$this->write($message);
+}, ['message', 'subscribe', 'pong']);
+```
+
+The message passed to the subscriber is an instance of the `Message` object. It implements the `__toString` method so you can treat it like a string but there are also a set of methods available if you want to access some additional information about the message.
+
+| Method       | Description                                     |
+|--------------|-------------------------------------------------|
+| getType()    | Returns the message type                        |
+| getChannel() | Returns the channel name the message was set to |
+| getPattern() | Returns the channel pattern that was matched    |
+| getBody()    | Returns the message body                        |
 
 <a id="usage:magic_shortcut"></a>
 
