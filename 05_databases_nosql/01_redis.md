@@ -2,13 +2,12 @@
 
 --------------------------------------------------------
 
-* [Usage](#usage)
-	- [Basics](#usage:basics)
-	- [Pipelining](#usage:pipelining)
-	- [Pub/Sub](#usage:pub_sub)
-		- [Publishing](#usage:pub_sub:publishing)
-		- [Subscribing](#usage:pub_sub:subscribing)
-	- [Magic shortcut](#usage:magic_shortcut)
+* [Basics](#basics)
+	- [Magic shortcut](#basics:magic_shortcut)
+* [Pipelining](#pipelining)
+* [Pub/Sub](#pub_sub)
+	- [Publishing](#pub_sub:publishing)
+	- [Subscribing](#pub_sub:subscribing)
 
 --------------------------------------------------------
 
@@ -16,13 +15,9 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+<a id="basics"></a>
 
-### Usage
-
-<a id="usage:basics"></a>
-
-#### Basics
+### Basics
 
 Creating a database connection is done using the `ConnectionManager::connection()` method.
 
@@ -66,9 +61,21 @@ $redis->configGet('*max-*-entries*');
 $redis->config_get('*max-*-entries*');
 ```
 
-<a id="usage:pipelining"></a>
+<a id="usage:magic_shortcut"></a>
 
-#### Pipelining
+#### Magic shortcut
+
+You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
+
+```
+$exists = $this->redis->exists('drinks');
+```
+
+--------------------------------------------------------
+
+<a id="pipelining"></a>
+
+### Pipelining
 
 The `pipeline` method allows you to send multiple commands to the Redis server without having to wait for the replies. Using pipelining can be useful if you need to send a large number of commands as you will not be paying the cost of round-trip time for every single call.
 
@@ -87,13 +94,15 @@ $replies = $redis->pipeline(function($redis)
 > Note that pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node.
 {.warning}
 
-<a id="usage:pub_sub"></a>
+--------------------------------------------------------
 
-#### Pub/Sub
+<a id="pub_sub"></a>
 
-<a id="usage:pub_sub:publishing"></a>
+### Pub/Sub
 
-##### Publishing
+<a id="pub_sub:publishing"></a>
+
+#### Publishing
 
 You can publish messages to channels using the `publish` method. The first parameter is the channel name while the second parameter is your message. The method will return the number of subscribers that have received the message.
 
@@ -101,9 +110,9 @@ You can publish messages to channels using the `publish` method. The first param
 $this->redis->publish('channel1', 'Hello, World!');
 ```
 
-<a id="usage:pub_sub:subscribing"></a>
+<a id="pub_sub:subscribing"></a>
 
-##### Subscribing
+#### Subscribing
 
 The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
@@ -135,13 +144,3 @@ The message passed to the subscriber is an instance of the `Message` object. It 
 | getChannel() | Returns the channel name the message was set to |
 | getPattern() | Returns the channel pattern that was matched    |
 | getBody()    | Returns the message body                        |
-
-<a id="usage:magic_shortcut"></a>
-
-#### Magic shortcut
-
-You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
-
-```
-$exists = $this->redis->exists('drinks');
-```
