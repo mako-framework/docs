@@ -6,6 +6,8 @@
 	- [Basics](#usage:basics)
 	- [Pipelining](#usage:pipelining)
 	- [Pub/Sub](#usage:pub_sub)
+		- [Publishing](#usage:pub_sub:publishing)
+		- [Subscribing](#usage:pub_sub:subscribing)
 	- [Magic shortcut](#usage:magic_shortcut)
 
 --------------------------------------------------------
@@ -88,6 +90,20 @@ $replies = $redis->pipeline(function($redis)
 <a id="usage:pub_sub"></a>
 
 #### Pub/Sub
+
+<a id="usage:pub_sub:publishing"></a>
+
+##### Publishing
+
+You can publish messages to channels using the `publish` method. The first parameter is the channel name while the second parameter is your message. The method will return the number of subscribers that have received the message.
+
+```
+$this->redis->publish('channel1', 'Hello, World!');
+```
+
+<a id="usage:pub_sub:subscribing"></a>
+
+##### Subscribing
 
 The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
