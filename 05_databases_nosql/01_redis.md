@@ -116,7 +116,7 @@ $this->redis->publish('channel1', 'Hello, World!');
 
 The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
-> Message subscribers are blocking and should *not* be used in controllers. Command line [commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks.
+> Message subscribers are blocking and should *not* be used in controllers. Command line [commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks. You should also set the `timeout` value of the connection used to subscribe to `-1` in your redis configuration file to avoid dropped connections while waiting for new messages.
 
 ```
 $redis->subscribeTo(['channel1', 'channel2'], function($message)
