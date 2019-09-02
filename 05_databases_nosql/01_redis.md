@@ -109,6 +109,8 @@ $redis->subscribeTo(['channel1', 'channel2'], function($message)
 }, ['message', 'subscribe', 'pong']);
 ```
 
+You can stop subscribing at any time by returning `false` from the subscriber closure.
+
 The message passed to the subscriber is an instance of the `Message` object. It implements the `__toString` method so you can treat it like a string but there are also a set of methods available if you want to access some additional information about the message.
 
 | Method       | Description                                     |
