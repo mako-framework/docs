@@ -89,7 +89,7 @@ $replies = $redis->pipeline(function($redis)
 
 #### Pub/Sub
 
-The `subscribeTo` and `subscribeToPattern` methods allow you to subscribe to channels or [patterns](https://redis.io/commands/psubscribe) matching channel names.
+The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
 > Message subscribers are blocking and should *not* be used in controllers. Command line [commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks.
 
