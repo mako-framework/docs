@@ -145,7 +145,7 @@ foreach($persons as $person)
 }
 ```
 
-> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](http://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
+> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](https://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
 {.warning}
 
 In addition to using the `yield` method to process large amounts of data you can also use the `batch` method. The default batch size is a 1000 records but you can override this using the optional second parameter.
@@ -203,7 +203,7 @@ You can also insert data using the `insertAndGetId` method. It will create the r
 $query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
-> When working with [PostgreSQL](http://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
+> When working with [PostgreSQL](https://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
 
 --------------------------------------------------------
 
@@ -701,9 +701,9 @@ $query->table('articles')->update(['meta->bar' => json_encode(0)]);
 
 ### Array and JSON representations of results
 
-You can convert both single result and result set objects to arrays and JSON using the `toArray` and `toJson` methods respectively. JSON encoding of your results can also be achieved by using the [`json_encode`](http://php.net/manual/en/function.json-encode.php) function or by casting the objects to strings.
+You can convert both single result and result set objects to arrays and JSON using the `toArray` and `toJson` methods respectively. JSON encoding of your results can also be achieved by using the [`json_encode`](https://php.net/manual/en/function.json-encode.php) function or by casting the objects to strings.
 
-> The `toJson` method accepts the same optional option flags as the [`json_encode`](http://php.net/manual/en/function.json-encode.php) function.
+> The `toJson` method accepts the same optional option flags as the [`json_encode`](https://php.net/manual/en/function.json-encode.php) function.
 
 ```
 $json = (string) $query->table('articles')->select(['id', 'title', 'content'])->limit(10)->all();

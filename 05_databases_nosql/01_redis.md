@@ -8,10 +8,11 @@
 * [Pub/Sub](#pub_sub)
 	- [Publishing](#pub_sub:publishing)
 	- [Subscribing](#pub_sub:subscribing)
+* [Monitor](#monitor)
 
 --------------------------------------------------------
 
-The Redis client provides a simple and consistent way of communicating with a [Redis](http://redis.io) server.
+The Redis client provides a simple and consistent way of communicating with a [Redis](https://redis.io) server.
 
 --------------------------------------------------------
 
@@ -31,7 +32,7 @@ $redis = $this->redis->connection();
 $redis = $this->redis->connection('mydb');
 ```
 
-The Redis client uses the magic `__call` method to build commands method so every current (and future) [Redis command](http://redis.io/commands) is a valid method.
+The Redis client uses the magic `__call` method to build commands method so every current (and future) [Redis command](https://redis.io/commands) is a valid method.
 
 ```
 // Add some dummy data
@@ -116,7 +117,7 @@ $this->redis->publish('channel1', 'Hello, World!');
 
 The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
-> Message subscribers are blocking and should *not* be used in controllers. Command line [commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks. You should also set the `timeout` value of the connection used to subscribe to `-1` in your redis configuration file to avoid dropped connections while waiting for new messages.
+> Message subscribers are blocking and should *not* be used in controllers. [Reactor commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks. You should also set the `timeout` value of the connection used to subscribe to `-1` in your redis configuration file to avoid dropped connections while waiting for new messages.
 
 ```
 $redis->subscribeTo(['channel1', 'channel2'], function($message)
@@ -144,3 +145,24 @@ The message passed to the subscriber is an instance of the `Message` object. It 
 | getChannel() | Returns the channel name the message was set to |
 | getPattern() | Returns the channel pattern that was matched    |
 | getBody()    | Returns the message body                        |
+
+--------------------------------------------------------
+
+<a id="monitor"></a>
+
+### Monitor
+
+The `monitor` method can be useful when debugging applications that use Redis. Once called the server will stream back every command processed by the server.
+
+> The method should only be used in a [reactor command](:base_url:/docs/:version:/command-line:commands). You should also set the `timeout` value of the connection used to monitor to `-1` in your redis configuration file to avoid dropped connections while waiting for new commands.
+
+```
+$redis->monitor(function($command)
+{
+	$this->write($command);
+});
+```
+
+You can stop the monitor by returning `false` from your monitor closure.
+
+> Note that he connection is closed as soon as the monitor closure returns `false`.

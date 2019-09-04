@@ -362,7 +362,7 @@ Rendering the child template will result in the HTML document displayed below.
 
 ### Custom view renderers
 
-Mako also makes it possible to use custom view renderers such as [Twig](http://twig.sensiolabs.org/) or [Smarty](http://www.smarty.net/).
+Mako also makes it possible to use custom view renderers such as [Twig](https://twig.symfony.com) or [Smarty](https://www.smarty.net).
 
 Registering a custom renderer is done using the `extend` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
 

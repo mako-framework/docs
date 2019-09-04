@@ -210,7 +210,7 @@ $newCollection = $collection->map(function($value, $key)
 });
 ```
 
-You can filter a collection and remove unwanted items using a callable with the `filter` method. The callable can also accept a second parameter if you need to filter items using the key. If no callable is passed then it will just filter out all [`falsy`](http://php.net/manual/en/language.types.boolean.php#language.types.boolean.casting) values.
+You can filter a collection and remove unwanted items using a callable with the `filter` method. The callable can also accept a second parameter if you need to filter items using the key. If no callable is passed then it will just filter out all [`falsy`](https://php.net/manual/en/language.types.boolean.php#language.types.boolean.casting) values.
 
 ```
 $collection = new Collection([1, 2, 3, 'foo', 4]);

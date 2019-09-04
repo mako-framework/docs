@@ -225,9 +225,9 @@ The following validation rules are included with Mako:
 | max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
 | mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                             |
 
-> The default hash algorithm for the `hash` and `hmac` rules is `sha256`. Any algorithm supported by [`hash_file`](http://php.net/manual/en/function.hash-file.php) can be used.
+> The default hash algorithm for the `hash` and `hmac` rules is `sha256`. Any algorithm supported by [`hash_file`](https://php.net/manual/en/function.hash-file.php) can be used.
 
-> The `max_filesize` rule expects [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+> The `max_filesize` rule expects [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 >
 > The `hash`, `hmac`, and `mimetype` rules expect [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 >
@@ -244,9 +244,9 @@ The following validation rules are included with Mako:
 | max_dimensions   | Check that the image is smaller than or equal to the max dimensions (`max_dimensions(800, 600)`). |
 | min_dimensions   | Check that the image is larger than or equal to the min dimensions (`min_dimensions(800, 600)`).  |
 
-> The image validation rules expect [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+> The image validation rules expect [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 
-> The rules use the [`getimagesize`](http://php.net/manual/en/function.getimagesize.php) function to get the image size. You should make sure that the file you're validating is an image using the `mimetype` rule before using any of the image specific rules.
+> The rules use the [`getimagesize`](https://php.net/manual/en/function.getimagesize.php) function to get the image size. You should make sure that the file you're validating is an image using the `mimetype` rule before using any of the image specific rules.
 {.warning}
 
 <a id="validation_rules:session"></a>

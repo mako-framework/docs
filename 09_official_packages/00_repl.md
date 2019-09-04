@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-The Mako REPL package is a runtime developer console, interactive debugger and [REPL](https://en.wikipedia.org/wiki/Read-eval-print_loop) built on top of the awesome [Psy Shell](http://psysh.org/).
+The Mako REPL package is a runtime developer console, interactive debugger and [REPL](https://en.wikipedia.org/wiki/Read-eval-print_loop) built on top of the awesome [Psy Shell](https://psysh.org).
 
 --------------------------------------------------------
 

@@ -6,7 +6,7 @@
 
 --------------------------------------------------------
 
-The UUID class contains methods used to validate and generate [UUIDs](http://en.wikipedia.org/wiki/Universally_unique_identifier).
+The UUID class contains methods used to validate and generate [UUIDs](https://en.wikipedia.org/wiki/Universally_unique_identifier).
 
 --------------------------------------------------------
 

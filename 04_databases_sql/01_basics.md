@@ -66,7 +66,7 @@ The `Connection::yield()` method executes a query and returns a generator that l
 $rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 ```
 
-> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](http://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
+> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](https://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
 {.warning}
 
 The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set.
@@ -244,7 +244,7 @@ $rows = $connection->table('foo')->where('bar', '=', $bar)->all();
 
 ### Accessing the underlying PDO instance
 
-You can also access the [PDO](http://php.net/manual/en/book.pdo.php) object directly when needed.
+You can also access the [PDO](https://php.net/manual/en/book.pdo.php) object directly when needed.
 
 ```
 $serverVersion = $connection->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);

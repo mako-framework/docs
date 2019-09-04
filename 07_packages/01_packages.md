@@ -11,7 +11,7 @@
 
 --------------------------------------------------------
 
-Packages are installed using [composer](http://packagist.org/) and can be used to add, extend or override functionality.
+Packages are installed using [composer](https://packagist.org) and can be used to add, extend or override functionality.
 
 --------------------------------------------------------
 
@@ -45,7 +45,7 @@ class FooPackage extends Package
 
 You also have to set the name of your package in the composer.json file. This is also where you define the type to autoloading to use when loading classes from your package (PSR-4 is recommended).
 
-The example file below only contains the bare minimum so head over to the [composer website](https://getcomposer.org/) for a full overview of the complete composer.json schema.
+The example file below only contains the bare minimum so head over to the [composer website](https://getcomposer.org) for a full overview of the complete composer.json schema.
 
 ```
 {
@@ -128,7 +128,7 @@ protected $commands =
 
 ### Package installation
 
-Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org/) command and add the package "boot" class to the list of packages in your `app/config/application.php` configuration file.
+Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org) command and add the package "boot" class to the list of packages in your `app/config/application.php` configuration file.
 
 ```
 composer require <vendor>/<package name>
@@ -148,6 +148,6 @@ composer require acme/foo
 
 ### Publishing packages
 
-Publishing your packages is very easy and you can read all about it on the [packagist.org](http://packagist.org/) website.
+Publishing your packages is very easy and you can read all about it on the [packagist.org](https://packagist.org) website.
 
 You can also host your own private repository if you don't want your code to be publicly available. You can read more about how to set up and manage your own repository on the [getcomposer.org](https://getcomposer.org/doc/05-repositories.md#hosting-your-own) website.

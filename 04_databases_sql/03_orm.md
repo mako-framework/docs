@@ -280,7 +280,7 @@ $user = $article->user;
 
 #### Many to many
 
-The `many to many` relation requires a [junction table](http://en.wikipedia.org/wiki/Junction_table) between the two related tables. The name of the junction table should be the names of the two tables you want to join in alphabetical order separated by an underscore.
+The `many to many` relation requires a [junction table](https://en.wikipedia.org/wiki/Junction_table) between the two related tables. The name of the junction table should be the names of the two tables you want to join in alphabetical order separated by an underscore.
 
 ![junction table](:base_url:/assets/img/junctionTable.png)
 

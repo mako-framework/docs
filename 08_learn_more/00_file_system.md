@@ -143,7 +143,7 @@ The `info` method will return a `FileInfo` instance.
 $info = $this->fileSystem->info('/foo/bar.txt');
 ```
 
-The `file` method will return a [SplFileObject](http://php.net/manual/en/class.splfileobject.php) instance.
+The `file` method will return a [SplFileObject](https://php.net/manual/en/class.splfileobject.php) instance.
 
 ```
 $file = $this->fileSystem->file('/foo/bar.txt', 'r');
@@ -155,7 +155,7 @@ $file = $this->fileSystem->file('/foo/bar.txt', 'r');
 
 ### File info
 
-You can create a new `FileInfo` instance using the constructor or by getting an instance via the `FileSystem::info()` method. The `FileInfo` class extends the [`SplFileInfo`](http://php.net/manual/en/class.splfileinfo.php) class with a set of useful methods that we'll document below.
+You can create a new `FileInfo` instance using the constructor or by getting an instance via the `FileSystem::info()` method. The `FileInfo` class extends the [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php) class with a set of useful methods that we'll document below.
 
 ```
 $info = new FileInfo('/foo/bar.txt');

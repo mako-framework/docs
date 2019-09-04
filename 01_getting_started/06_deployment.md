@@ -10,7 +10,7 @@
 
 --------------------------------------------------------
 
-Mako works well with all major webservers but we suggest using [Nginx](http://nginx.org) along with [php-fpm](https://php-fpm.org) for optimal performance.
+Mako works well with all major webservers but we suggest using [Nginx](https://nginx.org) along with [php-fpm](https://php-fpm.org) for optimal performance.
 
 --------------------------------------------------------
 
@@ -54,7 +54,7 @@ server
 ```
 {.language-nginx}
 
-> You can also use php-fpm over a unix socket instead of tcp. Just make sure that the [rlimit_files](http://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
+> You can also use php-fpm over a unix socket instead of tcp. Just make sure that the [rlimit_files](https://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
 
 --------------------------------------------------------
 
@@ -79,7 +79,7 @@ composer dump-autoload --optimize --no-dev --classmap-authoritative
 
 #### OPcache
 
-You should make sure that your production server has the [OPcache](http://php.net/manual/en/book.opcache.php) extension installed and enabled. OPcache will improve PHP performance by storing your application as compiled bytecode in shared memory, thereby removing the need for PHP to load and parse scripts on each request.
+You should make sure that your production server has the [OPcache](https://php.net/manual/en/book.opcache.php) extension installed and enabled. OPcache will improve PHP performance by storing your application as compiled bytecode in shared memory, thereby removing the need for PHP to load and parse scripts on each request.
 
 The following OPcache settings have been known to work well with a Mako application in production:
 
@@ -96,4 +96,4 @@ opcache.fast_shutdown=1
 
 > Note that setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
 >
-> This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](http://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.
+> This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](https://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.

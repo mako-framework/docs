@@ -37,7 +37,7 @@ $hasher = new Bcrypt;
 $hahser = new Bcrypt(['cost' => 14]);
 ```
 
-> Check out the official [PHP documentation](http://php.net/manual/en/function.password-hash.php) for details regarding the different algorithm options.
+> Check out the official [PHP documentation](https://php.net/manual/en/function.password-hash.php) for details regarding the different algorithm options.
 
 The `create` method will return a hash of the provided password.
 

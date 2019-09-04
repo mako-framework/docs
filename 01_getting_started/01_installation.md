@@ -25,7 +25,7 @@ If you plan to use the database library then you'll also need to install `ext-pd
 
 ### Setup
 
-Installing Mako is easy and can be with done in a few simple steps thanks to [composer](https://packagist.org/).
+Installing Mako is easy and can be with done in a few simple steps thanks to [composer](https://packagist.org).
 
 First you'll have to create a new project:
 

@@ -10,7 +10,7 @@
 
 The I18n class makes it easy to create a multilingual web application.
 
-The name of a language pack should use the following convention: `en_US` ([ISO 639-1](http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language code and [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code).
+The name of a language pack should use the following convention: `en_US` ([ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language code and [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code).
 
 The default language of your application is defined in the `app/config/application.php` file.
 

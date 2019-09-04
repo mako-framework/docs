@@ -141,7 +141,7 @@ $this->session->reflash(['success', 'error']);
 
 ##### Token
 
-The `getToken` returns a token that can be used in forms and AJAX requests to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
+The `getToken` returns a token that can be used in forms and AJAX requests to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
 ```
 $token = $this->session->getToken();
@@ -169,7 +169,7 @@ $token = $this->session->regenerateToken();
 $token = $this->session->regenerateToken();
 ```
 
-The `generateOneTimeToken` method allows you to generate a one time token that can be used in forms to prevent [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery).
+The `generateOneTimeToken` method allows you to generate a one time token that can be used in forms to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
 ```
 $token = $this->session->generateOneTimeToken();
