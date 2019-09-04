@@ -69,7 +69,7 @@ $redis->config_get('*max-*-entries*');
 You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
 
 ```
-$exists = $this->redis->exists('drinks');
+$exists = $redis->exists('drinks');
 ```
 
 --------------------------------------------------------
@@ -108,7 +108,7 @@ $replies = $redis->pipeline(function($redis)
 You can publish messages to channels using the `publish` method. The first parameter is the channel name while the second parameter is your message. The method will return the number of subscribers that have received the message.
 
 ```
-$this->redis->publish('channel1', 'Hello, World!');
+$redis->publish('channel1', 'Hello, World!');
 ```
 
 <a id="pub_sub:subscribing"></a>
