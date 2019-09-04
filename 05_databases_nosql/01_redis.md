@@ -163,6 +163,6 @@ $redis->monitor(function($command)
 });
 ```
 
-You can stop the monitor by returning `false` from your monitor closure.
+You can stop the monitor at any time by returning `false` from your monitor closure.
 
 > Note that he connection is closed as soon as the monitor closure returns `false`.
