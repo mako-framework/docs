@@ -89,7 +89,7 @@ $body = $this->request->getRawBodyAsStream();
 
 $storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
 
-$filesize = stream_copy_to_stream($body, $storageStream);
+$fileSize = stream_copy_to_stream($body, $storageStream);
 ```
 
 --------------------------------------------------------
@@ -216,7 +216,7 @@ The `UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/lear
 | isUploaded()          | Returns `true` if the file is an actual upload and `false` if not             |
 | moveTo($path)         | Moves the file to the specified storage location                              |
 
-> The values reported by the client should not be trusted (e.g. use the `getSize` method to retrieve the actual filesize).
+> The mime type and size values reported by the client should not be trusted (e.g. use the `getSize` method to retrieve the actual file size).
 {.warning}
 
 --------------------------------------------------------
