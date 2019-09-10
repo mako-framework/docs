@@ -87,7 +87,7 @@ The `getRawBodyAsStream` method returns the raw request body as a stream. This c
 ```
 $body = $this->request->getRawBodyAsStream();
 
-$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $fileName, 'w');
+$storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $filename, 'w');
 
 $fileSize = stream_copy_to_stream($body, $storageStream);
 ```
