@@ -222,8 +222,8 @@ The following validation rules are included with Mako:
 | hash                     | Checks that the file produces the expected hash (`hash("<expected_hash>")` or `hash("<expected_hash>", "<algorithm>")`).                                                               |
 | hmac                     | Checks that the file produces the expected hmac (`hmac("<expected_hmac>", "key")` or `hmac("<expected_hmac>", "key", "<algorithm>")`).                                                 |
 | is_uploaded              | Checks that the file is a successful upload.                                                                                                                                           |
-| max_filesize             | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
-| mimetype                 | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                             |
+| max_file_size            | Checks that the file is smaller or equal in size to the provided limit (`max_filesize("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
+| mime_type                | Checks that the file is of the specified mimetype(s) (`mimetype("image/png")` or `mimetype(["image/png", "image/jpeg"])`).                                                             |
 
 > The default hash algorithm for the `hash` and `hmac` rules is `sha256`. Any algorithm supported by [`hash_file`](https://php.net/manual/en/function.hash-file.php) can be used.
 
