@@ -223,11 +223,12 @@ The following validation rules are included with Mako:
 | hmac                     | Checks that the file produces the expected hmac (`hmac("<expected_hmac>", "key")` or `hmac("<expected_hmac>", "key", "<algorithm>")`).                                                  |
 | is_uploaded              | Checks that the file is a successful upload.                                                                                                                                            |
 | max_file_size            | Checks that the file is smaller or equal in size to the provided limit (`max_file_size("1MiB")` The accepted size units are `KiB`, `MiB`, `GiB`, `TiB`, `PiB`, `EiB`, `ZiB` and `YiB`). |
+| max_filename_length      | Checks that the filename does not exeed the maximum allowed filename length (`max_filename_length(10)`).                                                                                |
 | mime_type                | Checks that the file is of the specified mime type(s) (`mime_type("image/png")` or `mime_type(["image/png", "image/jpeg"])`).                                                           |
 
 > The default hash algorithm for the `hash` and `hmac` rules is `sha256`. Any algorithm supported by [`hash_file`](https://php.net/manual/en/function.hash-file.php) can be used.
 
-> The `max_file_size` rule expects [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
+> The `max_file_size` and `max_filename_length` rules expect [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php), [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 >
 > The `hash`, `hmac`, and `mime type` rules expect [`FileInfo`](:base_url:/docs/:version:/learn-more:file-system#file_info) or [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 >
