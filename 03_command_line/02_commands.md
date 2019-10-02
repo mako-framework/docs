@@ -397,9 +397,9 @@ $escaped = $this->output->getFormatter()->escape($string);
 
 ### Calling commands from commands
 
-If you need to call a command from another command then you can use the `FireTrait`.
+If you need to call a command from within another command then you can use the `FireTrait`.
 
-The `fire` method executes your command in a separate process and lets you handle the output using a closure.
+The `fire` method executes your command in a separate process and it lets you handle the output using the optional second parameter.
 
 ```
 <?php

@@ -113,6 +113,22 @@ The `truncate` method will truncate the contents of the file. There's an optiona
 $this->fileSystem->truncate('/foo/bar.txt');
 ```
 
+The `getDiskSize` method returns the total size of a filesystem or disk partition in bytes.
+
+```
+$diskSize = $this->fileSystem->getDiskSize();
+
+$diskSize = $this->fileSystem->getDiskSize('/mnt/filesystem');
+```
+
+The `getFreeSpaceOnDisk` method returns the total number of available bytes on the filesystem or disk partition.
+
+```
+$freeSpace = $this->fileSystem->getFreeSpaceOnDisk();
+
+$diskSize = $this->fileSystem->getFreeSpaceOnDisk('/mnt/filesystem');
+```
+
 The `include` method will include a file.
 
 ```
