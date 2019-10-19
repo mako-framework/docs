@@ -121,14 +121,12 @@ It is also possible to use one of the following chainable methods instead of set
 
 | Method name       | Description                   |
 |-------------------|-------------------------------|
-| multipleChoices   | Sets the status code to `300` |
 | movedPermanently  | Sets the status code to `301` |
 | found             | Sets the status code to `302` |
 | seeOther          | Sets the status code to `303` |
-| notModified       | Sets the status code to `304` |
-| useProxy          | Sets the status code to `305` |
 | temporaryRedirect | Sets the status code to `307` |
 | permanentRedirect | Sets the status code to `308` |
+| getStatus         | Returns the status code       |
 
 <a id="controller_helpers:stream_response"></a>
 
@@ -149,12 +147,14 @@ return $this->streamResponse(function($stream)
 }, 'text/plain');
 ```
 
-You can also set the content type and character set using the following chainable methods.
+You can also set the content type and character set using the following methods.
 
-| Method name | Description            |
-|-------------|------------------------|
-| setType     | Sets the content type  |
-| setCharset  | Sets the character set |
+| Method name | Description               |
+|-------------|---------------------------|
+| setType     | Sets the content type     |
+| getType     | Returns the content type  |
+| setCharset  | Sets the character set    |
+| getCharset  | Returns the character set |
 
 > Stream responses might not always work as expected as some webservers and reverse proxies will buffer the output before sending it.
 
@@ -174,12 +174,14 @@ If you want your API endpoint to be able to serve JSONP as well then you'll have
 return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 ```
 
-You can also set the character set and status code using the following chainable methods.
+You can also set the character set and status code using the following methods.
 
-| Method name | Description            |
-|-------------|------------------------|
-| setCharset  | Sets the character set |
-| setStatus   | Sets the status code   |
+| Method name | Description               |
+|-------------|---------------------------|
+| setCharset  | Sets the character set    |
+| getCharset  | Returns the character set |
+| setStatus   | Sets the status code      |
+| getStatus   | Returns the status code   |
 
 --------------------------------------------------------
 

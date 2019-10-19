@@ -18,8 +18,6 @@ The cache library provides a simple and consistent interface to the most common 
 * Memory
 * NullStore
 * Redis
-* ZendDisk
-* ZendMemory
 * WinCache
 
 > The memory cache adapter is non-persistent and will be cleared between each request. The null adapter will not store any data.

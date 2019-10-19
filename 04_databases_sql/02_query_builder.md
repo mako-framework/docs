@@ -34,7 +34,6 @@ The query builder allows you to programmatically build SQL queries.
 
 The query builder currently supports the following dialects:
 
-* DB2
 * Firebird
 * MariaDB
 * MySQL
