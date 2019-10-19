@@ -117,7 +117,7 @@ The default status code is set to `302` but you can override it by using the cha
 return $this->redirectResponse('http://example.org')->setStatus(301);
 ```
 
-It is also possible to use one of the following chainable methods instead of setting the status code with the `setStatus` method.
+It is also possible to use the following methods to set and get the status code.
 
 | Method name       | Description                   |
 |-------------------|-------------------------------|
@@ -147,7 +147,7 @@ return $this->streamResponse(function($stream)
 }, 'text/plain');
 ```
 
-You can also set the content type and character set using the following methods.
+You can also set and get the content type and character set using the following methods.
 
 | Method name | Description               |
 |-------------|---------------------------|
@@ -174,7 +174,7 @@ If you want your API endpoint to be able to serve JSONP as well then you'll have
 return $this->jsonResponse([1, 2, 3])->asJsonpWith('callback');
 ```
 
-You can also set the character set and status code using the following methods.
+You can also set and get the character set and status code using the following methods.
 
 | Method name | Description               |
 |-------------|---------------------------|
