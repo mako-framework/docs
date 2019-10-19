@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-This guide takes you through the steps needed to migrate from Mako `6.2.x` to `6.3.x`.
+This guide takes you through the steps needed to migrate from Mako `6.2.x` to `6.3.x`. The release does not contain any breaking changes but there are a couple of deprecations. Follow this upgrade guide to future-proof your application.
 
 --------------------------------------------------------
 
@@ -15,7 +15,7 @@ This guide takes you through the steps needed to migrate from Mako `6.2.x` to `6
 
 ### Uploaded files
 
-The `UploadedFile::getName()` and `UploadedFile::getReportedType()` are deprecated and will be removed in Mako `7.0`. You can update your application and make it future-proof by replacing the method calls with `UploadedFile::getReportedFilename()` and `UploadedFile::getReportedMimeType()`.
+The `UploadedFile::getName()` and `UploadedFile::getReportedType()` are deprecated and will be removed in Mako `7.0`. You can replace the method calls with `UploadedFile::getReportedFilename()` and `UploadedFile::getReportedMimeType()`.
 
 --------------------------------------------------------
 
@@ -23,4 +23,4 @@ The `UploadedFile::getName()` and `UploadedFile::getReportedType()` are deprecat
 
 ### Validation rules
 
-The `max_filesize` rule has been renamed to `max_file_size` and the `mimetype` rule has been renamed to `mime_type`. They will still work until Mako `7.0` but you should rename them in your code to keep your application future-proof.
+The `max_filesize` and `mimetype` rules have been deprecated and will be removed in Mako `7.0`. They have been renamed to `max_file_size` and `mime_type`.
