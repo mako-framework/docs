@@ -93,7 +93,7 @@ Note that we're using the `Key::decode()` method since we're assuming that your 
 
 ### Signing
 
-Signing strings allows you to verify both the data integrity and the authentication of your data. A HMAC (hash-based message authentication code) will be prepended to your string upon signing and stripped when validated.
+Signing strings allows you to verify both the data integrity and the authenticity of your data. A HMAC (hash-based message authentication code) will be prepended to your string upon signing and stripped when validated.
 
 You can easily sign strings with the application secret using the default signer instance.
 
