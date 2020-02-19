@@ -632,11 +632,11 @@ User::create($this->request->getPost()->all());
 
 // Update an existing record using mass assignment
 
-$article = User::get(1);
+$user = User::get(1);
 
-$article->assign($this->request->getPost()->all());
+$user->assign($this->request->getPost()->all());
 
-$article->save();
+$user->save();
 ```
 
 > The code above might seem like a good idea until a hacker adds an `is_admin` field to the POST data and gives himself admin privileges.
