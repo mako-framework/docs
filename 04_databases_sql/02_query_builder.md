@@ -640,7 +640,6 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 
 | RDBMS      | Exclusive lock          | Shared lock                 |
 |------------|-------------------------|-----------------------------|
-| DB2        | FOR UPDATE WITH RS      | FOR READ ONLY WITH RS       |
 | Firebird   | FOR UPDATE WITH LOCK    | WITH LOCK                   |
 | MySQL      | FOR UPDATE              | LOCK IN SHARE MODE          |
 | NuoDB      | FOR UPDATE              | LOCK IN SHARE MODE          |
