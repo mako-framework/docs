@@ -94,7 +94,7 @@ $cookies->add('name', 'value');
 
 $cookies->add('name', 'value', 3600);
 
-// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
+// You can also set the `path`, `domain`, `secure`, `httponly` and `samesite` options using the fourth parameter
 
 $cookies->add('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.org']);
 ```
@@ -106,7 +106,7 @@ The `delete` method allows you to delete both normal and signed cookies from the
 ```
 $cookies->delete('name');
 
-// You can also set the `path`, `domain`, `secure` and `httponly` options using the fourth parameter
+// You can also set the `path`, `domain`, `secure`, `httponly` and `samesite` options using the fourth parameter
 
 $cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
 ```
