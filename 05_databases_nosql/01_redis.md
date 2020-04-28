@@ -139,12 +139,12 @@ You can stop subscribing at any time by returning `false` from the subscriber cl
 
 The message passed to the subscriber is an instance of the `Message` object. It implements the `__toString` method so you can treat it like a string but there are also a set of methods available if you want to access some additional information about the message.
 
-| Method       | Description                                     |
-|--------------|-------------------------------------------------|
-| getType()    | Returns the message type                        |
-| getChannel() | Returns the channel name the message was set to |
-| getPattern() | Returns the channel pattern that was matched    |
-| getBody()    | Returns the message body                        |
+| Method       | Description                                      |
+|--------------|--------------------------------------------------|
+| getType()    | Returns the message type                         |
+| getChannel() | Returns the channel name the message was sent to |
+| getPattern() | Returns the channel pattern that was matched     |
+| getBody()    | Returns the message body                         |
 
 --------------------------------------------------------
 
