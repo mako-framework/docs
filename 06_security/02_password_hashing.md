@@ -15,11 +15,11 @@ Using `md5` or `sha1` hashes for storing passwords is **not recommended** as the
 
 ### Hashers
 
-| Hasher   | Requirements                                                   |
-|----------|----------------------------------------------------------------|
-| Bcrypt   | Always available                                               |
-| Argon2i  | Available if PHP (7.2+) has been compiled with Argon2i support |
-| Argon2id | Available if PHP (7.3+) has been compiled with Argon2i support |
+| Hasher   | Requirements                                            |
+|----------|---------------------------------------------------------|
+| Bcrypt   | Always available                                        |
+| Argon2i  | Available if PHP has been compiled with Argon2i support |
+| Argon2id | Available if PHP has been compiled with Argon2i support |
 
 --------------------------------------------------------
 
