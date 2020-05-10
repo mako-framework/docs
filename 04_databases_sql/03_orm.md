@@ -112,7 +112,7 @@ $article->save();
 You can then fetch the article by its primary key value like this:
 
 ```
-$article = Article::get(1); // Will return "false" if not found
+$article = Article::get(1); // Will return "null" if not found
 ```
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:

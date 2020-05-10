@@ -75,6 +75,8 @@ If you only want to retrieve a single row then you can use the `first` method.
 $person = $query->table('persons')->where('id', '=', 1)->first();
 ```
 
+> Note that the `first` method will return `null` if nothing is found.
+
 Fetching all rows is done using the `all` method.
 
 ```

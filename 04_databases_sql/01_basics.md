@@ -44,7 +44,7 @@ The `Connection::query()` method lets you execute a query. It returns `true` on 
 $connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 ```
 
-The `Connection::first()` method executes a query and returns the first row of the result set.
+The `Connection::first()` method executes a query and returns the first row of the result set or `null` if nothing is found.
 
 ```
 $row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
@@ -69,7 +69,7 @@ $rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 > Note that when using MySQL you might have to configure PDO to use [unbuffered queries](https://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
 {.warning}
 
-The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set.
+The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set or `null` if nothing is found.
 
 ```
 $email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);

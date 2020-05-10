@@ -65,7 +65,7 @@ if($cache->has('foo'))
 }
 ```
 
-The `get` method is used to retrieve data from the cache. The method returns `false` if the cached data has expired or if it is not found.
+The `get` method is used to retrieve data from the cache. The method returns `null` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->get('my_array');
@@ -82,13 +82,13 @@ $cached = $cache->getOrElse('foo', function()
 }, 30);
 ```
 
-The `getAndPut` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns `false` if the cached data has expired or if it is not found.
+The `getAndPut` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns `null` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->getAndPut('my_array', [1, 3, 4, 5], 3600);
 ```
 
-If you need to retrieve and remove a value then you can use the `getAndRemove` method. The method returns `false` if the cached data has expired or if it is not found.
+If you need to retrieve and remove a value then you can use the `getAndRemove` method. The method returns `null` if the cached data has expired or if it is not found.
 
 ```
 $cached = $cache->getAndRemove('my_array');
