@@ -506,7 +506,7 @@ If you want to add custom query criteria when counting related records then you 
 ```
 $articles = Article::withCountOf(['comments AS approved_comments_count' => function($query)
 {
-		$query->where('approved', '=', true);
+	$query->where('approved', '=', true);
 }])->limit(10)->all();
 ```
 
