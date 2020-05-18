@@ -15,6 +15,7 @@
 	- [Relation criteria](#relations:relation_criteria)
 	- [Creating related records](#relations:creating_related_records)
 	- [Eager loading](#relations:eager_loading)
+	- [Counting related records](#relations:counting_related_records)
 	- [Overriding naming conventions](#relations:overriding_naming_conventions)
 * [Automatic typecasting](#automatic_typecasting)
 	- [Scalars](#automatic_typecasting:scalars)
@@ -484,6 +485,29 @@ if(!$article->includes('comments'))
 {
 	$article->include(['comments', 'comments.user']);
 }
+```
+
+<a id="relations:counting_related_records"></a>
+
+#### Counting related records
+
+Sometimes you'll want to count the number of related records without having to execute a second query. This can easily be achieved using the `withCountOf` method.
+
+```
+$articles = Article::withCountOf('comments')->limit(10)->all();
+```
+
+Each `Article` object in the `$articles` result set will now have a `comments_count` property containing the number of comments related to each article.
+
+> You can also pass an array of relation names if you want to count the number of related records for multiple relations.
+
+If you want to add custom query criteria when counting related records then you can do so using a closure.
+
+```
+$articles = Article::withCountOf(['comments AS approved_comments_count' => function($query)
+{
+		$query->where('approved', '=', true);
+}])->limit(10)->all();
 ```
 
 <a id="relations:overriding_naming_conventions"></a>
