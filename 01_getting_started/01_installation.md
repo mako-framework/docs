@@ -13,7 +13,7 @@
 
 ### Requirements
 
-* PHP 7.2.0 or higher
+* PHP 7.3.0 or higher
 * `ext-json`
 * `ext-mbstring`
 
