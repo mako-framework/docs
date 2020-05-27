@@ -141,10 +141,10 @@ The user repository class comes with the following methods:
 
 | Method                   | Description                                                                    |
 |--------------------------|--------------------------------------------------------------------------------|
-| getByActionToken($token) | Returns the user associated with the token or `false` if none is found         |
-| getByAccessToken($token) | Returns the user associated with the token or `false` if none is found         |
-| getByEmail($email)       | Returns the user associated with the email address or `false` if none is found |
-| getById($id)             | Returns the user associated with the id or `false` if none is found            |
+| getByActionToken($token) | Returns the user associated with the token or `null` if none is found         |
+| getByAccessToken($token) | Returns the user associated with the token or `null` if none is found         |
+| getByEmail($email)       | Returns the user associated with the email address or `null` if none is found |
+| getById($id)             | Returns the user associated with the id or `null` if none is found            |
 
 <a id="users_and_groups:groups"></a>
 
@@ -185,8 +185,8 @@ The group repository class comes with the following methods:
 
 | Method           | Description                                                             |
 |------------------|-------------------------------------------------------------------------|
-| getById($id)     | Returns the group associated with the id or `false` if none is found    |
-| getByName($name) | Returns the group associated with the name or `false` if none is found  |
+| getById($id)     | Returns the group associated with the id or `null` if none is found    |
+| getByName($name) | Returns the group associated with the name or `null` if none is found  |
 
 --------------------------------------------------------
 
