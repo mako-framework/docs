@@ -69,7 +69,7 @@ $redis->config_get('*max-*-entries*');
 You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
 
 ```
-$exists = $redis->exists('drinks');
+$exists = $this->redis->exists('drinks');
 ```
 
 --------------------------------------------------------
