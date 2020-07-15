@@ -113,13 +113,15 @@ $cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
 
 The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method               | Description                                                           |
-|----------------------|-----------------------------------------------------------------------|
-| setOptions($options) | Allows you to override the default cookie options                     |
-| has($name)           | Returns `true` if the response includes the cookie and `false` if not |
-| remove($name)        | Removes the cookie from the response                                  |
-| clear()              | Removes all cookies from the response                                 |
-| all()                | Returns an array containing all the cookies                           |
+| Method                                      | Description                                                           |
+|---------------------------------------------|-----------------------------------------------------------------------|
+| setOptions($options)                        | Allows you to override the default cookie options                     |
+| addRaw($name, $value, $ttl, $options)       | Adds a raw unsigned cookie                                            |
+| addRawSigned($name, $value, $ttl, $options) | Adds a raw signed cookie                                              |
+| has($name)                                  | Returns `true` if the response includes the cookie and `false` if not |
+| remove($name)                               | Removes the cookie from the response                                  |
+| clear()                                     | Removes all cookies from the response                                 |
+| all()                                       | Returns an array containing all the cookies                           |
 
 --------------------------------------------------------
 
