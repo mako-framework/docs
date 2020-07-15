@@ -60,6 +60,22 @@ var_dump($collection['foo']); // 'bar'
 
 > Accessing a non-existing key when using the collection as an array will result in a `OutOfBoundsException` exception.
 
+The `first` method will return the first item in the collection or `null` if the collection is empty.
+
+```
+$collection = new Collection(['foo', 'bar']);
+
+$first = $collection->first(); // foo
+```
+
+The `last` method will return the last item in the collection or `null` if the collection is empty.
+
+```
+$collection = new Collection(['foo', 'bar']);
+
+$last = $collection->last(); // bar
+```
+
 Deleting an item from the collection can be done using the `remove` method or by using the `unset` function while using the collection as an array.
 
 ```
