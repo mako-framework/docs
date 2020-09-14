@@ -14,10 +14,17 @@
     - [Command descriptions](#commands_command_descriptions)
     - [Command arguments](#commands_command_arguments)
 * [Database](#database)
+    - [Dropped support for DB2](#database_dropped_support_for_db2)
     - [New return values](#database_new_return_values)
     - [Subquery changes](#database_subquery_changes)
     - [Set operation changes](#database_set_operation_changes)
 * [Error handling](#error_handling)
+* [Gatekeeper](#gatekeeper)
+    - [New return values](#gatekeeper_new_return_values)
+* [HTTP](#http)
+    - [UploadedFile](#http_uploadedfile)
+    - [Redirect](#http_redirect)
+* [Validation](#validation)
 * [Views](#views)
 
 --------------------------------------------------------
@@ -152,6 +159,12 @@ public function getArguments(): array
 
 ### Database
 
+<a id="database_dropped_support_for_db2"></a>
+
+#### Dropped support for DB2
+
+Support for DB2 has been dropped. If you still want to use DB2 then you'll have to maintain your own DB2 connection and query builder classes.
+
 <a id="database_new_return_values"></a>
 
 #### New return values
@@ -237,6 +250,66 @@ $combinedSales = $query->table('sales2015')->unionAll()->table('sales2016')->all
 ### Error handling
 
 The `ErrorHandler::disableLoggingFor()` method has been removed. Use the new `ErrorHandler::dontLog()` method or the `application.error_handler.dont_log` [configuration key](https://github.com/mako-framework/app/blob/master/app/config/application.php#L243-L246) instead.
+
+--------------------------------------------------------
+
+<a id="gatekeeper"></a>
+
+### Gatekeeper
+
+<a id="gatekeeper_new_return_values"></a>
+
+#### New return values
+
+The following methods in the Gatekeeper library will now return `null` instead of `false` when unable to retrieve data:
+
+* `GroupRepositoryInterface::getByIdentifier()`
+* `GroupRepository::getById()`
+* `GroupRepository::getByName()`
+* `UserRepositoryInterface::getByIdentifier()`
+* `UserRepository::getByAccessToken()`
+* `UserRepository::getByActionToken()`
+* `UserRepository::getByEmail()`
+* `UserRepository::getById()`
+* `UserRepository::getByUsername()`
+
+--------------------------------------------------------
+
+<a id="http"></a>
+
+### HTTP
+
+<a id="http_uploadedfile"></a>
+
+#### UploadedFile
+
+The `UploadedFile::getName()` method has been renamed to `UploadedFile::getReportedFilename()` and the `UploadedFile::getReportedType()` method has been renamed to `UploadedFile::getReportedMimeType()`.
+
+<a id="http_redirect"></a>
+
+#### Redirect
+
+The following `Redirect` methods have been removed:
+
+* `Redirect::multipleChoices()`
+* `Redirect::notModified()`
+* `Redirect::notModified()`
+
+--------------------------------------------------------
+
+<a id="validation"></a>
+
+### Validation
+
+The following validation rule aliases have been removed:
+
+* `max_filesize`
+* `mimetype`
+
+You should update your application to use the following rule names instead:
+
+* `max_file_size`
+* `mime_type`
 
 --------------------------------------------------------
 
