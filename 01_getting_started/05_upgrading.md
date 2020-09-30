@@ -18,6 +18,7 @@
     - [New return values](#database_new_return_values)
     - [Subquery changes](#database_subquery_changes)
     - [Set operation changes](#database_set_operation_changes)
+    - [Miscellaneous](#database_miscellaneous)
 * [Error handling](#error_handling)
 * [Gatekeeper](#gatekeeper)
     - [New return values](#gatekeeper_new_return_values)
@@ -242,6 +243,36 @@ $combinedSales = $query->unionAll(function($query)
 
 $combinedSales = $query->table('sales2015')->unionAll()->table('sales2016')->all();
 ```
+
+<a id="database_miscellaneous"></a>
+
+#### Miscellaneous
+
+The `Query::orderByRaw()` and `Join::onRaw()` methods now have a new optional `$parameters` parameter altering the order of the optional parameters.
+
+```
+// Before:
+
+$query->orderByRaw('MIN(`some_column`)', 'DESC');
+
+// After:
+
+$query->orderByRaw('MIN(`some_column`)', [], 'DESC');
+```
+
+In most cases the recommended way of doing this would be by using the `Query::ascendingRaw()` or `Query::descendingRaw()` methods.
+
+```
+// Before:
+
+$query->onRaw('published_at', '<=', 'NOW()', 'OR');
+
+// After:
+
+$query->onRaw('published_at', '<=', 'NOW()', [], 'OR');
+```
+
+In most cases the recommended way of doing this would be by using the `Join::orOnRaw()` method.
 
 --------------------------------------------------------
 
