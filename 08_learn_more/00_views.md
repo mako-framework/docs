@@ -59,7 +59,7 @@ It is possible to auto assign variables to views using the view factory `autoAss
 ```
 $this->view->autoAssign('profile', function()
 {
-	['name' => 'Foobar'];
+	return ['name' => 'Foobar'];
 });
 ```
 
