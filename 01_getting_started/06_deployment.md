@@ -88,7 +88,6 @@ opcache.memory_consumption=256
 opcache.interned_strings_buffer=16
 opcache.max_accelerated_files=20000
 opcache.validate_timestamps=0
-opcache.fast_shutdown=1
 ```
 {.language-ini}
 
