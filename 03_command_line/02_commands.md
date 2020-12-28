@@ -90,13 +90,6 @@ If you want to manually register your commands then you'll have to do so in the 
 ],
 ```
 
-You can now call your custom command like this.
-
-```
-php reactor hello
-```
-{.language-none}
-
 <a id="basics:registering-commands:registration-of-package-commands"></a>
 
 ##### Registration of package commands
