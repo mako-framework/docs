@@ -65,15 +65,15 @@ class Hello extends Command
 
 You'll have to register your command with the reactor command line tool before you can use it and you can choose between automatic or manual registration.
 
+> You can use a combination of automatic and manual registration be we recommend choosing one method.
+
 <a id="basics:registering-commands:automatic-registration"></a>
 
 ##### Automatic registration
 
 <a id="basics:registering-commands:manual-registration"></a>
 
-If you add the `$command` property as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
-
-> You can use a combination of automatic and manual registration be we recommend choosing one method.
+If you add the `$command` property to your command class as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
 
 ```
 'commands_directory' => MAKO_APPLICATION_PATH . '/console/commands',
