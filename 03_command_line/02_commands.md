@@ -5,6 +5,9 @@
 * [Basics](#basics)
 	- [Getting started](#basics:getting-started)
 	- [Registering commands](#basics:registering-commands)
+		- [Automatic registration](#basics:registering-commands:automatic-registration)
+		- [Manual registration](#basics:registering-commands:manual-registration)
+		- [Registration of package commands](#basics:registering-commands:registration-of-package-commands)
 * [Input](#input)
 	- [Arguments and options](#input:arguments-and-options)
 		- [Flags](#input:arguments-and-options:flags)
@@ -41,6 +44,8 @@ use mako\reactor\Command;
 
 class Hello extends Command
 {
+	protected $command = 'Hello';
+
 	protected $description = 'Prints out "Hello, World!".';
 
 	public function execute()
@@ -50,17 +55,33 @@ class Hello extends Command
 }
 ```
 
+> Note that the `$command` property is only required when using automatic command registration.
+
 > You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
 
 <a id="basics:registering-commands"></a>
 
 #### Registering commands
 
-You'll have to register your command with the reactor command line tool before you can use it.
+You'll have to register your command with the reactor command line tool before you can use it and you can choose between automatic or manual registration.
 
-Commands are registered in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
+<a id="basics:registering-commands:automatic-registration"></a>
 
-Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
+##### Automatic registration
+
+<a id="basics:registering-commands:manual-registration"></a>
+
+If you add the `$command` property as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
+
+> You can use a combination of automatic and manual registration be we recommend choosing one method.
+
+```
+'commands_directory' => MAKO_APPLICATION_PATH . '/console/commands',
+```
+
+##### Manual registration
+
+If you want to manually register your commands then you'll have to do so in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
 
 ```
 'commands' =>
@@ -75,6 +96,12 @@ You can now call your custom command like this.
 php reactor hello
 ```
 {.language-none}
+
+<a id="basics:registering-commands:registration-of-package-commands"></a>
+
+##### Registration of package commands
+
+Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
 --------------------------------------------------------
 
