@@ -21,6 +21,16 @@ $returnValue = (new Retry(function()
 
 You can override the default values using the `$attempts` and `$wait` constructor parameters or by using the `setAttempts` and `setWait` methods. You can also enable exponential wait times by setting the `$exponentialWait` constructor parameter to `true` or by using the `exponentialWait` method.
 
+```
+$returnValue = (new Retry(function()
+{
+    // Some action that might fail
+}))
+->setAttempts(4)
+->setWait(25000)
+->exponentialWait()();
+```
+
 It is also possible to short-circuit the retry loop using a "decider" callable. If the callable returns `true` then execution will continue and if it returns `false` the exception will be thrown right away.
 
 ```
