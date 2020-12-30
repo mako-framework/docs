@@ -108,9 +108,9 @@ If you run your application on PHP 7.4 or greater then you can take advantage of
 php app/reactor app.generate_preloader
 ```
 
-The preloader script will be generated in the `/app/storage/` directory by default but you can override the output path using the `output-path` flag of the preloader generator.
+The preloader script will be generated in the `app/storage/` directory by default but you can override the output path using the `output-path` flag of the preloader generator.
 
-You can also add your own or additional Mako core classes to the preloader by adding a `preload.php` config file to your `/app/config/` directory.
+You can also add your own or additional Mako core classes to the preloader by adding a `preload.php` config file to your `app/config/` directory.
 
 ```
 <?php
