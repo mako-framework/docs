@@ -145,6 +145,13 @@ $container->registerContextualDependency(ClassB::class, FooBarInterface::class, 
 
 `ClassA` will now get the `FooBarImplementationA` implementation of the `FooBarInterface` while `ClassB` will get the `FooBarImplementationB` implementation.
 
+You can also register contextual dependencies for class methods.
+
+```
+$container->registerContextualDependency([ClassA::class, 'methodA'], FooBarInterface::class, FooBarImplementationA::class);
+$container->registerContextualDependency([ClassA::class, 'methodB'], FooBarInterface::class, FooBarImplementationB::class);
+```
+
 --------------------------------------------------------
 
 <a id="replacing_registered_dependencies"></a>

@@ -4,6 +4,7 @@
 
 * [File system](#file_system)
 * [File info](#file_info)
+* [Finder](#finder)
 
 --------------------------------------------------------
 
@@ -213,4 +214,48 @@ Validating files against the keyed hash is done using the `validateHmac` method.
 
 ```
 $valid = $info->validateHmac($hash, $key);
+```
+
+--------------------------------------------------------
+
+<a id="finder"></a>
+
+### Finder
+
+The finder class allows you to find files in the filesystem.
+
+```
+$finder = new Finder(['/files']);
+
+foreach($finder->find() as $file)
+{
+    echo $file;
+}
+```
+
+The `find` and `findAs` methods return generators so if you want to collect all files into an array then you can use the `iterator_to_array` function.
+
+```
+$files = iterator_to_array($finder->find());
+```
+
+By default the finder will search recursively down in the directory tree. You can limit the depth of the search by using the `setMaxDepth` method.
+
+```
+$finder->setMaxDepth(2);
+```
+
+You can also filter files using a regex pattern.
+
+```
+$finder->setPattern('/\.php$/'); // Only match files with a .php extension
+```
+
+In addition to the `find` method you can also use the `findAs` method that alows you iterate over objects instead of just strings containg the file path.
+
+```
+foreach($finder->findAs(FileInfo::class) as $fileInfo)
+{
+    echo $fileInfo->getMimeType();
+}
 ```

@@ -24,39 +24,41 @@ php reactor
 It should print something similar to the following on a default Mako installation.
 
 ```
-MAKO FRAMEWORK [ 6.0.0 ]
+MAKO FRAMEWORK [ 7.1.0 ]
 
 Usage:
 
 php reactor [command] [arguments] [options]
 
-Global options:
+Global arguments and options:
 
--------------------------------------------
-| Option | Description                    |
--------------------------------------------
-| --env  | Overrides the Mako environment |
-| --mute | Mutes all output               |
--------------------------------------------
+-------------------------------------------------------
+| Name    | Description                    | Optional |
+-------------------------------------------------------
+| command | Command name                   | Yes      |
+| --env   | Overrides the Mako environment | Yes      |
+| --help  | Displays helpful information   | Yes      |
+| --mute  | Mutes all output               | Yes      |
+-------------------------------------------------------
 
 Available commands:
 
--------------------------------------------------------------------------
-| Command             | Description                                     |
--------------------------------------------------------------------------
-| app.generate_key    | Generates a 256-bit encryption key.             |
-| app.generate_secret | Generates a new application secret.             |
-| app.routes          | Lists all registered routes.                    |
-| cache.clear         | Clears the cache.                               |
-| cache.remove        | Removes the chosen key from the cache.          |
-| greeting            | Greets the user.                                |
-| migrate.create      | Creates a new migration.                        |
-| migrate.down        | Rolls back the last batch of migrations.        |
-| migrate.reset       | Rolls back the last batch of migrations.        |
-| migrate.status      | Checks if there are any outstanding migrations. |
-| migrate.up          | Runs all outstanding migrations.                |
-| server              | Starts the local development server.            |
--------------------------------------------------------------------------
+----------------------------------------------------------------------------
+| Command                | Description                                     |
+----------------------------------------------------------------------------
+| app.generate_key       | Generates a 256-bit encryption key.             |
+| app.generate_preloader | Generates a opcache preloader script.           |
+| app.generate_secret    | Generates a new application secret.             |
+| app.routes             | Lists all registered routes.                    |
+| cache.clear            | Clears the cache.                               |
+| cache.remove           | Removes the chosen key from the cache.          |
+| migrate.create         | Creates a new migration.                        |
+| migrate.down           | Rolls back the last batch of migrations.        |
+| migrate.reset          | Resets the database schema.                     |
+| migrate.status         | Checks if there are any outstanding migrations. |
+| migrate.up             | Runs all outstanding migrations.                |
+| server                 | Starts the local development server.            |
+----------------------------------------------------------------------------
 ```
 {.language-none}
 

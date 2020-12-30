@@ -7,6 +7,7 @@
 * [Optimize Composer autoloading](#optimize_composer_autoloading)
 * [Configure PHP for performance](#configure_php_for_performance)
 	- [OPcache](#configure_php_for_performance:opcache)
+		- [Preloading](#configure_php_for_performance:opcache:preloading)
 
 --------------------------------------------------------
 
@@ -96,3 +97,29 @@ opcache.validate_timestamps=0
 > Note that setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
 >
 > This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](https://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.
+
+<a id="configure_php_for_performance:opcache:preloading"></a>
+
+##### Preloading
+
+If you run your application on PHP 7.4 or greater then you can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app.generate_preloader` command will generate a preloader script containing all core classes that all application will usually need in a web context.
+
+```
+php app/reactor app.generate_preloader
+```
+
+The preloader script will be generated in the `/app/storage/` directory by default but you can override the output path using the `output-path` flag of the preloader generator.
+
+You can also add your own or additional Mako core classes to the preloader by adding a `preload.php` config file to your `/app/config/` directory.
+
+```
+<?php
+
+return
+[
+	app\controllers\Index::class,
+	mako\database\connections\MySQL::class,
+];
+```
+
+> Note that the `app.generate_preloader` command will automatically add any missing dependencies to the list of preloaded classes to ensure full linking of classes, interfaces and traits.
