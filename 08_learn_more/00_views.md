@@ -298,15 +298,15 @@ Another useful feature is template inheritance. This allows you to define a pare
 <html lang="en">
 	<head>
 		<meta charset="{{$__charset__}}">
-		<title>{{block:title}}My Site{{endblock}}</title>
+		<title>{{block:'title'}}My Site{{endblock}}</title>
 	</head>
 	<body>
 		<h1>Header</h1>
 		<ul>
-		{{block:list}}{{endblock}}
+		{{block:'list'}}{{endblock}}
 		</ul>
 		<hr>
-		{{block:content}}{{endblock}}
+		{{block:'content'}}{{endblock}}
 		<hr>
 		Footer
 	</body>
@@ -318,14 +318,14 @@ You can then create a `child.tpl.php` template that extends the parent template.
 ```
 {% extends:'parent' %}
 
-{% block:title %}My Page - __PARENT__{% endblock %}
+{% block:'title' %}My Page - __PARENT__{% endblock %}
 
-{% block:list %}
+{% block:'list' %}
 	<li>Item 1</li>
 	<li>Item 2</li>
 {% endblock %}
 
-{% block:content %}
+{% block:'content' %}
 	This is the content.
 {% endblock %}
 ```
