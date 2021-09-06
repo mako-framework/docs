@@ -52,7 +52,7 @@ class Home extends Controller
 Passing parameters to your controller actions is easy. Just define a route with the parameters you need and add the corresponding parameters to your method.
 
 ```
-$routes->get('/articles/{id}', 'Article::view');
+$routes->get('/articles/{id}', [Article::class, 'view']);
 ```
 
 > Note that it is important that that the method parameter has the same name as the route parameter.

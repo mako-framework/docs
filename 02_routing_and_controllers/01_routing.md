@@ -30,13 +30,13 @@ Routes are registered in the `app/routing/routes.php` file and there are three v
 The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\controllers\Home`controller class.
 
 ```
-$routes->get('/', 'app\controllers\Home::welcome');
+$routes->get('/', [Home::class, 'welcome']);
 ```
 
 If you want the route to respond to `POST` requests instead then you'll have to use the `post` method.
 
 ```
-$routes->post('/', 'app\controllers\Home::welcome');
+$routes->post('/', [Home::class, 'welcome']);
 ```
 
 The available methods are `get`, `post`, `put`, `patch`, and `delete`.
@@ -44,7 +44,7 @@ The available methods are `get`, `post`, `put`, `patch`, and `delete`.
 You can also make a route respond to all request methods using the `all` method.
 
 ```
-$routes->all('/', 'app\controllers\Home::welcome');
+$routes->all('/', [Home::class, 'welcome']);
 ```
 
 > All routes respond to requests made using the `OPTIONS` request method. `GET` routes will also respond to `HEAD` requests.
@@ -52,7 +52,7 @@ $routes->all('/', 'app\controllers\Home::welcome');
 It is also possible to register a route that responds to a custom set of request methods using the `register` method.
 
 ```
-$routes->register(['GET', 'POST'], '/', 'app\controllers\Home::welcome');
+$routes->register(['GET', 'POST'], '/', [Home::class, 'welcome']);
 ```
 
 As previously mentioned, routes can also point to closures instead of class methods.
@@ -203,7 +203,7 @@ class CacheMiddleware implements MiddlewareInterface
 Assigning middleware to a route is done using the `middleware` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
 
 ```
-$routes->get('/articles/{id}', 'app\controllers\Articles::view')
+$routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache');
 ```
@@ -213,7 +213,7 @@ You can also pass parameters to your middleware. Parameters are parsed as JSON s
 In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
 ```
-$routes->get('/articles/{id}', 'app\controllers\Articles::view')
+$routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache("minutes":60)');
 ```
@@ -307,8 +307,8 @@ $router->registerConstraint('api_version', ApiVersionConstraint::class);
 Assigning constraints to a route is done using the `constraint` method. You can also pass an array of constraints if your route requires multiple constraints.
 
 ```
-$routes->get('/', 'Api2::index')->constraint('api_version("2.0")');
-$routes->get('/', 'Api1::index')->constraint('api_version("1.0")');
+$routes->get('/', [Api2::class, 'index'])->constraint('api_version("2.0")');
+$routes->get('/', [Api1::class, 'index'])->constraint('api_version("1.0")');
 ```
 
 The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
@@ -335,18 +335,17 @@ $options =
 
 	'middleware' => 'cache',
 	'patterns'   => ['id' => '[0-9]+'],
-	'namespace'  => 'app\controllers',
 ];
 
 $routes->group($options, function($routes)
 {
-	$routes->get('/articles/{id}', 'Articles::view');
+	$routes->get('/articles/{id}', [Articles::class, 'view']);
 
-	$routes->get('/photos/{id}', 'Photos::view');
+	$routes->get('/photos/{id}', [Photos::class, 'view']);
 });
 ```
 
-All routes within the group will now use the same middleware, regex pattern and namespace. You can also nest groups if needed.
+All routes within the group will now use the same middleware and regex pattern. You can also nest groups if needed.
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 
@@ -354,7 +353,6 @@ The following options are available when creating a route group. They are also a
 |-------------|--------------|----------------------------------------------------------|
 | middleware  | middleware   | A middleware or an array of middleware                   |
 | constraint  | constraint   | A constraint or an array of constraints                  |
-| namespace   | namespace    | The controller namespace (closures will not be affected) |
 | prefix      | prefix       | Route prefix                                             |
 | patterns    | patterns     | An array of parameter regex patterns                     |
 
@@ -367,7 +365,7 @@ The following options are available when creating a route group. They are also a
 You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your project.
 
 ```
-$routes->get('/', 'Home::Welcome', 'home');
+$routes->get('/', [Home::class, 'welcome'], 'home');
 ```
 
 The route in the example above has been named `home` and we can now create a URL to the route using the `toRoute` method of the `URLBuilder` class.
