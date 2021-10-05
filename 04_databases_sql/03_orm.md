@@ -113,8 +113,25 @@ $article->save();
 You can then fetch the article by its primary key value like this:
 
 ```
-$article = Article::get(1); // Will return "null" if not found
+$article = Article::get(1);
 ```
+
+> Note that the `get` method will return `null` if nothing is found.
+
+If you want to throw an exception if there isn't a matching article then you can use the `getOrThrow` method.
+
+```
+// By default if throws a mako\database\exceptions\NotFoundException
+
+$article = Article::getOrThrow(1);
+
+// But you can make it throw any exception you want 
+// You can for example throw a mako\http\exceptions\NotFoundException to display a 404 page
+
+$article = Article::getOrThrow(1, exception: NotFoundException::class);
+```
+
+> We're using the PHP 8.0+ [named argument](https://www.php.net/manual/en/functions.arguments.php#functions.named-arguments) syntax to skip the optional `$columns` parameter of the `getOrThrow` method.
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
 

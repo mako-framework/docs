@@ -50,6 +50,19 @@ The `Connection::first()` method executes a query and returns the first row of t
 $row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 ```
 
+The `Connection::firstOrThrow()` method executes a query and returns the first row of the result set or throws an exception if nothing is found.
+
+```
+// By default if throws a mako\database\exceptions\NotFoundException
+
+$row = $connection->firstOrThrow('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
+
+// But you can make it throw any exception you want 
+// You can for example throw a mako\http\exceptions\NotFoundException to display a 404 page
+
+$row = $connection->firstOrThrow('SELECT * FROM `foo` WHERE `bar` = ?', [$bar], NotFoundException::class);
+```
+
 The `Connection::all()` method executes a query and returns an array containing all of the result set rows.
 
 ```

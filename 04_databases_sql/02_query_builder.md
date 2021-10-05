@@ -77,6 +77,19 @@ $person = $query->table('persons')->where('id', '=', 1)->first();
 
 > Note that the `first` method will return `null` if nothing is found.
 
+If you want to throw an exception if there isn't a matching record then you can use the `firstOrThrow` method.
+
+```
+// By default if throws a mako\database\exceptions\NotFoundException
+
+$person = $query->table('persons')->where('id', '=', 1)->firstOrThrow();
+
+// But you can make it throw any exception you want 
+// You can for example throw a mako\http\exceptions\NotFoundException to display a 404 page
+
+$person = $query->table('persons')->where('id', '=', 1)->firstOrThrow(NotFoundException::class);
+```
+
 Fetching all rows is done using the `all` method.
 
 ```
