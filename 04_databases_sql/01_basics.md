@@ -26,16 +26,16 @@ The database connection manager provides a simple way of handling database conne
 
 #### Basics
 
-Creating a database connection is done using the `ConnectionManager::connection()` method.
+Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
 ```
 // Returns connection object using the "default" database configuration defined in the config file
 
-$connection = $this->database->connection();
+$connection = $this->database->getConnection();
 
 // Returns connection object using the "mydb" database configuration defined in the config file
 
-$connection = $this->database->connection('mydb');
+$connection = $this->database->getConnection('mydb');
 ```
 
 The `Connection::query()` method lets you execute a query. It returns `true` on success and `false` on failure.
@@ -177,9 +177,9 @@ The `Connection::transaction()` method provides a handy shortcut for performing 
 ```
 $connection->transaction(function($connection)
 {
-	$connection->builder()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
+	$connection->getQuery()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
-	$connection->builder()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
+	$connection->getQuery()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);
 });
 ```
 
@@ -198,14 +198,14 @@ try
 {
 	$connection->beginTransaction();
 
-	$connection->builder()->table('users')->insert(['username' => 'foo']);
+	$connection->getQuery()->table('users')->insert(['username' => 'foo']);
 
 	{
 		$connection->beginTransaction();
 
 		try
 		{
-			$connection->builder()->table('usesr')->insert(['username' => 'bar']);
+			$connection->getQuery()->table('usesr')->insert(['username' => 'bar']);
 
 			$connection->commitTransaction();
 		}
@@ -239,16 +239,10 @@ Transaction nesting is also possible when using the `Connection::transaction()` 
 
 ### Query builder
 
-The `Connection::builder()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
+The `Connection::getQuery()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
 
 ```
-$rows = $connection->builder()->table('foo')->where('bar', '=', $bar)->all();
-```
-
-You can also use the `Connection::table()` convenience method if you want to skip the call to the `Connection::builder()` method.
-
-```
-$rows = $connection->table('foo')->where('bar', '=', $bar)->all();
+$rows = $connection->getQuery()->table('foo')->where('bar', '=', $bar)->all();
 ```
 
 --------------------------------------------------------

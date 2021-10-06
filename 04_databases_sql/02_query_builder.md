@@ -51,16 +51,10 @@ The query builder currently supports the following dialects:
 
 ### Getting a query builder instance
 
-You can create a query builder instance using the `Connection::builder()` method.
+You can create a query builder instance using the `Connection::getQuery()` method.
 
 ```
-$query = $connection->builder();
-```
-
-You can also skip the call to the `Connection::builder()` method using the `Connection::table()` method.
-
-```
-$query = $connection->table('foobar');
+$query = $connection->getQuery();
 ```
 
 --------------------------------------------------------
