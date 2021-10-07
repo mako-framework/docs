@@ -20,16 +20,16 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 ### Basics
 
-Creating a database connection is done using the `ConnectionManager::connection()` method.
+Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
 ```
 // Returns connection object using the "default" redis configuration defined in the config file
 
-$redis = $this->redis->connection();
+$redis = $this->redis->getConnection();
 
 // Returns connection object using the "mydb" redis configuration defined in the config file
 
-$redis = $this->redis->connection('mydb');
+$redis = $this->redis->getConnection('mydb');
 ```
 
 The Redis client uses the magic `__call` method to build commands method so every current (and future) [Redis command](https://redis.io/commands) is a valid method.
