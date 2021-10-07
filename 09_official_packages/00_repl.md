@@ -55,7 +55,7 @@ The object also has a public method called `getContainer()` which, as the name s
 In the example below we're selecting all records from our `tests` column using the query builder.
 
 ```
->>> $mako->database->getQuery()->table('tests')->all()
+>>> $mako->database->getConnection()->getQuery()->table('tests')->all()
 => mako\database\query\ResultSet {#229
 	+0: mako\database\query\Result {#230
 		+id: 1,
