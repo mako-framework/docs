@@ -71,7 +71,6 @@ The parameter collections also includes the following methods in addition to the
 | remove($name)                      | Removes a parameter                                                         |
 | whitelisted($keys, $defaults = []) | Returns a whitelisted array of parameters                                   |
 | blacklisted($keys, $defaults = []) | Returns an array of parameters where the blacklisted keys have been removed |
-| getBearerToken()                   | Returns the bearer token or `null` if there isn't one                       |
 
 <a id="request_data:raw_request_body"></a>
 
@@ -181,6 +180,7 @@ The header collection also includes the following methods in addition to the one
 | add($name, $value) | Adds a header                                          |
 | has($name)         | Returns `true` if the header exists and `false` if not |
 | remove($name)      | Removes a header                                       |
+| getBearerToken()   | Returns the bearer token or `null` if there isn't one  |
 
 --------------------------------------------------------
 
