@@ -72,6 +72,18 @@ The `extension` method returns the extension of the file.
 $extension = $this->fileSystem->extension('/foo/bar.txt');
 ```
 
+The `copy` method will copy a file from the chosen destination.
+
+```
+$this->fileSystem->copy('/foo/bar.txt', '/bar/foo.txt');
+```
+
+The `rename` method will rename (move) a file.
+
+```
+$this->fileSystem->rename('/foo/bar.txt', '/bar/foo.txt');
+```
+
 The `remove` method will delete a file from disk.
 
 ```
