@@ -113,15 +113,16 @@ $cookies->delete('name', ['path' => '/mydir', 'domain' => '.example.org']);
 
 The cookie collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method                                      | Description                                                           |
-|---------------------------------------------|-----------------------------------------------------------------------|
-| setOptions($options)                        | Allows you to override the default cookie options                     |
-| addRaw($name, $value, $ttl, $options)       | Adds a raw unsigned cookie                                            |
-| addRawSigned($name, $value, $ttl, $options) | Adds a raw signed cookie                                              |
-| has($name)                                  | Returns `true` if the response includes the cookie and `false` if not |
-| remove($name)                               | Removes the cookie from the response                                  |
-| clear()                                     | Removes all cookies from the response                                 |
-| all()                                       | Returns an array containing all the cookies                           |
+| Method                                      | Description                                                                    |
+|---------------------------------------------|--------------------------------------------------------------------------------|
+| setOptions($options)                        | Allows you to override the default cookie options                              |
+| addRaw($name, $value, $ttl, $options)       | Adds a raw unsigned cookie                                                     |
+| addRawSigned($name, $value, $ttl, $options) | Adds a raw signed cookie                                                       |
+| has($name)                                  | Returns `true` if the response includes the cookie and `false` if not          |
+| remove($name)                               | Removes the cookie from the response                                           |
+| clear()                                     | Removes all cookies from the response                                          |
+| clearExcept($cookies)                       | Removes all cookies except for the ones in the provided list from the response |
+| all()                                       | Returns an array containing all the cookies                                    |
 
 --------------------------------------------------------
 
@@ -143,13 +144,14 @@ $headers->add('X-My-Header', 'value');
 
 The header collection also includes the following methods in addition to the ones shown in the examples above.
 
-| Method                  | Description                                                             |
-|-------------------------|-------------------------------------------------------------------------|
-| has($name)              | Returns `true` if the response includes the header and `false` if not   |
-| hasValue($name, $value) | Returns `true` if the header has the specified value and `false` if not |
-| remove($name)           | Removes the header from the response                                    |
-| clear()                 | Removes all headers from the response                                   |
-| all()                   | Returns an array containing all the headers                             |
+| Method                  | Description                                                                    |
+|-------------------------|--------------------------------------------------------------------------------|
+| has($name)              | Returns `true` if the response includes the header and `false` if not          |
+| hasValue($name, $value) | Returns `true` if the header has the specified value and `false` if not        |
+| remove($name)           | Removes the header from the response                                           |
+| clear()                 | Removes all headers from the response                                          |
+| clearExcept($headers)   | Removes all headers except for the ones in the provided list from the response |
+| all()                   | Returns an array containing all the headers                                    |
 
 --------------------------------------------------------
 
