@@ -136,12 +136,6 @@ $article = Article::getOrThrow(1, exception: NotFoundException::class);
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
 
 ```
-$article = Article::where('title', '=', 'Super awesome stuff')->first();
-```
-
-Note that you can also forward calls to the query builder on a model instance:
-
-```
 $article = (new Article)->where('title', '=', 'Super awesome stuff')->first();
 ```
 
@@ -170,7 +164,7 @@ $article->delete();
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
 
 ```
-$articles = Article::select(['id', 'title'])->all();
+$articles = (new Article)->select(['id', 'title'])->all();
 ```
 
 <a id="basic_usage:joins"></a>
@@ -180,7 +174,7 @@ $articles = Article::select(['id', 'title'])->all();
 You can also use joins when working with the ORM. In the following example we'll select all articles that have at least one comment:
 
 ```
-$articles = Article::join('comments', 'article.id', '=', 'comments.article_id')->all();
+$articles = (new Article)->join('comments', 'article.id', '=', 'comments.article_id')->all();
 ```
 
 The code above will execute the following SQL:
@@ -192,7 +186,7 @@ SELECT `articles`.* FROM `articles` INNER JOIN `comments` ON `article`.`id` = `c
 It will return duplicates for articles that have more than one comment. This can be solved using a distinct select:
 
 ```
-$articles = Article::distinct()->join('comments', 'article.id', '=', 'comments.article_id')->all();
+$articles = (new Article)->distinct()->join('comments', 'article.id', '=', 'comments.article_id')->all();
 ```
 
 --------------------------------------------------------
@@ -449,7 +443,7 @@ $group->users()->unlink($user);
 Loading related records can sometimes cause the `1 + N` query problem. This is where eager loading becomes handy.
 
 ```
-foreach(Comment::limit(10)->all() as $comment)
+foreach((new Comment)->limit(10)->all() as $comment)
 {
 	$comment->user->username;
 }
@@ -458,7 +452,7 @@ foreach(Comment::limit(10)->all() as $comment)
 The code above will execute `1` query to fetch `10` comments and then `1` query per iteration to retrieve the user who wrote the comment. This means that it has to execute `11` queries in total. Using eager loading can solve this problem.
 
 ```
-foreach(Comment::including('users')->limit(10)->all() as $comment)
+foreach((new Comment)->including('users')->limit(10)->all() as $comment)
 {
 	$comment->user->username;
 }
@@ -469,13 +463,13 @@ The code above will produce the same result as the previous example but it will 
 You can eager load more relations using an array and nested relations using the dot syntax.
 
 ```
-$articles = Article::including(['user', 'comments', 'comments.user'])->limit(10)->all();
+$articles = (new Article)->including(['user', 'comments', 'comments.user'])->limit(10)->all();
 ```
 
 If you need to add query criteria to your relations then you can do so using a closure.
 
 ```
-$articles = Article::including(['user', 'comments' => function($query)
+$articles = (new Article)->including(['user', 'comments' => function($query)
 {
 	$query->where('approved', '=', true);
 }, 'comments.user'])->limit(10)->all();
@@ -490,7 +484,7 @@ protected $including = ['user', 'comments', 'comments.user'];
 You can then disable eager loading of the relations if needed by using the `excluding` method:
 
 ```
-$articles = Article::excluding(['user', 'comments'])->limit(10)->all();
+$articles = (new Article)->excluding(['user', 'comments'])->limit(10)->all();
 ```
 
 It is also possible to eager load relations using the `include` method on both model and result set instances. You can check if a model already has loaded a relation using the `includes` method.
@@ -511,7 +505,7 @@ if(!$article->includes('comments'))
 Sometimes you'll want to count the number of related records without having to execute a second query. This can easily be achieved using the `withCountOf` method.
 
 ```
-$articles = Article::withCountOf('comments')->limit(10)->all();
+$articles = (new Article)->withCountOf('comments')->limit(10)->all();
 ```
 
 Each `Article` object in the `$articles` result set will now have a `comments_count` property containing the number of comments related to each article.
@@ -521,7 +515,7 @@ Each `Article` object in the `$articles` result set will now have a `comments_co
 If you want to add custom query criteria when counting related records then you can do so using a closure.
 
 ```
-$articles = Article::withCountOf(['comments AS approved_comments_count' => function($query)
+$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function($query)
 {
 	$query->where('approved', '=', true);
 }])->limit(10)->all();
@@ -641,9 +635,9 @@ public function popularAndPublishedScope($query, $minViewCount = 1000)
 You can now retrieve published articles like this:
 
 ```
-$articles = Article::scope('published')->all();
+$articles = (new Article)->scope('published')->all();
 
-$articles = Article::scope('popularAndPublished')->all();
+$articles = (new Article)->scope('popularAndPublished')->all();
 
 // Camel cased scope names can also be written using snake case
 
@@ -702,7 +696,7 @@ $clone->save();
 You can also clone an entire result set:
 
 ```
-$clones = clone User::all();
+$clones = clone (new User)->all();
 
 foreach($clones as $clone)
 {
