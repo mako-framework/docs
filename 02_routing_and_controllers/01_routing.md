@@ -170,11 +170,11 @@ class CacheMiddleware implements MiddlewareInterface
 
 	protected $cache;
 
-	public function __construct(int $minutes = 10, CacheManager $cache)
+	public function __construct(CacheManager $cache, int $minutes = 10)
 	{
-		$this->minutes = $minutes;
-
 		$this->cache = $cache;
+
+		$this->minutes = $minutes;
 	}
 
 	public function execute(Request $request, Response $response, Closure $next): Response
@@ -217,9 +217,6 @@ $routes->get('/articles/{id}', 'app\controllers\Articles::view')
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache("minutes":60)');
 ```
-
-> In the example above we created a middleware that uses named parameters; however, you can also use unnamed parameters (`cache(60)`).
-> Note that if you use unnamed parameters then you'll have to make sure that the order of the parameters is correct.
 
 If you have middleware that you want to assign to all your routes then you can set them as global.
 
