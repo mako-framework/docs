@@ -63,14 +63,14 @@ $str = Str::increment('banana'); // Will return "banana_1"
 $str = Str::increment('banana_1'); // Will return "banana_2"
 ```
 
-The `alternator` method will return a closure that alternates between the chosen strings.
+The `alternator` method will return a `Alternator` instance that alternates between the chosen strings.
 
 ```
-$alt = Str::alternator(['foo', 'bar']);
+$alternator = Str::alternator(['foo', 'bar']);
 
-echo $alt(); // foo
-echo $alt(); // bar
-echo $alt(); // foo
+echo $alternator; // foo
+echo $alternator; // bar
+echo $alternator; // foo
 ```
 
 The `ascii` method returns a string where all non-ASCII characters have been stripped.
