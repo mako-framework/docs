@@ -25,13 +25,13 @@ The pagination class makes easy to generate pagination links.
 First you'll have to create a pagination object. The first parameter is the total count of the items you want to paginate. The second parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional third parameter that lets you override the other settings set in the configuration file.
 
 ```
-$pagination = $this->pagination->create(Articles::count());
+$pagination = $this->pagination->create((new Articles)->count());
 ```
 
 Once the pagination object is created we can fetch the articles from the database. Use the `limit` and `offset` methods to set the range of your query.
 
 ```
-$articles = Articles::limit($pagination->limit())->offset($pagination->offset())->all();
+$articles = (new Articles)->limit($pagination->limit())->offset($pagination->offset())->all();
 ```
 
 <a id="usage_with_the_query_builder"></a>
@@ -43,7 +43,7 @@ You can also use the `pagination` method of the [query builder](:base_url:/docs/
 The first parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional second parameter that lets you override the other settings set in the configuration file.
 
 ```
-$articles = Articles::paginate();
+$articles = (new Articles)->paginate();
 ```
 
 --------------------------------------------------------
