@@ -389,4 +389,4 @@ Most browsers only support sending `GET` and `POST` requests. You can get around
 <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
 ```
 
-Another solution is to send a `X_HTTP_METHOD_OVERRIDE` header.
+Another solution is to send a `X-Http-Method-Override` header.
