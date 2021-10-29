@@ -102,7 +102,7 @@ opcache.validate_timestamps=0
 
 ##### Preloading
 
-If you run your application on PHP 7.4 or greater then you can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app.generate_preloader` command will generate a preloader script containing all core classes that all application will usually need in a web context.
+You can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app.generate_preloader` command will generate a preloader script containing all core classes that all application will usually need in a web context.
 
 ```
 php app/reactor app.generate_preloader
