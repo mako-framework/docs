@@ -47,7 +47,7 @@ It is also possible to override settings or add new configurations at runtime:
 
 ```
 // Adds a new Crypto configuration named "user" that you can
-// use when creating a Crypto instance "Crypto::instance('user');"
+// use when creating a Crypto instance "Crypto::getInstance('user');"
 
 $this->config->set('crypto.configurations.user',
 [
