@@ -29,16 +29,16 @@ Mako comes with a set of classes to help you encrypt and sign your data.
 
 The encryption library allows you to encrypt data using OpenSSL.
 
-First we'll need to get an encrypter instance. This is done using the `CryptoManager::instance()` method.
+First we'll need to get an encrypter instance. This is done using the `CryptoManager::getInstance()` method.
 
 ```
 // Returns instance of the "default" crypto configuration defined in the config file
 
-$encrypter = $this->crypto->instance();
+$encrypter = $this->crypto->getInstance();
 
 // Returns instance of the "openssl" crypto configuration defined in the config file
 
-$encrypter = $this->crypto->instance('openssl');
+$encrypter = $this->crypto->getInstance('openssl');
 ```
 
 The `encrypt` method is used to encrypt your data.

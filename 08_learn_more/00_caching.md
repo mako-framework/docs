@@ -32,16 +32,16 @@ The cache library provides a simple and consistent interface to the most common 
 
 #### Basics
 
-To get an instance of the default cache just call the `CacheManager::instance()` method. If you want to get an instance of any of the other cache configurations defined in the config file then you'll have to pass it the configuration name.
+To get an instance of the default cache just call the `CacheManager::getInstance()` method. If you want to get an instance of any of the other cache configurations defined in the config file then you'll have to pass it the configuration name.
 
 ```
 // Returns instance of the "default" cache configuration defined in the config file
 
-$cache = $this->cache->instance();
+$cache = $this->cache->getInstance();
 
 // Returns instance of the "apc" cache configuration defined in the config file
 
-$cache = $this->cache->instance('apc');
+$cache = $this->cache->getInstance('apc');
 ```
 
 Adding data to the cache is done using the `put` method. The method returns `true` on success or `false` on failure.
