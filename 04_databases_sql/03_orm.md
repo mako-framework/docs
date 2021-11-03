@@ -20,6 +20,7 @@
 * [Automatic typecasting](#automatic_typecasting)
 	- [Scalars](#automatic_typecasting:scalars)
 	- [DateTime](#automatic_typecasting:datetime)
+	- [Enums](#automatic_typecasting:enums)
 * [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
@@ -573,6 +574,18 @@ $user = User::get(1);
 
 $lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
 ```
+
+<a id="automatic_typecasting:enums"></a>
+
+#### Enums
+
+Both the query builder and ORM support enums values. You can automatically cast database values to the appropriate enum using the `enum` typecast.
+
+```
+protected $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
+```
+
+> Note that the ORM can only cast to so-called backed enums unless you implement your own `from` method.
 
 --------------------------------------------------------
 
