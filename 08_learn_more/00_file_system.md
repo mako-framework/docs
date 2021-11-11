@@ -219,7 +219,7 @@ A keyed hash can be generated using the `getHmac` method. The default algorithm 
 $hash = $info->getHmac($key);
 ```
 
-> You should provide a cryptographically secure key when generating the hash. You can easily generate your own secure keys using the `app.generate_key` reactor command.
+> You should provide a cryptographically secure key when generating the hash. You can easily generate your own secure keys using the `app:generate-key` reactor command.
 {.danger}
 
 Validating files against the keyed hash is done using the `validateHmac` method. If you didn't use the default `sha256` algorithm when generating the hash then you'll have to specify which one you used using the optional third parameter. If the hash you're comparing against is provided in its raw binary form then you'll have to set the  optional fourth parameter to `true`.

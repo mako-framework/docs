@@ -46,18 +46,18 @@ Available commands:
 ----------------------------------------------------------------------------
 | Command                | Description                                     |
 ----------------------------------------------------------------------------
-| app.generate_key       | Generates a 256-bit encryption key.             |
-| app.generate_preloader | Generates a opcache preloader script.           |
-| app.generate_secret    | Generates a new application secret.             |
-| app.routes             | Lists all registered routes.                    |
-| cache.clear            | Clears the cache.                               |
-| cache.remove           | Removes the chosen key from the cache.          |
-| migrate.create         | Creates a new migration.                        |
-| migrate.down           | Rolls back the last batch of migrations.        |
-| migrate.reset          | Resets the database schema.                     |
-| migrate.status         | Checks if there are any outstanding migrations. |
-| migrate.up             | Runs all outstanding migrations.                |
-| server                 | Starts the local development server.            |
+| app:generate-key       | Generates a 256-bit encryption key.             |
+| app:generate-preloader | Generates a opcache preloader script.           |
+| app:generate-secret    | Generates a new application secret.             |
+| app:routes             | Lists all registered routes.                    |
+| app:server             | Starts the local development server.            |
+| cache:clear            | Clears the cache.                               |
+| cache:remove           | Removes the chosen key from the cache.          |
+| migration:create       | Creates a new migration.                        |
+| migration:down         | Rolls back the last batch of migrations.        |
+| migration:reset        | Resets the database schema.                     |
+| migration:status       | Checks if there are any outstanding migrations. |
+| migration:up           | Runs all outstanding migrations.                |
 ----------------------------------------------------------------------------
 ```
 {.language-none}
@@ -67,13 +67,13 @@ Available commands:
 Executing a command is easy and can be done like this:
 
 ```
-php reactor app.routes
+php reactor app:routes
 ```
 {.language-none}
 
 You can list detailed information about a specific command using the `--help` flag.
 
 ```
-php reactor app.server --help
+php reactor app:server --help
 ```
 {.language-none}

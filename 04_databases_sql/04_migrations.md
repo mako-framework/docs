@@ -47,19 +47,19 @@ Creating a migration is done from the reactor CLI tool:
 ```
 // Creates an application migration
 
-php reactor migrate.create
+php reactor migration:create
 
 // Creates a migration for the "foobar" package
 
-php reactor migrate.create --package="vendor/package"
+php reactor migration:create --package="vendor/package"
 
 // Creates a migration with a description
 
-php reactor migrate.create --description="Creates session table"
+php reactor migration:create --description="Creates session table"
 ```
 {.language-none}
 
-Running the `create` commands will return the following messages:
+Running the `migration:create` commands will return the following messages:
 
 ```
 Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
@@ -107,17 +107,17 @@ class Migration_20120824100019 extends Migration
 
 #### Running migrations
 
-You can check if there are any outstanding migrations using the `status` command:
+You can check if there are any outstanding migrations using the `migration:status` command:
 
 ```
-php reactor migrate.status
+php reactor migration:status
 ```
 {.language-none}
 
 If there are outstanding migrations then you can run them like this:
 
 ```
-php reactor migrate.up
+php reactor migration:up
 ```
 {.language-none}
 
@@ -140,10 +140,10 @@ Ran the following migrations:
 
 #### Rolling back migrations
 
-If you need to revert the changes made to your database then you can use the `down` command. This will roll back the last batch of migrations executed.
+If you need to revert the changes made to your database then you can use the `migration:down` command. This will roll back the last batch of migrations executed.
 
 ```
-php reactor migrate.down
+php reactor migration:down
 ```
 {.language-none}
 
@@ -165,21 +165,21 @@ Rolled back the following migrations:
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back using the `batches` option.
 
 ```
-php reactor migrate.down --batches=2
+php reactor migration:down --batches=2
 ```
 {.language-none}
 
-If you want to roll back all database changes in one go then you can use the `reset` command.
+If you want to roll back all database changes in one go then you can use the `migration:reset` command.
 
 ```
-php reactor migrate.reset
+php reactor migration:reset
 ```
 {.language-none}
 
 This will prompt you for confirmation. To force the reset just use the `force` option.
 
 ```
-php reactor migrate.reset --force
+php reactor migration:reset --force
 ```
 {.language-none}
 
@@ -191,7 +191,7 @@ php reactor migrate.reset --force
 
 All transactions are normally executed against the default database of your application. You can override this by using the `$connectionName` property of the migration class.
 
-Running migrations for the non-default database requires you to use the optional `database` option of the `migrate.status`, `migrate.up`, `migrate.down` and `migrate.reset` commands.
+Running migrations for the non-default database requires you to use the optional `database` option of the `migration:status`, `migration:up`, `migration:down` and `migration:reset` commands.
 
 > Note that each database requires its own `mako_migrations` table.
 

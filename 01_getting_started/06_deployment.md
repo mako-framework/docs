@@ -102,10 +102,10 @@ opcache.validate_timestamps=0
 
 ##### Preloading
 
-You can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app.generate_preloader` command will generate a preloader script containing all core classes that all application will usually need in a web context.
+You can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app:generate-preloader` command will generate a preloader script containing all core classes that all application will usually need in a web context.
 
 ```
-php app/reactor app.generate_preloader
+php app/reactor app:generate-preloader
 ```
 
 The preloader script will be generated in the `app/storage/` directory by default but you can override the output path using the `output-path` flag of the preloader generator.
@@ -122,4 +122,4 @@ return
 ];
 ```
 
-> Note that the `app.generate_preloader` command will automatically add any missing dependencies to the list of preloaded classes to ensure full linking of classes, interfaces and traits.
+> Note that the `app:generate-preloader` command will automatically add any missing dependencies to the list of preloaded classes to ensure full linking of classes, interfaces and traits.
