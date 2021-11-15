@@ -56,10 +56,10 @@ $validator = $this->validator->create($postData->all(), $rules);
 
 Now all that is left is to check if the input data is valid using either of the following methods: `validate`, `isValid` or `isInvalid`.
 
-The `validate` method returns the validated input data and throws a `ValidationException` if any of the rules fail. You can retrieve the validation errors using the `ValidationException::getErrors()` method.
+The `getValidatedInput` method returns the validated input data and throws a `ValidationException` if any of the rules fail. You can retrieve the validation errors using the `ValidationException::getErrors()` method.
 
 ```
-$validatedInput = $validator->validate();
+$validatedInput = $validator->getValidatedInput();
 ```
 
 > Note that only validated input (input fields with at least one rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
