@@ -192,6 +192,7 @@ The following validation rules are included with Mako:
 | match                    | Checks that the field value matches the value of another field (`match("password_confirmation")`).      |
 | max_length               | Checks that the field value is short enough (`max_length(20)`).                                         |
 | min_length               | Checks that the field value is long enough (`min_length(10)`).                                          |
+| not_empty                | Checks that the field isn't empty.                                                                      |
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
 | number                   | Checks that the field contains an integer or float.                                                     |
 | number:float             | Checks that the field value is a float.                                                                 |
@@ -205,7 +206,7 @@ The following validation rules are included with Mako:
 | numeric:natural_non_zero | Checks that the field value is a natural non zero.                                                      |
 | optional                 | This is a special validation rule that never fails.                                                     |
 | regex                    | Checks that the field value matches a regex pattern (`regex("/[a-z]+/i")`).                             |
-| required                 | Checks that the field isn't empty.                                                                      |
+| required                 | Checks that the field exists and isn't empty.                                                           |
 | string                   | Checks that the field contains a string.                                                                |
 | time_zone                | Checks that the field value contains a valid PHP time zone.                                             |
 | url                      | Checks that the field value is a valid URL.                                                             |
