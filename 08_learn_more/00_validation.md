@@ -323,7 +323,7 @@ class IsFooRule implements RuleInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function validate($value, array $input): bool
+	public function validate($value, string $field, array $input): bool
 	{
 		return mb_strtolower($value) === 'foo';
 	}
