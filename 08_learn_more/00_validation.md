@@ -42,7 +42,7 @@ $rules =
 ];
 ```
 
-The rules defined above will make sure that the username, password and email fields are non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
+The rules defined above will make sure that the username, password and email fields are present and non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
 > Note that most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `one_time_token` and `token`.
 
