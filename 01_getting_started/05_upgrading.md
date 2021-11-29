@@ -18,7 +18,7 @@
 
 This guide takes you through the steps needed to migrate from Mako `7.3.x` to `8.0.x`.
 
-Mako `8.0` drops support for PHP version `7.3` and requires PHP version `7.4` or higher so make sure that your web server is up to date.
+Mako `8.0` drops support for PHP version `7.3` and requires PHP version `7.4` or higher so make sure that your environment is up to date.
 
 --------------------------------------------------------
 
