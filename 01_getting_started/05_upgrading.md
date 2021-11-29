@@ -143,7 +143,7 @@ $query = (new ORM)->getQuery();
 
 ### Routing
 
-The deprecated `Route::namespace()` has been removed along with the deprecated `namespace` route group option. Route class actions should now be registered as arrays instead of strings.
+The deprecated `Route::namespace()` has been removed along with the deprecated `namespace` route group option. Route class method actions should now be registered as arrays instead of strings.
 
 ```
 <?php
@@ -170,7 +170,7 @@ $routes->get('/', [Index::class, 'welcome']);
 
 #### Access Control middleware
 
-The deprecated `AccessControlAllowOrigin` has been removed and replaced by the new and improved `AccessControl` middleware.
+The deprecated `AccessControlAllowOrigin` middleware has been removed and replaced by the new and improved `AccessControl` middleware.
 
 --------------------------------------------------------
 
