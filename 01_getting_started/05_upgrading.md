@@ -144,7 +144,7 @@ $query = (new ORM)->getQuery();
 
 ### Error handling
 
-The `mako\http\exceptions\HttpException` exception has been renamed to `mako\http\exceptions\HttpStatusException`. Make sure to update your list of ignored exceptions in the `appliction.php` configuration file.
+The `mako\http\exceptions\HttpException` exception has been renamed to `mako\http\exceptions\HttpStatusException`. Make sure to update your list of ignored exceptions in the `application.php` configuration file.
 
 --------------------------------------------------------
 
