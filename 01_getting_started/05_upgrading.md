@@ -8,6 +8,7 @@
 * [Database](#database)
     - [Connection](#database:connection)
     - [ORM](#database:orm)
+* [Error handling](#error-handling)
 * [Routing](#routing)
     - [Access Control middleware](#routing:access-control-middleware)
 * [Validation](#validation)
@@ -136,6 +137,14 @@ $query = (new ORM)->builder();
 
 $query = (new ORM)->getQuery();
 ```
+
+--------------------------------------------------------
+
+<a id="error-handling"></a>
+
+### Error handling
+
+The `mako\http\exceptions\HttpException` exception has been renamed to `mako\http\exceptions\HttpStatusException`. Make sure to update your list of ignored exceptions in the `appliction.php` configuration file.
 
 --------------------------------------------------------
 
