@@ -54,7 +54,7 @@ The following reactor commands have been renamed:
 | Before                 | Now                    |
 |------------------------|------------------------|
 | app.generate_preloader | app:generate-preloader |
-| app.generate_secret    | app.generate_secret    |
+| app.generate_secret    | app:generate-secret    |
 | app.generate-key       | app:generate-key       |
 | app.routes             | app:routes             |
 | cache.clear            | cache:clear            |
