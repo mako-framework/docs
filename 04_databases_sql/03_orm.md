@@ -24,7 +24,6 @@
 * [Mutators and accessors](#mutators_and_accessors)
 * [Scopes](#scopes)
 * [Mass assignment](#mass_assignment)
-* [Optimistic locking](#optimistic_locking)
 * [Cloning records](#cloning_records)
 * [Array and JSON representations of results](#array_and_json_representations)
 * [Traits](#traits)
