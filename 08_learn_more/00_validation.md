@@ -196,12 +196,12 @@ The following validation rules are included with Mako:
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
 | number                   | Checks that the field contains an integer or float.                                                     |
 | number:float             | Checks that the field value is a float.                                                                 |
-| number:integer           | Checks that the field value is a integer.                                                               |
+| number:int               | Checks that the field value is a integer.                                                               |
 | number:natural           | Checks that the field value is a natural.                                                               |
 | number:natural_non_zero  | Checks that the field value is a natural non zero.                                                      |
 | numeric                  | Checks that the field contains a numeric value.                                                         |
 | numeric:float            | Checks that the field value is a float.                                                                 |
-| numeric:integer          | Checks that the field value is a integer.                                                               |
+| numeric:int              | Checks that the field value is a integer.                                                               |
 | numeric:natural          | Checks that the field value is a natural.                                                               |
 | numeric:natural_non_zero | Checks that the field value is a natural non zero.                                                      |
 | optional                 | This is a special validation rule that never fails.                                                     |
