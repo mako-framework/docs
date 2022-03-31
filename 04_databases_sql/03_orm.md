@@ -469,7 +469,7 @@ $articles = (new Article)->including(['user', 'comments', 'comments.user'])->lim
 If you need to add query criteria to your relations then you can do so using a closure.
 
 ```
-$articles = (new Article)->including(['user', 'comments' => function($query)
+$articles = (new Article)->including(['user', 'comments as approved_comments' => function($query)
 {
 	$query->where('approved', '=', true);
 }, 'comments.user'])->limit(10)->all();
