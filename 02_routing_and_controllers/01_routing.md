@@ -200,7 +200,7 @@ class CacheMiddleware implements MiddlewareInterface
 
 #### Assigning middleware
 
-Assigning middleware to a route is done using the `middleware` method. You can also pass an array of middleware if your route requires multiple middleware. Middleware will get executed in the order that they are assigned.
+Assigning middleware to a route can be done done using the `middleware` method. You can assign a single middleware or an array of middleware if your route requires multiple middleware.
 
 ```
 $routes->get('/articles/{id}', [Articles::class, 'view'])
@@ -216,6 +216,16 @@ In the example below we're telling the middleware to cache the response for 60 m
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache("minutes":60)');
+```
+
+Middleware can also be assigned using the `Middleware` attribute on route action classes and methods.
+
+```
+#[Middleware('cache("minutes":60)')]
+public function myAction(): string
+{
+	return 'Hello, world!';
+}
 ```
 
 If you have middleware that you want to assign to all your routes then you can set them as global.
@@ -311,6 +321,16 @@ $routes->get('/', [Api1::class, 'index'])->constraint('api_version("1.0")');
 The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
 
 > In the example above we used unnamed parameters for our constraints. You can also use named constraints (`api_version("version":"2.0")`).
+
+Constraints can also be assigned using the `Constraint` attribute on route action classes and methods.
+
+```
+#[Constraint('api_version("2.0")')]
+public function myAction(): string
+{
+	return 'Hello, world!';
+}
+```
 
 If you have constraints that you want to assign to all your routes then you can set them as global.
 
