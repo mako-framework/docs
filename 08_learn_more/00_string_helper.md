@@ -107,15 +107,15 @@ $str = Str::pluralize('apple');
 
 > The pluralize method only works with english words. If you need language independent pluralization then have a look at the [I18n](:base_url:/docs/:version:/learn-more:internationalization) docs.
 
-The `camel2underscored` method will convert camel case to underscored.
+The `camelToSnake` method will convert camel case to snake case.
 
 ```
-$str = Str::camel2underscored('HelloWorld'); // $str will be set to "hello_world"
+$str = Str::camelToSnake('HelloWorld'); // $str will be set to "hello_world"
 ```
 
-The `underscored2camel` method will convert underscored to camel case.
+The `snakeToCamel` method will convert snake cased strings to camel case.
 
 ```
-$str = Str::underscored2camel('hello_world'); // $str will be set to "helloWorld"
-$str = Str::underscored2camel('hello_world', true); // $str will be set to "HelloWorld"
+$str = Str::snakeToCamel('hello_world'); // $str will be set to "helloWorld"
+$str = Str::snakeToCamel('hello_world', true); // $str will be set to "HelloWorld"
 ```
