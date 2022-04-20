@@ -57,7 +57,7 @@ $view->assign('foo', 'bar');
 It is possible to auto assign variables to views using the view factory `autoAssign` method. The first parameter is the name of the view (or an array of view names) and the second parameter is a callable that must return an associative array where the keys are the variable names and the values are the variable values.
 
 ```
-$this->view->autoAssign('profile', function()
+$this->view->autoAssign('profile', function ()
 {
 	return ['name' => 'Foobar'];
 });
@@ -375,7 +375,7 @@ $this->view->extend('.twig', TwigRenderer::class);
 You can also use a closure if your renderer requires parameters that the container is unable to resolve.
 
 ```
-$this->view->extend('.twig', function()
+$this->view->extend('.twig', function ()
 {
 	$renderer = new foo\bar\TwigRenderer;
 

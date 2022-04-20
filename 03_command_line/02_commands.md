@@ -435,7 +435,7 @@ class Proxy extends Command
 
 	public function execute()
 	{
-		$this->fire('hello --name=dude', function($buffer)
+		$this->fire('hello --name=dude', function ($buffer)
 		{
 			$this->output->write($buffer);
 		});

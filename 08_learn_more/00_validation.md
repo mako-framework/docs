@@ -120,7 +120,7 @@ $rules =
 You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
 
 ```
-$validator->addRulesIf('state', ['required', 'valid_us_state'], function() use ($postData)
+$validator->addRulesIf('state', ['required', 'valid_us_state'], function () use ($postData)
 {
 	return $postData->get('country') === 'United States of America';
 });

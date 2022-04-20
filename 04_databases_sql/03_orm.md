@@ -471,7 +471,7 @@ $articles = (new Article)->including(['user', 'comments', 'comments.user'])->lim
 If you need to add query criteria to your relations then you can do so using a closure.
 
 ```
-$articles = (new Article)->including(['user', 'comments as approved_comments' => function($query)
+$articles = (new Article)->including(['user', 'comments as approved_comments' => function ($query)
 {
 	$query->where('approved', '=', true);
 }, 'comments.user'])->limit(10)->all();
@@ -517,7 +517,7 @@ Each `Article` object in the `$articles` result set will now have a `comments_co
 If you want to add custom query criteria when counting related records then you can do so using a closure.
 
 ```
-$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function($query)
+$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function ($query)
 {
 	$query->where('approved', '=', true);
 }])->limit(10)->all();

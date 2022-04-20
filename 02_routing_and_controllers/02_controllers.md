@@ -137,7 +137,7 @@ The `streamResponse` method returns a stream response sender. They can be useful
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
 ```
-return $this->streamResponse(function($stream)
+return $this->streamResponse(function ($stream)
 {
 	$stream->flush('Hello, world!');
 

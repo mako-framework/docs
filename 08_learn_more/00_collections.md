@@ -175,7 +175,7 @@ You can sort items in a collection using the `sort` method.
 ```
 $collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-$collection->sort(function($a, $b)
+$collection->sort(function ($a, $b)
 {
 	if($a == $b)
 	{
@@ -209,7 +209,7 @@ The `each` method allows you to modify your collection items using a callable.
 ```
 $collection = new Collection([1, 2, 3]);
 
-$collection->each(function($value, $key)
+$collection->each(function ($value, $key)
 {
 	return $key . ':' . $value;
 });
@@ -220,7 +220,7 @@ The `map` method works just like the `each` method except that it returns a new 
 ```
 $collection = new Collection([1, 2, 3]);
 
-$newCollection = $collection->map(function($value, $key)
+$newCollection = $collection->map(function ($value, $key)
 {
 	return $key . ':' . $value;
 });
@@ -231,7 +231,7 @@ You can filter a collection and remove unwanted items using a callable with the 
 ```
 $collection = new Collection([1, 2, 3, 'foo', 4]);
 
-$filtered = $collection->filter(function($value)
+$filtered = $collection->filter(function ($value)
 {
 	return is_int($value);
 });
