@@ -38,7 +38,7 @@ $container->register([FooInterface::class, 'foo'], Foo::class);
 Additionally, the container allows you to register your dependencies using a closure.
 
 ```
-$container->register([BarInterface::class, 'bar'], function($container)
+$container->register([BarInterface::class, 'bar'], function ($container)
 {
 	return new Bar('parameter value');
 });
@@ -47,7 +47,7 @@ $container->register([BarInterface::class, 'bar'], function($container)
 The `registerSingleton` method works just like the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
 ```
-$container->registerSingleton([BarInterface::class, 'bar'], function($container)
+$container->registerSingleton([BarInterface::class, 'bar'], function ($container)
 {
 	return new Bar('parameter value');
 });
@@ -124,7 +124,7 @@ $foo = $container->getFresh('bar');
 The `call` method allows you to execute a callable and automatically inject its dependencies.
 
 ```
-$returnValue = $container->call(function(\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
+$returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
 {
 	// $foo and $bar will automatically be injected into the callable
 });
@@ -169,7 +169,7 @@ $container->replace(FooInterface::class, OtherFoo::class);
 The `replaceSingleton` method allows you to replace a previously registered singleton dependency in the container.
 
 ```
-$container->replaceSingleton([BarInterface::class, 'bar'], function($container)
+$container->replaceSingleton([BarInterface::class, 'bar'], function ($container)
 {
 	return new OtherBar('parameter value');
 });
@@ -188,7 +188,7 @@ In the following example we'll register an instance of the `Dependency` class al
 ```
 $container->registerInstance(Dependency::class, new Dependency('original'));
 
-$container->register(Dependent::class, function($container)
+$container->register(Dependent::class, function ($container)
 {
 	$dependent = new Dependent($container->get(Dependency::class));
 
@@ -209,7 +209,7 @@ var_dump($dependent->dependency->value); // string(11) "replacement"
 In the example above we assumed that the `Dependent` class had a `replaceDependency` method. This might not always be the case so we can also use a closure to achieve the same result.
 
 ```
-$container->onReplace(Dependency::class, (function($dependency)
+$container->onReplace(Dependency::class, (function ($dependency)
 {
 	$this->dependency = $dependency;
 })->bindTo($dependent, Dependent::class));

@@ -17,7 +17,7 @@ Mako includes two ways of handling events, an event listener and a trait that ma
 The `register` method lets you register an event handler that will get executed when the event is triggered. You can register multiple handlers for the same event. They will be executed in the order that they were registered.
 
 ```
-$this->event->register('foobar', function()
+$this->event->register('foobar', function ()
 {
 	return 'foobar event handler';
 });
@@ -62,7 +62,7 @@ $this->event->clear('foobar');
 The `override` method will clear all previously registered handlers for an event before registering a new handler.
 
 ```
-$this->event->override('foobar', function()
+$this->event->override('foobar', function ()
 {
 	return 'foobar event 1';
 });

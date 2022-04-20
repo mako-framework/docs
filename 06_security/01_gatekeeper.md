@@ -599,7 +599,7 @@ $this->gatekeeper->extend(new CustomAdapter);
 // Register an adapter factory where the first array element
 // is the adapter name while the second is the factory
 
-$this->gatekeeper->extend(['custom', function() { return new CustomAdapter; }])
+$this->gatekeeper->extend(['custom', function () { return new CustomAdapter; }])
 ```
 
 > Note that all adapters must implement the `AdapterInterface`.

@@ -74,7 +74,7 @@ $cached = $cache->get('my_array');
 The `getOrElse` method returns the data if the key exists and caches the return value of the closure if it doesn't. The closure does not get executed if the key exists in the cache.
 
 ```
-$cached = $cache->getOrElse('foo', function()
+$cached = $cache->getOrElse('foo', function ()
 {
 	sleep(5);
 

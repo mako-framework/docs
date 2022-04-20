@@ -58,7 +58,7 @@ $routes->register(['GET', 'POST'], '/', [Home::class, 'welcome']);
 As previously mentioned, routes can also point to closures instead of class methods.
 
 ```
-$routes->get('/hello-world', function()
+$routes->get('/hello-world', function ()
 {
 	return 'Hello, world!';
 });
@@ -73,7 +73,7 @@ $routes->get('/hello-world', function()
 You'll often want to send parameters to your route actions. This can easily be achieved using the following syntax.
 
 ```
-$routes->get('/articles/{id}', function($id)
+$routes->get('/articles/{id}', function ($id)
 {
 	return $id;
 });
@@ -82,7 +82,7 @@ $routes->get('/articles/{id}', function($id)
 Parameters can be marked as optional by suffixing them with a question mark (`?`).
 
 ```
-$routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
+$routes->get('/articles/{id}/{slug}?', function ($id, $slug = null)
 {
 	return $id . ' ' . $slug;
 });
@@ -91,7 +91,7 @@ $routes->get('/articles/{id}/{slug}?', function($id, $slug = null)
 Parameters will match any character except for slashes (`/`); however, you can define your own custom parameter patterns using the `patterns` method.
 
 ```
-$routes->get('/articles/{id}', function($id)
+$routes->get('/articles/{id}', function ($id)
 {
 	return 'article ' . $id;
 })
@@ -101,7 +101,7 @@ $routes->get('/articles/{id}', function($id)
 Closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 ```
-$routes->get('/article/{id}', function(ViewFactory $view, $id)
+$routes->get('/article/{id}', function (ViewFactory $view, $id)
 {
 	return $view->render('article', ['id' => $id]);
 })
@@ -354,7 +354,7 @@ $options =
 	'patterns'   => ['id' => '[0-9]+'],
 ];
 
-$routes->group($options, function($routes)
+$routes->group($options, function ($routes)
 {
 	$routes->get('/articles/{id}', [Articles::class, 'view']);
 
