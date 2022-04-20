@@ -27,10 +27,12 @@
 * [Cloning records](#cloning_records)
 * [Array and JSON representations of results](#array_and_json_representations)
 * [Traits](#traits)
-	- [Timestamped](#traits:timestamped)
+	- [Camel cased data export and interaction](#traits:camel_cased_data_export_and_interaction)
 	- [Nullable](#traits:nullable)
 	- [Optimistic locking](#traits:optimistic_locking)
 	- [Read-only records](#traits:read_only_records)
+	- [Timestamped](#traits:timestamped)
+
 
 --------------------------------------------------------
 
@@ -732,41 +734,36 @@ You can convert both your result and result set objects to arrays and JSON when 
 
 ### Traits
 
-<a id="traits:timestamped"></a>
+<a id="traits:camel_cased_data_export_and_interaction">
 
-#### Timestamped
+#### Camel cased data export and interation
 
-You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
-
-The trait requires you to add two `DATETIME` columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
+Databases are usually designed with snake cased column and table names so interacting with columns and relations mapped to properties on ORM objects will lead to inconsistency in your code base if you use camel case everywhere else. This can be solved by using the `CamelCasedTrait` trait.
 
 ```
 <?php
 
 use mako\database\midgard\ORM;
-use mako\database\midgard\traits\TimestampedTrait;
+use mako\database\midgard\traits\CamelCasedTrait;
 
-class Article extends ORM
+class Upload extends ORM
 {
-	use TimestampedTrait;
+	use CamelCasedTrait;
 }
+
+$upload = Upload::get(1);
+
+// The database column is named "transfer_status" but can 
+// now be accessed on the ORM object using "transfer_status"
+
+$upload->transferStatus;
 ```
 
-You can touch the `updated_at` timestamp without having to modify any other data by using the `touch` method.
+All column and relation names will be transformed to camel case when transforming ORM objects to arrays or JSON. 
 
-```
-$article = Article::get(1);
+If you only want to access data using camel cased properties but want to keep your array and json representations snake cased then you can use the `CamelCasedDataInteractionTrait` trait instead. If you prefer it the other way around then you can use the `CamelCasedDataExportTrait` trait.
 
-$article->touch();
-```
-
-You can also make the ORM touch related records upon saving by listing the relations you want to touch in the `$touch` property.
-
-```
-protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
-```
-
-You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `true` by default.
+> Note that all relations as well as accessors and mutators are expected to be defined using camel case when using the `CamelCasedTrait` and `CamelCasedDataInteractionTrait` traits.
 
 <a id="traits:nullable"></a>
 
@@ -864,3 +861,39 @@ $user = User::get(1);
 
 $user->delete();
 ```
+
+<a id="traits:timestamped"></a>
+
+#### Timestamped
+
+You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
+
+The trait requires you to add two `DATETIME` columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
+
+```
+<?php
+
+use mako\database\midgard\ORM;
+use mako\database\midgard\traits\TimestampedTrait;
+
+class Article extends ORM
+{
+	use TimestampedTrait;
+}
+```
+
+You can touch the `updated_at` timestamp without having to modify any other data by using the `touch` method.
+
+```
+$article = Article::get(1);
+
+$article->touch();
+```
+
+You can also make the ORM touch related records upon saving by listing the relations you want to touch in the `$touch` property.
+
+```
+protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
+```
+
+You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `true` by default.

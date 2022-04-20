@@ -366,4 +366,13 @@ You can also register it into an existing validator instance.
 $validator->extend('is_foo', IsFooRule::class);
 ```
 
+Or you can just use the class name when setting up your input validation.
+
+```
+$rules =
+[
+	'foo' => ['required', IsFooRule::class],
+];
+```
+
 > Prefix the rule name with your package name and two colons (`::`) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) to avoid naming collisions.
