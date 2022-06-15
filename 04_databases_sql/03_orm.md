@@ -754,7 +754,7 @@ class Upload extends ORM
 $upload = Upload::get(1);
 
 // The database column is named "transfer_status" but can 
-// now be accessed on the ORM object using "transfer_status"
+// now be accessed on the ORM object using "transferStatus"
 
 $upload->transferStatus;
 ```

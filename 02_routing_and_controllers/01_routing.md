@@ -200,7 +200,7 @@ class CacheMiddleware implements MiddlewareInterface
 
 #### Assigning middleware
 
-Assigning middleware to a route can be done done using the `middleware` method. You can assign a single middleware or an array of middleware if your route requires multiple middleware.
+Assigning middleware to a route can be done using the `middleware` method. You can assign a single middleware or an array of middleware if your route requires multiple.
 
 ```
 $routes->get('/articles/{id}', [Articles::class, 'view'])
