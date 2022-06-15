@@ -38,10 +38,7 @@ $returnValue = (new Retry(function ()
 {
     // Some action that might fail
 }))
-->setDecider(function ($e)
-{
-    return ($e instanceof SpecialException::class) === false;
-})();
+->setDecider(fn ($e) => ($e instanceof SpecialException::class) === false)();
 ```
 
 You can also set the decider using the `$decider` constructor parameter.
