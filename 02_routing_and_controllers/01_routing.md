@@ -403,7 +403,7 @@ You can also pass parameters to your route URLs.
 
 ### Faking request methods
 
-Most browsers only support sending `GET` and `POST` requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
+Most browsers only support sending `GET` and `POST` form requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
 
 ```
 <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
