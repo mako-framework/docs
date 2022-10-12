@@ -98,7 +98,7 @@ $routes->get('/articles/{id}', function ($id)
 ->patterns(['id' => '[0-9]+']);
 ```
 
-Closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
+Both class method and closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 ```
 $routes->get('/article/{id}', function (ViewFactory $view, $id)
