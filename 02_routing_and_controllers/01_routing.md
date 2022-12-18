@@ -98,7 +98,7 @@ $routes->get('/articles/{id}', function ($id)
 ->patterns(['id' => '[0-9]+']);
 ```
 
-Closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
+Both class method and closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 ```
 $routes->get('/article/{id}', function (ViewFactory $view, $id)
@@ -403,7 +403,7 @@ You can also pass parameters to your route URLs.
 
 ### Faking request methods
 
-Most browsers only support sending `GET` and `POST` requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
+Most browsers only support sending `GET` and `POST` form requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
 
 ```
 <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
