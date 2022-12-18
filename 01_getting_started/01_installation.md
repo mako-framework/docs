@@ -60,7 +60,7 @@ php app/reactor server
 
 Open `http://localhost:8000` in your browser of choice and you're ready to start coding!
 
-> The included development server is great when getting started and for quick prototyping but your should probably use a <abbr title="virtual machine">VM</abbr> setup that closely resembles your production environment for advanced projects.
+> The included development server is great when getting started and for quick prototyping but your should probably use a <abbr title="virtual machine">VM</abbr> or Docker setup that closely resembles your production environment for advanced projects.
 
 --------------------------------------------------------
 
@@ -75,7 +75,7 @@ composer update
 ```
 {.language-none}
 
-If you want to bump the Mako version (e.g. from `6.0.*` to `6.1.*`) then you'll have to update your `composer.json` file before running the update command.
+If you want to bump the Mako version (e.g. from `9.0.*` to `9.1.*`) then you'll have to update your `composer.json` file before running the update command.
 
 > Some releases might require some minor code changes. These will be documented in the upgrade guides.
 {.warning}
