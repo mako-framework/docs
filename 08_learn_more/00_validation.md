@@ -6,7 +6,7 @@
 	- [Basics](#usage:basics)
 	- [Nested arrays](#usage:nested_arrays)
 	- [Conditional rules](#usage:conditional_rules)
-	- [Rule builder](#usage:rule_builder)
+	- [Rules with dynamic arguments](#usage:rules_with_dynamic_arguments)
 * [Validation rules](#validation_rules)
 	- [Base rules](#validation_rules:base)
 	- [Database rules](#validation_rules:database)
@@ -16,6 +16,7 @@
 	- [Session rules](#validation_rules:session)
 * [Custom messages](#custom_messages)
 * [Custom rules](#custom_rules)
+* [Input validation in controllers](#input_validation_in_controllers)
 
 --------------------------------------------------------
 
@@ -62,7 +63,7 @@ The `getValidatedInput` method returns the validated input data and throws a `Va
 $validatedInput = $validator->getValidatedInput();
 ```
 
-> Note that only validated input (input fields with at least one rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
+> Note that only validated input (input fields with at least one validation rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
 {.warning}
 
 The `isValid` method returns `true` if the input is valid and `false` if not, while the `isInvalid` method returns `false` when the input validates and `true` when not.
@@ -128,16 +129,18 @@ $validator->addRulesIf('state', ['required', 'valid_us_state'], function () use 
 
 > You can also pass a boolean value instead of a closure. Rules added using either of the methods will be merged with any pre-existing rules assigned to the field.
 
-<a id="usage:rule_builder"></a>
+<a id="usage:rules_with_dynamic_arguments"></a>
 
-#### Rule builder
+#### Rules with dynamic arguments
 
-The validator class also comes with a handy helper method that makes it easier to build rule sets that have rules with dynamic parameters. The first parameter of the method is the name of the validation rule and any subsequent parameters are treated as rule parameters.
+Mako comes with a handy helper function called `mako\f` that makes it easier to build rule sets that have rules with dynamic arguments. The first parameter of the function is the name of the validation rule and any subsequent arguments are treated as rule arguments.
 
 ```
+use function mako\f;
+
 $rules =
 [
-	'category' => ['required', Validator::rule('in', $this->getCategoryIds())],
+	'category' => ['required', f('in', $this->getCategoryIds())],
 ];
 
 // The example above produces the same result as the following code
@@ -376,3 +379,45 @@ $rules =
 ```
 
 > Prefix the rule name with your package name and two colons (`::`) if your validator is a part of a [package](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) to avoid naming collisions.
+
+--------------------------------------------------------
+
+<a id="input_validation_in_controllers"></a>
+
+### Input validation in controllers
+
+Mako includes a [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) and a trait that will greatly reduce the ammount of boilerplate code that you need to write to validate user input in controllers.
+
+The middleware will catch `ValidationException` exceptions and convert them to a [`Bad Request`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400) response where the response body will be delivered as HTML, JSON or XML based on the request context.
+
+The trait includes two helpful methods, `getValidatedInput` and `getValidatedFiles`, that will allow you to validate user input as well as uploaded files.
+
+```
+<?php
+
+namespace app\controllers;
+
+use mako\http\routing\attributes\Middleware;
+use mako\http\routing\Controller;
+use mako\validator\input\http\routing\middleware\InputValidation;
+use mako\validator\input\http\routing\traits\InputValidationTrait;
+
+class Article extends Controller
+{
+	use InputValidationTrait;
+
+	#[Middleware(InputValidation::class)]
+	public function store(): void
+	{
+		$input = $this->getValidatedInput([
+			'title' => ['required', 'min_length(1)', 'max_length(255)'],
+			'body'  => ['required', 'min_length(1)', 'max_length(64000)'],
+		]);
+
+		// Do something with the input ...
+	}
+}
+```
+
+> Note that the two methods only return validated input (input fields with at least one validation rule). If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
+{.warning}
