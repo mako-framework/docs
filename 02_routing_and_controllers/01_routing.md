@@ -147,6 +147,10 @@ Middleware has to be registered in the `app/routing/middleware.php` file before 
 
 ```
 $dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class);
+
+// You can also register middleware using only the class name
+
+$dispatcher->registerMiddleware(PassthroughMiddleware::class);
 ```
 
 In the next example we'll create a middleware that returns a cached response if possible.
@@ -206,6 +210,12 @@ Assigning middleware to a route can be done using the `middleware` method. You c
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache');
+
+// Or if you registered it using only the class name
+
+$routes->get('/articles/{id}', [Articles::class, 'view'])
+->patterns(['id' => '[0-9]+'])
+->middleware(CacheMiddleware::class);
 ```
 
 You can also pass parameters to your middleware. Parameters are parsed as JSON so booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
@@ -216,6 +226,12 @@ In the example below we're telling the middleware to cache the response for 60 m
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware('cache("minutes":60)');
+
+// Or if you registered it using only the class name
+
+$routes->get('/articles/{id}', [Articles::class, 'view'])
+->patterns(['id' => '[0-9]+'])
+->middleware(mako\f(CacheMiddleware::class, minutes: 60));
 ```
 
 Middleware can also be assigned using the `Middleware` attribute on route action classes and methods.
@@ -232,6 +248,11 @@ If you have middleware that you want to assign to all your routes then you can s
 
 ```
 $dispatcher->setMiddlewareAsGlobal(['cache']);
+
+// Or if you registered it using only the class name
+
+$dispatcher->setMiddlewareAsGlobal([CacheMiddleware::class]);
+
 ```
 
 <a id="route_middleware:middleware_priority"></a>
@@ -245,12 +266,21 @@ You can set the middleware priority while registering the middleware using the o
 ```
 $dispatcher->registerMiddleware('cache', CacheMiddleware::class, 1);
 $dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class, 2);
+
+// Or if you register them using only the class name
+
+$dispatcher->registerMiddleware(CacheMiddleware::class, priority: 1);
+$dispatcher->registerMiddleware(PassthroughMiddleware::class, priority: 2);
 ```
 
 Or you can set the priority of all your middleware using the `setMiddlewarePriority` method.
 
 ```
 $dispatcher->setMiddlewarePriority(['cache' => 1, 'passthrough' => 2]);
+
+// Or if you register them using only the class name
+
+$dispatcher->setMiddlewarePriority([CacheMiddleware::class => 1, PassthroughMiddleware::class => 2]);
 ```
 
 In both examples above we're making sure that the `cache` middleware gets executed first, followed by the `passthrough` middleware.
@@ -305,6 +335,10 @@ Constraints have to be registered in the `app/routing/constraints.php` file befo
 
 ```
 $router->registerConstraint('api_version', ApiVersionConstraint::class);
+
+// You can also register constraints using only the class name
+
+$router->registerConstraint(ApiVersionConstraint::class);
 ```
 
 <a id="route_constraints:assigning_constraints"></a>
@@ -316,6 +350,11 @@ Assigning constraints to a route is done using the `constraint` method. You can 
 ```
 $routes->get('/', [Api2::class, 'index'])->constraint('api_version("2.0")');
 $routes->get('/', [Api1::class, 'index'])->constraint('api_version("1.0")');
+
+// Or if you register them using only the class name
+
+$routes->get('/', [Api2::class, 'index'])->constraint(mako\f(ApiVersionConstraint::class, '2.0'));
+$routes->get('/', [Api1::class, 'index'])->constraint(mako\f(ApiVersionConstraint::class, '1.0'));
 ```
 
 The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
