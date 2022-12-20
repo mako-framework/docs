@@ -19,7 +19,7 @@
 
 If you plan to use the database library then you'll also need to install `ext-pdo`.
 
-\* Tested on PHP 7.4, 8.0 and 8.1
+\* Tested on PHP 7.4, 8.0, 8.1 and 8.2
 
 --------------------------------------------------------
 
