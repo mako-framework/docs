@@ -586,7 +586,7 @@ Both the query builder and ORM support enums values. You can automatically cast 
 protected $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
 ```
 
-> Note that the ORM can only cast to so-called backed enums unless you implement your own `from` method.
+> Note that the ORM can only cast to so-called [backed enums](https://www.php.net/manual/en/language.enumerations.backed.php) unless you implement your own `from` method.
 
 --------------------------------------------------------
 
