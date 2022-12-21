@@ -481,13 +481,13 @@ use mako\reactor\Command;
 
 class Hello extends Command
 {
-	protected $config;
-
-	public function __construct(Input $input, Output $output, Config $config)
+	public function __construct(
+		Input $input, 
+		Output $output, 
+		protected Config $config
+	)
 	{
 		parent::__construct($input, $output);
-
-		$this->config = $config;
 	}
 }
 ```

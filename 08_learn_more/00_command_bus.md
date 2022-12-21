@@ -30,16 +30,11 @@ use mako\commander\CommandInterface;
 
 class CreateUserCommand implements CommandInterface
 {
-	public $email;
-	public $username;
-	public $password;
-
-	public function __construct($email, $username, $password)
-	{
-		$this->email    = $email;
-		$this->username = $username;
-		$this->password = $password;
-	}
+	public function __construct(
+		public string $email, 
+		public string $username, 
+		public string $password)
+	{}
 }
 ```
 
@@ -56,12 +51,10 @@ use mako\commander\CommandHandlerInterface;
 
 class CreateUserHandler implements CommandHandlerInterface
 {
-	protected $gatekeeper;
-
-	public function __construct(Gatekeeper $gatekeeper)
-	{
-		$this->gatekeeper = $gatekeeper;
-	}
+	public function __construct(
+		protected Gatekeeper $gatekeeper
+	)
+	{}
 
 	public function handle(CommandInterface $command)
 	{
@@ -157,12 +150,10 @@ use mako\database\ConnectionManager;
 
 class TransactionMiddleware
 {
-	protected $database;
-
-	public function __construct(ConnectionManager $database)
-	{
-		$this->database = $database;
-	}
+	public function __construct(
+		protected ConnectionManager $database
+	)
+	{}
 
 	public function execute(CommandInterface $command, Closure $next)
 	{

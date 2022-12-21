@@ -223,12 +223,10 @@ use mako\view\ViewFactory;
 
 class Articles extends Controller
 {
-	protected $view;
-
-	public function __construct(ViewFactory $view)
-	{
-		$this->view = $view;
-	}
+	public function __construct(
+		protected ViewFactory $view
+	)
+	{}
 }
 ```
 

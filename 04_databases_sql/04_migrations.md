@@ -208,13 +208,12 @@ Migrations are instantiated by the [dependency injection container](:base_url:/d
 
 class Migration_20120824100019 extends Migration
 {
-	protected $config;
-
-	public function __construct(ConnectionManager $connectionManager, Config $config)
+	public function __construct(
+		ConnectionManager $connectionManager, 
+		protected Config $config
+	)
 	{
 		parent::__construct($connectionManager);
-
-		$this->config = $config;
 	}
 }
 ```

@@ -170,16 +170,11 @@ use mako\http\routing\middleware\MiddlewareInterface;
 
 class CacheMiddleware implements MiddlewareInterface
 {
-	protected $minutes;
-
-	protected $cache;
-
-	public function __construct(CacheManager $cache, int $minutes = 10)
-	{
-		$this->cache = $cache;
-
-		$this->minutes = $minutes;
-	}
+	public function __construct(
+		protected CacheManager $cache, 
+		protected int $minutes = 10
+	)
+	{}
 
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
@@ -313,16 +308,11 @@ use mako\http\routing\constraints\ConstraintInterface;
 
 class ApiVersionConstraint implements ConstraintInterface
 {
-	protected $version;
-
-	protected $request;
-
-	public function __construct(string $version, Request $request)
-	{
-		$this->version = $version;
-
-		$this->request = $request;
-	}
+	public function __construct(
+		protected string $version, 
+		protected Request $request
+	)
+	{}
 
 	public function isSatisfied(): bool
 	{
