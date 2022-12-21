@@ -38,19 +38,13 @@ $container->register([FooInterface::class, 'foo'], Foo::class);
 Additionally, the container allows you to register your dependencies using a closure.
 
 ```
-$container->register([BarInterface::class, 'bar'], function ($container)
-{
-	return new Bar('parameter value');
-});
+$container->register([BarInterface::class, 'bar'], fn ($container) => new Bar('parameter value'));
 ```
 
 The `registerSingleton` method works just like the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
 ```
-$container->registerSingleton([BarInterface::class, 'bar'], function ($container)
-{
-	return new Bar('parameter value');
-});
+$container->registerSingleton([BarInterface::class, 'bar'], fn ($container) => new Bar('parameter value'));
 ```
 
 The `registerInstance` method is similar to the `registerSingleton` method. The only difference is that it allows you to register an existing instance in the container.
@@ -169,10 +163,7 @@ $container->replace(FooInterface::class, OtherFoo::class);
 The `replaceSingleton` method allows you to replace a previously registered singleton dependency in the container.
 
 ```
-$container->replaceSingleton([BarInterface::class, 'bar'], function ($container)
-{
-	return new OtherBar('parameter value');
-});
+$container->replaceSingleton([BarInterface::class, 'bar'], fn ($container) => new OtherBar('parameter value'));
 ```
 
 The `replaceInstance` method allows you to replace a previously registered instance dependency in the container.

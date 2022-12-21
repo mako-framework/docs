@@ -209,10 +209,7 @@ The `each` method allows you to modify your collection items using a callable.
 ```
 $collection = new Collection([1, 2, 3]);
 
-$collection->each(function ($value, $key)
-{
-	return $key . ':' . $value;
-});
+$collection->each(fn ($value, $key) => $key . ':' . $value);
 ```
 
 The `map` method works just like the `each` method except that it returns a new collection instead of modifying the existing one
@@ -220,10 +217,7 @@ The `map` method works just like the `each` method except that it returns a new 
 ```
 $collection = new Collection([1, 2, 3]);
 
-$newCollection = $collection->map(function ($value, $key)
-{
-	return $key . ':' . $value;
-});
+$newCollection = $collection->map(fn ($value, $key) => $key . ':' . $value);
 ```
 
 You can filter a collection and remove unwanted items using a callable with the `filter` method. The callable can also accept a second parameter if you need to filter items using the key. If no callable is passed then it will just filter out all [`falsy`](https://php.net/manual/en/language.types.boolean.php#language.types.boolean.casting) values.
@@ -231,10 +225,7 @@ You can filter a collection and remove unwanted items using a callable with the 
 ```
 $collection = new Collection([1, 2, 3, 'foo', 4]);
 
-$filtered = $collection->filter(function ($value)
-{
-	return is_int($value);
-});
+$filtered = $collection->filter(fn ($value) => is_int($value));
 ```
 
 You can create a new collection where items not included in the whitelist have been removed using the `whith` method.

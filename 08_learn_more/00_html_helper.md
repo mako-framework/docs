@@ -91,10 +91,7 @@ echo $html->ol($items);
 The `addMethod` method allows you to register custom tag methods.
 
 ```
-HTML::addMethod('p', function ($content, array $attributes = [])
-{
-	return $this->tag('p', $attributes, $content);
-});
+HTML::addMethod('p', fn ($content, array $attributes = []) => $this->tag('p', $attributes, $content));
 
 // Will print <p>Hello</p>
 
