@@ -440,7 +440,7 @@ $persons = $query->table('persons')
 
 #### JOIN clauses
 
-join(), joinRaw(), leftJoin(), leftJoinRaw()
+join(), joinRaw(), leftJoin(), leftJoinRaw(), rightJoin(), rightJoinRaw(), crossJoin(), lateralJoin()
 
 ```
 // SELECT * FROM `persons` INNER JOIN `phones` ON `persons`.`id` = `phones`.`user_id`
@@ -457,6 +457,25 @@ $persons = $query->table('persons as u')
 	$join->orOn('u.phone_number', '=', 'p.number');
 })
 ->all();
+
+// SELECT * FROM `drinks` CROSS JOIN `meals`
+
+$menu = $query->table('drinks')->crossJoin('meals')->all();
+
+// SELECT `customers`.*, `recent_sales`.* FROM `customers` LEFT OUTER JOIN LATERAL (
+//	SELECT * FROM `sales` WHERE `sales`.`customer_id` = `customers`.`id` 
+//	ORDER BY `created_at` DESC LIMIT 3
+// ) AS `recent_sales` ON TRUE
+
+$customers = $query->table('customers')
+->lateralJoin(new Subquery(function (Query $query): void
+{
+	$query->table('sales')
+	->whereRaw('sales.customer_id', '=', 'customers.id')
+	->descending('created_at')
+	->limit(3);
+}, 'recent_sales'))
+->select(['customers.*', 'recent_sales.*'])->all();
 ```
 
 <a id="clauses:group_by_clauses"></a>
