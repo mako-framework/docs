@@ -368,6 +368,8 @@ The renderer will be instantiated by the [dependency injection container](:base_
 In the examples below we'll register the custom renderer in the `bootstrap.php` file:
 
 ```
+<?php
+
 use mako\view\ViewFactory;
 
 /**
@@ -381,6 +383,8 @@ $container->get(ViewFactory::class)->extend('.twig', TwigRenderer::class);
 You can also use a closure if your renderer requires parameters that the container is unable to resolve.
 
 ```
+<?php
+
 use mako\view\ViewFactory;
 
 /**
