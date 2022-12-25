@@ -374,7 +374,7 @@ use mako\view\ViewFactory;
 
 /**
  * @var \mako\application\Application $app
- * @var \mako\syringe\Container $container
+ * @var \mako\syringe\Container       $container
  */
 
 $container->get(ViewFactory::class)->extend('.twig', TwigRenderer::class);
@@ -389,7 +389,7 @@ use mako\view\ViewFactory;
 
 /**
  * @var \mako\application\Application $app
- * @var \mako\syringe\Container $container
+ * @var \mako\syringe\Container       $container
  */
 
 $container->get(ViewFactory::class)->extend('.twig', function ()
