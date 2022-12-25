@@ -359,22 +359,38 @@ Rendering the child template will result in the HTML document displayed below.
 
 ### Custom view renderers
 
-Mako also makes it possible to use custom view renderers such as [Twig](https://twig.symfony.com) or [Smarty](https://www.smarty.net).
+Mako also makes it possible to use custom view renderers such as [Twig](https://twig.symfony.com) or [Latte](https://latte.nette.org/en/).
 
 Registering a custom renderer is done using the `extend` method. The first parameter is the file extension you want to associate with your custom renderer and the second parameter is the class name of your renderer class.
 
 The renderer will be instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so all dependencies will automatically be injected.
 
+In the examples below we'll register the custom renderer in the `bootstrap.php` file:
+
 ```
-$this->view->extend('.twig', TwigRenderer::class);
+use mako\view\ViewFactory;
+
+/**
+ * @var \mako\application\Application $app
+ * @var \mako\syringe\Container $container
+ */
+
+$container->get(ViewFactory::class)->extend('.twig', TwigRenderer::class);
 ```
 
 You can also use a closure if your renderer requires parameters that the container is unable to resolve.
 
 ```
-$this->view->extend('.twig', function ()
+use mako\view\ViewFactory;
+
+/**
+ * @var \mako\application\Application $app
+ * @var \mako\syringe\Container $container
+ */
+
+$container->get(ViewFactory::class)->extend('.twig', function ()
 {
-	$renderer = new foo\bar\TwigRenderer;
+	$renderer = new TwigRenderer;
 
 	$renderer->setCachePath('/tmp');
 
