@@ -370,7 +370,7 @@ $this->authorize('view', $article);
 ...
 ```
 
-You'll not always be able to authorize actions on a entity instance so it also possible to pass the class name.
+You'll not always be able to authorize actions on a entity instance so it is also possible to pass the class name.
 
 ```
 $this->authorize('create', Article::class);

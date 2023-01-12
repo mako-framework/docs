@@ -133,8 +133,6 @@ $article = Article::getOrThrow(1);
 $article = Article::getOrThrow(1, exception: NotFoundException::class);
 ```
 
-> We're using the PHP 8.0+ [named argument](https://www.php.net/manual/en/functions.arguments.php#functions.named-arguments) syntax to skip the optional `$columns` parameter of the `getOrThrow` method.
-
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
 
 ```
