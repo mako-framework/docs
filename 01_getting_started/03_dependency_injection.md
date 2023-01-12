@@ -90,14 +90,11 @@ The class does not have to be registered in the container to be resolvable.
 
 class Depends
 {
-	protected $foo;
-	protected $bar;
-
-	public function __construct(FooInterface $foo, BarInterface $bar)
-	{
-		$this->foo = $foo;
-		$this->bar = $bar;
-	}
+	public function __construct(
+		protected FooInterface $foo, 
+		protected BarInterface $bar
+	)
+	{}
 }
 ```
 
