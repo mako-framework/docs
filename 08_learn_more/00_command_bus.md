@@ -68,7 +68,7 @@ class CreateUserHandler implements CommandHandlerInterface
 }
 ```
 
-This is a very basic example but you would also want to include input validation in your command handler. The `CommandHandlerInterface::handle()` method can return data that can be used to handle successes and errors.
+The `CommandHandlerInterface::handle()` method can return data that can be used to build responses.
 
 > Note that all command handlers must follow a strict naming convention. The `Command` suffix of your command class will be replaced by a `Handler` suffix. If no `Command` suffix is present then the word `Handler` will just be appended to the class name.
 
@@ -185,7 +185,7 @@ Adding middleware like shown in the example above will decorate all command hand
 ```
 $middleware = [TransactionMiddleware::class];
 
-$commander->dispatch(new CreateUserCommand($email, $username, $password), [], $middleware);
+$commander->dispatch(new CreateUserCommand($email, $username, $password), middleware: $middleware);
 ```
 
 Middleware is instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject all your dependencies using the constructor.
