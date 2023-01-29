@@ -85,7 +85,6 @@ We are now ready to dispatch our command using the `CommandBus::dispatch()` meth
 namespace app\controllers;
 
 use app\commands\CreateUserCommand;
-
 use mako\commander\CommandBus;
 use mako\http\Request;
 use mako\http\routing\Controller;
@@ -113,7 +112,6 @@ As previously mentioned, you can re-use your commands anywhere in your applicati
 namespace app\console\commands\users;
 
 use app\commands\CreateUserCommand;
-
 use mako\commander\CommandBus;
 use mako\reactor\Command;
 
