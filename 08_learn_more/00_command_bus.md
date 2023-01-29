@@ -144,10 +144,9 @@ Middleware can be used to decorate your command handlers with additional functio
 namespace app\commands\middleware;
 
 use Closure;
-use PDOException;
-
 use mako\commander\CommandInterface;
 use mako\database\ConnectionManager;
+use Throwable;
 
 class TransactionMiddleware
 {
@@ -166,7 +165,7 @@ class TransactionMiddleware
 
 			$this->database->commitTransaction();
 		}
-		catch(PDOException $e)
+		catch(Throwable $e)
 		{
 			$this->database->rollBackTransaction();
 		}
