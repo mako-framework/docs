@@ -447,7 +447,7 @@ CREATE TABLE `groups_users` (
 		FOREIGN KEY (`user_id`)
 		REFERENCES `users` (`id`)
 		ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 {.language-sql}
 [/collapse]
