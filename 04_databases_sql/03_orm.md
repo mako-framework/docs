@@ -614,7 +614,7 @@ And the following accessor will decode the value when accessing it.
 ```
 protected function numbersAccessor($numbers)
 {
-	return json_decode($numbers)
+	return json_decode($numbers);
 }
 ```
 
