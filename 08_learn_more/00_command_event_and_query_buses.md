@@ -11,15 +11,15 @@ The bus library includes command, event and query bus implementations. The three
 
 ###### Command bus:
 
-The command bus is used to handle an action. One example is a `CreateUserCommand` command which creates a new user. Commands should be handled by a single command handler and the handler must not return any values.
+The command bus is used to handle commands. One example is a `CreateUserCommand` command which creates a new user. Commands should be handled by a single command handler and the handler must not return any values.
 
 ###### Event bus:
 
-The event bus is used to handle an event. One example is a `UserCreatedEvent` event. Events can be handled by zero to an infinite number of event handlers and the handlers must not return any values.
+The event bus is used to handle an event. One example is a `UserCreatedEvent` event that sends the newly created user a welcome email. Events can be handled by zero to an infinite number of event handlers and the handlers must not return any values.
 
 ###### Query bus:
 
-The query bus is used to handle an event. One example is a `GetUserQuery` query. Queries should be handled by a single query handler and the handler should return data. Note that queries should *not* alter the state of the application.
+The query bus is used to handle queries. One example is a `GetUserQuery` query which fetches a user from the database. Queries should be handled by a single query handler and the handler should return data. Note that queries should *not* alter the state of the application.
 
 > Commands, events and queries should be simple DTO objects while handlers can be any type of [callable](https://www.php.net/manual/en/language.types.callable.php). We suggest using invokable classes as handlers as they allow for dependencies to be injected through the constructor thanks to the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection).
 
