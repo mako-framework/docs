@@ -8,6 +8,9 @@
 
 Mako includes two ways of handling events, an event listener and a trait that makes your class observable.
 
+> The event library is deprecated and will be removed in Mako 10. It is replaced by the [new bus library](:base_url:/docs/:version:/learn-more:command-event-and-query-buses).
+{.warning}
+
 --------------------------------------------------------
 
 <a id="event_listener"></a>

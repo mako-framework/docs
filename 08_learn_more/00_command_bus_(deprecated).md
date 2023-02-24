@@ -11,6 +11,9 @@ The command bus allows you to create `commands` that can be dispatched to corres
 
 The main advantage of using this pattern is that the commands can be used from anywhere within your application and thus greatly reduce code duplication.
 
+> The command bus is deprecated and will be removed in Mako 10. It is replaced by the [new bus library](:base_url:/docs/:version:/learn-more:command-event-and-query-buses).
+{.warning}
+
 --------------------------------------------------------
 
 <a id="basic_usage"></a>
