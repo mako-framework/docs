@@ -27,9 +27,7 @@ The query bus is used to handle queries. One example is a `GetUserQuery` query w
 
 --------------------------------------------------------
 
-<a id="command_bus"></a>
-
-### Command bus
+### <a id="command_bus" href="#command_bus">Command bus</a>
 
 First let's create a simple DTO class for holding the command data.
 
@@ -80,9 +78,7 @@ $this->commandBus->handle(new CreateUserCommand('foo@example.org', 'foo', 'super
 
 --------------------------------------------------------
 
-<a id="event_bus"></a>
-
-### Event bus
+### <a id="event_bus" href="#event_bus">Event bus</a>
 
 First let's create a simple DTO class for holding the event data.
 
@@ -131,9 +127,7 @@ $this->eventBus->handle(new UserCreatedEvent('foo@example.org', 'foo'));
 
 --------------------------------------------------------
 
-<a id="query_bus"></a>
-
-### Query bus
+### <a id="query_bus" href="#query_bus">Query bus</a>
 
 First let's create a simple DTO class for holding the query data.
 
@@ -183,9 +177,7 @@ $user = $this->queryBus->handle(new GetUserQuery(1));
 
 --------------------------------------------------------
 
-<a id="registering_handlers"></a>
-
-### Registering handlers
+### <a id="registering_handlers" href="#registering_handlers">Registering handlers</a>
 
 The Mako skeleton application comes with a `BusService` that allows you to register your command, event and query handlers in a sentralized place using the `getCommandHandlers`, `getEventHandlers` and `getQueryHandlers` methods.
 
