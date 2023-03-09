@@ -15,9 +15,7 @@ Packages are installed using [composer](https://packagist.org) and can be used t
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 There are two files that must be present in a package. A package "boot" class (class must extend the `mako\application\Package` class) and a composer.json file.
 
@@ -61,9 +59,7 @@ The example file below only contains the bare minimum so head over to the [compo
 
 --------------------------------------------------------
 
-<a id="configuration_i18n_and_views"></a>
-
-### Configuration, i18n and views
+### <a id="configuration_i18n_and_views" href="#configuration_i18n_and_views">Configuration, i18n and views</a>
 
 Packages can also have their own configuration files, language strings and views. The directory tree below shows you the default directory structure but you can change it if you want to. All you have to do is override the appropriate `get*Path` method in your package class.
 
@@ -95,9 +91,7 @@ By default the file namespace of a package will be the package name where the sl
 protected $fileNamespace = 'foo';
 ```
 
-<a id="configuration_i18n_and_views:overriding_configuration_i18n_and_views"></a>
-
-#### Overriding configuration, i18n and views
+#### <a id="configuration_i18n_and_views:overriding_configuration_i18n_and_views" href="#configuration_i18n_and_views:overriding_configuration_i18n_and_views">Overriding configuration, i18n and views</a>
 
 Sometimes you might want to modify the configuration, i18n strings or views of a third party package. You can edit the them directly but the changes you make will be overwritten when you update the package. This is where the cascading file lookup comes in handy.
 
@@ -107,9 +101,7 @@ Lets say you have a packaged named `acme-foo` with a config file you want to mod
 
 --------------------------------------------------------
 
-<a id="commands"></a>
-
-### Commands
+### <a id="commands" href="#commands">Commands</a>
 
 Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the `$commands` property in your package class.
 
@@ -124,9 +116,7 @@ protected $commands =
 
 --------------------------------------------------------
 
-<a id="package_installation"></a>
-
-### Package installation
+### <a id="package_installation" href="#package_installation">Package installation</a>
 
 Installing packages is extremely easy. All you need to do is running a simple [composer](https://getcomposer.org) command and add the package "boot" class to the list of packages in your `app/config/application.php` configuration file.
 
@@ -144,9 +134,7 @@ composer require acme/foo
 
 --------------------------------------------------------
 
-<a id="publishing_packages"></a>
-
-### Publishing packages
+### <a id="publishing_packages" href="#publishing_packages">Publishing packages</a>
 
 Publishing your packages is very easy and you can read all about it on the [packagist.org](https://packagist.org) website.
 

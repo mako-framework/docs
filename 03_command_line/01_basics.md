@@ -10,9 +10,7 @@ Mako includes a command line tool called `reactor`. Reactor comes with a set of 
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 To list the available commands just type the following in your console:
 

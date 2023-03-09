@@ -25,13 +25,9 @@ The Mako command line tool comes with a set of useful commands but you can also 
 
 --------------------------------------------------------
 
-<a id="basics"></a>
+### <a id="basics" href="#basics">Basics</a>
 
-### Basics
-
-<a id="basics:getting-started"></a>
-
-#### Getting started
+#### <a id="basics:getting-started" href="#basics:getting-started">Getting started</a>
 
 All commands must extend the `mako\reactor\Command` base command and implement the `execute` method.
 
@@ -59,17 +55,13 @@ class Hello extends Command
 
 > You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
 
-<a id="basics:registering-commands"></a>
-
-#### Registering commands
+#### <a id="basics:registering-commands" href="#basics:registering-commands">Registering commands</a>
 
 You'll have to register your command with the reactor command line tool before you can use it and you can choose between automatic or manual registration.
 
 > You can use a combination of automatic and manual registration be we recommend choosing one method.
 
-<a id="basics:registering-commands:automatic-registration"></a>
-
-##### Automatic registration
+##### <a id="basics:registering-commands:automatic-registration" href="#basics:registering-commands:automatic-registration">Automatic registration</a>
 
 <a id="basics:registering-commands:manual-registration"></a>
 
@@ -90,21 +82,15 @@ If you want to manually register your commands then you'll have to do so in the 
 ],
 ```
 
-<a id="basics:registering-commands:registration-of-package-commands"></a>
-
-##### Registration of package commands
+##### <a id="basics:registering-commands:registration-of-package-commands" href="#basics:registering-commands:registration-of-package-commands">Registration of package commands</a>
 
 Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of the documentation to see how you register your custom commands in packages.
 
 --------------------------------------------------------
 
-<a id="input"></a>
+### <a id="input" href="#input">Input</a>
 
-### Input
-
-<a id="input:arguments-and-options"></a>
-
-#### Arguments and options
+#### <a id="input:arguments-and-options" href="#input:arguments-and-options">Arguments and options</a>
 
 You'll most likely want to pass arguments to your commands and to do so you'll have to define them in the `getArguments` method.
 
@@ -138,9 +124,7 @@ You can now pass values to your command like this:
 php reactor command "argument value" --option1="option1 value" -o "option3 value"
 ```
 
-<a id="input:arguments-and-options:flags"></a>
-
-##### Flags
+##### <a id="input:arguments-and-options:flags" href="#input:arguments-and-options:flags">Flags</a>
 
 In the example above we made one of our arguments optional by using the `Argument::IS_OPTIONAL` flag. Below you'll see the complete list of available flags that you can use:
 
@@ -160,9 +144,7 @@ new Argument('--arg', 'Description', Argument::IS_OPTIONAL | Argument::IS_ARRAY 
 
 > Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
 
-<a id="input:interactive_input"></a>
-
-#### Interactive input
+#### <a id="input:interactive_input" href="#input:interactive_input">Interactive input</a>
 
 The `question` method lets you ask the user for input.
 
@@ -210,13 +192,9 @@ if($this->confirm('Do you want to delete all your files?', 'y'))
 
 --------------------------------------------------------
 
-<a id="output"></a>
+### <a id="output" href="#output">Output</a>
 
-### Output
-
-<a id="output:basics"></a>
-
-#### Basics
+#### <a id="output:basics" href="#output:basics">Basics</a>
 
 The `write` method lets you write output.
 
@@ -248,9 +226,7 @@ The `clear` method lets you clear all output from the terminal window.
 $this->clear();
 ```
 
-<a id="output:helpers"></a>
-
-#### Helpers
+#### <a id="output:helpers" href="#output:helpers">Helpers</a>
 
 The `bell` method rings the terminal bell.
 
@@ -347,9 +323,7 @@ $this->alert('This is a custom alert.', '<bg_purple><white>%s</white></bg_purple
 
 > Note that all output formatting tags present in an alert message will be escaped.
 
-<a id="output:formatting"></a>
-
-#### Formatting
+#### <a id="output:formatting" href="#output:formatting">Formatting</a>
 
 You can format your output using formatting tags.
 
@@ -413,9 +387,7 @@ $escaped = $this->output->getFormatter()->escape($string);
 
 --------------------------------------------------------
 
-<a id="calling_commands_from_commands"></a>
-
-### Calling commands from commands
+### <a id="calling_commands_from_commands" href="#calling_commands_from_commands">Calling commands from commands</a>
 
 If you need to call a command from within another command then you can use the `FireTrait`.
 
@@ -466,9 +438,7 @@ class Manager extends Command
 
 --------------------------------------------------------
 
-<a id="dependency_injection"></a>
-
-### Dependency injection
+### <a id="dependency_injection" href="#dependency_injection">Dependency injection</a>
 
 Commands are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 

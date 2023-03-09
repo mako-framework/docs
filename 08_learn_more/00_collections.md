@@ -12,9 +12,7 @@ Collections are, as the name suggests, objects that contain a collection of valu
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 Creating a collection is easy. You can create an empty collection or pass a set of values to the constructor.
 

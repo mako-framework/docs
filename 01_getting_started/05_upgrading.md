@@ -15,17 +15,13 @@ Mako `9.0` drops support for PHP version `7.4` and requires PHP version `8.0` or
 
 --------------------------------------------------------
 
-<a id="gatekeeper"></a>
-
-### Gatekeeper
+### <a id="gatekeeper" href="#gatekeeper">Gatekeeper</a>
 
 The gatekeeper authorization trait has been moved from `mako\http\routing\traits\AuthorizationTrait` to `mako\gatekeeper\authorization\http\routing\traits\AuthorizationTrait` so make sure to update your use statements.
 
 --------------------------------------------------------
 
-<a id="string_helper"></a>
-
-### String helper
+### <a id="string_helper" href="#string_helper">String helper</a>
 
 The `Str::camel2underscored()` and `Str::underscored2camel()` helper methods have been removed and replaced by the `Str::camelToSnake()` and `Str::snakeToCamel()` methods.
 
@@ -45,9 +41,7 @@ $camelCased = Str::snakeToCamel('hello_world');
 
 --------------------------------------------------------
 
-<a id="validation"></a>
-
-### Validation
+### <a id="validation" href="#validation">Validation</a>
 
 #### Renamed classes
 
@@ -81,9 +75,7 @@ $rules =
 
 --------------------------------------------------------
 
-<a id="other"></a>
-
-### Other
+### <a id="other" href="#other">Other</a>
 
 The following class constants have been made protected:
 

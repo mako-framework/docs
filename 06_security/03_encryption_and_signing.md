@@ -19,13 +19,9 @@ Mako comes with a set of classes to help you encrypt and sign your data.
 
 --------------------------------------------------------
 
-<a id="encryption"></a>
+### <a id="encryption" href="#encryption">Encryption</a>
 
-### Encryption
-
-<a id="encryption:basics"></a>
-
-#### Basics
+#### <a id="encryption:basics" href="#encryption:basics">Basics</a>
 
 The encryption library allows you to encrypt data using OpenSSL.
 
@@ -55,9 +51,7 @@ $decrypted = $encrypter->decrypt($encrypted);
 
 > Note that data will automatically be signed with the application secret when encrypted and validated when decrypting when using the Crypto class.
 
-<a id="encryption:magic_shortcut"></a>
-
-#### Magic shortcut
+#### <a id="encryption:magic_shortcut" href="#encryption:magic_shortcut">Magic shortcut</a>
 
 You can access the default crypto configuration directly without having to go through the `instance` method thanks to the magic `__call` method.
 
@@ -65,9 +59,7 @@ You can access the default crypto configuration directly without having to go th
 $encrypted = $this->crypto->encrypt('Hello, world!');
 ```
 
-<a id="encryption:reencrypting_data"></a>
-
-#### Re-encrypting data
+#### <a id="encryption:reencrypting_data" href="#encryption:reencrypting_data">Re-encrypting data</a>
 
 Sometimes you'll have to re-encrypt data. This could be because you have generated a new application secret or encryption key. Luckily, this can easily be achieved in a few simple lines of code.
 
@@ -89,9 +81,7 @@ $encrypted = $crypto->encrypt($decrypted);
 
 --------------------------------------------------------
 
-<a id="signing"></a>
-
-### Signing
+### <a id="signing" href="#signing">Signing</a>
 
 Signing strings allows you to verify both the data integrity and the authenticity of your data. A HMAC (hash-based message authentication code) will be prepended to your string upon signing and stripped when validated.
 

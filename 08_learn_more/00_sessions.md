@@ -22,13 +22,9 @@ The Mako session library comes with four different session stores by default.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage:data"></a>
-
-#### Data
+#### <a id="usage:data" href="#usage:data">Data</a>
 
 Adding an item to the session is done using the `put` method.
 
@@ -87,9 +83,7 @@ If you want to clear all session data then you can use the `clear` method.
 $this->session->clear();
 ```
 
-<a id="usage:flash_data"></a>
-
-#### Flash data
+#### <a id="usage:flash_data" href="#usage:flash_data">Flash data</a>
 
 Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the `putFlash` method.
 
@@ -133,13 +127,9 @@ You can also choose to reflash only a set of keys if you don't want to reflash a
 $this->session->reflash(['success', 'error']);
 ```
 
-<a id="usage:security"></a>
+#### <a id="usage:security" href="#usage:security">Security</a>
 
-#### Security
-
-<a id="usage:security:token"></a>
-
-##### Token
+##### <a id="usage:security:token" href="#usage:security:token">Token</a>
 
 The `getToken` returns a token that can be used in forms and AJAX requests to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
@@ -161,9 +151,7 @@ $token = $this->session->regenerateToken();
 
 > Mako will automatically generate a new token upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
 
-<a id="usage:security:one_time_tokens"></a>
-
-##### One time tokens
+##### <a id="usage:security:one_time_tokens" href="#usage:security:one_time_tokens">One time tokens</a>
 
 ```
 $token = $this->session->regenerateToken();
@@ -185,9 +173,7 @@ $valid = $this->session->validateOneTimeToken($token);
 
 > Note that only the last 20 one time tokens that have been generated during a session are valid.
 
-<a id="usage:security:session_id"></a>
-
-##### Session id
+##### <a id="usage:security:session_id" href="#usage:security:session_id">Session id</a>
 
 Retrieving the session id is done by using the `getId` method.
 
@@ -209,9 +195,7 @@ $this->session->regenerateId(true);
 
 > Mako will automatically regenerate the session id upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
 
-<a id="usage:security:session_destruction"></a>
-
-##### Session destruction
+##### <a id="usage:security:session_destruction" href="#usage:security:session_destruction">Session destruction</a>
 
 To destroy a session use the `destroy` method.
 

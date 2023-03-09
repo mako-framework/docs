@@ -10,9 +10,7 @@ The UUID class contains methods used to validate and generate [UUIDs](https://en
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 The `validate` method checks if a string is a valid UUID. It will return `true` if is does and `false` if not.
 

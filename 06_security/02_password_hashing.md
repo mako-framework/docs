@@ -11,9 +11,7 @@ Using `md5` or `sha1` hashes for storing passwords is **not recommended** as the
 
 --------------------------------------------------------
 
-<a id="hashers"></a>
-
-### Hashers
+### <a id="hashers" href="#hashers">Hashers</a>
 
 | Hasher   | Requirements                                            |
 |----------|---------------------------------------------------------|
@@ -23,9 +21,7 @@ Using `md5` or `sha1` hashes for storing passwords is **not recommended** as the
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 We'll be using the Bcrypt hasher in all our examples but all the hashers implement the same interface.
 

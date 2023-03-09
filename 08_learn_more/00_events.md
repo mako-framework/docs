@@ -10,9 +10,7 @@ Mako includes two ways of handling events, an event listener and a trait that ma
 
 --------------------------------------------------------
 
-<a id="event_listener"></a>
-
-### Event listener
+### <a id="event_listener" href="#event_listener">Event listener</a>
 
 The `register` method lets you register an event handler that will get executed when the event is triggered. You can register multiple handlers for the same event. They will be executed in the order that they were registered.
 

@@ -16,9 +16,7 @@ All of the remaining application configuration is done by editing the files that
 
 --------------------------------------------------------
 
-<a id="config_files"></a>
-
-### Config files
+### <a id="config_files" href="#config_files">Config files</a>
 
 Mako config files are just simple arrays. In addition to the core config files that are created, you can create your own custom config files:
 
@@ -68,9 +66,7 @@ $this->config->remove('crypto.configurations.user');
 > Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their `addConfiguration` and `removeConfiguration` methods instead.
 {.warning}
 
-<a id="security_first"></a>
-
-#### Security First
+#### <a id="security_first" href="#security_first">Security First</a>
 
 Many developers have made mistakes with committing config files to their repositories. In some cases those repositories are made public and there are credential sniffing bots that find exposed credentials. When you are dealing with our Mako application, please take caution into what files you commit to the repository and which files you add to your `.gitignore` or equivalent ignore file for your VCS. 
 
@@ -79,15 +75,11 @@ Many developers have made mistakes with committing config files to their reposit
 
 --------------------------------------------------------
 
-<a id="environment_aware_configuration"></a>
-
-### Environment aware configuration
+### <a id="environment_aware_configuration" href="#environment_aware_configuration">Environment aware configuration</a>
 
 Mako supports environment aware configuration. This means that you can have separate configuration files for your different environments. All you have to do is create a subdirectory with the name of your environment in the `app/config` directory and copy the environment specific files into it.
 
-<a id="environment_aware_configuration:setting_the_environment"></a>
-
-#### Setting the environment
+#### <a id="environment_aware_configuration:setting_the_environment" href="#environment_aware_configuration:setting_the_environment">Setting the environment</a>
 
 Setting the environment in Apache:
 
@@ -122,8 +114,6 @@ Using the above methods to set up the `dev` environment, it will now read your c
 
 --------------------------------------------------------
 
-<a id="package_configuration"></a>
-
-### Package configuration
+### <a id="package_configuration" href="#package_configuration">Package configuration</a>
 
 Check out the [package documentation](:base_url:/docs/:version:/packages:packages#configuration_i18n_and_views) for more information regarding package configuration.

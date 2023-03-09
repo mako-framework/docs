@@ -12,13 +12,9 @@ The humanizer class helps you bring a human touch to your application.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage:files"></a>
-
-#### Files
+#### <a id="usage:files" href="#usage:files">Files</a>
 
 The `fileSize` method converts a file size in bytes to a more human friendly format.
 
@@ -32,9 +28,7 @@ It will return binary suffixes by default can also make it output file sizes usi
 $this->humanizer->fileSize(1024, false); // Will return "1.02 KB"
 ```
 
-<a id="usage:dates"></a>
-
-#### Dates
+#### <a id="usage:dates" href="#usage:dates">Dates</a>
 
 The `day` method will return a human friendly representation of the day. If the day isn't within the **yesterday/today/tomorrow** range then it'll return the date in the format specified by the optional second parameter.
 

@@ -47,9 +47,7 @@ The query builder currently supports the following dialects:
 
 --------------------------------------------------------
 
-<a id="getting_a_query_builder_instance"></a>
-
-### Getting a query builder instance
+### <a id="getting_a_query_builder_instance" href="#getting_a_query_builder_instance">Getting a query builder instance</a>
 
 You can create a query builder instance using the `Connection::getQuery()` method.
 
@@ -59,9 +57,7 @@ $query = $connection->getQuery();
 
 --------------------------------------------------------
 
-<a id="fetching_data"></a>
-
-### Fetching data
+### <a id="fetching_data" href="#fetching_data">Fetching data</a>
 
 If you only want to retrieve a single row then you can use the `first` method.
 
@@ -195,9 +191,7 @@ $pairs = $query->table->('users')->pairs('id', 'email');
 
 --------------------------------------------------------
 
-<a id="inserting_data"></a>
-
-### Inserting data
+### <a id="inserting_data" href="#inserting_data">Inserting data</a>
 
 Inserting data is done using the `insert` method.
 
@@ -215,9 +209,7 @@ $query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new Dat
 
 --------------------------------------------------------
 
-<a id="updating_data"></a>
-
-### Updating data
+### <a id="updating_data" href="#updating_data">Updating data</a>
 
 Updating data is done using the `update` method.
 
@@ -241,9 +233,7 @@ $query->table('shows')->where('id', '=', 1)->decrement('tickets', 50);
 
 --------------------------------------------------------
 
-<a id="deleting_data"></a>
-
-### Deleting data
+### <a id="deleting_data" href="#deleting_data">Deleting data</a>
 
 Deleting data is done using the `delete` method.
 
@@ -253,9 +243,7 @@ $query->table('articles')->where('id', '=', 10)->delete();
 
 --------------------------------------------------------
 
-<a id="aggregates"></a>
-
-### Aggregates
+### <a id="aggregates" href="#aggregates">Aggregates</a>
 
 The query builder also includes a few handy shortcuts to the most common aggregate functions:
 
@@ -299,13 +287,9 @@ $height = $query->table('persons')->where('age', '>', 25)->sum('height');
 
 --------------------------------------------------------
 
-<a id="clauses"></a>
+### <a id="clauses" href="#clauses">Clauses</a>
 
-### Clauses
-
-<a id="clauses:where_clauses"></a>
-
-#### WHERE clauses
+#### <a id="clauses:where_clauses" href="#clauses:where_clauses">WHERE clauses</a>
 
 where(), orWhere(), whereColumn(), orWhereColumn(), whereRaw(), orWhereRaw(), whereDate(), orWhereDate()
 
@@ -361,9 +345,7 @@ The `whereDate` and `orWhereDate` methods allow you to easily match records base
 $articles = $query->table('articles')->whereDate('created_at', '>', '2019-07-08')->all();
 ```
 
-<a id="clauses:where_between_clauses"></a>
-
-#### WHERE BETWEEN clauses
+#### <a id="clauses:where_between_clauses" href="#clauses:where_between_clauses">WHERE BETWEEN clauses</a>
 
 between(), orBetween(), notBetween(), orNotBetween(), betweenDate(), orBetweenDate(), notBetweenDate(), orNotBetweenDate()
 
@@ -386,9 +368,7 @@ The `betweenDate`, `orBetweenDate`, `notBetweenDate` and `orNotBetweenDate` meth
 $articles = $query->table('articles')->betweenDate('created_at', '2019-07-01', '2019-07-31')->all();
 ```
 
-<a id="clauses:where_in_clauses"></a>
-
-#### WHERE IN clauses
+#### <a id="clauses:where_in_clauses" href="#clauses:where_in_clauses">WHERE IN clauses</a>
 
 in(), orIn(), notIn(), orNotIn()
 
@@ -407,9 +387,7 @@ $persons = $query->table('persons')
 ->all();
 ```
 
-<a id="clauses:where_is_null_clauses"></a>
-
-#### WHERE IS NULL clauses
+#### <a id="clauses:where_is_null_clauses" href="#clauses:where_is_null_clauses">WHERE IS NULL clauses</a>
 
 isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
@@ -419,9 +397,7 @@ isNull(), orIsNull(), isNotNull(), orIsNotNull()
 $persons = $query->table('persons')->isNull('address')->all();
 ```
 
-<a id="clauses:where_exists_clauses"></a>
-
-#### WHERE EXISTS clauses
+#### <a id="clauses:where_exists_clauses" href="#clauses:where_exists_clauses">WHERE EXISTS clauses</a>
 
 exists(), orExists(), notExists(), orNotExists()
 
@@ -436,9 +412,7 @@ $persons = $query->table('persons')
 ->all();
 ```
 
-<a id="clauses:join_clauses"></a>
-
-#### JOIN clauses
+#### <a id="clauses:join_clauses" href="#clauses:join_clauses">JOIN clauses</a>
 
 join(), joinRaw(), leftJoin(), leftJoinRaw(), rightJoin(), rightJoinRaw(), crossJoin(), lateralJoin()
 
@@ -478,9 +452,7 @@ $customers = $query->table('customers')
 ->select(['customers.*', 'recent_sales.*'])->all();
 ```
 
-<a id="clauses:group_by_clauses"></a>
-
-#### GROUP BY clauses
+#### <a id="clauses:group_by_clauses" href="#clauses:group_by_clauses">GROUP BY clauses</a>
 
 groupBy()
 
@@ -500,9 +472,7 @@ $customers = $query->table('orders')
 ->all();
 ```
 
-<a id="clauses:having_clauses"></a>
-
-#### HAVING clauses
+#### <a id="clauses:having_clauses" href="#clauses:having_clauses">HAVING clauses</a>
 
 having(), havingRaw(), orHaving(), orHavingRaw()
 
@@ -516,9 +486,7 @@ $customers = $query->table('orders')
 ->all();
 ```
 
-<a id="clauses:order_by_clauses"></a>
-
-#### ORDER BY clauses
+#### <a id="clauses:order_by_clauses" href="#clauses:order_by_clauses">ORDER BY clauses</a>
 
 orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw()
 
@@ -544,9 +512,7 @@ $persons = $query->table('persons')->orderBy('name', 'asc')->orderBy('age', 'des
 $persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
 ```
 
-<a id="clauses:limit_and_offset_clauses"></a>
-
-#### LIMIT and OFFSET clauses
+#### <a id="clauses:limit_and_offset_clauses" href="#clauses:limit_and_offset_clauses">LIMIT and OFFSET clauses</a>
 
 limit(), offset(), paginate()
 
@@ -570,9 +536,7 @@ $persons = $query->table('persons')->paginate(10);
 
 --------------------------------------------------------
 
-<a id="common_table_expressions"></a>
-
-### Common table expressions
+### <a id="common_table_expressions" href="#common_table_expressions">Common table expressions</a>
 
 with(), withRecursive()
 
@@ -618,9 +582,7 @@ $result = $query->withRecursive('cte', ['one', 'two', 'three'], new Subquery(fun
 
 --------------------------------------------------------
 
-<a id="set_operations"></a>
-
-### Set operations
+### <a id="set_operations" href="#set_operations">Set operations</a>
 
 union(), unionAll(), intersect(), intersectAll(), except(), exceptAll()
 
@@ -634,9 +596,7 @@ $result = $query->table('sales2015')->union()->table('sales2016')->all();
 
 --------------------------------------------------------
 
-<a id="row_level_locking"></a>
-
-### Row-level locking
+### <a id="row_level_locking" href="#row_level_locking">Row-level locking</a>
 
 lock(), sharedLock()
 
@@ -679,9 +639,7 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 
 --------------------------------------------------------
 
-<a id="dialect_specific_sql"></a>
-
-### Dialect specific SQL
+### <a id="dialect_specific_sql" href="#dialect_specific_sql">Dialect specific SQL</a>
 
 Sometimes you'll find yourself in situations where you have to use dialect specific features in your queries while still supporting multiple databases. This is where the `forCompiler` method comes in handy. 
 
@@ -702,9 +660,7 @@ $events = $query->table('events')
 
 --------------------------------------------------------
 
-<a id="JSON_data"></a>
-
-### JSON data
+### <a id="JSON_data" href="#JSON_data">JSON data</a>
 
 The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
 
@@ -723,9 +679,7 @@ $query->table('articles')->update(['meta->bar' => json_encode(0)]);
 
 --------------------------------------------------------
 
-<a id="array_and_json_representations"></a>
-
-### Array and JSON representations of results
+### <a id="array_and_json_representations" href="#array_and_json_representations">Array and JSON representations of results</a>
 
 You can convert both single result and result set objects to arrays and JSON using the `toArray` and `toJson` methods respectively. JSON encoding of your results can also be achieved by using the [`json_encode`](https://php.net/manual/en/function.json-encode.php) function or by casting the objects to strings.
 

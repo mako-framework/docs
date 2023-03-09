@@ -16,9 +16,7 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
@@ -62,9 +60,7 @@ $redis->configGet('*max-*-entries*');
 $redis->config_get('*max-*-entries*');
 ```
 
-<a id="usage:magic_shortcut"></a>
-
-#### Magic shortcut
+#### <a id="usage:magic_shortcut" href="#usage:magic_shortcut">Magic shortcut</a>
 
 You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
 
@@ -74,9 +70,7 @@ $exists = $this->redis->exists('drinks');
 
 --------------------------------------------------------
 
-<a id="pipelining"></a>
-
-### Pipelining
+### <a id="pipelining" href="#pipelining">Pipelining</a>
 
 The `pipeline` method allows you to send multiple commands to the Redis server without having to wait for the replies. Using pipelining can be useful if you need to send a large number of commands as you will not be paying the cost of round-trip time for every single call.
 
@@ -97,13 +91,9 @@ $replies = $redis->pipeline(function ($redis)
 
 --------------------------------------------------------
 
-<a id="pub_sub"></a>
+### <a id="pub_sub" href="#pub_sub">Pub/Sub</a>
 
-### Pub/Sub
-
-<a id="pub_sub:publishing"></a>
-
-#### Publishing
+#### <a id="pub_sub:publishing" href="#pub_sub:publishing">Publishing</a>
 
 You can publish messages to channels using the `publish` method. The first parameter is the channel name while the second parameter is your message. The method will return the number of subscribers that have received the message.
 
@@ -111,9 +101,7 @@ You can publish messages to channels using the `publish` method. The first param
 $redis->publish('channel1', 'Hello, World!');
 ```
 
-<a id="pub_sub:subscribing"></a>
-
-#### Subscribing
+#### <a id="pub_sub:subscribing" href="#pub_sub:subscribing">Subscribing</a>
 
 The `subscribeTo` method allows you to subscribe to channels. You can also use the `subscribeToPattern` method if you want to subscribe using [channel name patterns](https://redis.io/commands/psubscribe).
 
@@ -148,9 +136,7 @@ The message passed to the subscriber is an instance of the `Message` object. It 
 
 --------------------------------------------------------
 
-<a id="monitor"></a>
-
-### Monitor
+### <a id="monitor" href="#monitor">Monitor</a>
 
 The `monitor` method can be useful when debugging applications that use Redis. Once called the server will stream back every command processed by the server.
 

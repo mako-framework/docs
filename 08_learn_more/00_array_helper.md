@@ -10,9 +10,7 @@ The array helper contains methods that can be useful when working with arrays.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 The `get` method returns a value from an array using "dot notation".
 

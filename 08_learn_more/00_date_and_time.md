@@ -15,9 +15,7 @@ We'll only go over our customizations in this document. If you need documentatio
 
 --------------------------------------------------------
 
-<a id="time"></a>
-
-### Time
+### <a id="time" href="#time">Time</a>
 
 You can create a new instance using the constructor. The difference between Mako's `Time` constructor and PHP's `DateTime` constructor is that the optional second parameter can be either a valid time zone string or a `DateTimeZone` instance.
 
@@ -139,9 +137,7 @@ $time1->forward(30); // $time2 will be 30 seconds behind $time1
 
 > The `copy` method doesn't make much sense when using the `TimeImmutable` class but it is included to keep feature parity between the two classes.
 
-<a id="time:time_specific_methods"></a>
-
-#### Time specific methods
+#### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
 
 The `getImmutable` method returns a `TimeImmutable` instance set to the same time.
 
@@ -149,9 +145,7 @@ The `getImmutable` method returns a `TimeImmutable` instance set to the same tim
 $immutable = $time->getImmutable();
 ```
 
-<a id="time:timeimmutable_specific_methods"></a>
-
-#### TimeImmutable specific methods
+#### <a id="time:timeimmutable_specific_methods" href="#time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
 The `getMutable` method returns a `Time` instance set to the same time.
 
@@ -161,9 +155,7 @@ $mutable = $time->getMutable();
 
 --------------------------------------------------------
 
-<a id="time_zones"></a>
-
-### Time zones
+### <a id="time_zones" href="#time_zones">Time zones</a>
 
 The `getTimeZones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 

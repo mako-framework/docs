@@ -15,13 +15,9 @@ Mako works well with all major webservers but we suggest using [Nginx](https://n
 
 --------------------------------------------------------
 
-<a id="server_configuration"></a>
+### <a id="server_configuration" href="#server_configuration">Server configuration</a>
 
-### Server configuration
-
-<a id="server_configuration:nginx"></a>
-
-#### Nginx
+#### <a id="server_configuration:nginx" href="#server_configuration:nginx">Nginx</a>
 
 Basic Nginx configuration that you can build upon:
 
@@ -59,9 +55,7 @@ server
 
 --------------------------------------------------------
 
-<a id="optimize_composer_autoloading"></a>
-
-### Optimize Composer autoloading
+### <a id="optimize_composer_autoloading" href="#optimize_composer_autoloading">Optimize Composer autoloading</a>
 
 You should consider running the following command as part of your deployment process as it will generate an optimized class autoloader.
 
@@ -72,13 +66,9 @@ composer dump-autoload --optimize --no-dev --classmap-authoritative
 
 --------------------------------------------------------
 
-<a id="configure_php_for_performance"></a>
+### <a id="configure_php_for_performance" href="#configure_php_for_performance">Configure PHP for performance</a>
 
-### Configure PHP for performance
-
-<a id="configure_php_for_performance:opcache"></a>
-
-#### OPcache
+#### <a id="configure_php_for_performance:opcache" href="#configure_php_for_performance:opcache">OPcache</a>
 
 You should make sure that your production server has the [OPcache](https://php.net/manual/en/book.opcache.php) extension installed and enabled. OPcache will improve PHP performance by storing your application as compiled bytecode in shared memory, thereby removing the need for PHP to load and parse scripts on each request.
 
@@ -98,9 +88,7 @@ opcache.validate_timestamps=0
 >
 > This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](https://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.
 
-<a id="configure_php_for_performance:opcache:preloading"></a>
-
-##### Preloading
+##### <a id="configure_php_for_performance:opcache:preloading" href="#configure_php_for_performance:opcache:preloading">Preloading</a>
 
 You can take advantage of [preloading](https://www.php.net/manual/en/opcache.preloading.php) for an additional performance boost. The `app:generate-preloader` command will generate a preloader script containing all core classes that most applications will usually need in a web context.
 

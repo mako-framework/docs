@@ -10,9 +10,7 @@ The URL builder helps you build URLs for your Mako application.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 The `to` method will return a Mako URL to the chosen path.
 

@@ -9,9 +9,7 @@
 
 --------------------------------------------------------
 
-<a id="requirements"></a>
-
-### Requirements
+### <a id="requirements" href="#requirements">Requirements</a>
 
 * PHP 8.0.0 or higher *
 * `ext-json`
@@ -23,9 +21,7 @@ If you plan to use the database library then you'll also need to install `ext-pd
 
 --------------------------------------------------------
 
-<a id="setup"></a>
-
-### Setup
+### <a id="setup" href="#setup">Setup</a>
 
 Installing Mako is easy and can be with done in a few simple steps thanks to [composer](https://packagist.org).
 
@@ -47,9 +43,7 @@ chown www-data:www-data -R app/storage
 
 --------------------------------------------------------
 
-<a id="get_started"></a>
-
-### Get started
+### <a id="get_started" href="#get_started">Get started</a>
 
 Mako includes a simple development server which can be started with the following command:
 
@@ -64,9 +58,7 @@ Open `http://localhost:8000` in your browser of choice and you're ready to start
 
 --------------------------------------------------------
 
-<a id="updating"></a>
-
-### Updating
+### <a id="updating" href="#updating">Updating</a>
 
 Mako and all your other dependencies can easily be updated when a new patch release is made available using the following command:
 

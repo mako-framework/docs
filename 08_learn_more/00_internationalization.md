@@ -18,9 +18,7 @@ The default language of your application is defined in the `app/config/applicati
 
 --------------------------------------------------------
 
-<a id="language_files"></a>
-
-### Language files
+### <a id="language_files" href="#language_files">Language files</a>
 
 Mako language files are just simple arrays:
 
@@ -39,9 +37,7 @@ return
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 Setting the language you want to use use is done by calling the `setLanguage` method.
 
@@ -120,9 +116,7 @@ return
 
 --------------------------------------------------------
 
-<a id="language_routing"></a>
-
-### Language routing
+### <a id="language_routing" href="#language_routing">Language routing</a>
 
 Language route prefixes can be configured in the `app/config/application.php` config file.
 

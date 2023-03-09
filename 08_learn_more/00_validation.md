@@ -24,13 +24,9 @@ The mako validator provides a simple and consistent way of validating user input
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage:basics"></a>
-
-#### Basics
+#### <a id="usage:basics" href="#usage:basics">Basics</a>
 
 First you'll need to define a set of rules that you want to validate your input against.
 
@@ -90,9 +86,7 @@ if($validator->isValid($errors))
 }
 ```
 
-<a id="usage:nested_arrays"></a>
-
-#### Nested arrays
+#### <a id="usage:nested_arrays" href="#usage:nested_arrays">Nested arrays</a>
 
 The validator also supports nested arrays. You can assign validation rule sets to nested fields using the "dot notation" syntax.
 
@@ -114,9 +108,7 @@ $rules =
 
 > Note that wildcard rules will only be added if the input field(s) actually exists.
 
-<a id="usage:conditional_rules"></a>
-
-#### Conditional rules sets
+#### <a id="usage:conditional_rules" href="#usage:conditional_rules">Conditional rules sets</a>
 
 You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
 
@@ -129,9 +121,7 @@ $validator->addRulesIf('state', ['required', 'valid_us_state'], function () use 
 
 > You can also pass a boolean value instead of a closure. Rules added using either of the methods will be merged with any pre-existing rules assigned to the field.
 
-<a id="usage:rules_with_dynamic_arguments"></a>
-
-#### Rules with dynamic arguments
+#### <a id="usage:rules_with_dynamic_arguments" href="#usage:rules_with_dynamic_arguments">Rules with dynamic arguments</a>
 
 Mako comes with a handy helper function called `mako\f` that makes it easier to build rule sets that have rules with dynamic arguments. The first parameter of the function is the name of the validation rule and any subsequent arguments are treated as rule arguments.
 
@@ -153,15 +143,11 @@ $rules =
 
 --------------------------------------------------------
 
-<a id="validation_rules"></a>
-
-### Validation rules
+### <a id="validation_rules" href="#validation_rules">Validation rules</a>
 
 The following validation rules are included with Mako:
 
-<a id="validation_rules:base"></a>
-
-#### Base rules
+#### <a id="validation_rules:base" href="#validation_rules:base">Base rules</a>
 
 | Name                     | Description                                                                                             |
 |--------------------------|---------------------------------------------------------------------------------------------------------|
@@ -215,22 +201,16 @@ The following validation rules are included with Mako:
 | url                      | Checks that the field value is a valid URL.                                                             |
 | uuid                     | Checks that the field value matches a valid uuid.                                                       |
 
-<a id="validation_rules:database"></a>
-
-#### Database rules
+#### <a id="validation_rules:database" href="#validation_rules:database">Database rules</a>
 
 | Name                     | Description                                                                            |
 |--------------------------|----------------------------------------------------------------------------------------|
 | exists                   | Checks that the field value exist in the database (`exists("users","email")`).         |
 | unique                   | Checks that the field value doesn't exist in the database (`unique("users","email")`). |
 
-<a id="validation_rules:file"></a>
+#### <a id="validation_rules:file" href="#validation_rules:file">File rules</a>
 
-#### File rules
-
-<a id="validation_rules:file:basic"></a>
-
-##### Basic rules
+##### <a id="validation_rules:file:basic" href="#validation_rules:file:basic">Basic rules</a>
 
 | Name                     | Description                                                                                                                                                                             |
 |--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -249,9 +229,7 @@ The following validation rules are included with Mako:
 >
 > The `is_uploaded` rule expects [`UploadedFile`](:base_url:/docs/:version:/routing-and-controllers:request#files) objects.
 
-<a id="validation_rules:file:image"></a>
-
-##### Image rules
+##### <a id="validation_rules:file:image" href="#validation_rules:file:image">Image rules</a>
 
 | Name             | Description                                                                                       |
 |------------------|---------------------------------------------------------------------------------------------------|
@@ -265,9 +243,7 @@ The following validation rules are included with Mako:
 > The rules use the [`getimagesize`](https://php.net/manual/en/function.getimagesize.php) function to get the image size. You should make sure that the file you're validating is an image using the `mime type` rule before using any of the image specific rules.
 {.warning}
 
-<a id="validation_rules:session"></a>
-
-#### Session rules
+#### <a id="validation_rules:session" href="#validation_rules:session">Session rules</a>
 
 | Name                     | Description                                                         |
 |--------------------------|---------------------------------------------------------------------|
@@ -276,9 +252,7 @@ The following validation rules are included with Mako:
 
 --------------------------------------------------------
 
-<a id="custom_messages"></a>
-
-### Custom messages
+### <a id="custom_messages" href="#custom_messages">Custom messages</a>
 
 All error messages are defined in the `app/i18n/*/strings/validate.php` language file.
 
@@ -311,9 +285,7 @@ You can also add custom field name translations using the `overrides.fieldnames`
 
 --------------------------------------------------------
 
-<a id="custom_rules"></a>
-
-### Custom rules
+### <a id="custom_rules" href="#custom_rules">Custom rules</a>
 
 You can, of course, create your own custom validator rules. All rules must implement the `RuleInterface` interface.
 
@@ -382,9 +354,7 @@ $rules =
 
 --------------------------------------------------------
 
-<a id="input_validation_in_controllers"></a>
-
-### Input validation in controllers
+### <a id="input_validation_in_controllers" href="#input_validation_in_controllers">Input validation in controllers</a>
 
 Mako includes a [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) and a trait that will greatly reduce the ammount of boilerplate code that you need to write to validate user input in controllers.
 

@@ -11,9 +11,7 @@ The Mako Toolbar package is a useful developer tool that allows you to take a lo
 
 --------------------------------------------------------
 
-<a id="installation"></a>
-
-### Installation
+### <a id="installation" href="#installation">Installation</a>
 
 Install the package using the following composer command:
 
@@ -46,9 +44,7 @@ $dispatcher->setMiddlewareAsGlobal(['toolbar']);
 
 --------------------------------------------------------
 
-<a id="creating_custom_panels"></a>
-
-### Creating custom panels
+### <a id="creating_custom_panels" href="#creating_custom_panels">Creating custom panels</a>
 
 Custom panels must implement the `PanelInterface` class. You can extend the `Panel` class which already implements some of the required methods.
 

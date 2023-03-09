@@ -10,9 +10,7 @@ The number helper contains methods that can be useful when working with numbers.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 The `arabic2roman` method converts Arabic numerals to roman numerals.
 

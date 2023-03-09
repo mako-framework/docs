@@ -18,13 +18,9 @@ Mako migrations are created and executed from the [reactor CLI tool](:base_url:/
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage:enabling_migrations"></a>
-
-#### Enabling migrations
+#### <a id="usage:enabling_migrations" href="#usage:enabling_migrations">Enabling migrations</a>
 
 You need to add a table called `mako_migrations` to your database. The table will be used to keep track of the migrations that have been ran. Here's the SQL for creating the table using MySQL:
 
@@ -38,9 +34,7 @@ CREATE TABLE `mako_migrations`
 ```
 {.language-sql}
 
-<a id="usage:creating_migrations"></a>
-
-#### Creating migrations
+#### <a id="usage:creating_migrations" href="#usage:creating_migrations">Creating migrations</a>
 
 Creating a migration is done from the reactor CLI tool:
 
@@ -103,9 +97,7 @@ class Migration_20120824100019 extends Migration
 
 > Every migration is executed inside a transaction if the database supports transactional DDL (PostgreSQL and SQLite). You can disable the use of transactions by setting the `$useTransaction` property to `false`.
 
-<a id="usage:running_migrations"></a>
-
-#### Running migrations
+#### <a id="usage:running_migrations" href="#usage:running_migrations">Running migrations</a>
 
 You can check if there are any outstanding migrations using the `migration:status` command:
 
@@ -136,9 +128,7 @@ Ran the following migrations:
 ```
 {.language-none}
 
-<a id="usage:rolling_back_migrations"></a>
-
-#### Rolling back migrations
+#### <a id="usage:rolling_back_migrations" href="#usage:rolling_back_migrations">Rolling back migrations</a>
 
 If you need to revert the changes made to your database then you can use the `migration:down` command. This will roll back the last batch of migrations executed.
 
@@ -185,9 +175,7 @@ php reactor migration:reset --force
 
 --------------------------------------------------------
 
-<a id="multiple_databases"></a>
-
-### Multiple databases
+### <a id="multiple_databases" href="#multiple_databases">Multiple databases</a>
 
 All transactions are normally executed against the default database of your application. You can override this by using the `$connectionName` property of the migration class.
 
@@ -197,9 +185,7 @@ Running migrations for the non-default database requires you to use the optional
 
 --------------------------------------------------------
 
-<a id="dependency_injection"></a>
-
-### Dependency injection
+### <a id="dependency_injection" href="#dependency_injection">Dependency injection</a>
 
 Migrations are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
