@@ -23,9 +23,7 @@ Routes are registered in the `app/routing/routes.php` file and there are three v
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\controllers\Home`controller class.
 
@@ -63,9 +61,7 @@ $routes->get('/hello-world', fn () => 'Hello, world!');
 
 --------------------------------------------------------
 
-<a id="route_parameters"></a>
-
-### Route parameters
+### <a id="route_parameters" href="#route_parameters">Route parameters</a>
 
 You'll often want to send parameters to your route actions. This can easily be achieved using the following syntax.
 
@@ -95,17 +91,13 @@ $routes->get('/article/{id}', fn (ViewFactory $view, $id) => $view->render('arti
 
 --------------------------------------------------------
 
-<a id="route_middleware"></a>
-
-### Route middleware
+### <a id="route_middleware" href="#route_middleware">Route middleware</a>
 
 Route middleware allows you to alter the request and response both before and after a route action gets executed.
 
 ![middleware](:base_url:/assets/img/middleware.png)
 
-<a id="route_middleware:defining_middleware"></a>
-
-#### Defining middleware
+#### <a id="route_middleware:defining_middleware" href="#route_middleware:defining_middleware">Defining middleware</a>
 
 The example below is the most basic middleware implementation (it doesn't actually do anything).
 
@@ -180,9 +172,7 @@ class CacheMiddleware implements MiddlewareInterface
 > The cache example above is very basic and should probably not be used in a production environment.
 {.warning}
 
-<a id="route_middleware:assigning_middleware"></a>
-
-#### Assigning middleware
+#### <a id="route_middleware:assigning_middleware" href="#route_middleware:assigning_middleware">Assigning middleware</a>
 
 Assigning middleware to a route can be done using the `middleware` method. You can assign a single middleware or an array of middleware if your route requires multiple.
 
@@ -235,9 +225,7 @@ $dispatcher->setMiddlewareAsGlobal([CacheMiddleware::class]);
 
 ```
 
-<a id="route_middleware:middleware_priority"></a>
-
-#### Middleware priority
+#### <a id="route_middleware:middleware_priority" href="#route_middleware:middleware_priority">Middleware priority</a>
 
 As mentioned above, middleware get executed in the order that they are assigned to the route. You can dictate the execution order by configuring middleware priority.
 
@@ -269,15 +257,11 @@ You can use middleware priority without having to configure all your middleware.
 
 --------------------------------------------------------
 
-<a id="route_constraints"></a>
-
-### Route constraints
+### <a id="route_constraints" href="#route_constraints">Route constraints</a>
 
 Route constraints allow you to set additional requirements that must be met before a route is matched.
 
-<a id="route_constraints:defining_constraints"></a>
-
-#### Defining constraints
+#### <a id="route_constraints:defining_constraints" href="#route_constraints:defining_constraints">Defining constraints</a>
 
 Note that all constraints are instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
@@ -316,9 +300,7 @@ $router->registerConstraint('api_version', ApiVersionConstraint::class);
 $router->registerConstraint(ApiVersionConstraint::class);
 ```
 
-<a id="route_constraints:assigning_constraints"></a>
-
-#### Assigning constraints
+#### <a id="route_constraints:assigning_constraints" href="#route_constraints:assigning_constraints">Assigning constraints</a>
 
 Assigning constraints to a route is done using the `constraint` method. You can also pass an array of constraints if your route requires multiple constraints.
 
@@ -354,9 +336,7 @@ $router->setConstraintAsGlobal(['api_version("2.0")']);
 
 --------------------------------------------------------
 
-<a id="route_groups"></a>
-
-### Route groups
+### <a id="route_groups" href="#route_groups">Route groups</a>
 
 Route groups are useful when you have a set of routes with the same settings.
 
@@ -389,9 +369,7 @@ The following options are available when creating a route group. They are also a
 
 --------------------------------------------------------
 
-<a id="reverse_routing"></a>
-
-### Reverse routing
+### <a id="reverse_routing" href="#reverse_routing">Reverse routing</a>
 
 You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your project.
 
@@ -413,9 +391,7 @@ You can also pass parameters to your route URLs.
 
 --------------------------------------------------------
 
-<a id="faking_request_methods"></a>
-
-### Faking request methods
+### <a id="faking_request_methods" href="#faking_request_methods">Faking request methods</a>
 
 Most browsers only support sending `GET` and `POST` form requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
 

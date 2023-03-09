@@ -19,9 +19,7 @@ Mako comes with an easy to use dependency injection container. Using dependency 
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 The `register` method allows you to register a dependency in the container.
 
@@ -123,9 +121,7 @@ $returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\B
 
 --------------------------------------------------------
 
-<a id="contextual_injection"></a>
-
-### Contextual injection
+### <a id="contextual_injection" href="#contextual_injection">Contextual injection</a>
 
 Sometimes you'll need to inject different implementations of the same interface to different classes. This can easily be achieved with contextual dependency injection.
 
@@ -145,9 +141,7 @@ $container->registerContextualDependency([ClassA::class, 'methodB'], FooBarInter
 
 --------------------------------------------------------
 
-<a id="replacing_registered_dependencies"></a>
-
-### Replacing registered dependencies
+### <a id="replacing_registered_dependencies" href="#replacing_registered_dependencies">Replacing registered dependencies</a>
 
 The container also allows you to replaces previously registered dependencies.
 
@@ -205,9 +199,7 @@ $container->onReplace(Dependency::class, (function ($dependency)
 
 --------------------------------------------------------
 
-<a id="services"></a>
-
-### Services
+### <a id="services" href="#services">Services</a>
 
 Services are an easy and clean way of registering dependencies in the container.
 
@@ -215,9 +207,7 @@ Mako includes a number of services for your convenience and you'll find a comple
 
 Services are split up in 3 groups. `Core` services are loaded in both web and cli environments while `web` and `cli` services are only loaded for web requests and command line operations respectively.
 
-<a id="services:core"></a>
-
-#### Core
+#### <a id="services:core" href="#services:core">Core</a>
 
 | Service                  | Type hint                                         | Key              | Description                 | Required |
 |--------------------------|---------------------------------------------------|------------------|-----------------------------|----------|
@@ -246,18 +236,14 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 | ValidatorFactoryService  | mako\validator\ValidatorFactory                   | validator        | Validation factory          | No       |
 | ViewFactoryService       | mako\view\ViewFactory                             | view             | View factory                | No       |
 
-<a id="services:web"></a>
-
-#### Web
+#### <a id="services:web" href="#services:web">Web</a>
 
 | Service             | Type hint                          | Key              | Description                 | Required |
 |---------------------|------------------------------------|------------------|-----------------------------|----------|
 | ErrorHandlerService | mako\error\ErrorHandler            | errorHandler     | Error handler               | No       |
 
 
-<a id="services:cli"></a>
-
-#### Cli
+#### <a id="services:cli" href="#services:cli">Cli</a>
 
 | Service                  | Type hint                          | Key              | Description                 | Required |
 |--------------------------|------------------------------------|------------------|-----------------------------|----------|

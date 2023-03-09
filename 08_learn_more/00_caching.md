@@ -24,13 +24,9 @@ The cache library provides a simple and consistent interface to the most common 
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage:basics"></a>
-
-#### Basics
+#### <a id="usage:basics" href="#usage:basics">Basics</a>
 
 To get an instance of the default cache just call the `CacheManager::getInstance()` method. If you want to get an instance of any of the other cache configurations defined in the config file then you'll have to pass it the configuration name.
 
@@ -109,9 +105,7 @@ $cache->clear();
 > Clearing the cache can affect other applications when using shared memory caching solutions such as APCU and Memcached.
 {.warning}
 
-<a id="usage:incrementing_and_decrementing"></a>
-
-#### Incrementing and decrementing
+#### <a id="usage:incrementing_and_decrementing" href="#usage:incrementing_and_decrementing">Incrementing and decrementing</a>
 
 The `APCU`, `Memcached`, `Memory`, `NullStore` and `Redis` stores implement the `IncrementDecrementInterface` interface.
 
@@ -129,9 +123,7 @@ $incremented = $cache->increment('counter');
 
 Both methods also have an optional second parameter that allows you to set amount by which to increment or decrement the value.
 
-<a id="usage:magic_shortcut"></a>
-
-#### Magic shortcut
+#### <a id="usage:magic_shortcut" href="#usage:magic_shortcut">Magic shortcut</a>
 
 You can access the default cache instance directly without having to go through the `instance` method thanks to the magic `__call` method.
 

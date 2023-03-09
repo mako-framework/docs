@@ -10,9 +10,7 @@ The HTML helper can be used to generate nearly any HTML tag.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 First we'll need to create a HTML instance.
 

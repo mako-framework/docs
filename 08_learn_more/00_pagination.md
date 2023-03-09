@@ -14,13 +14,9 @@ The pagination class makes easy to generate pagination links.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
+### <a id="usage" href="#usage">Usage</a>
 
-### Usage
-
-<a id="usage_basics"></a>
-
-#### Basics
+#### <a id="usage_basics" href="#usage_basics">Basics</a>
 
 First you'll have to create a pagination object. The first parameter is the total count of the items you want to paginate. The second parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional third parameter that lets you override the other settings set in the configuration file.
 
@@ -34,9 +30,7 @@ Once the pagination object is created we can fetch the articles from the databas
 $articles = (new Articles)->limit($pagination->limit())->offset($pagination->offset())->all();
 ```
 
-<a id="usage_with_the_query_builder"></a>
-
-#### With the query builder
+#### <a id="usage_with_the_query_builder" href="#usage_with_the_query_builder">With the query builder</a>
 
 You can also use the `pagination` method of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder). It will automatically perform the count and apply the appropriate limit and offset.
 
@@ -48,9 +42,7 @@ $articles = (new Articles)->paginate();
 
 --------------------------------------------------------
 
-<a id="pagination_rendering"></a>
-
-### Pagination rendering
+### <a id="pagination_rendering" href="#pagination_rendering">Pagination rendering</a>
 
 You can render the pagination partial in the article list view using the `render` method.
 
@@ -64,9 +56,7 @@ If you used the `paginate` method of the query builder then you can access the p
 $articles->getPagination()->render('partials.pagination');
 ```
 
-<a id="pagination_rendering_example_view"></a>
-
-#### Example view
+#### <a id="pagination_rendering_example_view" href="#pagination_rendering_example_view">Example view</a>
 
 Here's an example of what a pagination partial can look like if you're using Twitter Bootstrap.
 

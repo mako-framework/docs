@@ -19,13 +19,9 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 --------------------------------------------------------
 
-<a id="basics"></a>
+### <a id="basics" href="#basics">Basics</a>
 
-### Basics
-
-<a id="basics:getting_started"></a>
-
-#### Getting started
+#### <a id="basics:getting_started" href="#basics:getting_started">Getting started</a>
 
 Here's a basic example controller that extends the base controller included with the framework.
 
@@ -45,9 +41,7 @@ class Home extends Controller
 }
 ```
 
-<a id="basics:parameters"></a>
-
-#### Parameters
+#### <a id="basics:parameters" href="#basics:parameters">Parameters</a>
 
 Passing parameters to your controller actions is easy. Just define a route with the parameters you need and add the corresponding parameters to your method.
 
@@ -66,15 +60,11 @@ public function view($id)
 
 --------------------------------------------------------
 
-<a id="controller_helpers"></a>
-
-### Controller helpers
+### <a id="controller_helpers" href="#controller_helpers">Controller helpers</a>
 
 If you're extending the Mako base controller then you'll get a set of useful convenience methods for free.
 
-<a id="controller_helpers:file_response"></a>
-
-#### File response
+#### <a id="controller_helpers:file_response" href="#controller_helpers:file_response">File response</a>
 
 The `fileResponse` method returns a file response sender. The file download will be resumable, something that can be very useful when downloading large files.
 
@@ -95,9 +85,7 @@ You can set a custom file name, mime type, content disposition and a closure to 
 
 > Note that any errors that happen in the closure will not be displayed as it happens after the output has been sent to the client. You'll have to check your logs for errors.
 
-<a id="controller_helpers:redirect_response"></a>
-
-#### Redirect response
+#### <a id="controller_helpers:redirect_response" href="#controller_helpers:redirect_response">Redirect response</a>
 
 The `redirectResponse` method returns a redirect response sender.
 
@@ -128,9 +116,7 @@ It is also possible to use the following methods to set and get the status code.
 | permanentRedirect | Sets the status code to `308` |
 | getStatus         | Returns the status code       |
 
-<a id="controller_helpers:stream_response"></a>
-
-#### Stream response
+#### <a id="controller_helpers:stream_response" href="#controller_helpers:stream_response">Stream response</a>
 
 The `streamResponse` method returns a stream response sender. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
 
@@ -158,9 +144,7 @@ You can also set and get the content type and character set using the following 
 
 > Stream responses might not always work as expected as some webservers and reverse proxies will buffer the output before sending it.
 
-<a id="controller_helpers:json_response"></a>
-
-#### JSON response
+#### <a id="controller_helpers:json_response" href="#controller_helpers:json_response">JSON response</a>
 
 The `jsonResponse` method returns a JSON response builder. It will convert the provided data to JSON and set the correct content type header.
 
@@ -185,9 +169,7 @@ You can also set and get the character set and status code using the following m
 
 --------------------------------------------------------
 
-<a id="controller_events"></a>
-
-### Controller events
+### <a id="controller_events" href="#controller_events">Controller events</a>
 
 All controllers have two special methods. The `beforeAction` method which gets executed right before the controller action and the `afterAction` method which gets executed right after the controller action.
 
@@ -207,9 +189,7 @@ public function beforeAction()
 
 --------------------------------------------------------
 
-<a id="dependency_injection"></a>
-
-### Dependency injection
+### <a id="dependency_injection" href="#dependency_injection">Dependency injection</a>
 
 Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 

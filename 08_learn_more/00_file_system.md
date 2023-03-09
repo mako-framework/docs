@@ -12,9 +12,7 @@ The file library contains classes that assist you with working with the files an
 
 --------------------------------------------------------
 
-<a id="file_system"></a>
-
-### File system
+### <a id="file_system" href="#file_system">File system</a>
 
 You can create a new `FileSystem` object or fetch the instance present in the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). In the following examples we'll assume that you'll using the instance from the container.
 
@@ -180,9 +178,7 @@ $file = $this->fileSystem->file('/foo/bar.txt', 'r');
 
 --------------------------------------------------------
 
-<a id="file_info"></a>
-
-### File info
+### <a id="file_info" href="#file_info">File info</a>
 
 You can create a new `FileInfo` instance using the constructor or by getting an instance via the `FileSystem::info()` method. The `FileInfo` class extends the [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php) class with a set of useful methods that we'll document below.
 
@@ -230,9 +226,7 @@ $valid = $info->validateHmac($hash, $key);
 
 --------------------------------------------------------
 
-<a id="finder"></a>
-
-### Finder
+### <a id="finder" href="#finder">Finder</a>
 
 The finder class allows you to find files in the filesystem.
 

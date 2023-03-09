@@ -15,9 +15,7 @@ An instance of the response class is always available in all controller classes.
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 The `setBody` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can; however, be useful if you want to alter the response body in [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 
@@ -73,9 +71,7 @@ $responseStatus = $this->response->getStatus();
 
 --------------------------------------------------------
 
-<a id="cookies"></a>
-
-### Cookies
+### <a id="cookies" href="#cookies">Cookies</a>
 
 The `getCookies` method returns a cookie collection.
 
@@ -126,9 +122,7 @@ The cookie collection also includes the following methods in addition to the one
 
 --------------------------------------------------------
 
-<a id="headers"></a>
-
-### Headers
+### <a id="headers" href="#headers">Headers</a>
 
 The `getHeaders` method returns a header collection.
 
@@ -155,9 +149,7 @@ The header collection also includes the following methods in addition to the one
 
 --------------------------------------------------------
 
-<a id="caching_and_compression"></a>
-
-### Caching and compression
+### <a id="caching_and_compression" href="#caching_and_compression">Caching and compression</a>
 
 You can enable `ETag` caching using the `enableCaching` method. Doing so can save bandwidth as the response body will only be sent if it has been modified since the last request.
 

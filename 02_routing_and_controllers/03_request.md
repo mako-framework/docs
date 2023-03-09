@@ -17,13 +17,9 @@ The request class provides an object oriented interface to global variables such
 
 --------------------------------------------------------
 
-<a id="request_data"></a>
+### <a id="request_data" href="#request_data">Accessing data</a>
 
-### Accessing data
-
-<a id="request_data:query_string_post_data_and_parsed_body"></a>
-
-#### Query string, post data and parsed body
+#### <a id="request_data:query_string_post_data_and_parsed_body" href="#request_data:query_string_post_data_and_parsed_body">Query string, post data and parsed body</a>
 
 The `getQuery` method returns a parameter collection containing query string data.
 
@@ -72,9 +68,7 @@ The parameter collections also includes the following methods in addition to the
 | whitelisted($keys, $defaults = []) | Returns a whitelisted array of parameters                                   |
 | blacklisted($keys, $defaults = []) | Returns an array of parameters where the blacklisted keys have been removed |
 
-<a id="request_data:raw_request_body"></a>
-
-#### Raw request body
+#### <a id="request_data:raw_request_body" href="#request_data:raw_request_body">Raw request body</a>
 
 The `getRawBody()` method returns the raw request body as a string.
 
@@ -94,9 +88,7 @@ $fileSize = stream_copy_to_stream($body, $storageStream);
 
 --------------------------------------------------------
 
-<a id="cookies"></a>
-
-### Cookies
+### <a id="cookies" href="#cookies">Cookies</a>
 
 The `getCookies` method returns a cookie collection that allows to you access both signed and unsigned cookies.
 
@@ -128,9 +120,7 @@ The cookie collection also includes the following methods in addition to the one
 
 --------------------------------------------------------
 
-<a id="headers"></a>
-
-### Headers
+### <a id="headers" href="#headers">Headers</a>
 
 The `getHeaders` method returns a header collection.
 
@@ -184,9 +174,7 @@ The header collection also includes the following methods in addition to the one
 
 --------------------------------------------------------
 
-<a id="files"></a>
-
-### Files
+### <a id="files" href="#files">Files</a>
 
 The `getFiles` method returns a file collection that extends the parameter collection.
 
@@ -222,9 +210,7 @@ The `UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/lear
 
 --------------------------------------------------------
 
-<a id="server_information"></a>
-
-### Server information
+### <a id="server_information" href="#server_information">Server information</a>
 
 The `getServer` method returns a collection that extends the parameter collection.
 
@@ -234,9 +220,7 @@ $server = $this->request->getServer();
 
 --------------------------------------------------------
 
-<a id="request_information"></a>
-
-### Request information
+### <a id="request_information" href="#request_information">Request information</a>
 
 The `getContentType` method returns the content type of the request body.
 

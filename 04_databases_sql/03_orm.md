@@ -40,9 +40,7 @@ The ORM lets you map your database tables to objects and create relations betwee
 
 --------------------------------------------------------
 
-<a id="naming_conventions"></a>
-
-### Naming conventions
+### <a id="naming_conventions" href="#naming_conventions">Naming conventions</a>
 
 The Mako ORM does not impose a naming standard on model class names but best practice is to use the camel cased singular form of the table name.
 
@@ -59,9 +57,7 @@ The ORM expects foreign key names to use the following pattern `<model name>_id`
 
 --------------------------------------------------------
 
-<a id="key_types"></a>
-
-### Key types
+### <a id="key_types" href="#key_types">Key types</a>
 
 As previously mentioned, the ORM assumes that all your tables have an auto incrementing primary key by default. You can make it generate UUIDs, make your own custom key generator or tell it that your table doesn't have a primary key.
 
@@ -78,13 +74,9 @@ Use the `$primaryKeyType` property to define the key type.
 
 --------------------------------------------------------
 
-<a id="basic_usage"></a>
+### <a id="basic_usage" href="#basic_usage">Basic usage</a>
 
-### Basic usage
-
-<a id="basic_usage:crud"></a>
-
-#### CRUD
+#### <a id="basic_usage:crud" href="#basic_usage:crud">CRUD</a>
 
 Lets say you have a table called `articles` with three columns (id, title and content). These few lines of code is all you need to interact with the table:
 
@@ -157,9 +149,7 @@ $article = Article::get(1);
 $article->delete();
 ```
 
-<a id="basic_usage:selecting_columns"></a>
-
-#### Selecting columns
+#### <a id="basic_usage:selecting_columns" href="#basic_usage:selecting_columns">Selecting columns</a>
 
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
 
@@ -167,9 +157,7 @@ By default the ORM selects all columns from the result set. You can specify the 
 $articles = (new Article)->select(['id', 'title'])->all();
 ```
 
-<a id="basic_usage:joins"></a>
-
-#### Joins
+#### <a id="basic_usage:joins" href="#basic_usage:joins">Joins</a>
 
 You can also use joins when working with the ORM. In the following example we'll select all articles that have at least one comment:
 
@@ -191,15 +179,11 @@ $articles = (new Article)->distinct()->join('comments', 'article.id', '=', 'comm
 
 --------------------------------------------------------
 
-<a id="relations"></a>
-
-### Relations
+### <a id="relations" href="#relations">Relations</a>
 
 Being able to set up relations between tables is important when working with databases. The ORM supports `has one`, `belongs` to, `has many` and `many to many` relations.
 
-<a id="relations:has_one"></a>
-
-#### Has one
+#### <a id="relations:has_one" href="#relations:has_one">Has one</a>
 
 Lets create a user model and a profile model and set up a `has one` relation between them.
 
@@ -244,9 +228,7 @@ $user = User::get(1);
 $profile = $user->profile;
 ```
 
-<a id="relations:has_many"></a>
-
-#### Has many
+#### <a id="relations:has_many" href="#relations:has_many">Has many</a>
 
 We can now add a `has many` relation to our user model.
 
@@ -265,9 +247,7 @@ $user = User::get(1);
 $articles = $user->articles;
 ```
 
-<a id="relations:belongs_to"></a>
-
-#### Belongs to
+#### <a id="relations:belongs_to" href="#relations:belongs_to">Belongs to</a>
 
 The `belongs` to relation is the opposite of a `has one` or `has many` relation.
 
@@ -288,9 +268,7 @@ $article = Article::get(1);
 $user = $article->user;
 ```
 
-<a id="relations:many_to_many"></a>
-
-#### Many to many
+#### <a id="relations:many_to_many" href="#relations:many_to_many">Many to many</a>
 
 The `many to many` relation requires a [junction table](https://en.wikipedia.org/wiki/Junction_table) between the two related tables. The name of the junction table should be the names of the two tables you want to join in alphabetical order separated by an underscore.
 
@@ -330,9 +308,7 @@ $group = Group::get(1);
 $users = $group->users;
 ```
 
-<a id="relations:relation_criteria"></a>
-
-#### Relation criteria
+#### <a id="relations:relation_criteria" href="#relations:relation_criteria">Relation criteria</a>
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can add query criteria to your relations.
 
@@ -349,9 +325,7 @@ They can be in the relation definition itself or you can add them when you're ac
 $articles = $user->articles()->orderBy('title', 'asc')->all();
 ```
 
-<a id="relations:creating_related_records"></a>
-
-#### Creating related records
+#### <a id="relations:creating_related_records" href="#relations:creating_related_records">Creating related records</a>
 
 The ORM lets you create related records without having to worry about remembering to set the right foreign key value.
 
@@ -436,9 +410,7 @@ $user->groups()->unlink($group);
 $group->users()->unlink($user);
 ```
 
-<a id="relations:eager_loading"></a>
-
-#### Eager loading
+#### <a id="relations:eager_loading" href="#relations:eager_loading">Eager loading</a>
 
 Loading related records can sometimes cause the `1 + N` query problem. This is where eager loading becomes handy.
 
@@ -498,9 +470,7 @@ if(!$article->includes('comments'))
 }
 ```
 
-<a id="relations:counting_related_records"></a>
-
-#### Counting related records
+#### <a id="relations:counting_related_records" href="#relations:counting_related_records">Counting related records</a>
 
 Sometimes you'll want to count the number of related records without having to execute a second query. This can easily be achieved using the `withCountOf` method.
 
@@ -521,9 +491,7 @@ $articles = (new Article)->withCountOf(['comments AS approved_comments_count' =>
 }])->limit(10)->all();
 ```
 
-<a id="relations:overriding_naming_conventions"></a>
-
-#### Overriding naming conventions
+#### <a id="relations:overriding_naming_conventions" href="#relations:overriding_naming_conventions">Overriding naming conventions</a>
 
 The ORM relations rely on strict naming conventions but they can be overridden using the optional parameters of the relation methods. The first optional parameter lets you set the name of the foreign key. The `many to many` relation method has two additional parameters that let you set the junction table name and the junction key.
 
@@ -538,15 +506,11 @@ public function articles()
 
 --------------------------------------------------------
 
-<a id="automatic_typecasting"></a>
-
-### Automatic typecasting
+### <a id="automatic_typecasting" href="#automatic_typecasting">Automatic typecasting</a>
 
 You can configure your model to automatically typecast values on the way in and out of your database. This is done using the `$cast` property where the array key is the column name and the array value is the type you want to cast the column value to.
 
-<a id="automatic_typecasting:scalars"></a>
-
-#### Scalars
+#### <a id="automatic_typecasting:scalars" href="#automatic_typecasting:scalars">Scalars</a>
 
 ```
 protected $cast = ['id' => 'int', 'published' => 'bool'];
@@ -556,9 +520,7 @@ Valid scalar types are `bool`, `int`, `float` and `string`.
 
 > Note that the maximum value for `int` is `PHP_INT_MAX`.
 
-<a id="automatic_typecasting:datetime"></a>
-
-#### DateTime
+#### <a id="automatic_typecasting:datetime" href="#automatic_typecasting:datetime">DateTime</a>
 
 The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
 
@@ -574,9 +536,7 @@ $user = User::get(1);
 $lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
 ```
 
-<a id="automatic_typecasting:enums"></a>
-
-#### Enums
+#### <a id="automatic_typecasting:enums" href="#automatic_typecasting:enums">Enums</a>
 
 Both the query builder and ORM support enums values. You can automatically cast database values to the appropriate enum using the `enum` typecast.
 
@@ -588,9 +548,7 @@ protected $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
 
 --------------------------------------------------------
 
-<a id="mutators_and_accessors"></a>
-
-### Mutators and accessors
+### <a id="mutators_and_accessors" href="#mutators_and_accessors">Mutators and accessors</a>
 
 Mutators and accessors allow you to modify data on the way in and out of the database. Mutators are suffixed with `Mutator` and accessors and suffixed with `Accessor`.
 
@@ -626,9 +584,7 @@ $arrayOfNumbers = $model->numbers;
 
 --------------------------------------------------------
 
-<a id="scopes"></a>
-
-### Scopes
+### <a id="scopes" href="#scopes">Scopes</a>
 
 Scopes allow you to specify commonly used query criteria as methods. All scope methods must be suffixed with the `Scope` suffix.
 
@@ -666,9 +622,7 @@ $articles = User::get(1)->articles()->scope('popularAndPublished', 2000)->all();
 
 --------------------------------------------------------
 
-<a id="mass_assignment"></a>
-
-### Mass assignment
+### <a id="mass_assignment" href="#mass_assignment">Mass assignment</a>
 
 The ORM allows you to use mass assignment when creating or updating records. This can save you a few lines of code since you don't have to set each value individually but it can open attack vectors in your application if you're not careful.
 
@@ -693,9 +647,7 @@ $user->save();
 
 --------------------------------------------------------
 
-<a id="cloning_records"></a>
-
-### Cloning records
+### <a id="cloning_records" href="#cloning_records">Cloning records</a>
 
 You can clone records using the `clone` keyword:
 
@@ -718,9 +670,7 @@ foreach($clones as $clone)
 
 --------------------------------------------------------
 
-<a id="array_and_json_representations"></a>
-
-### Array and JSON representations of results
+### <a id="array_and_json_representations" href="#array_and_json_representations">Array and JSON representations of results</a>
 
 You can convert both your result and result set objects to arrays and JSON when using the ORM [just like you can with plain query builder result and result set objects](:base_url:/docs/:version:/databases-sql:query-builder#array_and_json_representations).
 
@@ -728,9 +678,7 @@ You can convert both your result and result set objects to arrays and JSON when 
 
 --------------------------------------------------------
 
-<a id="traits"></a>
-
-### Traits
+### <a id="traits" href="#traits">Traits</a>
 
 <a id="traits:camel_cased_data_export_and_interaction">
 
@@ -763,9 +711,7 @@ If you only want to access data using camel cased properties but want to keep yo
 
 > Note that all relations as well as accessors and mutators are expected to be defined using camel case when using the `CamelCasedTrait` and `CamelCasedDataInteractionTrait` traits.
 
-<a id="traits:nullable"></a>
-
-#### Nullable
+#### <a id="traits:nullable" href="#traits:nullable">Nullable</a>
 
 If you have database columns that allow `null` values then you can use the `NullableTrait` to automatically replace empty strings with `null` when inserting or updating records.
 
@@ -785,9 +731,7 @@ class Article extends ORM
 }
 ```
 
-<a id="traits:optimistic_locking"></a>
-
-#### Optimistic locking
+#### <a id="traits:optimistic_locking" href="#traits:optimistic_locking">Optimistic locking</a>
 
 When two users are attempting to update the same record simultaneously, one of the updates will likely be overwritten. Optimistic locking can solve this problem.
 
@@ -830,9 +774,7 @@ The optimistic locking trait will also check for stale records when deleting.
 
 > Note that optimistic locking only works when working with a single record.
 
-<a id="traits:read_only_records"></a>
-
-### Read-only records
+### <a id="traits:read_only_records" href="#traits:read_only_records">Read-only records</a>
 
 You can make your records read-only by using the `ReadOnlyTrait`.
 
@@ -860,9 +802,7 @@ $user = User::get(1);
 $user->delete();
 ```
 
-<a id="traits:timestamped"></a>
-
-#### Timestamped
+#### <a id="traits:timestamped" href="#traits:timestamped">Timestamped</a>
 
 You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
 

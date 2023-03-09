@@ -11,9 +11,7 @@ The Mako REPL package is a runtime developer console, interactive debugger and [
 
 --------------------------------------------------------
 
-<a id="installation"></a>
-
-### Installation
+### <a id="installation" href="#installation">Installation</a>
 
 Install the package using the following composer command:
 
@@ -26,9 +24,7 @@ Next, add the `mako\repl\ReplPackage` package to your `app/config/application.ph
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 Start the interactive shell using the following reactor command.
 

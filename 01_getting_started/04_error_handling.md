@@ -11,9 +11,7 @@ Mako converts all errors to `ErrorExceptions`. This allows the error handler to 
 
 --------------------------------------------------------
 
-<a id="custom_error_handling"></a>
-
-### Custom error handling
+### <a id="custom_error_handling" href="#custom_error_handling">Custom error handling</a>
 
 You can register custom error handlers for different kinds of exception types using the `ErrorHandler::handle()` method.
 
@@ -46,9 +44,7 @@ $errorHandler->handle(PDOException::class, function ($exception)
 
 --------------------------------------------------------
 
-<a id="disabling_logging_of_specific_exception_types"></a>
-
-### Disabling logging of specific exception types
+### <a id="disabling_logging_of_specific_exception_types" href="#disabling_logging_of_specific_exception_types">Disabling logging of specific exception types</a>
 
 Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `error_handler.dont_log` config key in your application config file.
 

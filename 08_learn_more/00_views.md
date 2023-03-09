@@ -26,9 +26,7 @@ All views must be located in the `app/resources/views` directory. You can of cou
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 Creating a view object is done by passing the name of the view file to the `create` method of the view factory.
 
@@ -82,13 +80,9 @@ $rendered = $this->view->render('foo.bar');
 
 --------------------------------------------------------
 
-<a id="view_renderers"></a>
+### <a id="view_renderers" href="#view_renderers">View renderers</a>
 
-### View renderers
-
-<a id="view_renderers"></a>
-
-#### Plain PHP
+#### <a id="view_renderers" href="#view_renderers">Plain PHP</a>
 
 <a id="view_renderers:plain_php"></a>
 
@@ -355,9 +349,7 @@ Rendering the child template will result in the HTML document displayed below.
 
 --------------------------------------------------------
 
-<a id="custom_view_renderers"></a>
-
-### Custom view renderers
+### <a id="custom_view_renderers" href="#custom_view_renderers">Custom view renderers</a>
 
 Mako also makes it possible to use custom view renderers such as [Twig](https://twig.symfony.com) or [Latte](https://latte.nette.org/en/).
 

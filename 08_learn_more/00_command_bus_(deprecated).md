@@ -16,9 +16,7 @@ The main advantage of using this pattern is that the commands can be used from a
 
 --------------------------------------------------------
 
-<a id="basic_usage"></a>
-
-### Basic usage
+### <a id="basic_usage" href="#basic_usage">Basic usage</a>
 
 In this example we'll be creating a command and a handler for creating users.
 
@@ -133,9 +131,7 @@ class Create extends Command
 
 --------------------------------------------------------
 
-<a id="middleware"></a>
-
-### Middleware
+### <a id="middleware" href="#middleware">Middleware</a>
 
 Middleware can be used to decorate your command handlers with additional functionality. The example middleware below will wrap your command handler in a database transaction.
 

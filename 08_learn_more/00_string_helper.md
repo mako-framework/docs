@@ -10,9 +10,7 @@ The string helper contains a collection of string manipulation methods.
 
 --------------------------------------------------------
 
-<a id="usage"></a>
-
-### Usage
+### <a id="usage" href="#usage">Usage</a>
 
 The `random` method returns a random string of the selected type and length. The available constants are 'ALNUM', 'ALPHA', 'HEXDEC', 'NUMERIC' and 'SYMBOLS'. You can also combine pools or pass your own pool of characters.
 

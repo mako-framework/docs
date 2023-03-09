@@ -11,9 +11,7 @@ Mako uses the [Monolog library](https://github.com/Seldaek/monolog) for logging.
 
 --------------------------------------------------------
 
-<a id="basics"></a>
-
-### Basics
+### <a id="basics" href="#basics">Basics</a>
 
 The `debug` method is used to log debug data.
 
@@ -65,8 +63,6 @@ $this->logger->alert('foobar');
 
 --------------------------------------------------------
 
-<a id="advanced_usage"></a>
-
-### Advanced usage
+### <a id="advanced_usage" href="#advanced_usage">Advanced usage</a>
 
 Check out the [Monolog documentation](https://github.com/Seldaek/monolog) for the full documentation of the library.

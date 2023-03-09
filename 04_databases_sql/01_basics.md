@@ -18,13 +18,9 @@ The database connection manager provides a simple way of handling database conne
 
 --------------------------------------------------------
 
-<a id="connections"></a>
+### <a id="connections" href="#connections">Connections</a>
 
-### Connections
-
-<a id="connections:basics"></a>
-
-#### Basics
+#### <a id="connections:basics" href="#connections:basics">Basics</a>
 
 Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
@@ -108,9 +104,7 @@ $count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@exam
 $count = $connection->queryAndCount('DELETE FROM `users`');
 ```
 
-<a id="connection_status"></a>
-
-#### Connection status
+#### <a id="connection_status" href="#connection_status">Connection status</a>
 
 You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
 
@@ -126,9 +120,7 @@ $connection->reconnect();
 
 > You can configure the connection to automatically reconnect in the `app/config/database.php` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
 
-<a id="connections:magic_shortcut"></a>
-
-#### Magic shortcut
+#### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
 
 You can access the default database connection directly without having to go through the `connection` method thanks to the magic `__call` method.
 
@@ -138,13 +130,9 @@ $this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit
 
 --------------------------------------------------------
 
-<a id="transactions"></a>
+### <a id="transactions" href="#transactions">Transactions</a>
 
-### Transactions
-
-<a id="transactions:basics"></a>
-
-#### Basics
+#### <a id="transactions:basics" href="#transactions:basics">Basics</a>
 
 > Transactions only work if the storage engine you're using supports them.
 
@@ -183,9 +171,7 @@ $connection->transaction(function ($connection)
 });
 ```
 
-<a id="transactions:savepoints"></a>
-
-#### Savepoints
+#### <a id="transactions:savepoints" href="#transactions:savepoints">Savepoints</a>
 
 Nested transactions are also supported using savepoints.
 
@@ -235,9 +221,7 @@ Transaction nesting is also possible when using the `Connection::transaction()` 
 
 --------------------------------------------------------
 
-<a id="query_builder"></a>
-
-### Query builder
+### <a id="query_builder" href="#query_builder">Query builder</a>
 
 The `Connection::getQuery()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
 
@@ -247,9 +231,7 @@ $rows = $connection->getQuery()->table('foo')->where('bar', '=', $bar)->all();
 
 --------------------------------------------------------
 
-<a id="accessing_the_underlying_pdo_instance"></a>
-
-### Accessing the underlying PDO instance
+### <a id="accessing_the_underlying_pdo_instance" href="#accessing_the_underlying_pdo_instance">Accessing the underlying PDO instance</a>
 
 You can also access the [PDO](https://php.net/manual/en/book.pdo.php) object directly when needed.
 

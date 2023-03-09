@@ -24,15 +24,11 @@ The gatekeeper library makes it easy to implement both authentication and author
 
 --------------------------------------------------------
 
-<a id="users_and_groups"></a>
-
-### Users and groups
+### <a id="users_and_groups" href="#users_and_groups">Users and groups</a>
 
 We'll need users and maybe a group or two before we can start authenticating and authorizing so we'll start with explaining how to create and manage them.
 
-<a id="users_and_groups:users"></a>
-
-#### Users
+#### <a id="users_and_groups:users" href="#users_and_groups:users">Users</a>
 
 The `createUser` method allows you to create a new user. A user object is returned upon successful creation.
 
@@ -112,9 +108,7 @@ The user class also comes with the following methods in addition to the ones sho
 
 > Note that all methods that change the sate of the user require you to call the `save` method to persist the changes.
 
-<a id="users_and_groups:users:password_hashing"></a>
-
-##### Password hashing
+##### <a id="users_and_groups:users:password_hashing" href="#users_and_groups:users:password_hashing">Password hashing</a>
 
 User passwords are hashed using the [hashing library](:base_url:/docs/:version:/security:password-hashing). You can change the hashing algorithm or the default computing cost by reimplementing the `getHasher` method of the user class.
 
@@ -127,9 +121,7 @@ protected function getHasher(): HasherInterface
 
 > Passwords will automatically be rehashed using the new algorithm or computing cost upon successful login and when successfuly validated using the `validatePassword` method.
 
-<a id="users_and_groups:users:user_repository"></a>
-
-##### User repository
+##### <a id="users_and_groups:users:user_repository" href="#users_and_groups:users:user_repository">User repository</a>
 
 Users can be fetched from the database using the user repository.
 
@@ -146,9 +138,7 @@ The user repository class comes with the following methods:
 | getByEmail($email)       | Returns the user associated with the email address or `null` if none is found |
 | getById($id)             | Returns the user associated with the id or `null` if none is found            |
 
-<a id="users_and_groups:groups"></a>
-
-#### Groups
+#### <a id="users_and_groups:groups" href="#users_and_groups:groups">Groups</a>
 
 The `createGroup` method allows you to create a new group. A group object is returned upon successful creation.
 
@@ -171,9 +161,7 @@ The group class comes with the following methods:
 | save()            | Saves the group state                                                  |
 | delete()          | Deletes the group                                                      |
 
-<a id="users_and_groups:groups:group_repository"></a>
-
-##### Group repository
+##### <a id="users_and_groups:groups:group_repository" href="#users_and_groups:groups:group_repository">Group repository</a>
 
 Groups can be fetched from the database using the group repository.
 
@@ -190,9 +178,7 @@ The group repository class comes with the following methods:
 
 --------------------------------------------------------
 
-<a id="authentication"></a>
-
-### Authentication
+### <a id="authentication" href="#authentication">Authentication</a>
 
 The `login` method will attempt to log a user in. The method returns `true` if the login is successful and a status code if not.
 
@@ -263,15 +249,11 @@ $this->gatekeeper->logout();
 
 --------------------------------------------------------
 
-<a id="authorization"></a>
-
-### Authorization
+### <a id="authorization" href="#authorization">Authorization</a>
 
 The authorization component of the gatekeeper library allows you to check if a user is allowed to perform a specific action on a entity.
 
-<a id="authorization:policies"></a>
-
-#### Policies
+#### <a id="authorization:policies" href="#authorization:policies">Policies</a>
 
 Authorization logic is defined in policy classes so that it can be reused anywhere in your application. In the example below we'll create a simple policy that authorizes the `view`, `create`, and `edit` actions on a article entity.
 
@@ -336,9 +318,7 @@ Before we can use the policy we'll have to associate it with the corresponding e
 ]
 ```
 
-<a id="authorization:authorizing"></a>
-
-#### Authorizing
+#### <a id="authorization:authorizing" href="#authorization:authorizing">Authorizing</a>
 
 There are multiple ways of checking if a user is authorized to perform a certain action. The authorizer `can` method lets you authorize both guests and authenticated users.
 
@@ -380,15 +360,11 @@ $this->authorize('create', Article::class);
 
 --------------------------------------------------------
 
-<a id="database_schema"></a>
-
-### Database schema
+### <a id="database_schema" href="#database_schema">Database schema</a>
 
 The gatekeeper library requires three database tables: a users table, a groups table, and a junction table that links the two of them together. Here are the schemas for MySQL, PostgreSQL and SQLite.
 
-<a id="database_schema:mysql"></a>
-
-#### MySQL
+#### <a id="database_schema:mysql" href="#database_schema:mysql">MySQL</a>
 
 [collapse:Click to view]
 Users table
@@ -452,9 +428,7 @@ CREATE TABLE `groups_users` (
 {.language-sql}
 [/collapse]
 
-<a id="database_schema:postgresql"></a>
-
-#### PostgreSQL
+#### <a id="database_schema:postgresql" href="#database_schema:postgresql">PostgreSQL</a>
 
 [collapse:Click to view]
 Users table
@@ -507,9 +481,7 @@ CREATE INDEX "groups_users_user_id_idx" ON "groups_users" USING btree("user_id")
 {.language-sql}
 [/collapse]
 
-<a id="database_schema:sqlite"></a>
-
-#### SQLite
+#### <a id="database_schema:sqlite" href="#database_schema:sqlite">SQLite</a>
 
 [collapse:Click to view]
 Users table
@@ -571,9 +543,7 @@ CREATE INDEX `user_id` ON `groups_users` (`user_id`);
 
 --------------------------------------------------------
 
-<a id="adapters"></a>
-
-### Adapters
+### <a id="adapters" href="#adapters">Adapters</a>
 
 Gatekeeper comes with a session based adapter out of the box but you can implement your own custom adapters as well.
 

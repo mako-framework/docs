@@ -10,9 +10,7 @@ The [Sentry](https://sentry.io/welcome/) integration package allows to you to lo
 
 --------------------------------------------------------
 
-<a id="installation"></a>
-
-### Installation
+### <a id="installation" href="#installation">Installation</a>
 
 Install the package using the following composer command:
 
