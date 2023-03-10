@@ -103,7 +103,7 @@ Lets say you have a packaged named `acme-foo` with a config file you want to mod
 
 ### <a id="commands" href="#commands">Commands</a>
 
-Registering [package](:base_url:/docs/:version:/command-line:custom-commands) commands is done using the `$commands` property in your package class.
+Registering [package](:base_url:/docs/:version:/command-line:commands) commands is done using the `$commands` property in your package class.
 
 ```
 protected $commands =
