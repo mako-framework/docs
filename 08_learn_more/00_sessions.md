@@ -149,7 +149,7 @@ The `regenerateToken` method lets you generates a new token.
 $token = $this->session->regenerateToken();
 ```
 
-> Mako will automatically generate a new token upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+> Mako will automatically generate a new token upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:gatekeeper) authentication library.
 
 ##### <a id="usage:security:one_time_tokens" href="#usage:security:one_time_tokens">One time tokens</a>
 
