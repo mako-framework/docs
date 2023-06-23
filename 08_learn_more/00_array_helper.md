@@ -30,6 +30,12 @@ The `set` method sets an array value using "dot notation".
 Arr::set($array, 'foo.baz', 'hello world');
 ```
 
+The `set` method allows you to append an array value using "dot notation".
+
+```
+Arr::append($array, 'foo.baz', 'hello world');
+```
+
 The `delete` method deletes an array value using "dot notation".
 
 ```
