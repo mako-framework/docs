@@ -37,7 +37,6 @@ The query builder currently supports the following dialects:
 * Firebird
 * MariaDB
 * MySQL
-* NuoDB
 * Oracle
 * PostgreSQL
 * SQLite
@@ -630,7 +629,6 @@ Here's an overview of the locking clauses generated for the different RDBMSes th
 |------------|-------------------------|-----------------------------|
 | Firebird   | FOR UPDATE WITH LOCK    | WITH LOCK                   |
 | MySQL      | FOR UPDATE              | LOCK IN SHARE MODE          |
-| NuoDB      | FOR UPDATE              | LOCK IN SHARE MODE          |
 | Oracle     | FOR UPDATE              | FOR UPDATE                  |
 | PostgreSQL | FOR UPDATE              | FOR SHARE                   |
 | SQLServer  | WITH (UPDLOCK, ROWLOCK) | WITH (HOLDLOCK, ROWLOCK)    |
