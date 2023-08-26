@@ -11,13 +11,13 @@
 
 ### <a id="requirements" href="#requirements">Requirements</a>
 
-* PHP 8.0.0 or higher *
+* PHP 8.1.0 or higher *
 * `ext-json`
 * `ext-mbstring`
 
 If you plan to use the database library then you'll also need to install `ext-pdo`.
 
-\* Tested on PHP 8.0, 8.1 and 8.2
+\* Tested on PHP 8.1, 8.2 and 8.3
 
 --------------------------------------------------------
 
@@ -67,7 +67,7 @@ composer update
 ```
 {.language-none}
 
-If you want to bump the Mako version (e.g. from `9.0.*` to `9.1.*`) then you'll have to update your `composer.json` file before running the update command.
+If you want to bump the Mako version (e.g. from `10.0.*` to `10.1.*`) then you'll have to update your `composer.json` file before running the update command.
 
 > Some releases might require some minor code changes. These will be documented in the upgrade guides.
 {.warning}
