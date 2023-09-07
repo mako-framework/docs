@@ -60,7 +60,13 @@ $responseCharset = $this->response->getCharset();
 The `setStatus` method lets you set the response status.
 
 ```
-$this->response->setStatus(404); // Sends the 404 "Not Found" header.
+// You can set the status using the Status enum
+
+$this->response->setStatus(Status::NOT_FOUND);
+
+// Or by passing a valid status code integer
+
+$this->response->setStatus(404);
 ```
 
 The `getStatus` method returns the current status code.

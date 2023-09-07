@@ -99,10 +99,16 @@ The method also allows you to use a [route name](:base_url:/docs/:version:/routi
 return $this->redirectResponse('articles.view', ['id' => 10]);
 ```
 
-The default status code is set to `302` but you can override it by using the chainable `setStatus` method.
+The default status code is set to `302` (Found) but you can override it by using the chainable `setStatus` method.
 
 ```
-return $this->redirectResponse('http://example.org')->setStatus(301);
+// You can set the status using the Status enum
+
+return $this->redirectResponse('http://example.org')->setStatus(Status::FOUND);
+
+// Or by passing a valid status code integer
+
+return $this->redirectResponse('http://example.org')->setStatus(302);
 ```
 
 It is also possible to use the following methods to set and get the status code.
