@@ -170,7 +170,7 @@ class CacheMiddleware implements MiddlewareInterface
 
 #### <a id="route_middleware:assigning_middleware" href="#route_middleware:assigning_middleware">Assigning middleware</a>
 
-Assigning middleware to a route can be done using the `middleware` method. You can assign a single middleware or an array of middleware if your route requires multiple.
+Assigning middleware to a route can be done using the `middleware` method. If your route requires multiple middleware then you can chain multiple calls to the `middleware` method.
 
 ```
 $routes->get('/articles/{id}', [Articles::class, 'view'])
@@ -266,7 +266,7 @@ $router->registerConstraint(ApiVersionConstraint::class);
 
 #### <a id="route_constraints:assigning_constraints" href="#route_constraints:assigning_constraints">Assigning constraints</a>
 
-Assigning constraints to a route is done using the `constraint` method. You can also pass an array of constraints if your route requires multiple constraints.
+Assigning constraints to a route is done using the `constraint` method. If your route requires multiple constraints then you can chain multiple calls to the `constraint` method.
 
 ```
 $routes->get('/', [Api2::class, 'index'])->constraint(ApiVersionConstraint::class, version: '2.0');
