@@ -123,10 +123,6 @@ class PassthroughMiddleware implements MiddlewareInterface
 Middleware has to be registered in the `app/routing/middleware.php` file before you can use them. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
 
 ```
-$dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class);
-
-// You can also register middleware using only the class name
-
 $dispatcher->registerMiddleware(PassthroughMiddleware::class);
 ```
 
@@ -179,35 +175,21 @@ Assigning middleware to a route can be done using the `middleware` method. You c
 ```
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
-->middleware('cache');
-
-// Or if you registered it using only the class name
-
-$routes->get('/articles/{id}', [Articles::class, 'view'])
-->patterns(['id' => '[0-9]+'])
 ->middleware(CacheMiddleware::class);
 ```
 
-You can also pass parameters to your middleware. Parameters are parsed as JSON so booleans, strings, arrays, objects (associative arrays), null and numeric values are valid.
-
-In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
+You can also pass parameters to your middleware. In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
 ```
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
-->middleware('cache("minutes":60)');
-
-// Or if you registered it using only the class name
-
-$routes->get('/articles/{id}', [Articles::class, 'view'])
-->patterns(['id' => '[0-9]+'])
-->middleware(mako\f(CacheMiddleware::class, minutes: 60));
+->middleware(CacheMiddleware::class, minutes: 60);
 ```
 
 Middleware can also be assigned using the `Middleware` attribute on route action classes and methods.
 
 ```
-#[Middleware('cache("minutes":60)')]
+#[Middleware(CacheMiddleware::class, minutes: 60)]
 public function myAction(): string
 {
 	return 'Hello, world!';
@@ -217,12 +199,7 @@ public function myAction(): string
 If you have middleware that you want to assign to all your routes then you can set them as global.
 
 ```
-$dispatcher->setMiddlewareAsGlobal(['cache']);
-
-// Or if you registered it using only the class name
-
 $dispatcher->setMiddlewareAsGlobal([CacheMiddleware::class]);
-
 ```
 
 #### <a id="route_middleware:middleware_priority" href="#route_middleware:middleware_priority">Middleware priority</a>
@@ -232,11 +209,6 @@ As mentioned above, middleware get executed in the order that they are assigned 
 You can set the middleware priority while registering the middleware using the optional third parameter of the `registerMiddleware` method.
 
 ```
-$dispatcher->registerMiddleware('cache', CacheMiddleware::class, 1);
-$dispatcher->registerMiddleware('passthrough', PassthroughMiddleware::class, 2);
-
-// Or if you register them using only the class name
-
 $dispatcher->registerMiddleware(CacheMiddleware::class, priority: 1);
 $dispatcher->registerMiddleware(PassthroughMiddleware::class, priority: 2);
 ```
@@ -244,10 +216,6 @@ $dispatcher->registerMiddleware(PassthroughMiddleware::class, priority: 2);
 Or you can set the priority of all your middleware using the `setMiddlewarePriority` method.
 
 ```
-$dispatcher->setMiddlewarePriority(['cache' => 1, 'passthrough' => 2]);
-
-// Or if you register them using only the class name
-
 $dispatcher->setMiddlewarePriority([CacheMiddleware::class => 1, PassthroughMiddleware::class => 2]);
 ```
 
@@ -293,10 +261,6 @@ class ApiVersionConstraint implements ConstraintInterface
 Constraints have to be registered in the `app/routing/constraints.php` file before you can use them. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
 
 ```
-$router->registerConstraint('api_version', ApiVersionConstraint::class);
-
-// You can also register constraints using only the class name
-
 $router->registerConstraint(ApiVersionConstraint::class);
 ```
 
@@ -305,13 +269,8 @@ $router->registerConstraint(ApiVersionConstraint::class);
 Assigning constraints to a route is done using the `constraint` method. You can also pass an array of constraints if your route requires multiple constraints.
 
 ```
-$routes->get('/', [Api2::class, 'index'])->constraint('api_version("2.0")');
-$routes->get('/', [Api1::class, 'index'])->constraint('api_version("1.0")');
-
-// Or if you register them using only the class name
-
-$routes->get('/', [Api2::class, 'index'])->constraint(mako\f(ApiVersionConstraint::class, '2.0'));
-$routes->get('/', [Api1::class, 'index'])->constraint(mako\f(ApiVersionConstraint::class, '1.0'));
+$routes->get('/', [Api2::class, 'index'])->constraint(ApiVersionConstraint::class, version: '2.0');
+$routes->get('/', [Api1::class, 'index'])->constraint(ApiVersionConstraint::class, version: '1.0');
 ```
 
 The first route will be matched if no `X-Api-Version` header is present or if the value equals `2.0`. The second route will be matched if the header value is set to `1.0`.
@@ -321,7 +280,7 @@ The first route will be matched if no `X-Api-Version` header is present or if th
 Constraints can also be assigned using the `Constraint` attribute on route action classes and methods.
 
 ```
-#[Constraint('api_version("2.0")')]
+#[Constraint(ApiVersionConstraint::class, version: '2.0')]
 public function myAction(): string
 {
 	return 'Hello, world!';
@@ -331,7 +290,7 @@ public function myAction(): string
 If you have constraints that you want to assign to all your routes then you can set them as global.
 
 ```
-$router->setConstraintAsGlobal(['api_version("2.0")']);
+$router->setConstraintAsGlobal([[ApiVersionConstraint::class, ['version' => '2.0']]]);
 ```
 
 --------------------------------------------------------
@@ -344,7 +303,7 @@ Route groups are useful when you have a set of routes with the same settings.
 $options =
 [
 
-	'middleware' => 'cache',
+	'middleware' => [CacheMiddleware::class],
 	'patterns'   => ['id' => '[0-9]+'],
 ];
 
