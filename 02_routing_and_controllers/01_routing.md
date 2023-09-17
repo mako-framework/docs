@@ -282,7 +282,6 @@ Route groups are useful when you have a set of routes with the same settings.
 ```
 $options =
 [
-
 	'middleware' => [CacheMiddleware::class],
 	'patterns'   => ['id' => '[0-9]+'],
 ];
@@ -296,6 +295,16 @@ $routes->group($options, function ($routes)
 ```
 
 All routes within the group will now use the same middleware and regex pattern. You can also nest groups if needed.
+
+You can also pass parameters to middleware and constraints in route groups by using the following nested array structure.
+
+```
+$options =
+[
+	'middleware' => [[CacheMiddleware::class, ['minutes' => 60]]],
+	'patterns'   => ['id' => '[0-9]+'],
+];
+```
 
 The following options are available when creating a route group. They are also available as chainable methods on individual routes.
 
