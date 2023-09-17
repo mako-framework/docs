@@ -120,12 +120,6 @@ class PassthroughMiddleware implements MiddlewareInterface
 }
 ```
 
-Middleware has to be registered in the `app/routing/middleware.php` file before you can use them. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
-
-```
-$dispatcher->registerMiddleware(PassthroughMiddleware::class);
-```
-
 In the next example we'll create a middleware that returns a cached response if possible.
 
 Note that all middleware is instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
@@ -196,27 +190,19 @@ public function myAction(): string
 }
 ```
 
-If you have middleware that you want to assign to all your routes then you can set them as global.
+If you have middleware that you want to assign to all your routes then you can register them as global in the `app/routing/middleware.php` file. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
 
 ```
-$dispatcher->setMiddlewareAsGlobal([CacheMiddleware::class]);
+$dispatcher->registerGlobalMiddleware(CacheMiddleware::class, minutes: 60);
 ```
 
 #### <a id="route_middleware:middleware_priority" href="#route_middleware:middleware_priority">Middleware priority</a>
 
-As mentioned above, middleware get executed in the order that they are assigned to the route. You can dictate the execution order by configuring middleware priority.
-
-You can set the middleware priority while registering the middleware using the optional third parameter of the `registerMiddleware` method.
+As mentioned above, middleware get executed in the order that they are assigned to the route. You can dictate the execution order by configuring middleware priority using the `setMiddlewarePriority` method.
 
 ```
-$dispatcher->registerMiddleware(CacheMiddleware::class, priority: 1);
-$dispatcher->registerMiddleware(PassthroughMiddleware::class, priority: 2);
-```
-
-Or you can set the priority of all your middleware using the `setMiddlewarePriority` method.
-
-```
-$dispatcher->setMiddlewarePriority([CacheMiddleware::class => 1, PassthroughMiddleware::class => 2]);
+$dispatcher->setMiddlewarePriority(CacheMiddleware::class, 1);
+$dispatcher->setMiddlewarePriority(PassthroughMiddleware::class, 2);
 ```
 
 In both examples above we're making sure that the `cache` middleware gets executed first, followed by the `passthrough` middleware.
@@ -258,12 +244,6 @@ class ApiVersionConstraint implements ConstraintInterface
 }
 ```
 
-Constraints have to be registered in the `app/routing/constraints.php` file before you can use them. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
-
-```
-$router->registerConstraint(ApiVersionConstraint::class);
-```
-
 #### <a id="route_constraints:assigning_constraints" href="#route_constraints:assigning_constraints">Assigning constraints</a>
 
 Assigning constraints to a route is done using the `constraint` method. If your route requires multiple constraints then you can chain multiple calls to the `constraint` method.
@@ -287,10 +267,10 @@ public function myAction(): string
 }
 ```
 
-If you have constraints that you want to assign to all your routes then you can set them as global.
+If you have constraints that you want to assign to all your routes then you can register them as global in the `app/routing/constraints.php` file. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
 
 ```
-$router->setConstraintAsGlobal([[ApiVersionConstraint::class, ['version' => '2.0']]]);
+$router->registerGlobalConstraint(ApiVersionConstraint::class, version: '2.0');
 ```
 
 --------------------------------------------------------
