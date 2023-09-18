@@ -95,7 +95,7 @@ $routes->get('/article/{id}', fn (ViewFactory $view, $id) => $view->render('arti
 
 Route middleware allows you to alter the request and response both before and after a route action gets executed.
 
-![middleware](:base_url:/assets/img/middleware.png)
+<img src=":base_url:/assets/img/middleware.svg" style="width:50%;min-width:340px;display:block;margin-left:auto;margin-right:auto;" />
 
 #### <a id="route_middleware:defining_middleware" href="#route_middleware:defining_middleware">Defining middleware</a>
 
