@@ -55,7 +55,7 @@ If you want to generate a specification file based on your documentation then yo
 
 To generate a cached route file for production then you'll have to run the `open-api:generate-routes` command.
 
-> Note that you have to set the `operationId` parameter to the fully qualified method name (e.g. app\controllers\Index::welcome) of your controller action for the route generator to work.
+> Note that you have to set the `operationId` parameter to the fully qualified method name (e.g. app\http\controllers\Index::welcome) of your controller action for the route generator to work.
 
 ```
 openapi: 3.0.2
@@ -67,5 +67,5 @@ paths:
     '/':
         summary: Displays a welcome page.
         get:
-            operationId: 'app\controllers\Index::welcome'
+            operationId: 'app\http\controllers\Index::welcome'
 ```

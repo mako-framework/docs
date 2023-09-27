@@ -28,7 +28,7 @@ Here's a basic example controller that extends the base controller included with
 ```
 <?php
 
-namespace app\controllers;
+namespace app\http\controllers;
 
 use mako\http\routing\Controller;
 
@@ -202,7 +202,7 @@ Controllers are instantiated by the [dependency injection container](:base_url:/
 ```
 <?php
 
-namespace app\controllers;
+namespace app\http\controllers;
 
 use mako\http\routing\Controller;
 use mako\view\ViewFactory;

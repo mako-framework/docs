@@ -365,7 +365,7 @@ The trait includes two helpful methods, `getValidatedInput` and `getValidatedFil
 ```
 <?php
 
-namespace app\controllers;
+namespace app\http\controllers;
 
 use mako\http\routing\attributes\Middleware;
 use mako\http\routing\Controller;

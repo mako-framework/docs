@@ -19,13 +19,13 @@
 
 The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
-Routes are registered in the `app/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the container instance).
+Routes are registered in the `app/http/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the container instance).
 
 --------------------------------------------------------
 
 ### <a id="basics" href="#basics">Basics</a>
 
-The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\controllers\Home`controller class.
+The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\http\controllers\Home`controller class.
 
 ```
 $routes->get('/', [Home::class, 'welcome']);
@@ -104,7 +104,7 @@ The example below is the most basic middleware implementation (it doesn't actual
 ```
 <?php
 
-namespace app\routing\middleware;
+namespace app\http\routing\middleware;
 
 use Closure;
 use mako\http\Request;
@@ -127,7 +127,7 @@ Note that all middleware is instantiated through the [dependency injection conta
 ```
 <?php
 
-namespace app\routing\middleware;
+namespace app\http\routing\middleware;
 
 use Closure;
 use mako\cache\CacheManager;
@@ -190,7 +190,7 @@ public function myAction(): string
 }
 ```
 
-If you have middleware that you want to assign to all your routes then you can register them as global in the `app/routing/middleware.php` file. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
+If you have middleware that you want to assign to all your routes then you can register them as global in the `app/http/routing/middleware.php` file. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
 
 ```
 $dispatcher->registerGlobalMiddleware(CacheMiddleware::class, minutes: 60);
@@ -224,7 +224,7 @@ The following constraint will match a route if the `X-Api-Version` header matche
 ```
 <?php
 
-namespace app\routing\constraints;
+namespace app\http\routing\constraints;
 
 use mako\http\Request;
 use mako\http\routing\constraints\ConstraintInterface;
@@ -267,7 +267,7 @@ public function myAction(): string
 }
 ```
 
-If you have constraints that you want to assign to all your routes then you can register them as global in the `app/routing/constraints.php` file. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
+If you have constraints that you want to assign to all your routes then you can register them as global in the `app/http/routing/constraints.php` file. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
 
 ```
 $router->registerGlobalConstraint(ApiVersionConstraint::class, version: '2.0');
