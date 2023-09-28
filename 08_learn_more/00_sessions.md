@@ -13,8 +13,9 @@
 
 --------------------------------------------------------
 
-The Mako session library comes with four different session stores by default.
+The Mako session library comes with five different session stores by default.
 
+* APCu
 * Database
 * File
 * Null
