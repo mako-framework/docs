@@ -83,6 +83,10 @@ The `getCookies` method returns a cookie collection.
 
 ```
 $cookies = $this->response->getCookies();
+
+// You can also use the read-only "cookies" property
+
+$cookies = $this->response->cookies;
 ```
 
 The `add` method adds a cookie to the response.
@@ -134,6 +138,10 @@ The `getHeaders` method returns a header collection.
 
 ```
 $headers = $this->response->getHeaders();
+
+// You can also use the read-only "headers" property
+
+$headers = $this->response->headers;
 ```
 
 The `add` method adds a header to your response.
