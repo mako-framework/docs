@@ -56,15 +56,13 @@ The `has` method allows you to check for the presence of an item in the containe
 ```
 // Check using the type hint
 
-if($container->has(BarInterface::class))
-{
+if ($container->has(BarInterface::class)) {
 	// Do something
 }
 
 // Or the optional key
 
-if($container->has('bar'))
-{
+if ($container->has('bar')) {
 	// Do something
 }
 ```
@@ -91,8 +89,8 @@ class Depends
 	public function __construct(
 		protected FooInterface $foo, 
 		protected BarInterface $bar
-	)
-	{}
+	) {
+	}
 }
 ```
 
@@ -113,8 +111,7 @@ $foo = $container->getFresh('bar');
 The `call` method allows you to execute a callable and automatically inject its dependencies.
 
 ```
-$returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\BarInterface $bar)
-{
+$returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\BarInterface $bar) {
 	// $foo and $bar will automatically be injected into the callable
 });
 ```
@@ -170,8 +167,7 @@ In the following example we'll register an instance of the `Dependency` class al
 ```
 $container->registerInstance(Dependency::class, new Dependency('original'));
 
-$container->register(Dependent::class, function ($container)
-{
+$container->register(Dependent::class, function ($container) {
 	$dependent = new Dependent($container->get(Dependency::class));
 
 	$container->onReplace(Dependency::class, [$dependent, 'replaceDependency']);
@@ -191,8 +187,7 @@ var_dump($dependent->dependency->value); // string(11) "replacement"
 In the example above we assumed that the `Dependent` class had a `replaceDependency` method. This might not always be the case so we can also use a closure to achieve the same result.
 
 ```
-$container->onReplace(Dependency::class, (function ($dependency)
-{
+$container->onReplace(Dependency::class, (function ($dependency) {
 	$this->dependency = $dependency;
 })->bindTo($dependent, Dependent::class));
 ```

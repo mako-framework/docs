@@ -384,8 +384,7 @@ use mako\view\ViewFactory;
  * @var \mako\syringe\Container       $container
  */
 
-$container->get(ViewFactory::class)->extend('.twig', function ()
-{
+$container->get(ViewFactory::class)->extend('.twig', function () {
 	$renderer = new TwigRenderer;
 
 	$renderer->setCachePath('/tmp');

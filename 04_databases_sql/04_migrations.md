@@ -197,8 +197,7 @@ class Migration_20120824100019 extends Migration
 	public function __construct(
 		ConnectionManager $connectionManager, 
 		protected Config $config
-	)
-	{
+	) {
 		parent::__construct($connectionManager);
 	}
 }

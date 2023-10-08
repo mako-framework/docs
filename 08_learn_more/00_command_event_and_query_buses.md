@@ -38,8 +38,8 @@ readonly class CreateUserCommand
         public string $email,
         public string $username,
         public string $password
-    )
-    {}
+    ) {
+    }
 }
 ```
 
@@ -50,8 +50,8 @@ class CreateUserHandler
 {
     public function __construct(
 		protected Gatekeeper $gatekeeper
-	)
-	{}
+	) {
+    }
 
     public function __invoke(CreateUserCommand $command): void
     {
@@ -88,8 +88,8 @@ readonly class UserCreatedEvent
     public function __construct(
         public int $email,
         public string $username,
-    )
-    {}
+    ) {
+    }
 }
 ```
 
@@ -100,8 +100,8 @@ class UserCreatedHandler
 {
     public function __construct(
 		protected Mailer $mailer
-	)
-	{}
+	) {
+    }
 
     public function __invoke(UserCreatedEvent $event): void
     {
@@ -136,8 +136,8 @@ readonly class GetUserQuery
 {
     public function __construct(
         public int $id
-    )
-    {}
+    ) {
+    }
 }
 ```
 
@@ -148,8 +148,8 @@ class GetUserHandler
 {
     public function __construct(
 		protected ConnectionManager $db
-	)
-	{}
+	) {
+    }
 
     public function __invoke(GetUserQuery $query): ?object
     {

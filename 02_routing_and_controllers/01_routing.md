@@ -140,13 +140,12 @@ class CacheMiddleware implements MiddlewareInterface
 	public function __construct(
 		protected CacheManager $cache, 
 		protected int $minutes = 10
-	)
-	{}
+	) {
+	}
 
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		if(this->cache->has('route.' . $request->getPath()))
-		{
+		if (this->cache->has('route.' . $request->getPath())) {
 			return $response->setBody($cache->get('route.' . $request->getPath()));
 		}
 
@@ -234,8 +233,8 @@ class ApiVersionConstraint implements ConstraintInterface
 	public function __construct(
 		protected string $version, 
 		protected Request $request
-	)
-	{}
+	) {
+	}
 
 	public function isSatisfied(): bool
 	{
@@ -280,14 +279,12 @@ $router->registerGlobalConstraint(ApiVersionConstraint::class, version: '2.0');
 Route groups are useful when you have a set of routes with the same settings.
 
 ```
-$options =
-[
+$options = [
 	'middleware' => [CacheMiddleware::class],
 	'patterns'   => ['id' => '[0-9]+'],
 ];
 
-$routes->group($options, function ($routes)
-{
+$routes->group($options, function ($routes) {
 	$routes->get('/articles/{id}', [Articles::class, 'view']);
 
 	$routes->get('/photos/{id}', [Photos::class, 'view']);

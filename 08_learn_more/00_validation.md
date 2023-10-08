@@ -31,8 +31,7 @@ The mako validator provides a simple and consistent way of validating user input
 First you'll need to define a set of rules that you want to validate your input against.
 
 ```
-$rules =
-[
+$rules = [
 	'username' => ['required', 'min_length(4)', 'max_length(20)'],
 	'password' => ['required'],
 	'email'    => ['required', 'email'],
@@ -65,8 +64,7 @@ $validatedInput = $validator->getValidatedInput();
 The `isValid` method returns `true` if the input is valid and `false` if not, while the `isInvalid` method returns `false` when the input validates and `true` when not.
 
 ```
-if($validator->isValid())
-{
+if ($validator->isValid()) {
 	// Do something
 }
 ```
@@ -80,8 +78,7 @@ $errors = $validator->getErrors();
 You can also assign it to a variable by passing it to either of the `isValid` or `isInvalid` methods.
 
 ```
-if($validator->isValid($errors))
-{
+if ($validator->isValid($errors)) {
 	// Do something
 }
 ```
@@ -91,8 +88,7 @@ if($validator->isValid($errors))
 The validator also supports nested arrays. You can assign validation rule sets to nested fields using the "dot notation" syntax.
 
 ```
-$rules =
-[
+$rules = [
 	'user.email' => ['required', 'email'],
 ];
 ```
@@ -100,8 +96,7 @@ $rules =
 You can also apply rule sets to multiple keys using wildcards.
 
 ```
-$rules =
-[
+$rules = [
 	'users.*.email' => ['email'],
 ];
 ```
@@ -113,8 +108,7 @@ $rules =
 You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
 
 ```
-$validator->addRulesIf('state', ['required', 'valid_us_state'], function () use ($postData)
-{
+$validator->addRulesIf('state', ['required', 'valid_us_state'], function () use ($postData) {
 	return $postData->get('country') === 'United States of America';
 });
 ```
@@ -128,15 +122,13 @@ Mako comes with a handy helper function called `mako\f` that makes it easier to 
 ```
 use function mako\f;
 
-$rules =
-[
+$rules = [
 	'category' => ['required', f('in', $this->getCategoryIds())],
 ];
 
 // The example above produces the same result as the following code
 
-$rules =
-[
+$rules = [
 	'category' => ['required', 'in([' . implode(',', $this->getCategoryIds()) . '])'],
 ];
 ```
@@ -344,8 +336,7 @@ $validator->extend('is_foo', IsFooRule::class);
 Or you can just use the class name when setting up your input validation.
 
 ```
-$rules =
-[
+$rules = [
 	'foo' => ['required', IsFooRule::class],
 ];
 ```

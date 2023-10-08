@@ -233,8 +233,7 @@ The finder class allows you to find files in the filesystem.
 ```
 $finder = new Finder(['/files']);
 
-foreach($finder->find() as $file)
-{
+foreach ($finder->find() as $file) {
     echo $file;
 }
 ```
@@ -260,8 +259,7 @@ $finder->setPattern('/\.php$/'); // Only match files with a .php extension
 In addition to the `find` method you can also use the `findAs` method that alows you iterate over objects instead of just strings containg the file path.
 
 ```
-foreach($finder->findAs(FileInfo::class) as $fileInfo)
-{
+foreach ($finder->findAs(FileInfo::class) as $fileInfo) {
     echo $fileInfo->getMimeType();
 }
 ```

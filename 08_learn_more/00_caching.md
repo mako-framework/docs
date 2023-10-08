@@ -55,8 +55,7 @@ $cache->putIfNotExists('my_array', [1, 2, 3, 4], 3600);
 You can check whether or not an item exists in the cache by using the `has` method.
 
 ```
-if($cache->has('foo'))
-{
+if ($cache->has('foo')) {
 	// Do something
 }
 ```
@@ -70,8 +69,7 @@ $cached = $cache->get('my_array');
 The `getOrElse` method returns the data if the key exists and caches the return value of the closure if it doesn't. The closure does not get executed if the key exists in the cache.
 
 ```
-$cached = $cache->getOrElse('foo', function ()
-{
+$cached = $cache->getOrElse('foo', function () {
 	sleep(5);
 
 	return 'this will get cached for 30 seconds';

@@ -25,6 +25,10 @@ The `getQuery` method returns a parameter collection containing query string dat
 
 ```
 $queryString = $this->request->getQuery();
+
+// You can also use the read-only "query" property
+
+$queryString = $this->request->query;
 ```
 
 The `get` method of the parameter collection returns the value of a parameter and `null` if it doesn't exist.
@@ -43,6 +47,10 @@ The `getPost` method returns a parameter collection containing post data.
 // Get all post data
 
 $post = $this->request->getPost();
+
+// You can also use the read-only "post" property
+
+$post = $this->request->post;
 ```
 
 The `getBody` method returns a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
@@ -94,6 +102,10 @@ The `getCookies` method returns a cookie collection that allows to you access bo
 
 ```
 $cookies = $this->request->getCookies();
+
+// You can also use the read-only "cookies" property
+
+$cookies = $this->request->cookies;
 ```
 
 The `get` method of the cookie collection returns the value of a cookie and `null` if it doesn't exist.
@@ -126,6 +138,10 @@ The `getHeaders` method returns a header collection.
 
 ```
 $headers = $this->request->getHeaders();
+
+// You can also use the read-only "headers" property
+
+$headers = $this->request->headers;
 ```
 
 The `get` method of the header collection returns the value of the header an `null` it it isn't set.
@@ -180,6 +196,10 @@ The `getFiles` method returns a file collection that extends the parameter colle
 
 ```
 $files = $this->request->getFiles();
+
+// You can also use the read-only "files" property
+
+$files = $this->request->files;
 ```
 
 The `get` method of the file collection returns a `UploadedFile` instance or `null` if the file doesn't exist.
@@ -216,6 +236,10 @@ The `getServer` method returns a collection that extends the parameter collectio
 
 ```
 $server = $this->request->getServer();
+
+// You can also use the read-only "server" property
+
+$server = $this->request->server;
 ```
 
 --------------------------------------------------------

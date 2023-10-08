@@ -163,8 +163,7 @@ $inTransaction = $connection->inTransaction();
 The `Connection::transaction()` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
 
 ```
-$connection->transaction(function ($connection)
-{
+$connection->transaction(function ($connection) {
 	$connection->getQuery()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
 	$connection->getQuery()->table('accounts')->where('user_id', '=', 20)->increment('cash', 100);

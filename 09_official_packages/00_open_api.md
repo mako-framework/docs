@@ -35,12 +35,10 @@ And finally replace the contents of your `routes.php` file with the following:
 
 use mako\openapi\generators\routing\Runtime;
 
-if(file_exists(__DIR__ . '/openapi.php'))
-{
+if (file_exists(__DIR__ . '/openapi.php')) {
 	include __DIR__ . '/openapi.php';
 }
-else
-{
+else {
 	(new Runtime($routes))->generateFromYamlFile(dirname(MAKO_APPLICATION_PATH) . '/openapi.yml');
 }
 ```

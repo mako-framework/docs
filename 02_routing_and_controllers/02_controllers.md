@@ -129,8 +129,7 @@ The `streamResponse` method returns a stream response sender. They can be useful
 It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
 
 ```
-return $this->streamResponse(function ($stream)
-{
+return $this->streamResponse(function ($stream) {
 	$stream->flush('Hello, world!');
 
 	sleep(2);
@@ -184,8 +183,7 @@ The controller action and `afterAction` methods will be skipped if the `beforeAc
 ```
 public function beforeAction()
 {
-	if($this->gatekeeper->isGuest())
-	{
+	if ($this->gatekeeper->isGuest()) {
 		return $this->redirectResponse('user:login');
 	}
 }
@@ -211,8 +209,8 @@ class Articles extends Controller
 {
 	public function __construct(
 		protected ViewFactory $view
-	)
-	{}
+	) {
+	}
 }
 ```
 

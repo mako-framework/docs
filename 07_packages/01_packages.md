@@ -37,7 +37,7 @@ use mako\application\Package;
 
 class FooPackage extends Package
 {
-	protected $packageName = 'acme/foo';
+	protected string $packageName = 'acme/foo';
 }
 ```
 
@@ -88,7 +88,7 @@ $view = $this->view->create('acme-foo::vista');
 By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. `acme/foo` becomes `acme-foo`). You can override this by setting the `$fileNamespace` property in your package class.
 
 ```
-protected $fileNamespace = 'foo';
+protected string $fileNamespace = 'foo';
 ```
 
 #### <a id="configuration_i18n_and_views:overriding_configuration_i18n_and_views" href="#configuration_i18n_and_views:overriding_configuration_i18n_and_views">Overriding configuration, i18n and views</a>
@@ -106,8 +106,7 @@ Lets say you have a packaged named `acme-foo` with a config file you want to mod
 Registering [package](:base_url:/docs/:version:/command-line:commands) commands is done using the `$commands` property in your package class.
 
 ```
-protected $commands =
-[
+protected array $commands = [
 	'acme-foo::command' => acme\foo\commands\Command::class,
 ];
 ```

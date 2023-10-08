@@ -20,8 +20,7 @@ A great place to do so is in the `app/bootstrap.php` file.
 ```
 $errorHandler = $container->get(ErrorHandler::class);
 
-$errorHandler->handle(PDOException::class, function ($exception)
-{
+$errorHandler->handle(PDOException::class, function ($exception) {
 	// Do some custom logging here
 });
 ```
@@ -29,13 +28,11 @@ $errorHandler->handle(PDOException::class, function ($exception)
 > Your error handler should **not** have a return value unless you want it to stop further error handling.
 
 ```
-$errorHandler->handle(Throwable::class, function ($exception)
-{
+$errorHandler->handle(Throwable::class, function ($exception) {
 	// Do something else here
 });
 
-$errorHandler->handle(PDOException::class, function ($exception)
-{
+$errorHandler->handle(PDOException::class, function ($exception) {
 	// Do some custom logging here
 });
 ```
@@ -66,8 +63,7 @@ $errorHandler->dontLog(mako\http\exceptions\NotFoundException::class);
 
 // You can also pass an array of exception types.
 
-$errorHandler->dontLog
-([
+$errorHandler->dontLog([
 	mako\http\exceptions\NotFoundException::class,
 	mako\http\exceptions\MethodNotAllowedException::class,
 ]);

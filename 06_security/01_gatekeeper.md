@@ -212,8 +212,7 @@ $successful = $this->gatekeeper->forceLogin($email, true);
 The `basicAuth` method can be useful when creating APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
 
 ```
-if($this->gatekeeper->basicAuth() === false)
-{
+if ($this->gatekeeper->basicAuth() === false) {
 	return 'Authentication required.';
 }
 
@@ -274,8 +273,7 @@ class ArticlePolicy extends Policy
 
 	public function create(?UserEntityInterface $user, $entity): bool
 	{
-		if($user !== null && $user->isMemberOf('editors'))
-		{
+		if ($user !== null && $user->isMemberOf('editors')) {
 			return true;
 		}
 
@@ -284,8 +282,7 @@ class ArticlePolicy extends Policy
 
 	public function edit(?UserEntityInterface $user, $entity): bool
 	{
-		if($user !== null && $user->getId() === $entity->user_id)
-		{
+		if ($user !== null && $user->getId() === $entity->user_id) {
 			return true;
 		}
 
@@ -299,8 +296,7 @@ The policy above extends the `Policy` class but you can choose to implement the 
 ```
 public function before(?UserEntityInterface $user, string $action, $entity): ?bool
 {
-	if($user !== null && $user->isMemberOf('admins'))
-	{
+	if ($user !== null && $user->isMemberOf('admins')) {
 		return true;
 	}
 
@@ -323,8 +319,7 @@ Before we can use the policy we'll have to associate it with the corresponding e
 There are multiple ways of checking if a user is authorized to perform a certain action. The authorizer `can` method lets you authorize both guests and authenticated users.
 
 ```
-if($this->authorizer->can($user, 'view', $article) === false)
-{
+if ($this->authorizer->can($user, 'view', $article) === false) {
 	throw new ForbiddenException;
 }
 
@@ -334,8 +329,7 @@ if($this->authorizer->can($user, 'view', $article) === false)
 If you already know that you have an authenticated user then you can use the `can` method of the user class.
 
 ```
-if($user->can('edit', $article) === false)
-{
+if ($user->can('edit', $article) === false) {
 	throw new ForbiddenException;
 }
 

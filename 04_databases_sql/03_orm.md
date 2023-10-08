@@ -89,7 +89,7 @@ use mako\database\midgard\ORM;
 
 class Article extends ORM
 {
-	protected $tableName = 'articles';
+	protected string $tableName = 'articles';
 }
 ```
 
@@ -196,7 +196,7 @@ use mako\database\midgard\ORM;
 
 class User extends ORM
 {
-	protected $tableName = 'users';
+	protected string $tableName = 'users';
 
 	public function profile()
 	{
@@ -216,7 +216,7 @@ use mako\database\midgard\ORM;
 
 class Profile extends ORM
 {
-	protected $tableName = 'profiles';
+	protected string $tableName = 'profiles';
 }
 ```
 
@@ -415,8 +415,7 @@ $group->users()->unlink($user);
 Loading related records can sometimes cause the `1 + N` query problem. This is where eager loading becomes handy.
 
 ```
-foreach((new Comment)->limit(10)->all() as $comment)
-{
+foreach ((new Comment)->limit(10)->all() as $comment) {
 	$comment->user->username;
 }
 ```
@@ -424,8 +423,7 @@ foreach((new Comment)->limit(10)->all() as $comment)
 The code above will execute `1` query to fetch `10` comments and then `1` query per iteration to retrieve the user who wrote the comment. This means that it has to execute `11` queries in total. Using eager loading can solve this problem.
 
 ```
-foreach((new Comment)->including('users')->limit(10)->all() as $comment)
-{
+foreach ((new Comment)->including('users')->limit(10)->all() as $comment) {
 	$comment->user->username;
 }
 ```
@@ -441,8 +439,7 @@ $articles = (new Article)->including(['user', 'comments', 'comments.user'])->lim
 If you need to add query criteria to your relations then you can do so using a closure.
 
 ```
-$articles = (new Article)->including(['user', 'comments as approved_comments' => function ($query)
-{
+$articles = (new Article)->including(['user', 'comments as approved_comments' => function ($query) {
 	$query->where('approved', '=', true);
 }, 'comments.user'])->limit(10)->all();
 ```
@@ -450,7 +447,7 @@ $articles = (new Article)->including(['user', 'comments as approved_comments' =>
 You can also define relations to eager load in the model definition using the `$including` property. This is useful if you know that you're going to need to eager load the relations more often than not.
 
 ```
-protected $including = ['user', 'comments', 'comments.user'];
+protected array $including = ['user', 'comments', 'comments.user'];
 ```
 
 You can then disable eager loading of the relations if needed by using the `excluding` method:
@@ -464,8 +461,7 @@ It is also possible to eager load relations using the `include` method on both m
 ```
 $article = Article::get(1);
 
-if(!$article->includes('comments'))
-{
+if (!$article->includes('comments')) {
 	$article->include(['comments', 'comments.user']);
 }
 ```
@@ -485,8 +481,7 @@ Each `Article` object in the `$articles` result set will now have a `comments_co
 If you want to add custom query criteria when counting related records then you can do so using a closure.
 
 ```
-$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function ($query)
-{
+$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function ($query) {
 	$query->where('approved', '=', true);
 }])->limit(10)->all();
 ```
@@ -513,7 +508,7 @@ You can configure your model to automatically typecast values on the way in and 
 #### <a id="automatic_typecasting:scalars" href="#automatic_typecasting:scalars">Scalars</a>
 
 ```
-protected $cast = ['id' => 'int', 'published' => 'bool'];
+protected array $cast = ['id' => 'int', 'published' => 'bool'];
 ```
 
 Valid scalar types are `bool`, `int`, `float` and `string`.
@@ -525,7 +520,7 @@ Valid scalar types are `bool`, `int`, `float` and `string`.
 The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
 
 ```
-protected $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
+protected array $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
 ```
 
 You'll now be able to treat the `joined_at` and `last_seen` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
@@ -541,7 +536,7 @@ $lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:
 Both the query builder and ORM support enums values. You can automatically cast database values to the appropriate enum using the `enum` typecast.
 
 ```
-protected $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
+protected array $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
 ```
 
 > Note that the ORM can only cast to so-called [backed enums](https://www.php.net/manual/en/language.enumerations.backed.php) unless you implement your own `from` method.
@@ -662,8 +657,7 @@ You can also clone an entire result set:
 ```
 $clones = clone (new User)->all();
 
-foreach($clones as $clone)
-{
+foreach ($clones as $clone) {
 	$clone->save();
 }
 ```
@@ -727,7 +721,7 @@ class Article extends ORM
 {
 	use NullableTrait;
 
-	protected $nullable = ['source'];
+	protected array $nullable = ['source'];
 }
 ```
 
@@ -831,7 +825,7 @@ $article->touch();
 You can also make the ORM touch related records upon saving by listing the relations you want to touch in the `$touch` property.
 
 ```
-protected $touch = ['foo', 'foo.bar']; // Nested relations are also supported
+protected array $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 ```
 
 You can easily decide which type of changes that should touch related records using the `$shouldTouchOnInsert`, `$shouldTouchOnUpdate` and `$shouldTouchOnDelete` properties. All of them are set to `true` by default.

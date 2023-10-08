@@ -77,10 +77,8 @@ The `pipeline` method allows you to send multiple commands to the Redis server w
 ```
 $redis->set('x', 0);
 
-$replies = $redis->pipeline(function ($redis)
-{
-	for($i = 0; $i < 100; $i++)
-	{
+$replies = $redis->pipeline(function ($redis) {
+	for ($i = 0; $i < 100; $i++) {
 		$redis->incr('x');
 	}
 });
@@ -108,8 +106,7 @@ The `subscribeTo` method allows you to subscribe to channels. You can also use t
 > Message subscribers are blocking and should *not* be used in controllers. [Reactor commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks. You should also set the `timeout` value of the connection used to subscribe to `-1` in your redis configuration file to avoid dropped connections while waiting for new messages.
 
 ```
-$redis->subscribeTo(['channel1', 'channel2'], function ($message)
-{
+$redis->subscribeTo(['channel1', 'channel2'], function ($message) {
 	$this->write($message);
 });
 ```
@@ -117,8 +114,7 @@ $redis->subscribeTo(['channel1', 'channel2'], function ($message)
 By default the subscribers will only receive messages (`message` and `pmessage`). You can however subscribe to more messages types using the optional third parameter.
 
 ```
-$redis->subscribeTo(['channel1', 'channel2'], function ($message)
-{
+$redis->subscribeTo(['channel1', 'channel2'], function ($message) {
 	$this->write($message);
 }, ['message', 'subscribe', 'pong']);
 ```

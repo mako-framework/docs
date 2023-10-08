@@ -102,8 +102,7 @@ $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all(
 Selecting from the results of a subquery is also possible.
 
 ```
-$persons = $query->table(new Subquery(function ($query)
-{
+$persons = $query->table(new Subquery(function ($query) {
 	$query->table('persons')->select(['name'])->distinct();
 }, 'distinct_names'))
 ->where('name', '!=', 'John Doe')
@@ -113,8 +112,7 @@ $persons = $query->table(new Subquery(function ($query)
 You can also use the `as` method of the `Subquery` to set the subquery table alias.
 
 ```
-$persons = $query->table((new Subquery(function ($query)
-{
+$persons = $query->table((new Subquery(function ($query) {
 	$query->table('persons')->select(['name'])->distinct();
 }))->as('distinct_names'))
 ->where('name', '!=', 'John Doe')
@@ -124,13 +122,11 @@ $persons = $query->table((new Subquery(function ($query)
 Advanced column selections can also be made using raw SQL and subqueries.
 
 ```
-$persons = $query->table('persons')->select
-([
+$persons = $query->table('persons')->select([
 	'name',
 	'email',
 	new Raw("CASE gender WHEN 'm' THEN 'male' ELSE 'female' END AS gender"),
-	new Subquery(function ($query)
-	{
+	new Subquery(function ($query) {
 		$query->table('persons')->select([new Raw('AVG(age)']));
 	}, 'average_age')
 ])
@@ -142,8 +138,7 @@ If you need to process a large dataset and don't want to put the entire result s
 ```
 $persons = $query->table('persons')->select(['name', 'email'])->yield();
 
-foreach($persons as $person)
-{
+foreach ($persons as $person) {
 	// Only a single row is kept in memory at a time
 }
 ```
@@ -156,8 +151,7 @@ In addition to using the `yield` method to process large amounts of data you can
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 
 ```
-$query->table('persons')->ascending('id')->batch(function ($batch)
-{
+$query->table('persons')->ascending('id')->batch(function ($batch) {
 	// Process the batch here
 });
 ```
@@ -308,8 +302,7 @@ $person = $query->table('persons')->where(['username', 'email'], '=', ['foo', 'f
 // SELECT * FROM `persons` WHERE (`age` > 25 AND `height` > 180)
 
 $persons = $query->table('persons')
-->where(function ($query)
-{
+->where(function ($query) {
 	$query->where('age', '>', 25);
 	$query->where('height', '>', 180);
 })
@@ -379,8 +372,7 @@ $persons = $query->table('persons')->in('id', [1, 2, 3, 4, 5])->all();
 // SELECT * FROM `persons` WHERE `id` IN (SELECT `id` FROM `persons` WHERE `id` != 1)
 
 $persons = $query->table('persons')
-->in('id', new Subquery(function ($query)
-{
+->in('id', new Subquery(function ($query) {
 	$query->table('persons')->select(['id'])->where('id', '!=', 1);
 }))
 ->all();
@@ -404,8 +396,7 @@ exists(), orExists(), notExists(), orNotExists()
 // SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
 $persons = $query->table('persons')
-->exists(new Subquery(function ($query)
-{
+->exists(new Subquery(function ($query) {
 	$query->table('cars')->whereRaw('cars.person_id', '=', 'persons.id');
 }))
 ->all();
@@ -424,8 +415,7 @@ $persons = $query->table('persons')->join('phones', 'persons.id', '=', 'phones.u
 // (`u`.`id` = `p`.`user_id` OR `u`.`phone_number` = `p`.`number`)
 
 $persons = $query->table('persons as u')
-->join('phones as p', function ($join)
-{
+->join('phones as p', function ($join) {
 	$join->on('u.id', '=', 'p.user_id');
 	$join->orOn('u.phone_number', '=', 'p.number');
 })
@@ -441,8 +431,7 @@ $menu = $query->table('drinks')->crossJoin('meals')->all();
 // ) AS `recent_sales` ON TRUE
 
 $customers = $query->table('customers')
-->lateralJoin(new Subquery(function (Query $query): void
-{
+->lateralJoin(new Subquery(function (Query $query): void {
 	$query->table('sales')
 	->whereRaw('sales.customer_id', '=', 'customers.id')
 	->descending('created_at')
@@ -544,15 +533,13 @@ The `with` method allows you to add common table expressions to your queries.
 ```
 // WITH `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->with('cte', [], new Subquery(function ($query)
-{
+$result = $query->with('cte', [], new Subquery(function ($query) {
 	$query->selectRaw('1, 2, 3');
 }))->table('cte')->all();
 
 // WITH `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->with('cte', ['one', 'two', 'three'], new Subquery(function ($query)
-{
+$result = $query->with('cte', ['one', 'two', 'three'], new Subquery(function ($query) {
 	$query->selectRaw('1, 2, 3');
 }))
 ->table('cte')->all();
@@ -563,15 +550,13 @@ You can also add recursive common table expressions using the `withRecursive` me
 ```
 // WITH RECURSIVE `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->withRecursive('cte', [], new Subquery(function ($query)
-{
+$result = $query->withRecursive('cte', [], new Subquery(function ($query) {
 	$query->selectRaw('1, 2, 3');
 }))->table('cte')->all();
 
 // WITH RECURSIVE `cte` (`one`, `two`, `three`) AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
-$result = $query->withRecursive('cte', ['one', 'two', 'three'], new Subquery(function ($query)
-{
+$result = $query->withRecursive('cte', ['one', 'two', 'three'], new Subquery(function ($query) {
 	$query->selectRaw('1, 2, 3');
 }))
 ->table('cte')->all();
@@ -645,12 +630,10 @@ The first parameter is the compiler class name and the second one is a closure w
 
 ```
 $events = $query->table('events')
-->forCompiler(PostgreSQL::class, function ($query)
-{
+->forCompiler(PostgreSQL::class, function ($query) {
 	$query->whereRaw('EXTRACT(YEAR FROM "date") = ?', ['1337']);
 })
-->forCompiler(MySQL::class, function ($query)
-{
+->forCompiler(MySQL::class, function ($query) {
 	$query->whereRaw('YEAR(`date`) = ?', ['1337']);
 })
 ->all();

@@ -173,10 +173,8 @@ You can sort items in a collection using the `sort` method.
 ```
 $collection = new Collection([2, 1, 3, 5, 6, 4]);
 
-$collection->sort(function ($a, $b)
-{
-	if($a == $b)
-	{
+$collection->sort(function ($a, $b) {
+	if ($a == $b) {
 		return 0;
 	}
 

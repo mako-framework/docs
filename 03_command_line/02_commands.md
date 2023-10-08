@@ -40,9 +40,9 @@ use mako\reactor\Command;
 
 class Hello extends Command
 {
-	protected $command = 'Hello';
+	protected string $command = 'Hello';
 
-	protected $description = 'Prints out "Hello, World!".';
+	protected string $description = 'Prints out "Hello, World!".';
 
 	public function execute()
 	{
@@ -97,8 +97,7 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 ```
 public function getArguments(): array
 {
-	return
-	[
+	return [
 		new Argument('argument', 'This is a positional argument'),
 		new Argument('--option1', 'This is an option argument'),
 		new Argument('-o|--option2', 'This is an option argument with an alias'),
@@ -175,8 +174,7 @@ $input = $this->secret('Password:', false);
 The `confirm` method lets you ask the user to confirm their action.
 
 ```
-if($this->confirm('Do you want to delete all your files?'))
-{
+if ($this->confirm('Do you want to delete all your files?')) {
 	// Delete all files
 }
 ```
@@ -184,8 +182,7 @@ if($this->confirm('Do you want to delete all your files?'))
 The default answer is `n` (false) but you can choose to make `y` (true) the default answer.
 
 ```
-if($this->confirm('Do you want to delete all your files?', 'y'))
-{
+if ($this->confirm('Do you want to delete all your files?', 'y')) {
 	// Delete all files
 }
 ```
@@ -253,8 +250,7 @@ $items = 100;
 
 $progressbar = $this->progressBar($items);
 
-for($i = 0; $i < $items; $i++)
-{
+for ($i = 0; $i < $items; $i++) {
 	$progressbar->advance();
 }
 ```
@@ -407,8 +403,7 @@ class Proxy extends Command
 
 	public function execute()
 	{
-		$this->fire('hello --name=dude', function ($buffer)
-		{
+		$this->fire('hello --name=dude', function ($buffer) {
 			$this->output->write($buffer);
 		});
 	}
@@ -455,8 +450,7 @@ class Hello extends Command
 		Input $input, 
 		Output $output, 
 		protected Config $config
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 	}
 }
