@@ -40,7 +40,7 @@ $rules = [
 
 The rules defined above will make sure that the username, password and email fields are present and non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
-> Note that most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `one_time_token` and `token`.
+> Note that most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `not_empty`, `one_time_token` and `token`.
 
 Next you'll need to create a validator object. The first parameter is the input data you want to validate and the second is the set of validation rules you just defined.
 
