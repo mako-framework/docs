@@ -10,6 +10,7 @@
     - [Built in middleware](#typed_properties:built_in_middleware)
     - [Commands](#typed_properties:commands)
     - [Custom validation rules](#typed_properties:custom_validation_rules)
+    - [Migrations](#typed_properties:migrations)
     - [ORM](#typed_properties:orm)
     - [Packages](#typed_properties:packages)
 
@@ -298,6 +299,14 @@ class MyRule implements RuleInterface
 
     // The rest of the validation rule implementation goes here ...
 }
+```
+
+#### <a id="typed_properties:migrations" href="#typed_properties:migrations">Migrations</a>
+
+If your application has migrations then you'll have to update the `$description` property to be typed:
+
+```
+protected string $description = '...';
 ```
 
 #### <a id="typed_properties:orm" href="#typed_properties:orm">ORM</a>
