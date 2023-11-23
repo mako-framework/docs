@@ -68,7 +68,7 @@ $this->config->remove('crypto.configurations.user');
 
 #### <a id="security_first" href="#security_first">Security First</a>
 
-Many developers have made mistakes with committing config files to their repositories. In some cases those repositories are made public and there are credential sniffing bots that find exposed credentials. When you are dealing with our Mako application, please take caution into what files you commit to the repository and which files you add to your `.gitignore` or equivalent ignore file for your VCS. 
+Many developers have made mistakes with committing config files containing sensitive information. In some cases those repositories are made public and there are credential sniffing bots that find exposed credentials. When you are dealing with Mako application, please take caution into what files you commit to the repository and which files you add to your `.gitignore` or equivalent ignore file for your VCS. 
 
 > Any configuration files that hold an API key, a username/password, an encryption key or any other type of sensitive data should _not_ be committed to your repository!
 {.danger}
@@ -111,6 +111,28 @@ php reactor <command> --env=dev
 {.language-none}
 
 Using the above methods to set up the `dev` environment, it will now read your configurations from `app/config/dev/`. If you changed the environment to `prod` it will pull from `app/config/prod/` instead.
+
+#### <a id="environment_aware_configuration:environment_variables" href="#environment_aware_configuration:environment_variables">Environment variables</a>
+
+You can also use the `mako\env` function to fetch environment variables. This is a good idea for senstive configuration values such as credentials, encryption keys, etc...
+
+```
+[
+	'username'    => mako\env('USERNAME'),
+	'password'    => mako\env('PASSWORD'),
+	'doSomething' => mako\env('DO_SOMETHING', isBool: true),
+]
+```
+
+You can also specify default values
+
+```
+[
+	'username'    => mako\env('USERNAME', 'user'),
+	'password'    => mako\env('PASSWORD', '1234'),
+	'doSomething' => mako\env('DO_SOMETHING', false, isBool: true),
+]
+```
 
 --------------------------------------------------------
 
