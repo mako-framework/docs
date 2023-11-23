@@ -6,6 +6,7 @@
 	- [Security First](#security_first)
 * [Environment aware configuration](#environment_aware_configuration)
 	- [Setting the environment](#environment_aware_configuration:setting_the_environment)
+	- [Environment variables](#environment_aware_configuration:environment_variables)
 * [Package configuration](#package_configuration)
 
 --------------------------------------------------------
@@ -124,7 +125,7 @@ You can also use the `mako\env` function to fetch environment variables. This is
 ]
 ```
 
-You can also specify default values
+You can also specify default values:
 
 ```
 [
