@@ -11,7 +11,7 @@ The `mako/open-api` package allows you to generate a [OpenApi](https://www.opena
 
 --------------------------------------------------------
 
-## <a id="installation" href="#installation">Installation</a>
+### <a id="installation" href="#installation">Installation</a>
 
 First you'll need to install the package as a dependency to your project.
 
@@ -45,7 +45,7 @@ else {
 
 --------------------------------------------------------
 
-## <a id="usage" href="#usage">Usage</a>
+### <a id="usage" href="#usage">Usage</a>
 
 You can build an OpenApi specification using a tool like [Apicurito](https://www.apicur.io/apicurito/pwa/) or by documenting your code using attributes or docblock annotations. To check out the syntax head over to the [zircote/swagger-php](https://github.com/zircote/swagger-php) documentation.
 
