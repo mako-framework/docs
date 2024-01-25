@@ -33,14 +33,13 @@ And finally replace the contents of your `routes.php` file with the following:
 ```
 <?php
 
-use mako\openapi\generators\routing\Runtime;
+use mako\openapi\http\routing\Registrar;
 
-if (file_exists(__DIR__ . '/openapi.php')) {
-	include __DIR__ . '/openapi.php';
-}
-else {
-	(new Runtime($routes))->generateFromYamlFile(dirname(MAKO_APPLICATION_PATH) . '/openapi.yml');
-}
+Registrar::register(
+	$routes,
+	cachedRoutes: __DIR__ . '/openapi.php',
+	openApiSpec: __DIR__ . '/openapi.yml',
+);
 ```
 
 --------------------------------------------------------
