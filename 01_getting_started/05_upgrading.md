@@ -76,7 +76,7 @@ Assigning constraints to a route is still done using the `Route::constraint()` m
 // Before
 
 $routes->get('/', fn () => 'Hello, world!')
-->constraints([
+->constraint([
     FooConstraint::class, 
     BarConstraint::class,
 ]);
@@ -84,14 +84,14 @@ $routes->get('/', fn () => 'Hello, world!')
 // Now
 
 $routes->get('/', fn () => 'Hello, world!')
-->middleware(FooConstraint::class)
-->middleware(BarConstraint::class);
+->constraint(FooConstraint::class)
+->constraint(BarConstraint::class);
 
 // You can now pass arguments to constraints
 
 $routes->get('/', fn () => 'Hello, world!')
-->middleware(FooConstraint::class, foo: 123)
-->middleware(BarConstraint::class, bar: 456);
+->constraint(FooConstraint::class, foo: 123)
+->constraint(BarConstraint::class, bar: 456);
 ```
 
 Read all about the new constraint features [here](:base_url:/docs/:version:/routing-and-controllers:routing#route_constraints).
