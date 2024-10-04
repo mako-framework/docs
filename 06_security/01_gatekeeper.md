@@ -194,7 +194,7 @@ The possible statuses are:
 
 | Constant                         | Description                                                                   |
 |----------------------------------|-------------------------------------------------------------------------------|
-| LoginStatus::OK                  | The user was successfully logged in.                                          |
+| LoginStatus::OK                  | The user was successfully logged in                                           |
 | LoginStatus::INVALID_CREDENTIALS | The provided credentials are invalid                                          |
 | LoginStatus::NOT_ACTIVATED       | The account has not been activated                                            |
 | LoginStatus::BANNED              | The account has been banned                                                   |
