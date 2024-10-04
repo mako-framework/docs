@@ -180,26 +180,35 @@ The group repository class comes with the following methods:
 
 ### <a id="authentication" href="#authentication">Authentication</a>
 
-The `login` method will attempt to log a user in. The method returns `true` if the login is successful and a status code if not.
+The `login` method will attempt to log a user in. The method returns a `LoginStatus` enum instance.
 
 ```
-$successful = $this->gatekeeper->login($email, $password);
+$status = $this->gatekeeper->login($email, $password);
 
 // You can also tell gatekeeper to set a "remember me" cookie
 
-$successful = $this->gatekeeper->login($email, $password, true);
+$status = $this->gatekeeper->login($email, $password, true);
 ```
 
-The possible status codes for failed logins are:
+The possible statuses are:
 
-| Constant                     | Description                                                                   |
-|------------------------------|-------------------------------------------------------------------------------|
-| Gatekeeper::LOGIN_INCORRECT  | The provided credentials are invalid                                          |
-| Gatekeeper::LOGIN_ACTIVATING | The account has not been activated                                            |
-| Gatekeeper::LOGIN_BANNED     | The account has been banned                                                   |
-| Gatekeeper::LOGIN_LOCKED     | The account has been temporarily locked due to too many failed login attempts |
+| Constant                         | Description                                                                   |
+|----------------------------------|-------------------------------------------------------------------------------|
+| LoginStatus::OK                  | The user was successfully logged in.                                          |
+| LoginStatus::INVALID_CREDENTIALS | The provided credentials are invalid                                          |
+| LoginStatus::NOT_ACTIVATED       | The account has not been activated                                            |
+| LoginStatus::BANNED              | The account has been banned                                                   |
+| LoginStatus::LOCKED              | The account has been temporarily locked due to too many failed login attempts |
 
-The `forceLogin` method allows you to login a user without a password. It will return `true` if the login is successful and a status code if not.
+You can also use the `toBool` method to check if the user was successfully logged in.
+
+```
+if($this->gatekeeper->login($email, $password)->toBool()) {
+	// The user was successfully logged in
+}
+```
+
+The `forceLogin` method allows you to login a user without a password. It will return a `LoginStatus` enum instance.
 
 ```
 $successful = $this->gatekeeper->forceLogin($email);
@@ -209,7 +218,7 @@ $successful = $this->gatekeeper->forceLogin($email);
 $successful = $this->gatekeeper->forceLogin($email, true);
 ```
 
-The `basicAuth` method can be useful when creating APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
+The `basicAuth` method can be useful when creating simple APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
 
 ```
 if ($this->gatekeeper->basicAuth() === false) {
