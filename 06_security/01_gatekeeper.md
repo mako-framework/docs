@@ -211,11 +211,11 @@ if($this->gatekeeper->login($email, $password)->toBool()) {
 The `forceLogin` method allows you to login a user without a password. It will return a `LoginStatus` enum instance.
 
 ```
-$successful = $this->gatekeeper->forceLogin($email);
+$status = $this->gatekeeper->forceLogin($email);
 
 // You can also tell gatekeeper to set a "remember me" cookie
 
-$successful = $this->gatekeeper->forceLogin($email, true);
+$status = $this->gatekeeper->forceLogin($email, true);
 ```
 
 The `basicAuth` method can be useful when creating simple APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
