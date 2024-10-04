@@ -200,7 +200,7 @@ The possible statuses are:
 | LoginStatus::BANNED              | The account has been banned                                                   |
 | LoginStatus::LOCKED              | The account has been temporarily locked due to too many failed login attempts |
 
-You can also use the `toBool` method to check if the user was successfully logged in. The method will return `true` if the status is `LoginStatus::OK` and `false` if not.
+You can also use the `toBool` method of the `LoginStatus` enum to check if the user was successfully logged in. The method will return `true` if the status is `LoginStatus::OK` and `false` if not.
 
 ```
 if($this->gatekeeper->login($email, $password)->toBool()) {
