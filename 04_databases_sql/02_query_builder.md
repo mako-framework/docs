@@ -193,7 +193,7 @@ if ($stream !== null) {
 	stream_copy_to_stream($stream, $image);
 
 	fclose($image);
-	
+
 	fclose($stream);
 }
 ```
@@ -205,13 +205,15 @@ if ($stream !== null) {
 Inserting data is done using the `insert` method.
 
 ```
-$query->table('foobars')->insert(['field1' => 'foo', 'field2' => new DateTime]);
+$query->table('foobars')
+->insert(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
 ```
-$query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
+$query->table('foobars')
+->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 > When working with [PostgreSQL](https://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
