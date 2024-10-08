@@ -182,6 +182,22 @@ The `pairs` method allows you to fetch an array where the first column is used a
 $pairs = $query->table->('users')->pairs('id', 'email');
 ```
 
+The `blob` method allows you to stream the contents of a blob column. The method will return `null` if no matching record is found.
+
+```
+$stream = $query->table->('images')->where('id', '=', 1)->blob('image');
+
+if ($stream !== null) {
+	$image = fopen('image.jpg');
+
+	stream_copy_to_stream($stream, $image);
+
+	fclose($image);
+	
+	fclose($stream);
+}
+```
+
 --------------------------------------------------------
 
 ### <a id="inserting_data" href="#inserting_data">Inserting data</a>
