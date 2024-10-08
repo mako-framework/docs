@@ -4,7 +4,7 @@
 
 * [Connections](#connections)
 	- [Basics](#connections:basics)
-	- [Connection status](#connection_status)
+	- [Connection status](#connections:connection_status)
 	- [Magic shortcut](#connections:magic_shortcut)
 * [Querying](#querying)
 	- [Basics](#querying:basics)
@@ -37,7 +37,7 @@ $connection = $this->database->getConnection();
 $connection = $this->database->getConnection('mydb');
 ```
 
-#### <a id="connection_status" href="#connection_status">Connection status</a>
+#### <a id="connections:connection_status" href="#connections:connection_status">Connection status</a>
 
 You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
 
