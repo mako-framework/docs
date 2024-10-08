@@ -200,6 +200,29 @@ $query->table('foobars')->insertAndGetId(['field1' => 'foo', 'field2' => new Dat
 
 > When working with [PostgreSQL](https://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
 
+Sometimes you want to insert data only if a matching record doesn't already exist. This is where the `insertOrUpdate` method comes in handy. The first parameter is the values you want to insert when creating a new record while the second parameter is the values you want to update in case of a conflict.
+
+```
+$query->table('foobars')
+->insertOrUpdate(
+	['field1' => 'foo', 'field2' => new DateTime], 
+	['field2' => new DateTime]
+);
+```
+
+There is also a optional third parameter that lets you define the conflict target (the column or set of columns that must be unique). This is not necessary when working with [MySQL](https://www.mysql.com/) and [MariaDB](https://mariadb.org/) but it is required when working with [PostgreSQL](https://www.postgresql.org) and [SQLite](https://www.sqlite.org/).
+
+It is advised to use the third optional parameter if you want your code to be database agnostic. The value will simply be ignored when querying databases that don't require it to be set.
+
+```
+$query->table('foobars')
+->insertOrUpdate(
+	['field1' => 'foo', 'field2' => new DateTime], 
+	['field2' => new DateTime]
+	['field1']
+);
+```
+
 --------------------------------------------------------
 
 ### <a id="updating_data" href="#updating_data">Updating data</a>
