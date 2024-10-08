@@ -6,6 +6,9 @@
 	- [Basics](#connections:basics)
 	- [Connection status](#connection_status)
 	- [Magic shortcut](#connections:magic_shortcut)
+* [Querying](#querying)
+	- [Basics](#querying:basics)
+	- [Fetching data](#querying:fetching_data)
 * [Transactions](#transactions)
 	- [Basics](#transactions:basics)
 	- [Savepoints](#transactions:savepoints)
@@ -34,11 +37,51 @@ $connection = $this->database->getConnection();
 $connection = $this->database->getConnection('mydb');
 ```
 
+#### <a id="connection_status" href="#connection_status">Connection status</a>
+
+You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
+
+```
+$isConnectionAlive = $connection->isAlive();
+```
+
+You can attempt to reconnect using the `Connection::reconnect()` method.
+
+```
+$connection->reconnect();
+```
+
+> You can configure the connection to automatically reconnect in the `app/config/database.php` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
+
+#### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
+
+You can access the default database connection directly without having to go through the `connection` method thanks to the magic `__call` method.
+
+```
+$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+```
+
+--------------------------------------------------------
+
+### <a id="querying" href="#querying">Querying</a>
+
+#### <a id="querying:basics" href="#querying:basics">Basics</a>
+
 The `Connection::query()` method lets you execute a query. It returns `true` on success and `false` on failure.
 
 ```
 $connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 ```
+
+The `Connection::queryAndCount()` method will return the number of rows modified by the query.
+
+```
+$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
+
+$count = $connection->queryAndCount('DELETE FROM `users`');
+```
+
+#### <a id="querying:fetching_data" href="#querying:fetching_data">Fetching data</a>
 
 The `Connection::first()` method executes a query and returns the first row of the result set or `null` if nothing is found.
 
@@ -96,36 +139,20 @@ The `Connection::pairs()` method will return an array where the first column is 
 $pairs = $connection->pairs('SELECT `id`, `email` FROM `users`');
 ```
 
-The `Connection::queryAndCount()` method will return the number of rows modified by the query.
+The `blob` method allows you to stream the contents of a blob column. The method will return `null` if no matching record is found.
 
 ```
-$count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
+$stream = $connection->blob('SELECT `image` FROM `images` WHERE `id` = ?', [1]);
 
-$count = $connection->queryAndCount('DELETE FROM `users`');
-```
+if ($stream !== null) {
+	$image = fopen('image.jpg');
 
-#### <a id="connection_status" href="#connection_status">Connection status</a>
+	stream_copy_to_stream($stream, $image);
 
-You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
+	fclose($image);
 
-```
-$isConnectionAlive = $connection->isAlive();
-```
-
-You can attempt to reconnect using the `Connection::reconnect()` method.
-
-```
-$connection->reconnect();
-```
-
-> You can configure the connection to automatically reconnect in the `app/config/database.php` configuration file. Note that Mako will not attempt to automatically reconnect if the connection was lost during a transaction.
-
-#### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
-
-You can access the default database connection directly without having to go through the `connection` method thanks to the magic `__call` method.
-
-```
-$this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
+	fclose($stream);
+}
 ```
 
 --------------------------------------------------------
@@ -222,7 +249,7 @@ Transaction nesting is also possible when using the `Connection::transaction()` 
 
 ### <a id="query_builder" href="#query_builder">Query builder</a>
 
-The `Connection::getQuery()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder).
+The `Connection::getQuery()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) which allows you to build database agnostic queries programmatically.
 
 ```
 $rows = $connection->getQuery()->table('foo')->where('bar', '=', $bar)->all();
