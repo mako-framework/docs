@@ -31,7 +31,7 @@ $container->register(FooInterface::class, Foo::class);
 The `mako\syringe\intersection` helper function makes it easy to register an intersection of interfaces.
 
 ```
-// The `FooInterface&BarInterface` type will be resolved to the `FooBar` class
+// The "FooInterface&BarInterface" type will be resolved to the "FooBar" class
 
 $container->register(intersection(FooInterface::class, BarInterface::class), FooBar::class);
 ```
