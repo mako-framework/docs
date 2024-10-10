@@ -27,6 +27,15 @@ The `register` method allows you to register a dependency in the container.
 $container->register(FooInterface::class, Foo::class);
 ```
 
+
+The `mako\syringe\intersection` helper function makes it easy to register an intersection of interfaces.
+
+```
+// The `FooInterface&BarInterface` type will be resolved to the `FooBar` class
+
+$container->register(intersection(FooInterface::class, BarInterface::class), FooBar::class);
+```
+
 It is possible to register a key along with the type hint. This will save a few keystrokes when resolving classes and also make it possible to access dependencies using overloading in [container aware](#container_aware) classes.
 
 ```
