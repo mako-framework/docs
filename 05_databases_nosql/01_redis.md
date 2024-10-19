@@ -2,8 +2,10 @@
 
 --------------------------------------------------------
 
-* [Basics](#basics)
-	- [Magic shortcut](#basics:magic_shortcut)
+* [Connections](#connections)
+	- [Basics](#connections:basics)
+	- [Magic shortcut](#connections:magic_shortcut)
+* [Commands](#commands)
 * [Pipelining](#pipelining)
 * [Pub/Sub](#pub_sub)
 	- [Publishing](#pub_sub:publishing)
@@ -16,7 +18,9 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 --------------------------------------------------------
 
-### <a id="basics" href="#basics">Basics</a>
+### <a id="connections" href="#connections">Connections</a>
+
+#### <a id="connections:basics" href="#connections:basics">Basics</a>
 
 Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
@@ -30,7 +34,19 @@ $redis = $this->redis->getConnection();
 $redis = $this->redis->getConnection('mydb');
 ```
 
-The Redis client uses the magic `__call` method to build commands method so every current (and future) [Redis command](https://redis.io/commands) is a valid method.
+#### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
+
+You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
+
+```
+$lolWut = $this->redis->lolWut(); // Yes, this is a valid Redis command
+```
+
+--------------------------------------------------------
+
+### <a id="commands" href="#commands">Commands</a>
+
+The Redis client supports all official [commands](https://redis.io/docs/latest/commands/) including the ones included in the Redis Stack (Bloom filter, JSON, Redis Query Engine, etc...) as well as RESP2 and RESP3 responses.
 
 ```
 // Add some dummy data
@@ -39,7 +55,7 @@ $redis->rpush('drinks', 'water');
 $redis->rpush('drinks', 'milk');
 $redis->rpush('drinks', 'orange juice');
 
-// Fetches all the drinks
+// Fetch all the drinks
 
 $drinks = $redis->lrange('drinks', 0, -1);
 
@@ -48,24 +64,22 @@ $drinks = $redis->lrange('drinks', 0, -1);
 $redis->del('drinks');
 ```
 
-If the redis command contains spaces (`CONFIG GET`, `CONFIG SET`, etc ...) then you'll have to separate the words using camel case or underscores.
+If you encounter a new command that hasn't been implemented in the client yet then you can use the `executeCommand` method. This can also be useful when working with a Redis compatible superset like [KeyDB](https://docs.keydb.dev/).
 
 ```
-// Use camel case to separate multi word commands
+// Add some dummy data
 
-$redis->configGet('*max-*-entries*');
+$redis->executeCommand('RPUSH', 'drinks', 'water');
+$redis->executeCommand('RPUSH', 'drinks', 'milk');
+$redis->executeCommand('RPUSH', 'drinks', 'orange juice');
 
-// You can also use underscores
+// Fetch all the drinks
 
-$redis->config_get('*max-*-entries*');
-```
+$drinks = $redis->executeCommand('LRANGE', 'drinks', 0, -1);
 
-#### <a id="usage:magic_shortcut" href="#usage:magic_shortcut">Magic shortcut</a>
+// Delete data
 
-You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
-
-```
-$exists = $this->redis->exists('drinks');
+$redis->executeCommand('DEL', 'drinks');
 ```
 
 --------------------------------------------------------
