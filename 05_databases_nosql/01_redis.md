@@ -51,13 +51,13 @@ The Redis client supports all official [commands](https://redis.io/docs/latest/c
 ```
 // Add some dummy data
 
-$redis->rpush('drinks', 'water');
-$redis->rpush('drinks', 'milk');
-$redis->rpush('drinks', 'orange juice');
+$redis->rPush('drinks', 'water');
+$redis->rPush('drinks', 'milk');
+$redis->rPush('drinks', 'orange juice');
 
 // Fetch all the drinks
 
-$drinks = $redis->lrange('drinks', 0, -1);
+$drinks = $redis->lRange('drinks', 0, -1);
 
 // Delete data
 
