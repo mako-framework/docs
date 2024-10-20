@@ -153,8 +153,7 @@ The `monitor` method can be useful when debugging applications that use Redis. O
 > The method should only be used in a [reactor command](:base_url:/docs/:version:/command-line:commands). You should also set the `timeout` value of the connection used to monitor to `-1` in your redis configuration file to avoid dropped connections while waiting for new commands.
 
 ```
-$redis->monitor(function ($command)
-{
+$redis->monitor(function ($command) {
 	$this->write($command);
 });
 ```
