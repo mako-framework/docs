@@ -13,14 +13,14 @@ Mako converts all errors to `ErrorExceptions`. This allows the error handler to 
 
 ### <a id="custom_error_handling" href="#custom_error_handling">Custom error handling</a>
 
-You can register custom error handlers for different kinds of exception types using the `ErrorHandler::handle()` method.
+You can register custom error handlers for different kinds of exception types using the `ErrorHandler::addHandler()` method.
 
 A great place to do so is in the `app/bootstrap.php` file.
 
 ```
 $errorHandler = $container->get(ErrorHandler::class);
 
-$errorHandler->handle(PDOException::class, function ($exception) {
+$errorHandler->addHandler(PDOException::class, function ($exception) {
 	// Do some custom logging here
 });
 ```
@@ -28,11 +28,11 @@ $errorHandler->handle(PDOException::class, function ($exception) {
 > Your error handler should **not** have a return value unless you want it to stop further error handling.
 
 ```
-$errorHandler->handle(Throwable::class, function ($exception) {
+$errorHandler->addHandler(Throwable::class, function ($exception) {
 	// Do something else here
 });
 
-$errorHandler->handle(PDOException::class, function ($exception) {
+$errorHandler->addHandler(PDOException::class, function ($exception) {
 	// Do some custom logging here
 });
 ```
