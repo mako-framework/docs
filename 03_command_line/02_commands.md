@@ -36,6 +36,8 @@ All commands must extend the `mako\reactor\Command` base command and implement t
 
 namespace app\console\commands;
 
+use mako\reactor\attributes\CommandDescription;
+use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
 
 #[CommandName('hello')]
@@ -389,6 +391,7 @@ The `fire` method executes your command in a separate process and it lets you ha
 
 namespace app\console\commands;
 
+use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
 use mako\reactor\traits\FireTrait;
 
@@ -413,6 +416,7 @@ If you don't want to wait for the command to finish then you can start a backgro
 
 namespace app\console\commands;
 
+use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
 use mako\reactor\traits\FireTrait;
 
@@ -439,6 +443,7 @@ Commands are instantiated by the [dependency injection container](:base_url:/doc
 
 namespace app\console\commands;
 
+use mako\reactor\attributes\CommandName;
 use mako\reactor\Command;
 
 #[CommandName('hello')]
