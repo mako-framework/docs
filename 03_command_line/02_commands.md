@@ -38,12 +38,10 @@ namespace app\console\commands;
 
 use mako\reactor\Command;
 
+#[CommandName('hello')]
+#[CommandDescription('Prints out "Hello, World!".')]
 class Hello extends Command
 {
-	protected string $command = 'Hello';
-
-	protected string $description = 'Prints out "Hello, World!".';
-
 	public function execute()
 	{
 		$this->write('Hello, World!');
@@ -51,7 +49,7 @@ class Hello extends Command
 }
 ```
 
-> Note that the `$command` property is only required when using automatic command registration.
+> Note that the `CommandName` attribute is only required when using automatic command registration.
 
 > You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
 
@@ -65,7 +63,7 @@ You'll have to register your command with the reactor command line tool before y
 
 <a id="basics:registering-commands:manual-registration"></a>
 
-If you add the `$command` property to your command class as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
+If you add the `CommandName` attribute to your command class as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
 
 ```
 'commands_directory' => MAKO_APPLICATION_PATH . '/console/commands',
@@ -92,18 +90,15 @@ Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of t
 
 #### <a id="input:arguments-and-options" href="#input:arguments-and-options">Arguments and options</a>
 
-You'll most likely want to pass arguments to your commands and to do so you'll have to define them in the `getArguments` method.
+You'll most likely want to pass arguments to your commands and to do so you'll have to define them using the `Arguments` attribute.
 
 ```
-public function getArguments(): array
-{
-	return [
-		new Argument('argument', 'This is a positional argument'),
-		new Argument('--option1', 'This is an option argument'),
-		new Argument('-o|--option2', 'This is an option argument with an alias'),
-		new Argument('--option3', 'This is an optional option argument', Argument::IS_OPTIONAL),
-	];
-}
+#[Arguments(
+	new Argument('argument', 'This is a positional argument'),
+	new Argument('--option1', 'This is an option argument'),
+	new Argument('-o|--option2', 'This is an option argument with an alias'),
+	new Argument('--option3', 'This is an optional option argument', Argument::IS_OPTIONAL),
+)]
 ```
 
 > Note that there are 4 reserved argument names: `command`, `--env`, `--help` and `--mute`.
@@ -397,6 +392,7 @@ namespace app\console\commands;
 use mako\reactor\Command;
 use mako\reactor\traits\FireTrait;
 
+#[CommandName('proxy')]
 class Proxy extends Command
 {
 	use FireTrait;
@@ -420,6 +416,7 @@ namespace app\console\commands;
 use mako\reactor\Command;
 use mako\reactor\traits\FireTrait;
 
+#[CommandName('manager')]
 class Manager extends Command
 {
 	use FireTrait;
@@ -444,6 +441,7 @@ namespace app\console\commands;
 
 use mako\reactor\Command;
 
+#[CommandName('hello')]
 class Hello extends Command
 {
 	public function __construct(
