@@ -17,6 +17,8 @@
 
 If you plan to use the database library then you'll also need to install `ext-pdo`.
 
+It it also suggested to have the `posix` and `pcntl` extensions enabled for the best experience when working with the Mako reactor CLI.
+
 \* Tested on PHP 8.4.0
 
 --------------------------------------------------------
