@@ -261,12 +261,12 @@ $this->table(['Col1', 'Col2'], [['R1 C1', 'R1 C2'], ['R2 C1', 'R2 C2']]);
 This code above will result in a table looking like this.
 
 ```
------------------
-| Col1  | Col2  |
------------------
-| R1 C1 | R1 C2 |
-| R2 C1 | R2 C2 |
------------------
+┏━━━━━━━━━━━━━━━┓
+┃ Col1  ┃ Col2  ┃
+┣━━━━━━━╋━━━━━━━┫
+┃ R1 C1 ┃ R1 C2 ┃
+┃ R2 C1 ┃ R2 C2 ┃
+┗━━━━━━━┻━━━━━━━┛
 ```
 {.language-none}
 
