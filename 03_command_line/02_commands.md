@@ -314,8 +314,6 @@ $this->alert('This is a success alert.', Alert::SUCCESS);
 $this->alert('This is a custom alert.', '<bg_purple><white>%s</white></bg_purple>');
 ```
 
-> Note that all output formatting tags present in an alert message will be escaped.
-
 #### <a id="output:formatting" href="#output:formatting">Formatting</a>
 
 You can format your output using formatting tags.
