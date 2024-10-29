@@ -147,7 +147,7 @@ You can also set and get the content type and character set using the following 
 | setCharset  | Sets the character set    |
 | getCharset  | Returns the character set |
 
-> Stream responses might not always work as expected as some webservers and reverse proxies will buffer the output before sending it.
+> Stream responses might not always work as expected as some webservers and reverse proxies will buffer the output before sending it in its entirety. When using Nginx you can send the `X-Accel-Buffering` with the value `no` to disable output buffering for the response.
 
 #### <a id="controller_helpers:json_response" href="#controller_helpers:json_response">JSON response</a>
 
