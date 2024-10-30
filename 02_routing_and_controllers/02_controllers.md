@@ -234,12 +234,14 @@ Sometimes, you'll want to postpone slow tasks, such as sending an email or proce
 
 Deferred tasks are still processed within the same request, so memory limits and total execution time must be taken into consideration. If your tasks take more than a couple of seconds, you’re likely better off sending them to an asynchronous work queue, allowing them to be processed independently of web requests.
 
-Just inject the `DeferredTasks` class and add your task using the `defer` method.
+To use deferred tasks, simply inject the `DeferredTasks` class and add your task using the `defer` method.
 
 ```
 <?php
 
 namespace app\http\controllers;
+
+use mako\application\DeferredTasks;
 
 class DeferredTaskExample
 {
