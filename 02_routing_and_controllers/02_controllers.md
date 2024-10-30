@@ -12,6 +12,7 @@
 	- [JSON response](#controller_helpers:json_response)
 * [Controller events](#controller_events)
 * [Dependency injection](#dependency_injection)
+* [Deferred tasks ](#deferred_tasks)
 
 --------------------------------------------------------
 
@@ -176,7 +177,7 @@ You can also set and get the character set and status code using the following m
 
 ### <a id="controller_events" href="#controller_events">Controller events</a>
 
-All controllers have two special methods. The `beforeAction` method which gets executed right before the controller action and the `afterAction` method which gets executed right after the controller action.
+All controllers can have two special methods. The `beforeAction` method which gets executed right before the controller action and the `afterAction` method which gets executed right after the controller action.
 
 The controller action and `afterAction` methods will be skipped if the `beforeAction` returns data.
 
@@ -224,3 +225,40 @@ public function view(ViewFactory $view, $id)
 ```
 
 Controllers that extends the framework base controller are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
+
+--------------------------------------------------------
+
+### <a id="deferred_tasks" href="#deferred_tasks">Deferred tasks</a>
+
+Sometimes, you'll want to postpone slow tasks, such as sending an email or processing data, until after the response has been sent to the client. This can be achieved by using deferred tasks.
+
+Deferred tasks are still processed within the same request, so memory limits and total execution time must be taken into consideration. If your tasks take more than a couple of seconds, you’re likely better off sending them to an asynchronous work queue, allowing them to be processed independently of web requests.
+
+Just inject the `DeferredTasks` class and add your task using the `defer` method.
+
+```
+<?php
+
+namespace app\http\controllers;
+
+class DeferredTaskExample
+{
+	public function example(DeferredTasks $tasks): string
+	{
+		$tasks->defer(function (LoggerInterface $log): void {
+			sleep(5);
+
+			$log->info('Deferred log entry.');
+		});
+
+		return 'Hello, world!';
+	}
+}
+
+```
+
+In the example above, `Hello, world!` will be returned to the client immediately, and a new log entry will be created 5 seconds later.
+
+Task handlers can be any type of callable and are executed using the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection), allowing you to inject any dependencies you need.
+
+> Note that deferred tasks will only be processed after the response has been sent to the client if your application runs on a FastCGI server, such as PHP-FPM. When running on a non-FastCGI server, the response will hang until the tasks are completed.
