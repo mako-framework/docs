@@ -25,7 +25,7 @@ Routes are registered in the `app/http/routing/routes.php` file and there are th
 
 ### <a id="basics" href="#basics">Basics</a>
 
-The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\http\controllers\Home`controller class.
+The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\http\controllers\Home` controller class.
 
 ```
 $routes->get('/', [Home::class, 'welcome']);
@@ -296,8 +296,7 @@ All routes within the group will now use the same middleware and regex pattern. 
 You can also pass parameters to middleware and constraints in route groups by using the following nested array structure.
 
 ```
-$options =
-[
+$options = [
 	'middleware' => [[CacheMiddleware::class, ['minutes' => 60]]],
 	'patterns'   => ['id' => '[0-9]+'],
 ];
