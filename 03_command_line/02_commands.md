@@ -59,7 +59,7 @@ class Hello extends Command
 
 You'll have to register your command with the reactor command line tool before you can use it and you can choose between automatic or manual registration.
 
-> You can use a combination of automatic and manual registration be we recommend choosing one method.
+> You can use a combination of automatic and manual registration but we recommend choosing one method.
 
 ##### <a id="basics:registering-commands:automatic-registration" href="#basics:registering-commands:automatic-registration">Automatic registration</a>
 
