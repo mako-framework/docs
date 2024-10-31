@@ -54,7 +54,7 @@ $this->config->set('crypto.configurations.user',
 [
 	'library' => 'openssl',
 	'cipher'  => 'AES-256-OFB',
-	'key'     => 'ksMGBr_yR>=IiRicJFUhD4XlRnE%|11mvRGNJsD',
+	'key'     => mako\env('CRYPTO_KEY_USER'),
 ]);
 ```
 
