@@ -78,18 +78,18 @@ Place your sensitive configuration values in environment variables, which can th
 
 ```
 'default' =>
+[
+	'dsn'         => mako\env('DB_DSN'),
+	'username'    => mako\env('DB_USERNAME'),
+	'password'    => mako\env('DB_PASSWORD'),
+	'persistent'  => false,
+	'log_queries' => false,
+	'reconnect'   => false,
+	'options'     =>
 	[
-		'dsn'         => mako\env('DB_DSN'),
-		'username'    => mako\env('DB_USERNAME'),
-		'password'    => mako\env('DB_PASSWORD'),
-		'persistent'  => false,
-		'log_queries' => false,
-		'reconnect'   => false,
-		'options'     =>
-		[
-			PDO::ATTR_TIMEOUT => 5,
-		],
+		PDO::ATTR_TIMEOUT => 5,
 	],
+],
 ```
 
 --------------------------------------------------------
