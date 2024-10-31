@@ -262,7 +262,7 @@ $this->spinner('Processing data', function () {
 
 > Note that the spinner will only animate when you have the `pcntl` and `posix` extensions enabled. It will gracefully degrade to a static message if the extensions are missing.
 
-The `table` method lets you output a nice ASCII table.
+The `table` method allows you to generate and display well-formatted ASCII tables, making it easy to present tabular data directly in the console. This feature is especially useful for commands that output multiple columns of related information, such as lists of users, configuration settings, or task statuses.
 
 ```
 $this->table(['Col1', 'Col2'], [['R1 C1', 'R1 C2'], ['R2 C1', 'R2 C2']]);
