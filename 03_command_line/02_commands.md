@@ -9,8 +9,8 @@
 		- [Manual registration](#basics:registering-commands:manual-registration)
 		- [Registration of package commands](#basics:registering-commands:registration-of-package-commands)
 * [Input](#input)
-	- [Arguments and options](#input:arguments-and-options)
-		- [Flags](#input:arguments-and-options:flags)
+	- [Arguments](#input:arguments)
+		- [Options](#input:arguments:options)
 	- [Interactive input](#input:interactive_input)
 * [Output](#output)
 	- [Basics](#output:basics)
@@ -90,7 +90,7 @@ Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of t
 
 ### <a id="input" href="#input">Input</a>
 
-#### <a id="input:arguments-and-options" href="#input:arguments-and-options">Arguments and options</a>
+#### <a id="input:arguments" href="#input:arguments">Arguments</a>
 
 You'll most likely want to pass arguments to your commands and to do so you'll have to define them using the `Arguments` attribute.
 
@@ -120,7 +120,7 @@ You can now pass values to your command like this:
 php reactor command "argument value" --option1="option1 value" -o "option3 value"
 ```
 
-##### <a id="input:arguments-and-options:flags" href="#input:arguments-and-options:flags">Flags</a>
+##### <a id="input:arguments:options" href="#input:arguments:options">Options</a>
 
 You can customize how your arguments behave by using the following options:
 
