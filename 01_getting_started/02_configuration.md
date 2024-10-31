@@ -74,6 +74,24 @@ Many developers have made mistakes with committing config files containing sensi
 > Any configuration files that hold an API key, a username/password, an encryption key or any other type of sensitive data should _not_ be committed to your repository!
 {.danger}
 
+Place your sensitive configuration values in environment variables, which can then be accessed using the `mako\env` function.
+
+```
+'default' =>
+	[
+		'dsn'         => mako\env('DB_DSN'),
+		'username'    => mako\env('DB_USERNAME'),
+		'password'    => mako\env('DB_PASSWORD'),
+		'persistent'  => false,
+		'log_queries' => false,
+		'reconnect'   => false,
+		'options'     =>
+		[
+			PDO::ATTR_TIMEOUT => 5,
+		],
+	],
+```
+
 --------------------------------------------------------
 
 ### <a id="environment_aware_configuration" href="#environment_aware_configuration">Environment aware configuration</a>
