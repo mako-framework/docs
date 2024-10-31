@@ -335,7 +335,7 @@ $this->write('<blue>Hello, World!</blue>');
 You can also nest formatting tags. Just make sure to close them in the right order.
 
 ```
-$this->write('<bg_green><black>Hello, World</black><yellow>!<yellow></bg_green>');
+$this->write('<bg_green><black>Hello, World</black><yellow>!</yellow></bg_green>');
 ```
 
 If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the `Formatter::addStyle()` method.
