@@ -280,7 +280,7 @@ This code above will result in a table looking like this.
 ```
 {.language-none}
 
-The `ol` method lets you output an ordered list.
+The `ol` method enables you to generate and display an ordered list, perfect for presenting sequential information or ranked data directly in the console. By numbering each item, this method provides clear organization and structure, making it easier for users to follow steps, review prioritized tasks, or understand hierarchical information.
 
 ```
 $this->ol(['one', 'two', 'three', ['one', 'two'], 'four']);
@@ -298,7 +298,7 @@ The example above will output the following list.
 ```
 {.language-none}
 
-The `ul` method lets you output an unordered list.
+The `ul` method allows you to generate and display an unordered list, ideal for presenting collections of items where sequence or ranking isn’t necessary.
 
 ```
 $this->ul(['one', 'two', 'three', ['one', 'two'], 'four']);
