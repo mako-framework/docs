@@ -117,7 +117,7 @@ public function execute(string $option1, string $option2, string $option3, strin
 You can now pass values to your command like this:
 
 ```
-php reactor command "argument value" --option1="option1 value" -o "option3 value"
+php reactor command "argument value" --option1 "option1 value" -O "option3 value" -o "option2 value"
 ```
 
 ##### <a id="input:arguments:options" href="#input:arguments:options">Options</a>
