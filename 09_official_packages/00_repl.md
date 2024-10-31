@@ -48,7 +48,7 @@ There's an anonymous container aware class instance available as `$mako` by defa
 
 The object also has a public method called `getContainer()` which, as the name suggests, allows you to access the container directly.
 
-In the example below we're selecting all records from our `tests` column using the query builder.
+In the example below we're selecting all records from our `tests` table using the query builder.
 
 ```
 >>> $mako->database->getConnection()->getQuery()->table('tests')->all()
