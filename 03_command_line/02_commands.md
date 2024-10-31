@@ -222,7 +222,7 @@ $this->clear();
 
 #### <a id="output:components" href="#output:components">Components</a>
 
-The `bell` method rings the terminal bell.
+The `bell` method triggers the terminal bell, providing an audible alert or visual cue (depending on terminal settings) to signal a specific event. This can be particularly useful for drawing attention to important moments in a process, such as task completion, errors, or user prompts requiring immediate attention.
 
 ```
 $this->bell();
