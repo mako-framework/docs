@@ -3,7 +3,7 @@
 --------------------------------------------------------
 
 * [Config files](#config_files)
-	- [Security First](#security_first)
+	- [Security rirst](#security_first)
 * [Environment aware configuration](#environment_aware_configuration)
 	- [Setting the environment](#environment_aware_configuration:setting_the_environment)
 	- [Environment variables](#environment_aware_configuration:environment_variables)
@@ -67,7 +67,7 @@ $this->config->remove('crypto.configurations.user');
 > Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their `addConfiguration` and `removeConfiguration` methods instead.
 {.warning}
 
-#### <a id="security_first" href="#security_first">Security First</a>
+#### <a id="security_first" href="#security_first">Security first</a>
 
 Many developers have made mistakes with committing config files containing sensitive information. In some cases those repositories are made public and there are credential sniffing bots that find exposed credentials. When you are dealing with Mako application, please take caution into what files you commit to the repository and which files you add to your `.gitignore` or equivalent ignore file for your VCS. 
 
