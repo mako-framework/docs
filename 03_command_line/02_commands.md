@@ -96,10 +96,10 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 
 ```
 #[Arguments(
-	new Argument('argument', 'This is a positional argument'),
-	new Argument('--option1', 'This is an option argument'),
-	new Argument('-o|--option2', 'This is an option argument with an alias'),
-	new Argument('--option3', 'This is an optional option argument', Argument::IS_OPTIONAL),
+	new NamedArgument('option1', description: 'This is an option argument'),
+	new NamedArgument('option2', alias: 'o', description: 'This is an option argument with an alias'),
+	new NamedArgument('option3', alias: 'O', This is an optional option argument'),
+	new PositionalArgument('argument', description: 'This is a positional argument', options: Argument::IS_OPTIONAL),
 )]
 ```
 
@@ -135,7 +135,13 @@ In the example above we made one of our arguments optional by using the `Argumen
 You can also make your own combination of flags:
 
 ```
-new Argument('--arg', 'Description', Argument::IS_OPTIONAL | Argument::IS_ARRAY | Argument::IS_INT);
+new NamedArgument(
+	'arg',
+	alias: 'a',
+	description: Description',
+	options: Argument::IS_OPTIONAL | Argument::IS_ARRAY | Argument::IS_INT
+	default: []
+);
 ```
 
 > Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
