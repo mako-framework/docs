@@ -108,7 +108,7 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 Next you'll have to add matching camel cased arguments to your `execute` method.
 
 ```
-public function execute(string $argument, string $option1, string $option2, string $option3 = null)
+public function execute(string $option1, string $option2, string $option3, string $argument)
 {
 	// ...
 }
