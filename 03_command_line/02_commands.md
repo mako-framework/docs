@@ -119,6 +119,7 @@ You can now pass values to your command like this:
 ```
 php reactor command "argument value" --option1 "option1 value" -O "option3 value" -o "option2 value"
 ```
+{.language-none}
 
 ##### <a id="input:arguments:options" href="#input:arguments:options">Options</a>
 
