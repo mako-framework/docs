@@ -122,9 +122,9 @@ php reactor command "argument value" --option1="option1 value" -o "option3 value
 
 ##### <a id="input:arguments-and-options:flags" href="#input:arguments-and-options:flags">Flags</a>
 
-In the example above we made one of our arguments optional by using the `Argument::IS_OPTIONAL` flag. Below you'll see the complete list of available flags that you can use:
+You can customize how your arguments behave by using the following options:
 
-| Flag                  | Description                                                                      |
+| Option                  | Description                                                                      |
 |-----------------------|----------------------------------------------------------------------------------|
 | Argument::IS_OPTIONAL | The argument is considered optional                                              |
 | Argument::IS_BOOL     | The argument is considered to be a boolean flag                                  |
@@ -132,7 +132,7 @@ In the example above we made one of our arguments optional by using the `Argumen
 | Argument::IS_INT      | The argument will only accept values that can be cast to an integer              |
 | Argument::IS_FLOAT    | The argument will only accept values that can be cast to a float                 |
 
-You can also make your own combination of flags:
+You can also make your own custom combination of options:
 
 ```
 new NamedArgument(
