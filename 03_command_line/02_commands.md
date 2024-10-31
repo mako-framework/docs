@@ -99,7 +99,7 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 	new NamedArgument('option1', description: 'This is an option argument'),
 	new NamedArgument('option2', alias: 'o', description: 'This is an option argument with an alias'),
 	new NamedArgument('option3', alias: 'O', description: 'This is an optional option argument'),
-	new PositionalArgument('argument', description: 'This is a positional argument', options: Argument::IS_OPTIONAL),
+	new PositionalArgument('argument', description: 'This is a positional argument'),
 )]
 ```
 
