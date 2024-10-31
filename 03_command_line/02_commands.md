@@ -14,7 +14,7 @@
 	- [Interactive input](#input:interactive_input)
 * [Output](#output)
 	- [Basics](#output:basics)
-	- [Helpers](#output:helpers)
+	- [Components](#output:components)
 	- [Formatting](#output:formatting)
 * [Calling commands from commands](#calling_commands_from_commands)
 * [Dependency injection](#dependency_injection)
@@ -220,7 +220,7 @@ The `clear` method lets you clear all output from the terminal window.
 $this->clear();
 ```
 
-#### <a id="output:helpers" href="#output:helpers">Helpers</a>
+#### <a id="output:components" href="#output:components">Components</a>
 
 The `bell` method rings the terminal bell.
 
