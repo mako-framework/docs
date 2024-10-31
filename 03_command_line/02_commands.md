@@ -240,7 +240,7 @@ The `countdown` method will print a countdown that disappears after n seconds.
 $this->countdown(5);
 ```
 
-The `progressBar` method will let you display a nice progressbar. This is useful if your command is processing multiple items.
+The `progressBar` method allows you to display a progress bar, which is particularly useful when your command is processing a known number of items. By giving real-time feedback, it helps users track the operation's progress, providing a more engaging and user-friendly experience.
 
 ```
 $items = 100;
@@ -251,6 +251,16 @@ for ($i = 0; $i < $items; $i++) {
 	$progressbar->advance();
 }
 ```
+
+The `spinner` method displays an animated spinner, which is ideal for tasks that have an unknown or variable completion time. This visual indicator provides feedback that a process is actively running, keeping users informed and reducing the perception of wait time. The spinner can enhance the user experience in situations where a task's duration is uncertain, such as network requests, data loading, or complex computations. By signaling that the task is in progress, it improves engagement and helps maintain the interface’s responsiveness.
+
+```
+$this->spinner('Processing data', function () {
+	// Process your data here
+});
+```
+
+> Note that the spinner will only animate when you have the `pcntl` and `posix` extensions enabled. It will gracefully degrade to a static message if the extensions are missing.
 
 The `table` method lets you output a nice ASCII table.
 
