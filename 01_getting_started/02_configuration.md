@@ -133,7 +133,7 @@ Using the above methods to set up the `dev` environment, it will now read your c
 
 #### <a id="environment_aware_configuration:environment_variables" href="#environment_aware_configuration:environment_variables">Environment variables</a>
 
-You can also use the `mako\env` function to fetch environment variables. This is a good idea for senstive configuration values such as credentials, encryption keys, etc...
+You can also use the `mako\env` function to fetch environment variables, which is recommended for sensitive configuration values like credentials, encryption keys, and more.
 
 ```
 [
