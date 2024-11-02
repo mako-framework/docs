@@ -262,9 +262,7 @@ for ($i = 0; $i < $items; $i++) {
 The `progressIterator` method provides a convenient way to display a progress bar as you iterate over an array or any object that implements both `Traversable` and `Countable`. This method simplifies the process by automatically updating the progress bar with each iteration, ensuring that the progress accurately reflects the position within the collection.
 
 ```
-$items = range(1, 100);
-
-$progress = $this->progressIterator($items);
+$progress = $this->progressIterator(range(1, 100));
 
 foreach($progress as $key => $value) {
 
