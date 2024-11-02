@@ -247,15 +247,27 @@ The `countdown` method will print a countdown that disappears after n seconds.
 $this->countdown(5);
 ```
 
-The `progressBar` method allows you to display a progress bar, which is particularly useful when your command is processing a known number of items. By giving real-time feedback, it helps users track the operation's progress, providing a more engaging and user-friendly experience.
+The `progress` method allows you to display a progress bar, which is particularly useful when your command is processing a known number of items. By giving real-time feedback, it helps users track the operation's progress, providing a more engaging and user-friendly experience.
 
 ```
 $items = 100;
 
-$progressbar = $this->progressBar($items);
+$progress = $this->progress($items);
 
 for ($i = 0; $i < $items; $i++) {
-	$progressbar->advance();
+	$progress->advance();
+}
+```
+
+The `progressIterator` method allows you to display a progress bar while iterating over a set of items. It will automatically advance the progressbar while iterating.
+
+```
+$items = range(1, 100);
+
+$progress = $this->progressIterator($items);
+
+foreach($progress as $key => $value) {
+	
 }
 ```
 
