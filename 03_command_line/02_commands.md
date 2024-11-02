@@ -92,10 +92,10 @@ Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of t
 
 #### <a id="input:arguments" href="#input:arguments">Arguments</a>
 
-You'll most likely want to pass arguments to your commands and to do so you'll have to define them using the `Arguments` attribute.
+You'll most likely want to pass arguments to your commands and to do so you'll have to define them using the `CommandArguments` attribute.
 
 ```
-#[Arguments(
+#[CommandArguments(
 	new NamedArgument('option1', description: 'This is an option argument'),
 	new NamedArgument('option2', alias: 'o', description: 'This is an option argument with an alias'),
 	new NamedArgument('option3', alias: 'O', description: 'This is an optional option argument'),
