@@ -194,40 +194,6 @@ public function beforeAction()
 
 --------------------------------------------------------
 
-### <a id="dependency_injection" href="#dependency_injection">Dependency injection</a>
-
-Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
-
-```
-<?php
-
-namespace app\http\controllers;
-
-use mako\http\routing\Controller;
-use mako\view\ViewFactory;
-
-class Articles extends Controller
-{
-	public function __construct(
-		protected ViewFactory $view
-	) {
-	}
-}
-```
-
-You can also inject your dependencies directly into a method since controller actions are executed by the `Container::call()` method.
-
-```
-public function view(ViewFactory $view, $id)
-{
-	return $view->render('article', ['id' => $id]);
-}
-```
-
-Controllers that extends the framework base controller are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
-
---------------------------------------------------------
-
 ### <a id="deferred_tasks" href="#deferred_tasks">Deferred tasks</a>
 
 Sometimes, you'll want to postpone slow tasks, such as sending an email or processing data, until after the response has been sent to the client. This can be achieved by using deferred tasks.
@@ -264,3 +230,37 @@ In the example above, `Hello, world!` will be returned to the client immediately
 Task handlers can be any type of callable and are executed using the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection), allowing you to inject any dependencies you need.
 
 > Note that deferred tasks will only be processed after the response has been sent to the client if your application runs on a FastCGI server, such as PHP-FPM. When running on a non-FastCGI server, the response will hang until the tasks are completed.
+
+--------------------------------------------------------
+
+### <a id="dependency_injection" href="#dependency_injection">Dependency injection</a>
+
+Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
+
+```
+<?php
+
+namespace app\http\controllers;
+
+use mako\http\routing\Controller;
+use mako\view\ViewFactory;
+
+class Articles extends Controller
+{
+	public function __construct(
+		protected ViewFactory $view
+	) {
+	}
+}
+```
+
+You can also inject your dependencies directly into a method since controller actions are executed by the `Container::call()` method.
+
+```
+public function view(ViewFactory $view, $id)
+{
+	return $view->render('article', ['id' => $id]);
+}
+```
+
+Controllers that extends the framework base controller are also `container aware`. You can read more about what this means [here](:base_url:/docs/:version:/getting-started:dependency-injection#container-aware).
