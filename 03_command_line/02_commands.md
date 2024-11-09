@@ -17,6 +17,7 @@
 	- [Components](#output:components)
 	- [Formatting](#output:formatting)
 * [Calling commands from commands](#calling_commands_from_commands)
+* [Signal handling](#signal_handling)
 * [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
@@ -455,6 +456,32 @@ class Manager extends Command
 		$this->fireAndForget('worker --file=1 >> /var/log/worker');
 	}
 }
+```
+
+--------------------------------------------------------
+
+### <a id="signal_handling" href="#signal_handling">Signal handling</a>
+
+When your commands need to manage asynchronous signals, the `SignalHandler` class provides the necessary functionality. This class can be injected either through the constructor or directly within the execute method, allowing flexible integration into your command's lifecycle.
+
+To set up specific signal handling behaviors, use the `addHandler` method to attach custom handlers for different signals. Additionally, before adding handlers, you may want to verify that your PHP installation supports signal handling by calling the `canHandleSignals` method.
+
+```
+$signalHandler->addHandler(SIGINT, function ($signal, $isLast) {
+	// Handle SIGINT
+});
+```
+
+The handler function receives two arguments. The first argument is the signal identifier, which indicates which signal triggered the handler. This identifier allows you to customize responses based on the specific signal received.
+
+The second argument is a boolean flag that indicates whether this handler is the final one associated with the signal. This flag is useful if you have multiple handlers for the same signal, as it allows you to identify the last handler in the chain and perform any final cleanup or logging tasks specific to the end of signal processing.
+
+If you want to handle multiple signals with the same logic, you can pass an array of signals when setting up the handler. This approach allows you to consolidate signal management, reducing redundancy and simplifying your code by using a single handler function for multiple signal types.
+
+```
+$signalHandler->addHandler([SIGINT, SIGTERM], function ($signal, $isLast) {
+	// HANDLE SIGINT and SIGTERM
+});
 ```
 
 --------------------------------------------------------
