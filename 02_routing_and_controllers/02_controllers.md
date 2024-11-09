@@ -11,8 +11,8 @@
 	- [Stream response](#controller_helpers:stream_response)
 	- [JSON response](#controller_helpers:json_response)
 * [Controller events](#controller_events)
-* [Dependency injection](#dependency_injection)
 * [Deferred tasks ](#deferred_tasks)
+* [Dependency injection](#dependency_injection)
 
 --------------------------------------------------------
 
