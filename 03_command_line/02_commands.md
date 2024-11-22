@@ -359,7 +359,7 @@ $this->write('<bg_green><black>Hello, World</black><yellow>!</yellow></bg_green>
 If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the `Formatter::addStyle()` method.
 
 ```
-$this->output->getFormatter()->addStyle('awesome', ['bg_green', 'black', 'blinking']);
+$this->output->formatter->addStyle('awesome', ['bg_green', 'black', 'blinking']);
 ```
 
 Tags can also be escaped by prepending them with a backslash.
@@ -371,7 +371,7 @@ $this->write('\<blue>Hello, World\</blue>');
 If you want to escape all tags in a string then you can use the `Formatter::escape()` method.
 
 ```
-$escaped = $this->output->getFormatter()->escape($string);
+$escaped = $this->output->formatter->escape($string);
 ```
 
 | Tag        | Description                  |
