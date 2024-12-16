@@ -43,7 +43,7 @@ The `isEmpty` method returns `true` if the provided path is an empty file or dir
 $isEmpty = $this->fileSystem->isEmpty('/foo');
 ```
 
-The `setPermissions` method allows you to set the file permissions. You can pass an integer representing the permissions or a [`Permissions`](#permissions) instance.
+The `setPermissions` method allows you to set the file permissions. You can pass an integer representing the permissions or a [`Permissions`](#permissions:permission_collection) instance.
 
 ```
 // Set the permissions to 644 using an octal
@@ -59,7 +59,7 @@ $this->fileSystem->setPermissions('/foo/bar.txt', new Permissions(
 ));
 ```
 
-The `getPermissions` method returns a [`Permissions`](#permissions) set representing the permissions of the given file or directory.
+The `getPermissions` method returns a [`Permissions`](#permissions:permission_collection) instance representing the permissions of the given file or directory.
 
 ```
 $permissions = $this->fileSystem->getPermissions('/foo/bar.txt');
@@ -403,7 +403,7 @@ Validating files against the keyed hash is done using the `validateHmac` method.
 $valid = $info->validateHmac($hash, $key);
 ```
 
-The `getPermissions` method returns a [`Permissions`](#permissions) instance that allows you to get information about the permissions of the file.
+The `getPermissions` method returns a [`Permissions`](#permissions:permission_collection) instance that allows you to get information about the permissions of the file.
 
 ```
 $permissions = $info->getPermissions();
