@@ -244,6 +244,12 @@ The `file` method will return a [SplFileObject](https://php.net/manual/en/class.
 $file = $this->fileSystem->file('/foo/bar.txt', 'r');
 ```
 
+The `clearCache` will clear the [status cache](https://www.php.net/manual/en/function.clearstatcache.php).
+
+```
+$this->fileSystem->clearCache();
+```
+
 --------------------------------------------------------
 
 ### <a id="file_info" href="#file_info">File info</a>
@@ -290,6 +296,14 @@ Validating files against the keyed hash is done using the `validateHmac` method.
 
 ```
 $valid = $info->validateHmac($hash, $key);
+```
+
+The `getPermissions` method returns a `Permissions` instance that allows you to get information about the permissions of the file.
+
+```
+$permissions = $info->getPermissions();
+
+$rwx = $permissions->toRwxString(); // rw-r--r--
 ```
 
 --------------------------------------------------------
