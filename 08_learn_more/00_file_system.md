@@ -3,6 +3,9 @@
 --------------------------------------------------------
 
 * [File system](#file_system)
+* [Permissions](#permissions)
+    - [Permission enum](#permissions:permission_enum)
+    - [Permission collection](#permissions:permission_collection)
 * [File info](#file_info)
 * [Finder](#finder)
 
@@ -40,7 +43,7 @@ The `isEmpty` method returns `true` if the provided path is an empty file or dir
 $isEmpty = $this->fileSystem->isEmpty('/foo');
 ```
 
-The `setPermissions` method allows you to set the file permissions. You can pass an integer representing the permissions or a `Permissions` instance.
+The `setPermissions` method allows you to set the file permissions. You can pass an integer representing the permissions or a [`Permissions`](#permissions) instance.
 
 ```
 // Set the permissions to 644 using an octal
@@ -56,7 +59,7 @@ $this->fileSystem->setPermissions('/foo/bar.txt', new Permissions(
 ));
 ```
 
-The `getPermissions` method returns a `Permissions` set representing the permissions of the given file or directory.
+The `getPermissions` method returns a [`Permissions`](#permissions) set representing the permissions of the given file or directory.
 
 ```
 $permissions = $this->fileSystem->getPermissions('/foo/bar.txt');
@@ -252,6 +255,108 @@ $this->fileSystem->clearCache();
 
 --------------------------------------------------------
 
+### <a id="permissions" href="#permissions">Permissions</a>
+
+#### <a id="permissions:permission_enum" href="#permissions:permission_enum">Permission enum</a>
+
+The `Permission` enum contains cases that represents all the different owner, group and public permissions.
+
+| Case                                     | Permission in octal form |
+|------------------------------------------|--------------------------|
+| Permission::NONE                         | 0o000                    |
+| Permission::OWNER_EXECUTE                | 0o100                    |
+| Permission::OWNER_WRITE                  | 0o200                    |
+| Permission::OWNER_EXECUTE_WRITE          | 0o300                    |
+| Permission::OWNER_READ                   | 0o400                    |
+| Permission::OWNER_EXECUTE_READ           | 0o500                    |
+| Permission::OWNER_WRITE_READ             | 0o600                    |
+| Permission::OWNER_FULL                   | 0o700                    |
+| Permission::GROUP_EXECUTE                | 0o010                    |
+| Permission::GROUP_WRITE                  | 0o020                    |
+| Permission::GROUP_EXECUTE_WRITE          | 0o030                    |
+| Permission::GROUP_READ                   | 0o040                    |
+| Permission::GROUP_EXECUTE_READ           | 0o050                    |
+| Permission::GROUP_WRITE_READ             | 0o060                    |
+| Permission::GROUP_FULL                   | 0o070                    |
+| Permission::PUBLIC_EXECUTE               | 0o001                    |
+| Permission::PUBLIC_WRITE                 | 0o002                    |
+| Permission::PUBLIC_EXECUTE_WRITE         | 0o003                    |
+| Permission::PUBLIC_READ                  | 0o004                    |
+| Permission::PUBLIC_EXECUTE_READ          | 0o005                    |
+| Permission::PUBLIC_WRITE_READ            | 0o006                    |
+| Permission::PUBLIC_FULL                  | 0o007                    |
+| Permission::FULL                         | 0o777                    |
+
+The `calculate` method returns an integer representing the sum of the chosen permissions.
+
+```
+$permissions = Permission::calculate(
+    Permission::OWNER_WRITE_READ,
+    Permission::GROUP_READ,
+    Permission::PUBLIC_READ,
+);
+```
+
+The `hasPermissions` method allows you to check if a permission set contains the chosen permission(s).
+
+```
+$hasPublicRead = Permission::hasPermissions(0o644, Permission::PUBLIC_READ);
+
+$hasGroupAndPublicRead = Permission::hasPermissions(0o644, Permission::GROUP_READ, Permission::PUBLIC_READ);
+```
+
+#### <a id="permissions:permission_collection" href="#permissions:permission_collection">Permission collection</a>
+
+The `Permissions` class allows you to work with a collection of `Permission` instances. You can create a collection using the constructor or by using the `fromInt` method.
+
+```
+// Create an instance using the constructor
+
+$permissions = new Permissions(
+    Permission::OWNER_WRITE_READ,
+    Permission::GROUP_READ,
+    Permission::PUBLIC_READ,
+);
+
+// Create an instance from an integer
+
+$permissions = Permissions::fromInt(0o644);
+```
+
+The `getPermissions` method will return an array of `Permission` instances.
+
+```
+$permissions = $permissions->getPermissions();
+```
+
+The `hasPermissions` method allows you to check if the permission collection contains the chosen permission(s).
+
+```
+$hasPublicRead = $permissions->hasPermissions(Permission::PUBLIC_READ);
+
+$hasGroupAndPublicRead = $permissions->hasPermissions(Permission::GROUP_READ, Permission::PUBLIC_READ);
+```
+
+The `toInt` returns an integer representation of the permissions.
+
+```
+$permissions = $permissions->toInt(); // 420 (0o644)
+```
+
+The `toOctalString` returns an octal string representation of the permissions.
+
+```
+$permissions = $permissions->toOctalString(); // "644"
+```
+
+The `toRwxString` method returns a <abbr title="Read Write Execute">RWX</abbr> representation of the permissions.
+
+```
+$permissions = $permissions->toRwxString(); // rw-r--r--
+```
+
+--------------------------------------------------------
+
 ### <a id="file_info" href="#file_info">File info</a>
 
 You can create a new `FileInfo` instance using the constructor or by getting an instance via the `FileSystem::info()` method. The `FileInfo` class extends the [`SplFileInfo`](https://php.net/manual/en/class.splfileinfo.php) class with a set of useful methods that we'll document below.
@@ -298,7 +403,7 @@ Validating files against the keyed hash is done using the `validateHmac` method.
 $valid = $info->validateHmac($hash, $key);
 ```
 
-The `getPermissions` method returns a `Permissions` instance that allows you to get information about the permissions of the file.
+The `getPermissions` method returns a [`Permissions`](#permissions) instance that allows you to get information about the permissions of the file.
 
 ```
 $permissions = $info->getPermissions();
