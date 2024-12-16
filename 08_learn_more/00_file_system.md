@@ -40,6 +40,32 @@ The `isEmpty` method returns `true` if the provided path is an empty file or dir
 $isEmpty = $this->fileSystem->isEmpty('/foo');
 ```
 
+The `setPermissions` method allows you to set the file permissions. You can pass an integer representing the permissions or a `Permissions` instance.
+
+```
+// Set the permissions to 644 using an octal
+
+$this->fileSystem->setPermissions(0o644);
+
+// Set the permissions to 644 using a Permissions instance
+
+$this->fileSystem->setPermissions('/foo/bar.txt', new Permissions(
+    Permission::OWNER_WRITE_READ,
+    Permission::GROUP_READ,
+    Permission::PUBLIC_READ,
+));
+```
+
+The `getPermissions` method returns a `Permissions` set representing the permissions of the given file or directory.
+
+```
+$permissions = $this->fileSystem->getPermissions('/foo/bar.txt');
+
+if($permissions->hasPermissions(Permission::PUBLIC_READ)) {
+    // The file is readable for everyone
+}
+```
+
 The `isReadable` method returns `true` if the provided path is readable and `false` if not.
 
 ```
@@ -50,6 +76,36 @@ The `isWritable` method returns `true` if the provided path is writable and `fal
 
 ```
 $isWritable = $this->fileSystem->isWritable('/foo/bar.txt');
+```
+
+The `isExecutable` method returns `true` if the provided path is executable and `false` if not.
+
+```
+$isWritable = $this->fileSystem->isExecutable('/foo/bar.txt');
+```
+
+The `isLink` method returns `true` if the provided path is a link and `false` if not.
+
+```
+$isLink = $this->fileSystem->isLink('/foo/bar.txt');
+```
+
+The `getLinkTarget` method returns the path to the link target.
+
+```
+$linkTarget = $this->fileSystem->getLinkTarget('/foo/bar.txt');
+```
+
+The `createSymbolicLink` creates a symbolic link to the chosen target.
+
+```
+$this->fileSystem->createSymbolicLink('/foo/bar.txt', '/foo/baz.txt');
+```
+
+The `createHardLink` creates a hard link to the chosen target.
+
+```
+$this->fileSystem->createHardLink('/foo/bar.txt', '/foo/baz.txt');
 ```
 
 The `lastModified` method returns the time (unix timestamp) when the data blocks of a file were being written to, that is, the time when the content of the file was changed.
@@ -88,6 +144,12 @@ The `remove` method will delete a file from disk.
 $this->fileSystem->remove('/foo/bar.txt');
 ```
 
+The `removeDirectory` method will delete a directory and all its contents from disk.
+
+```
+$this->fileSystem->removeDirectory('/foo');
+```
+
 The `glob` method returns an array of path names matching the provided pattern.
 
 ```
@@ -122,6 +184,12 @@ The `truncate` method will truncate the contents of the file. There's an optiona
 
 ```
 $this->fileSystem->truncate('/foo/bar.txt');
+```
+
+The `createDirectory` creates a directory.
+
+```
+$this->fileSystem->createDirectory('/foo');
 ```
 
 The `getDiskSize` method returns the total size of a filesystem or disk partition in bytes.
