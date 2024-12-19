@@ -51,9 +51,13 @@ $post = $this->request->post;
 $post = $this->request->getPost();
 ```
 
-The `getBody` method returns a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
+The `body` property is a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
 
 ```
+$body = $this->request->body;
+
+// You can also use the "getBody" method
+
 $body = $this->request->getBody();
 ```
 
@@ -80,9 +84,13 @@ The parameter collections also includes the following methods in addition to the
 
 #### <a id="request_data:raw_request_body" href="#request_data:raw_request_body">Raw request body</a>
 
-The `getRawBody()` method returns the raw request body as a string.
+The `rawBody` property contains the raw request body as a string.
 
 ```
+$body = $this->request->rawBody;
+
+// You can also use the "getRawBody" method.
+
 $body = $this->request->getRawBody();
 ```
 
