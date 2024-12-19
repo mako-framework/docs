@@ -44,11 +44,11 @@ $value = $queryString->get('foo', false);
 The `post` property is a parameter collection containing post data.
 
 ```
-$post = $this->request->getPost();
+$post = $this->request->post;
 
 // You can also use the "getPost" method
 
-$post = $this->request->post;
+$post = $this->request->getPost();
 ```
 
 The `getBody` method returns a parameter collection containing data from a parsed request body. The method currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
