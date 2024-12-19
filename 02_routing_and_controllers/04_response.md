@@ -79,14 +79,14 @@ $responseStatus = $this->response->getStatus();
 
 ### <a id="cookies" href="#cookies">Cookies</a>
 
-The `getCookies` method returns a cookie collection.
+The `cookies` property is a cookie collection.
 
 ```
-$cookies = $this->response->getCookies();
-
-// You can also use the read-only "cookies" property
-
 $cookies = $this->response->cookies;
+
+// You can also use the "getCookies" method
+
+$cookies = $this->response->getCookies();
 ```
 
 The `add` method adds a cookie to the response.
@@ -134,14 +134,14 @@ The cookie collection also includes the following methods in addition to the one
 
 ### <a id="headers" href="#headers">Headers</a>
 
-The `getHeaders` method returns a header collection.
+The `headers` property is a header collection.
 
 ```
-$headers = $this->response->getHeaders();
-
-// You can also use the read-only "headers" property
-
 $headers = $this->response->headers;
+
+// You can also use the "getHeaders" method
+
+$headers = $this->response->getHeaders();
 ```
 
 The `add` method adds a header to your response.

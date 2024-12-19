@@ -21,14 +21,14 @@ The request class provides an object oriented interface to global variables such
 
 #### <a id="request_data:query_string_post_data_and_parsed_body" href="#request_data:query_string_post_data_and_parsed_body">Query string, post data and parsed body</a>
 
-The `getQuery` method returns a parameter collection containing query string data.
+The `query` property is a parameter collection containing query string data.
 
 ```
-$queryString = $this->request->getQuery();
-
-// You can also use the read-only "query" property
-
 $queryString = $this->request->query;
+
+// You can also use the "getQuery" method
+
+$queryString = $this->request->getQuery();
 ```
 
 The `get` method of the parameter collection returns the value of a parameter and `null` if it doesn't exist.
@@ -41,14 +41,12 @@ $value = $queryString->get('foo');
 $value = $queryString->get('foo', false);
 ```
 
-The `getPost` method returns a parameter collection containing post data.
+The `post` property is a parameter collection containing post data.
 
 ```
-// Get all post data
-
 $post = $this->request->getPost();
 
-// You can also use the read-only "post" property
+// You can also use the "getPost" method
 
 $post = $this->request->post;
 ```
@@ -59,9 +57,13 @@ The `getBody` method returns a parameter collection containing data from a parse
 $body = $this->request->getBody();
 ```
 
-The `getData` method returns a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data or a parsed body for `POST` requests and the parsed body for any other type of request).
+The `data` property is a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data or a parsed body for `POST` requests and the parsed body for any other type of request).
 
 ```
+$data = $this->request->data;
+
+// You can also use the "getData" method
+
 $data = $this->request->getData();
 ```
 
@@ -98,14 +100,14 @@ $fileSize = stream_copy_to_stream($body, $storageStream);
 
 ### <a id="cookies" href="#cookies">Cookies</a>
 
-The `getCookies` method returns a cookie collection that allows to you access both signed and unsigned cookies.
+The `cookies` property is a cookie collection that allows to you access both signed and unsigned cookies.
 
 ```
-$cookies = $this->request->getCookies();
-
-// You can also use the read-only "cookies" property
-
 $cookies = $this->request->cookies;
+
+// You can also use the "getCookies" method
+
+$cookies = $this->request->getCookies();
 ```
 
 The `get` method of the cookie collection returns the value of a cookie and `null` if it doesn't exist.
@@ -134,14 +136,14 @@ The cookie collection also includes the following methods in addition to the one
 
 ### <a id="headers" href="#headers">Headers</a>
 
-The `getHeaders` method returns a header collection.
+The `headers` property is a header collection.
 
 ```
-$headers = $this->request->getHeaders();
-
-// You can also use the read-only "headers" property
-
 $headers = $this->request->headers;
+
+// You can also use the "getHeaders" method
+
+$headers = $this->request->getHeaders();
 ```
 
 The `get` method of the header collection returns the value of the header an `null` it it isn't set.
@@ -192,14 +194,14 @@ The header collection also includes the following methods in addition to the one
 
 ### <a id="files" href="#files">Files</a>
 
-The `getFiles` method returns a file collection that extends the parameter collection.
+The `files` property is a file collection that extends the parameter collection.
 
 ```
-$files = $this->request->getFiles();
-
-// You can also use the read-only "files" property
-
 $files = $this->request->files;
+
+// You can also use the "getFiles" method
+
+$files = $this->request->getFiles();
 ```
 
 The `get` method of the file collection returns a `UploadedFile` instance or `null` if the file doesn't exist.
@@ -232,14 +234,14 @@ The `UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/lear
 
 ### <a id="server_information" href="#server_information">Server information</a>
 
-The `getServer` method returns a collection that extends the parameter collection.
+The `server` property is a collection that extends the parameter collection.
 
 ```
-$server = $this->request->getServer();
-
-// You can also use the read-only "server" property
-
 $server = $this->request->server;
+
+// You can also use the "getServer" method
+
+$server = $this->request->getServer();
 ```
 
 --------------------------------------------------------
