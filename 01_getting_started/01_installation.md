@@ -19,7 +19,7 @@ If you plan to use the database library then you'll also need to install `ext-pd
 
 It it also suggested to have the `posix` and `pcntl` extensions enabled if you want to take advantage of all the features offered by the [reactor](:base_url:/docs/:version:/command-line:basics) command line tool.
 
-\* Tested on PHP 8.4.0
+\* Tested on PHP 8.4
 
 --------------------------------------------------------
 
