@@ -2,7 +2,7 @@
 
 * [Application entry points](#application_entry_points)
     - [CLI](#application_entry_points:cli)
-    - [Web](##application_entry_points:web)
+    - [Web](#application_entry_points:web)
 * [Gatekeeper](#gatekeeper)
 * [Error handling](#error_handling)
 * [Redis](#redis)
