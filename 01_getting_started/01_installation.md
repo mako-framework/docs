@@ -11,7 +11,7 @@
 
 ### <a id="requirements" href="#requirements">Requirements</a>
 
-* PHP 8.4.0 or higher *
+* PHP 8.4.1 or higher *
 * `ext-json`
 * `ext-mbstring`
 
