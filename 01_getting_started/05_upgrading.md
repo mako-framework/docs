@@ -126,7 +126,7 @@ class Hello extends Command
     public function getArguments(): array
     {
         return [
-            new Argument('-f|--formal', 'Is this a formal greeting?', Argument::IS_OPTIONAL | Argument::IS_BOOL, false);
+            new Argument('-n|--name', 'Name of the greetee');
         ];
     }
 
@@ -138,7 +138,7 @@ class Hello extends Command
 #[CommandName('hello')]
 #[CommandDescription('Prints out a greeting.')]
 #[CommandArguments(
-    new NamedArgument('formal', alias: 'f', description: 'Is this a formal greeting?', options: Argument::IS_OPTIONAL | Argument::IS_BOOL, default: false)
+    new NamedArgument('name', alias: 'n', description: 'Name of the greetee')
 ]
 class Hello extends Command
 {
