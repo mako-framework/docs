@@ -117,9 +117,9 @@ The `Command::$command` and `Command::$description` properties as well as the `C
 ```
 // Before
 
-class Hello extends Command
+class Greet extends Command
 {
-	protected $command = 'hello';
+	protected $command = 'greet';
 
 	protected $description = 'Prints out a greeting.';
 
@@ -135,12 +135,12 @@ class Hello extends Command
 
 // After
 
-#[CommandName('hello')]
+#[CommandName('greet')]
 #[CommandDescription('Prints out a greeting.')]
 #[CommandArguments(
     new NamedArgument('name', alias: 'n', description: 'Name of the greetee')
 ]
-class Hello extends Command
+class Greet extends Command
 {
 	// The rest of the command code ...
 }
