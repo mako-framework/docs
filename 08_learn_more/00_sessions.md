@@ -194,7 +194,7 @@ You can tell it to keep the data associated with the old session id
 $this->session->regenerateId(true);
 ```
 
-> Mako will automatically regenerate the session id upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:authentication) authentication library.
+> Mako will automatically regenerate the session id upon a successful login and logout when using the [Gatekeeper](:base_url:/docs/:version:/security:gatekeeper) authentication library.
 
 ##### <a id="usage:security:session_destruction" href="#usage:security:session_destruction">Session destruction</a>
 
