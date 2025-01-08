@@ -77,8 +77,7 @@ If you add the `CommandName` attribute to your command class as shown in the exa
 If you want to manually register your commands then you'll have to do so in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
 
 ```
-'commands' =>
-[
+'commands' => [
 	'hello' => app\console\commands\Hello::class,
 ],
 ```

@@ -22,8 +22,7 @@ composer require mako/open-api
 Next you'll need to add the package to the `cli` section of the `packages` configuration array in the `application.php` config file.
 
 ```
-'cli' =>
-[
+'cli' => [
 	mako\openapi\OpenApiPackage::class,
 ]
 ```

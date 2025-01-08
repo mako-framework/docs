@@ -22,11 +22,9 @@ composer require mako/sentry
 Next you'll have to add a `logger.sentry` config key to your `application.php` config file.
 
 ```
-'logger' =>
-[
+'logger' => [
 	...
-	'sentry' =>
-	[
+	'sentry' => [
 		'dsn' => 'https://<key>@sentry.io/<project>',
 	],
 	...
@@ -36,10 +34,8 @@ Next you'll have to add a `logger.sentry` config key to your `application.php` c
 Then you'll have to replace the default `LoggerService` with the included `LoggerService` in the `application.php` config file.
 
 ```
-'services' =>
-[
-	'core' =>
-	[
+'services' => [
+	'core' => [
 		...
 		mako\sentry\services\LoggerService::class,
 		...
@@ -50,8 +46,7 @@ Then you'll have to replace the default `LoggerService` with the included `Logge
 And finally you'll have to enable logging to sentry by setting the `logger.handler` key in the `application.php` config file to the following value:
 
 ```
-'logger' =>
-[
+'logger' => [
 	...
 	'handler' => ['Sentry', 'Stream'],
 	...

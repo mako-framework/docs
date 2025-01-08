@@ -25,8 +25,7 @@ Mako config files are just simple arrays. In addition to the core config files t
 <?php
 
 // app/config/redis.php
-return
-[
+return [
 	'key_1' => 'value',
 	'key_2' => 'value',
 ];
@@ -50,8 +49,7 @@ It is also possible to override settings or add new configurations at runtime:
 // Adds a new Crypto configuration named "user" that you can
 // use when creating a Crypto instance "Crypto::getInstance('user');"
 
-$this->config->set('crypto.configurations.user',
-[
+$this->config->set('crypto.configurations.user', [
 	'library' => 'openssl',
 	'cipher'  => 'AES-256-OFB',
 	'key'     => mako\env('CRYPTO_KEY_USER'),
@@ -77,16 +75,14 @@ Many developers have made mistakes with committing config files containing sensi
 Place your sensitive configuration values in environment variables, which can then be accessed using the `mako\env` function.
 
 ```
-'default' =>
-[
+'default' => [
 	'dsn'         => mako\env('DB_DSN'),
 	'username'    => mako\env('DB_USERNAME'),
 	'password'    => mako\env('DB_PASSWORD'),
 	'persistent'  => false,
 	'log_queries' => false,
 	'reconnect'   => false,
-	'options'     =>
-	[
+	'options'     => [
 		PDO::ATTR_TIMEOUT => 5,
 	],
 ],
