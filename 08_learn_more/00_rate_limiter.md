@@ -26,11 +26,9 @@ With its simple API and configurable storage options, the Mako rate limiter make
 
 The Mako rate limiter library offers two ways to enforce rate limits, depending on your needs:
 
-1) Using the HTTP [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) (recommended for simplicity).
-The library includes an HTTP middleware that makes it easy to apply rate limits to incoming requests with minimal configuration. This is the preferred approach for most use cases, as it seamlessly integrates into your application’s request lifecycle. Simply register the middleware, configure the rate limits, and let it handle the enforcement automatically.
+1) The library includes an HTTP [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) that makes it easy to apply rate limits to incoming requests with minimal configuration. This is the preferred approach for most use cases, as it seamlessly integrates into your application’s request lifecycle. Simply register the middleware, configure the rate limits, and let it handle the enforcement automatically.
 
-2) Using the library directly (for more custom use cases).
-If your application requires more granular control over rate limiting—such as applying limits to non-HTTP actions (e.g., CLI commands, API tokens, or job queues)—you can interact with the library directly. This allows you to manually define rate limits, check usage, and increment counters programmatically.
+2) If your application requires more granular control over rate limiting—such as applying limits to non-HTTP actions (e.g., CLI commands, API tokens, or job queues)—you can interact with the library directly. This allows you to manually define rate limits, check usage, and increment counters programmatically.
 
 #### <a id="usage:middleware" href="#usage:middleware">Middleware</a>
 
