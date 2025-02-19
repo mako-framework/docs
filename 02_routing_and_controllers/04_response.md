@@ -196,3 +196,26 @@ The `disableCompression` method disables output compression if it has been enabl
 ```
 $this->response->disableCompression();
 ```
+
+You can specify a custom compression handler instead of using the default `ob_gzhandler` by using the `setCompressionHandler` method. This allows for greater flexibility in choosing different compression algorithms, such as gzip, deflate, or Brotli, based on client support and your application’s requirements.
+
+When implementing a custom [compression handler](https://www.php.net/manual/en/function.ob-start.php), you must:
+
+1) Check that the client supports the compression method by checking the `Accept-Encoding` header.
+2) Compress the output using your compression handler.
+3) Set the correct `Content-Encoding` header so the client knows how to decode the response.
+4) Include a `Vary: Accept-Encoding` header to ensure proper caching behavior by proxies and CDNs.
+
+The best place to implement this functionality is within a custom [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware). Middleware allows you to intercept and modify HTTP requests and responses before they reach your application logic or before being sent to the client.
+
+```
+$this->response->setCompressionHandler(static function (string $buffer, int $phase): string {
+    // Your custom compression code goes here
+});
+```
+
+The `getCompressionHandler` method returns the currently active compression handler being used for output buffering. By default, this is `ob_gzhandler`, which automatically compresses output using gzip or deflate, depending on what the client supports.
+
+```
+$compressionHandler = $this->response->getCompressionHandler();
+```
