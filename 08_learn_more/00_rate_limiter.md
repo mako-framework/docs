@@ -38,7 +38,7 @@ The following example demonstrates how to apply rate limiting to an API endpoint
 
 If a user or IP exceeds this limit, the application will throw a `TooManyRequestsException`. This results in a `429 Too Many Requests` response, along with a `Retry-After` header that informs the client when they can attempt the request again.
 
-The `resetAfter` parameter accepts a `DateInterval` instance of a valid [date time string](https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative).
+The `resetAfter` parameter accepts a `DateInterval` instance or a valid [date time string](https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative).
 
 ```
 <?php
@@ -70,7 +70,7 @@ use mako\throttle\RateLimiterInterface;
 
 class Dependent
 {
-        public function __construct(
+    public function __construct(
         protected RateLimiterInterface $rateLimiter
     ) {
     }
