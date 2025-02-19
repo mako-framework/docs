@@ -215,10 +215,10 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 | Service                  | Type hint                                         | Key              | Description                 | Required |
 |--------------------------|---------------------------------------------------|------------------|-----------------------------|----------|
-|                          | mako\syringe\Container                            | container        | Container                   | Yes      |
 |                          | mako\application\Application                      | app              | Application                 | Yes      |
-|                          | mako\file\FileSystem                              | fileSystem       | File system abstraction     | Yes      |
 |                          | mako\config\Config                                | config           | Config loader               | Yes      |
+|                          | mako\file\FileSystem                              | fileSystem       | File system abstraction     | Yes      |
+|                          | mako\syringe\Container                            | container        | Container                   | Yes      |
 | CacheService             | mako\cache\CacheManager                           | cache            | Cache manager               | No       |
 | CommandBusService        | mako\commander\CommandBusInterface                | commander        | Command bus                 | No       |
 | CryptoService            | mako\security\crypto\CryptoManager                | crypto           | Crypto manager              | No       |
@@ -234,6 +234,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 | I18nService              | mako\i18n\I18n                                    | i18n             | Internationalization class  | No       |
 | LoggerService            | Psr\Log\LoggerInterface                           | logger           | Monolog logger              | No       |
 | PaginationFactoryService | mako\pagination\PaginationFactoryInterface        | pagination       | Pagination factory          | No       |
+| RateLimiterService       | mako\throttle\RateLimiterInterface                | rateLimiter      | Rate limiter                | No       |
 | RedisService             | mako\redis\ConnectionManager                      | redis            | Redis connection manager    | No       |
 | SessionService           | mako\session\Session                              | session          | Session                     | No       |
 | SignerService            | mako\security\Signer                              | signer           | Signer                      | Yes      |
