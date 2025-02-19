@@ -228,7 +228,7 @@ $query->table('foobars')
 );
 ```
 
-There is also a optional third parameter that lets you define the conflict target (the column or set of columns that must be unique). This is not necessary when working with [MySQL](https://www.mysql.com/) and [MariaDB](https://mariadb.org/) but it is required when working with [PostgreSQL](https://www.postgresql.org) and [SQLite](https://www.sqlite.org/).
+There is also a optional third parameter that lets you define the conflict target (the column or set of columns that must be unique). This is not necessary when working with [MariaDB](https://mariadb.org/) and [MySQL](https://www.mysql.com/) but it is required when working with [PostgreSQL](https://www.postgresql.org) and [SQLite](https://www.sqlite.org/).
 
 It is advised to use the third optional parameter if you want your code to be database agnostic. The value will simply be ignored when querying databases that don't require it to be set.
 
@@ -251,6 +251,17 @@ Updating data is done using the `update` method.
 $query->table('foobars')
 ->where('id', '=', 10)
 ->update(['field1' => 'foo', 'field2' => new DateTime]);
+```
+
+You can also use the `updateAndReturn` method to modify data while retrieving the updated values in a single operation. This can be particularly useful when you need to track changes without making additional queries. The method is currently supported by the [Firebird](https://www.firebirdsql.org/), [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/) and [SQL Server](https://www.microsoft.com/sql-server) query compilers.
+
+```
+$updated = $query->table('articles')
+->where('published', '=', 0)
+->updateAndReturn(
+	values: ['title' => 'This is a placeholder title'],
+	return: ['id'],
+);
 ```
 
 There are also shortcuts for incrementing and decrementing column values:
