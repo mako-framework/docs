@@ -149,16 +149,16 @@ new NamedArgument(
 
 #### <a id="input:interactive_input" href="#input:interactive_input">Interactive input</a>
 
-The `question` method lets you ask the user for input.
+The `input` method lets you prompt the user for input.
 
 ```
-$input = $this->question('How old are you?');
+$input = $this->input('How old are you?');
 ```
 
 You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is `null`.
 
 ```
-$input = $this->question('How old are you?', 25);
+$input = $this->input('How old are you?', 25);
 ```
 
 The `secret` method lets you ask the user for hidden input.
