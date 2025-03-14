@@ -123,7 +123,7 @@ Both methods also have an optional second parameter that allows you to set amoun
 
 #### <a id="usage:magic_shortcut" href="#usage:magic_shortcut">Magic shortcut</a>
 
-You can access the default cache instance directly without having to go through the `instance` method thanks to the magic `__call` method.
+You can access the default cache instance directly without having to go through the `getInstance` method thanks to the magic `__call` method.
 
 ```
 $cached = $this->cache->get('my_array');

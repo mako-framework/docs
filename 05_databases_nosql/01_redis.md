@@ -36,7 +36,7 @@ $redis = $this->redis->getConnection('mydb');
 
 #### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
 
-You can access the default redis connection directly without having to go through the `connection` method thanks to the magic `__call` method.
+You can access the default redis connection directly without having to go through the `getConnection` method thanks to the magic `__call` method.
 
 ```
 $lolWut = $this->redis->lolWut(); // Yes, this is a valid Redis command

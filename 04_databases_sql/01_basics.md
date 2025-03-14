@@ -55,7 +55,7 @@ $connection->reconnect();
 
 #### <a id="connections:magic_shortcut" href="#connections:magic_shortcut">Magic shortcut</a>
 
-You can access the default database connection directly without having to go through the `connection` method thanks to the magic `__call` method.
+You can access the default database connection directly without having to go through the `getConnection` method thanks to the magic `__call` method.
 
 ```
 $this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
@@ -130,7 +130,7 @@ $email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 The `Connection::columns()` method executes a query and returns an array containing the values of the first column.
 
 ```
-$email = $connection->columns('SELECT `email` FROM `users`');
+$emails = $connection->columns('SELECT `email` FROM `users`');
 ```
 
 The `Connection::pairs()` method will return an array where the first column is used as array keys and the second column is used as array values.

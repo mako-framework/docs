@@ -53,7 +53,7 @@ $decrypted = $encrypter->decrypt($encrypted);
 
 #### <a id="encryption:magic_shortcut" href="#encryption:magic_shortcut">Magic shortcut</a>
 
-You can access the default crypto configuration directly without having to go through the `instance` method thanks to the magic `__call` method.
+You can access the default crypto configuration directly without having to go through the `getInstance` method thanks to the magic `__call` method.
 
 ```
 $encrypted = $this->crypto->encrypt('Hello, world!');
