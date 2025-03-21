@@ -213,7 +213,7 @@ class DeferredTaskExample
 {
 	public function example(DeferredTasks $tasks): string
 	{
-		$tasks->defer(function (LoggerInterface $log): void {
+		$tasks->defer(static function (LoggerInterface $log): void {
 			sleep(5);
 
 			$log->info('Deferred log entry.');
