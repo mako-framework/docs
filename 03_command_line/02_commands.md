@@ -183,12 +183,32 @@ if ($this->confirm('Do you want to delete all your files?')) {
 }
 ```
 
-The default answer is `n` (false) but you can choose to make `y` (true) the default answer.
+The default answer is `No` (false) but you can choose to make `Yes` (true) the default answer.
 
 ```
-if ($this->confirm('Do you want to delete all your files?', 'y')) {
-	// Delete all files
+if ($this->confirm('Do you want to keep all your files?', default: true)) {
+	// Keep all files
 }
+```
+
+The select method lets you present the user with a list of choices. By default, it returns the key of the chosen option. However, you can configure it to return the value instead by setting `returnKey` to `false`. To allow multiple selections, set `allowMultiple` to `true`.
+
+```
+$selection = $this->select('What do you want to do?', [
+	'Execute order 66',
+	'Open the pod bay doors',
+	'Play tic-tac-toe',
+]);
+```
+
+If you're passing a set of objects to `select`, you can define a custom option formatter using the `optionFormatter` argument.
+
+```
+$selection = $this->select('What do you want to do?', [
+	(object) ['label' => 'Execute order 66'],
+	(object) ['label' => 'Open the pod bay doors'],
+	(object) ['label' => 'Play tic-tac-toe'],
+], optionFormatter: fn ($option) => $option->label);
 ```
 
 --------------------------------------------------------
