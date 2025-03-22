@@ -193,7 +193,7 @@ if ($this->confirm('Do you want to keep all your files?', default: true)) {
 }
 ```
 
-The select method lets you present the user with a list of choices. By default, it returns the key of the chosen option. However, you can configure it to return the value instead by setting `returnKey` to `false`. To allow multiple selections, set `allowMultiple` to `true`.
+The `select` method lets you present the user with a list of choices. By default, it returns the key of the chosen option. However, you can configure it to return the value instead by setting `returnKey` to `false`. To allow multiple selections, set `allowMultiple` to `true`.
 
 ```
 $selection = $this->select('What do you want to do?', [
