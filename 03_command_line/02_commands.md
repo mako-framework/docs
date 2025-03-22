@@ -208,7 +208,7 @@ $selection = $this->select('What do you want to do?', [
 	(object) ['label' => 'Execute order 66'],
 	(object) ['label' => 'Open the pod bay doors'],
 	(object) ['label' => 'Play tic-tac-toe'],
-], optionFormatter: fn ($option) => $option->label);
+], optionFormatter: static fn ($option) => $option->label);
 ```
 
 --------------------------------------------------------
