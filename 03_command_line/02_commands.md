@@ -147,6 +147,8 @@ new NamedArgument(
 
 > Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
 
+Adding the `PromptForMissingArguments` attribute to your commands makes them prompt the user for any missing required command-line arguments. To disable prompting, pass the `--non-interactive` argument. This is useful when running the command as a cron job to prevent it from hanging due to a missing argument.
+
 #### <a id="input:interactive_input" href="#input:interactive_input">Interactive input</a>
 
 The `input` method lets you prompt the user for input.
