@@ -48,7 +48,7 @@ The `setPermissions` method allows you to set the file permissions. You can pass
 ```
 // Set the permissions to 644 using an octal
 
-$this->fileSystem->setPermissions(0o644);
+$this->fileSystem->setPermissions('/foo/bar.txt', 0o644);
 
 // Set the permissions to 644 using a Permissions instance
 
