@@ -139,7 +139,7 @@ You can also make your own custom combination of options:
 new NamedArgument(
 	'arg',
 	alias: 'a',
-	description: Description',
+	description: 'Description',
 	options: Argument::IS_OPTIONAL | Argument::IS_ARRAY | Argument::IS_INT
 	default: []
 );
