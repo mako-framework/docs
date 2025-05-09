@@ -181,7 +181,7 @@ $articles = (new Article)->distinct()->join('comments', 'article.id', '=', 'comm
 
 ### <a id="relations" href="#relations">Relations</a>
 
-Being able to set up relations between tables is important when working with databases. The ORM supports `has one`, `belongs` to, `has many` and `many to many` relations.
+Being able to set up relations between tables is important when working with databases. The ORM supports `has one`, `belongs to`, `has many` and `many to many` relations.
 
 #### <a id="relations:has_one" href="#relations:has_one">Has one</a>
 
