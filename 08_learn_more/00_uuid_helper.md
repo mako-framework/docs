@@ -38,6 +38,14 @@ The `v4` method will return a version 4 UUID.
 $uuid = UUID::v4();
 ```
 
+The `v4Sequential` methods lets you generate sequential UUIDs where the first 48 bit are reserved for the timestamp.
+
+```
+$uuid = UUID::v4Sequential();
+```
+
+> Note that the the timestamp part of the UUID is only precise down to 10 microseconds so if you generate UUIDs in a loop where nothing else happens then you might end up with values that are not sequential (they should still be unique though).
+
 The `v5` method will return a version 5 UUID.
 
 ```
@@ -49,14 +57,6 @@ $uuid = UUID::v5('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'foobar');
 
 $uuid = UUID::v5(UUID::OID, 'foobar');
 ```
-
-The `v4Sequential` methods lets you generate sequential UUIDs where the first 48 bit are reserved for the timestamp.
-
-```
-$uuid = UUID::v4Sequential();
-```
-
-> Note that the the timestamp part of the UUID is only precise down to 10 microseconds so if you generate UUIDs in a loop where nothing else happens then you might end up with values that are not sequential (they should still be unique though).
 
 The `toBinary` method converts a UUID from a hexadecimal representation to binary.
 
