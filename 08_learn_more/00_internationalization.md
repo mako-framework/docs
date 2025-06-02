@@ -27,8 +27,7 @@ Mako language files are just simple arrays:
 
 // examples.php
 
-return
-[
+return [
 	'have_10_apples' => 'I have 10 apples',
 	'have_n_apples'  => 'I have %d apples',
 	'my_name_is'     => 'Hi! My name is %s',
@@ -108,8 +107,7 @@ $formatted = $this->i18n->number(1234);
 You can also format numbers in translated strings:
 
 ```
-return
-[
+return [
 	'new_messages' => 'You have <number>%1$u</number> new <pluralize:%1$u>message</pluralize>.',
 ];
 ```

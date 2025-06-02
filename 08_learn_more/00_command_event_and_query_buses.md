@@ -204,8 +204,7 @@ class BusService extends BaseBusService
      */
 	protected function getCommandHandlers(): array
 	{
-		return
-		[
+		return [
 			CreateUserCommand::class => CreateUserHandler::class,
 		];
 	}
@@ -215,8 +214,7 @@ class BusService extends BaseBusService
      */
     protected function getEventHandlers(): array
 	{
-		return
-		[
+		return [
 			UserCreatedEvent::class => UserCreatedHandler::class,
 		];
 	}
@@ -226,8 +224,7 @@ class BusService extends BaseBusService
      */
     protected function getQueryHandlers(): array
 	{
-		return
-		[
+		return [
 			GetUserQuery::class => GetUserHandler::class,
 		];
 	}

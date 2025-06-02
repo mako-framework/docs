@@ -107,8 +107,7 @@ You can also add your own or additional Mako core classes to the preloader by ad
 ```
 <?php
 
-return
-[
+return [
 	app\http\controllers\Index::class,
 	mako\database\connections\MySQL::class,
 ];
