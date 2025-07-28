@@ -209,6 +209,16 @@ $query->table('foobars')
 ->insert(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
+If you want to insert multiple rows in a single query then you can use the `insertMultiple` method.
+
+```
+$query->table('foobars')
+->insertMultiple(
+	['field1' => 'foo1', 'field2' => new DateTime],
+	['field1' => 'foo2', 'field2' => new DateTime]
+);
+```
+
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
 ```
@@ -238,6 +248,29 @@ $query->table('foobars')
 	['field1' => 'foo', 'field2' => new DateTime], 
 	['field2' => new DateTime]
 	['field1']
+);
+```
+
+You can also insert and return data in a single query using the `insertAndReturn` and `insertMultipleAndReturn` methods.
+
+The first parameter of the `insertAndReturn` method is the row you want to insert and the second parameter is the names of the fields you want to return after the insert.
+
+```
+$query->table('foobars')
+->insertAndReturn(
+	['field1' => 'foo', 'field2' => new DateTime]
+	['id']
+);
+```
+
+The first parameter of the `insertMultipleAndReturn` method is the names of the fields you want to return after the insert and the following parameters are the rows you want to insert.
+
+```
+$query->table('foobars')
+->insertMultipleAndReturn(
+	['id'],
+	['field1' => 'foo1', 'field2' => new DateTime]
+	['field1' => 'foo2', 'field2' => new DateTime]
 );
 ```
 
