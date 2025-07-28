@@ -31,6 +31,7 @@
 	- [Nullable](#traits:nullable)
 	- [Optimistic locking](#traits:optimistic_locking)
 	- [Read-only records](#traits:read_only_records)
+	- [Sensitive strings](#traits:sensitive_strings)
 	- [Timestamped](#traits:timestamped)
 
 
@@ -707,7 +708,7 @@ If you only want to access data using camel cased properties but want to keep yo
 
 #### <a id="traits:nullable" href="#traits:nullable">Nullable</a>
 
-If you have database columns that allow `null` values then you can use the `NullableTrait` to automatically replace empty strings with `null` when inserting or updating records.
+If you have database columns that allow `null` values then you can use the `NullableTrait` trait to automatically replace empty strings with `null` when inserting or updating records.
 
 All you have to do is to use the trait and configure your nullable columns using the `$nullable` property.
 
@@ -796,9 +797,27 @@ $user = User::get(1);
 $user->delete();
 ```
 
+#### <a id="traits:sensitive_strings" href="#traits:sensitive_strings">Sensitive strings</a>
+
+Sometimes you'll have strings that you don't want to show up in the query log or in exception messages. You can use the `SensitiveStringTrait` trait to hide them from logged queries.
+
+```
+<?php
+
+use mako\database\midgard\ORM;
+use mako\database\midgard\traits\SensitiveStringTrait;
+
+class Article extends ORM
+{
+	use SensitiveStringTrait;
+
+	protected array $sensitiveStrings = ['token'];
+}
+```
+
 #### <a id="traits:timestamped" href="#traits:timestamped">Timestamped</a>
 
-You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` will do this for you automatically.
+You'll often want to track when a record has been created and when it was updated. The `TimestampedTrait` trait will do this for you automatically.
 
 The trait requires you to add two `DATETIME` columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
 
