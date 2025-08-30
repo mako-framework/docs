@@ -10,6 +10,7 @@
 	- [Web](#services:web)
 	- [CLI](#services:cli)
 * [Container aware](#container_aware)
+* [Injector attributes](#injector_attributes)
 
 --------------------------------------------------------
 
@@ -264,7 +265,6 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 <a id="container_aware"></a>
 
-
 ### Container aware
 
 You can also make a class that is instantiated by the container "container aware" by using the `ContainerAwareTrait`. This means that you can use the container as a service locator if you prefer that.
@@ -285,3 +285,51 @@ $this->view; // Instance of mako\view\ViewFactory
 
 > Note that resolving classes that are not registered as singletons in the container using overloading will result in a new instance every time. You should assign the resolved instance to a local variable if you need to perform multiple method calls on the object.
 {.warning}
+
+--------------------------------------------------------
+
+<a id="injector_attributes"></a>
+
+### Injector attributes
+
+Sometimes you’ll want to inject a specific dependency into your class, for example a particular database connection, a Redis connection, a configuration value, or even an environment variable. While most dependencies can be automatically resolved by type-hinting their class, you may need to be more explicit when there are multiple possible instances of the same type.
+
+This is where injector attributes come in. Attributes allow you to guide the dependency injection container so that it knows exactly which instance or value to provide.
+
+If your application is configured with multiple database connections, you can instruct the container which one to inject. By type-hinting the `Connection` class and applying the `InjectConnection` attribute, you can specify the connection name:
+
+```
+public function __construct(
+	#[InjectConnection('statistics')] protected Connection $connection
+) {
+}
+```
+
+The framework comes with the following injector attributes:
+
+| Injector                                          | Description                                         |
+|---------------------------------------------------|-----------------------------------------------------|
+| mako\config\attributes\syringe\InjectConfig       | Allows you to inject a configuration value          |
+| mako\env\attributes\syringe\InjectEnv             | Allows you to inject a environment variable value   |
+| mako\database\attributes\syringe\InjectConnection | Allows you to inject a specific database connection |
+| mako\redis\attributes\syringe\InjectConnection    | Allows you to inject a specific redis connection    |
+
+You can also implement your own injector attributes by implementing the `InjectorInterface`. The following example defines an attribute that injects the currently authenticated user if one is available, or null otherwise:
+
+```
+<?php
+
+#[Attribute(Attribute::TARGET_PARAMETER)]
+class InjectCurrentUser implements InjectorInterface
+{
+	public function __construct(
+		protected Gatekeeper $gatekeeper
+	) {
+	}
+
+	public function getParameterValue(ReflectionParameter $parameter): ?UserEntityInterface
+	{
+		return $this->gatekeeper->getUser();
+	}
+}
+```
