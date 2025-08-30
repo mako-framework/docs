@@ -314,7 +314,7 @@ The framework comes with the following injector attributes:
 | mako\database\attributes\syringe\InjectConnection | Allows you to inject a specific database connection |
 | mako\redis\attributes\syringe\InjectConnection    | Allows you to inject a specific redis connection    |
 
-You can also implement your own injector attributes by implementing the `InjectorInterface`. The following example defines an attribute that injects the currently authenticated user if one is available, or null otherwise:
+You can also implement your own injector attributes by implementing the `InjectorInterface`. The following example defines an attribute that injects the currently authenticated user if one is available, or `null` otherwise:
 
 ```
 <?php
