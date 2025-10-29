@@ -128,12 +128,12 @@ use Override;
 /**
  * {@inheritDoc}
  */
- #[Override]
 class RateLimiterService extends BaseRateLimiterService
 {
 	/**
 	 * {@inheritDoc}
 	 */
+    #[Override]
 	protected function getStore(): Closure|string
 	{
 		return Redis::class;
