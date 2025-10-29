@@ -123,10 +123,12 @@ namespace app\services;
 use Closure;
 use mako\application\services\RateLimiterService as BaseRateLimiterService;
 use mako\throttle\stores\Redis;
+use Override;
 
 /**
  * {@inheritDoc}
  */
+ #[Override]
 class RateLimiterService extends BaseRateLimiterService
 {
 	/**
