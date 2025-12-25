@@ -127,7 +127,7 @@ class MyOperation implements OperationInterface
 }
 ```
 
-The `getImageBlob` returns the raw binary image data.
+The `getImageBlob` method returns the raw binary image data.
 
 ```
 $image = $image->getImageBlob();
