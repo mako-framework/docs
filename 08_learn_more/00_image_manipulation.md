@@ -3,22 +3,27 @@
 --------------------------------------------------------
 
 * [Usage](#usage)
+    - [Image information](#usage:image_information)
+    - [Image manipulation](#usage:image_manipulation)
+    - [Image metadata](#usage:image_metadata)
+        - [XMP](#usage:image_metadata:xmp)
+            - [Reading](#usage:image_metadata:xmp:reading)
 
 --------------------------------------------------------
 
-The pixl library allows you to manipulate images through a consistent API using either GD or ImageMagick.
+The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick.
 
 --------------------------------------------------------
 
 ### <a id="usage" href="#usage">Usage</a>
 
-First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the GD processor.
+First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the ImageMagick processor.
 
 ```
-$image = new Image('my_image.png', new GD);
+$image = new Gd('image.png');
 ```
 
-> You can reuse the same processor instance as long as you edit your images sequentially.
+#### <a id="usage:image_information" href="#usage:image_information">Image information</a>
 
 The `getHeight` method returns the height of your image.
 
@@ -38,6 +43,36 @@ The `getDimensions` method returns an array containing both the height and width
 $dimensions = $image->getDimensions();
 ```
 
+The `getTopColors` method returns an array of the top `n` colors in an image, represented as `Color` class instances. By default, it returns the top five colors, but you can specify a custom number of colors to return.
+
+```
+$topColors = $image->getTopColors();
+
+foreach ($topColors as $color) {
+    var_dump($color->toHexString());
+}
+```
+
+The following methods are available on the `Color` class:
+
+| Method                             | Description                                                                           |
+|------------------------------------|---------------------------------------------------------------------------------------|
+| getRed()                           | Returns the red value (0-255)                                                         |
+| getGreen()                         | Returns the green value (0-255)                                                       |
+| getBlue()                          | Returns the blue value (0-255)                                                        |
+| getAlpha()                         | Returns the alpha value (0-255)                                                       |
+| toHexString($withAlpha = false)    | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toRgbString()                      | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
+| toRgbaString()                     | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
+| toHslString()                      | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")       |
+| toHslaString()                     | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
+| toHwbString()                      | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
+| toHwbaString()                     | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
+
+> Note that if you want the best color accuracy then you should use the `ImageMagick` class.
+
+#### <a id="usage:image_manipulation" href="#usage:image_manipulation">Image manipulation</a>
+
 The `snapshot` method allows you to create a snapshot of your image.
 
 ```
@@ -50,127 +85,34 @@ The `restore` method allows you to restore an image snapshot.
 $image->restore();
 ```
 
-The `rotate` method allows you to rotate an image n degrees.
+The `apply` method allows you to apply an image operation to your image.
 
 ```
-$image->rotate(90);
+$image->apply(new Sharpen);
+$image->apply(new Border(new Color(0, 0, 0, 127), size: 10));
 ```
 
-The `resize` method allows you to resize an image.
+Here's list of the included image operations:
 
-```
-// Resize to 50% of original size
-
-$image->resize(50);
-
-// Resize to 300 x 300 pixels
-
-$image->resize(300, 300);
-
-// Resize to closest possible match while maintaining aspect ratio
-
-$image->resize(300, 300, Image::RESIZE_AUTO);
-
-// Base new size on given width while maintaining aspect ratio
-
-$image->resize(300, 300, Image::RESIZE_WIDTH);
-
-// Base new size on given height while maintaining aspect ratio
-
-$image->resize(300, 300, Image::RESIZE_HEIGHT);
-```
-
-The `crop` method allows you to crop an image. The two first parameters are the crop size while the last two are the X and Y coordinates of the cropped region's top left corner.
-
-```
-$image->crop(200, 200, 50, 50);
-```
-
-The `flip` method allows you to flip and image.
-
-```
-$image->flip();
-
-// Flip the image vertically
-
-$image->flip(Image::FLIP_VERTICAL);
-```
-
-The `watermark` method allows you to add a watermark to your image.
-
-```
-$image->watermark('watermark.png');
-
-// You can also position the watermark (default is top left)
-
-$image->watermark('watermark.png', Image::WATERMARK_TOP_RIGHT);
-
-$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_LEFT);
-
-$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_RIGHT);
-
-$image->watermark('watermark.png', Image::WATERMARK_CENTER);
-
-// You can also set the watermark opacity in percent
-
-$image->watermark('watermark.png', Image::WATERMARK_BOTTOM_RIGHT, 50);
-```
-
-The `sharpen` method allows you to sharpen the image.
-
-```
-$image->sharpen();
-```
-
-The `pixelate` method will pixelate the image.
-
-```
-$image->pixelate();
-
-// You can also set the size of the pixels
-
-$image->pixelate(20);
-```
-
-The `greyscale` method converts the image to greyscale.
-
-```
-$image->greyscale();
-```
-
-The `sepia` method converts the image to sepia.
-
-```
-$image->sepia();
-```
-
-The `bitonal` method converts the image to bitonal.
-
-```
-$image->bitonal();
-```
-
-The `negate` will invert the colors in the image.
-
-```
-$image->negate();
-```
-
-The `colorize` method allows you to colorize an image.
-
-```
-$image->colorize('FF0000');
-```
-
-The `brightness` method allows you adjust the brightness of the image.
-
-```
-$image->brightness();
-
-// You can also set a custom value (between -100 and 100)
-
-$image->brightness(100);
-```
+| Class                | Description                                                    | Gd | ImageMagick |
+|----------------------|----------------------------------------------------------------|----|-------------|
+| Bitonal              | Turns the image into a bitonal image                           | ✓  | ✓           |
+| Border               | Draws a border around the image                                | ✓  | ✓           |
+| Brightness           | Adjusts the brightness of the image (-100 to 100)              | ✓  | ✓           |
+| Colorize             | Colorizes the image with the chosen color                      | ✓  | ✓           |
+| Contrast             | Adjusts the contrast of the image (-100 to 100)                | ✓  | ✓           |
+| Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
+| Flip                 | Flips the image                                                | ✓  | ✓           |
+| Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
+| Negate               | Negates the image                                              | ✓  | ✓           |
+| Pixelate             | Pixelates the image                                            | ✓  | ✓           |
+| Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
+| Rotate               | Rotates the image                                              | ✓  | ✓           |
+| Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
+| Sepia                | Applies a sepia filter to the image                            | ✓  | ✓           |
+| Sharpen              | Sharpens the image                                             | ✓  | ✓           |
+| Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
+| Temperature          | Applies a custom watermark to the image                        | ✓  | ✓           |
 
 The `getImageBlob` returns the raw binary image data.
 
@@ -200,4 +142,52 @@ $image->save('edited_image.png');
 // You can also adjust the image quality in percent (default is 95%)
 
 $image->save('edited_image.png', 70);
+```
+
+#### <a id="usage:image_metadata" href="#usage:image_metadata">Image metadata</a>
+
+The library also includes functionality for working with embedded image metadata.
+
+##### <a id="usage:image_metadata:xmp" href="#usage:image_metadata:xmp">XMP</a>
+
+###### <a id="usage:image_metadata:xmp:reading" href="#usage:image_metadata:xmp:reading">Reading</a>
+
+The `XmpReader` class allows you to extract XMP metadata from the image file.
+
+> Note that the XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
+
+```
+$reader = new XmpReader('image.tif');
+
+// You can specify the shared library if needed
+
+$reader = new XmpReader('image.tif', 'libexempi.so.8');
+```
+
+The `getXml` method returns all the XMP data as XML.
+
+```
+$xml = $reader->getXml();
+
+// You can also cast the reader object to a string
+
+$xml = (string) $reader;
+```
+
+The `getProperties` method returns all the XMP properties as objects.
+
+```
+$properties = $reader->getProperties();
+
+// You can also select the properties from a specific namespace
+
+$properties = $reader->getProperties('http://purl.org/dc/elements/1.1/');
+```
+
+The `getProperty` method allows you to get a specific property. The first parameter is the property namespace and the second is the property name.
+
+```
+$property = $reader->getProperty('http://purl.org/dc/elements/1.1/', 'title');
+
+echo $property->value;
 ```
