@@ -114,6 +114,19 @@ Here are all of the included image operations:
 | Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
 | Temperature          | Applies a custom watermark to the image                        | ✓  | ✓           |
 
+You can also create your own custom image operations by implementing the `OperationInterface`.
+
+```
+class MyOperation implements OperationInterface
+{
+    #[Override]
+	public function apply(object &$imageResource): void
+	{
+        // Do your custom image operations here
+    }
+}
+```
+
 The `getImageBlob` returns the raw binary image data.
 
 ```
