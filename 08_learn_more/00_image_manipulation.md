@@ -92,7 +92,7 @@ $image->apply(new Sharpen);
 $image->apply(new Border(new Color(0, 0, 0, 127), size: 10));
 ```
 
-Here's list of the included image operations:
+Here are all of the included image operations:
 
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
