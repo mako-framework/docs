@@ -57,6 +57,7 @@ The following methods are available on the `Color` class:
 
 | Method                             | Description                                                                           |
 |------------------------------------|---------------------------------------------------------------------------------------|
+| fromHex($hex)                      | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
 | getRed()                           | Returns the red value (0-255)                                                         |
 | getGreen()                         | Returns the green value (0-255)                                                       |
 | getBlue()                          | Returns the blue value (0-255)                                                        |
@@ -112,7 +113,7 @@ Here are all of the included image operations:
 | Sepia                | Applies a sepia filter to the image                            | ✓  | ✓           |
 | Sharpen              | Sharpens the image                                             | ✓  | ✓           |
 | Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
-| Temperature          | Applies a custom watermark to the image                        | ✓  | ✓           |
+| Watermark            | Applies a custom watermark to the image                        | ✓  | ✓           |
 
 You can also create your own custom image operations by implementing the `OperationInterface`.
 
