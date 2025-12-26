@@ -91,7 +91,7 @@ The `apply` method allows you to apply an image operation to your image.
 
 ```
 $image->apply(new Sharpen);
-$image->apply(new Border(new Color(0, 0, 0, 127), size: 10));
+$image->apply(new Border(new Color(0, 0, 0, 127), width: 10));
 ```
 
 Here are all of the included image operations:
