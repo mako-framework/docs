@@ -55,20 +55,21 @@ foreach ($topColors as $color) {
 
 The following methods are available on the `Color` class:
 
-| Method                             | Description                                                                           |
-|------------------------------------|---------------------------------------------------------------------------------------|
-| fromHex($hex)                      | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
-| getRed()                           | Returns the red value (0-255)                                                         |
-| getGreen()                         | Returns the green value (0-255)                                                       |
-| getBlue()                          | Returns the blue value (0-255)                                                        |
-| getAlpha()                         | Returns the alpha value (0-255)                                                       |
-| toHexString($withAlpha = false)    | Returns a hex string representation of the color (e.g. "#FF0000")                   |
-| toRgbString()                      | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
-| toRgbaString()                     | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
-| toHslString()                      | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")       |
-| toHslaString()                     | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
-| toHwbString()                      | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
-| toHwbaString()                     | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
+| Method                                         | Description                                                                           |
+|------------------------------------------------|---------------------------------------------------------------------------------------|
+| __construct($red, $green, $blue, $alpha = 255) | Constructor                                                                           |
+| fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
+| getRed()                                       | Returns the red value (0-255)                                                         |
+| getGreen()                                     | Returns the green value (0-255)                                                       |
+| getBlue()                                      | Returns the blue value (0-255)                                                        |
+| getAlpha()                                     | Returns the alpha value (0-255)                                                       |
+| toHexString($withAlpha = false)                | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
+| toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
+| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")       |
+| toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
+| toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
+| toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
 
 > Note that if you want the best color accuracy then you should use the `ImageMagick` class.
 
