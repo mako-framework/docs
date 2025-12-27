@@ -57,7 +57,6 @@ The following methods are available on the `Color` class:
 
 | Method                                         | Description                                                                           |
 |------------------------------------------------|---------------------------------------------------------------------------------------|
-| __construct($red, $green, $blue, $alpha = 255) | Constructor                                                                           |
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
 | getRed()                                       | Returns the red value (0-255)                                                         |
 | getGreen()                                     | Returns the green value (0-255)                                                       |
