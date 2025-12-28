@@ -7,7 +7,7 @@
 
 --------------------------------------------------------
 
-The `mako/open-api` package allows you to generate an [OpenApi](https://www.openapis.org) specification by documenting your API routes using PHP [attributes](https://www.php.net/manual/en/language.attributes.php), and to generate routes from an OpenAPI specification.
+The `mako/open-api` package allows you to generate an [OpenApi](https://www.openapis.org) specification by documenting your code using PHP [attributes](https://www.php.net/manual/en/language.attributes.php), and to generate routes from an OpenAPI specification.
 
 In addition, the package can render interactive API documentation for your OpenAPI specification using one of the following user interface providers:
 
