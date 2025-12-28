@@ -41,7 +41,7 @@ chown www-data:www-data -R app/storage
 ```
 {.language-none}
 
-> Note that only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
+> Note: Only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
 
 --------------------------------------------------------
 

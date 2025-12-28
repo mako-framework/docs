@@ -40,7 +40,7 @@ $rules = [
 
 The rules defined above will make sure that the username, password and email fields are present and non-empty. That the username is between 4 and 20 characters long, and that the email field contains a valid email address.
 
-> Note that most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `not_empty`, `one_time_token` and `token`. You can however override this functionality by setting `validateEmptyFields` to `true` when creating a validator instance.
+> Note: Most of the included validation rules will skip validation if the field is empty. The exceptions are `required`, `not_empty`, `one_time_token` and `token`. You can however override this functionality by setting `validateEmptyFields` to `true` when creating a validator instance.
 
 Next you'll need to create a validator object. The first parameter is the input data you want to validate and the second is the set of validation rules you just defined.
 
@@ -58,7 +58,7 @@ The `getValidatedInput` method returns the validated input data and throws a `Va
 $validatedInput = $validator->getValidatedInput();
 ```
 
-> Note that only validated input (input fields with at least one validation rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
+> Note: Only validated input (input fields with at least one validation rule) is returned. If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
 {.warning}
 
 The `isValid` method returns `true` if the input is valid and `false` if not, while the `isInvalid` method returns `false` when the input validates and `true` when not.
@@ -101,7 +101,7 @@ $rules = [
 ];
 ```
 
-> Note that wildcard rules will only be added if the input field(s) actually exists.
+> Note: Wildcard rules will only be added if the input field(s) actually exists.
 
 #### <a id="usage:conditional_rules" href="#usage:conditional_rules">Conditional rules sets</a>
 
@@ -319,7 +319,7 @@ class IsFooRule implements RuleInterface
 
 If you want it to return error messages from a language file then you'll have to implement the `I18nAwareInterface` interface.
 
-> Note that there is a reusable trait (`I18nAwareTrait`) that implements the interface so that you don't have to write the code yourself.
+> Note: There is a reusable trait (`I18nAwareTrait`) that implements the interface so that you don't have to write the code yourself.
 
 You can register your custom rules with the validation factory, thus making it available to all future validator instances.
 
@@ -380,5 +380,5 @@ class Article extends Controller
 }
 ```
 
-> Note that the two methods only return validated input (input fields with at least one validation rule). If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
+> Note: The two methods only return validated input (input fields with at least one validation rule). If you have a field that doesn't require any special validation then you can use the `optional` rule to ensure that it gets returned along with the validated values.
 {.warning}

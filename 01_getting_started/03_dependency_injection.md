@@ -259,7 +259,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 
 
-> Note that some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
+> Note: Some of the services depend on each other (e.g. the session needs the database manager if you choose to store your sessions in the database).
 
 --------------------------------------------------------
 
@@ -269,7 +269,7 @@ Services are split up in 3 groups. `Core` services are loaded in both web and cl
 
 You can also make a class that is instantiated by the container "container aware" by using the `ContainerAwareTrait`. This means that you can use the container as a service locator if you prefer that.
 
-> Note that controllers, migrations and tasks are container aware by default.
+> Note: Controllers, migrations and tasks are container aware by default.
 
 The container is always available through the `$container` property.
 
@@ -283,7 +283,7 @@ The `ContainerAwareTrait` also implements the magic `__get()` method. This allow
 $this->view; // Instance of mako\view\ViewFactory
 ```
 
-> Note that resolving classes that are not registered as singletons in the container using overloading will result in a new instance every time. You should assign the resolved instance to a local variable if you need to perform multiple method calls on the object.
+> Note: Resolving classes that are not registered as singletons in the container using overloading will result in a new instance every time. You should assign the resolved instance to a local variable if you need to perform multiple method calls on the object.
 {.warning}
 
 --------------------------------------------------------

@@ -172,7 +172,7 @@ One time tokens that have been validated once are no longer considered valid so 
 $valid = $this->session->validateOneTimeToken($token);
 ```
 
-> Note that only the last 20 one time tokens that have been generated during a session are valid.
+> Note: Only the last 20 one time tokens that have been generated during a session are valid.
 
 ##### <a id="usage:security:session_id" href="#usage:security:session_id">Session id</a>
 

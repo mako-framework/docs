@@ -70,7 +70,7 @@ The following methods are available on the `Color` class:
 | toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
 | toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
 
-> Note that if you want the best color accuracy then you should use the `ImageMagick` class.
+> Note: If you want the best color accuracy then you should use the `ImageMagick` class.
 
 #### <a id="usage:image_manipulation" href="#usage:image_manipulation">Image manipulation</a>
 
@@ -168,7 +168,7 @@ The library also includes functionality for working with embedded image metadata
 
 The `XmpReader` class allows you to extract XMP metadata from the image file.
 
-> Note that the XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
+> Note: The XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
 
 ```
 $reader = new XmpReader('image.tif');

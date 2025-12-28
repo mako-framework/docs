@@ -44,7 +44,7 @@ The `v4Sequential` methods lets you generate sequential UUIDs where the first 48
 $uuid = UUID::v4Sequential();
 ```
 
-> Note that the the timestamp part of the UUID is only precise down to 10 microseconds so if you generate UUIDs in a loop where nothing else happens then you might end up with values that are not sequential (they should still be unique though).
+> Note: The the timestamp part of the UUID is only precise down to 10 microseconds so if you generate UUIDs in a loop where nothing else happens then you might end up with values that are not sequential (they should still be unique though).
 
 The `v5` method will return a version 5 UUID.
 

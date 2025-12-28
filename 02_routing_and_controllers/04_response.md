@@ -183,7 +183,7 @@ The `isCacheable` method returns `true` if the response in its current state is 
 $isCacheable = $this->response->isCacheable();
 ```
 
-> Note that `ETag` caching will only be used if the response is considered cacheable.
+> Note: `ETag` caching will only be used if the response is considered cacheable.
 
 The `enableCompression` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 

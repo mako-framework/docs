@@ -75,7 +75,7 @@ $user->generateAccessToken();
 $user->save();
 ```
 
-> Note that generating a new access token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the gatekeeper [`forceLogin`](#authentication) method to log the user back in in the background to keep the experience seamless.
+> Note: Generating a new access token will invalidate all active sessions and "remember me" cookies for the user in question. You can use the gatekeeper [`forceLogin`](#authentication) method to log the user back in in the background to keep the experience seamless.
 
 The user class also comes with the following methods in addition to the ones shown above:
 
@@ -106,7 +106,7 @@ The user class also comes with the following methods in addition to the ones sho
 <a id="validatePassword"></a>
 †† The method will also automatically rehash the password if necessary.
 
-> Note that all methods that change the sate of the user require you to call the `save` method to persist the changes.
+> Note: All methods that change the sate of the user require you to call the `save` method to persist the changes.
 
 ##### <a id="users_and_groups:users:password_hashing" href="#users_and_groups:users:password_hashing">Password hashing</a>
 
@@ -575,7 +575,7 @@ $this->gatekeeper->extend(new CustomAdapter);
 $this->gatekeeper->extend(['custom', fn () => new CustomAdapter])
 ```
 
-> Note that all adapters must implement the `AdapterInterface`.
+> Note: All adapters must implement the `AdapterInterface`.
 
 You can switch the default adapter at any time by using the `useAsDefaultAdapter` method.
 

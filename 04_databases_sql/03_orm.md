@@ -111,7 +111,7 @@ You can then fetch the article by its primary key value like this:
 $article = Article::get(1);
 ```
 
-> Note that the `get` method will return `null` if nothing is found.
+> Note: The `get` method will return `null` if nothing is found.
 
 If you want to throw an exception if there isn't a matching article then you can use the `getOrThrow` method.
 
@@ -514,7 +514,7 @@ protected array $cast = ['id' => 'int', 'published' => 'bool'];
 
 Valid scalar types are `bool`, `int`, `float` and `string`.
 
-> Note that the maximum value for `int` is `PHP_INT_MAX`.
+> Note: The maximum value for `int` is `PHP_INT_MAX`.
 
 #### <a id="automatic_typecasting:datetime" href="#automatic_typecasting:datetime">DateTime</a>
 
@@ -540,7 +540,7 @@ Both the query builder and ORM support enums values. You can automatically cast 
 protected array $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
 ```
 
-> Note that the ORM can only cast to so-called [backed enums](https://www.php.net/manual/en/language.enumerations.backed.php) unless you implement your own `from` method.
+> Note: The ORM can only cast to so-called [backed enums](https://www.php.net/manual/en/language.enumerations.backed.php) unless you implement your own `from` method.
 
 --------------------------------------------------------
 
@@ -704,7 +704,7 @@ All column and relation names will be transformed to camel case when transformin
 
 If you only want to access data using camel cased properties but want to keep your array and json representations snake cased then you can use the `CamelCasedDataInteractionTrait` trait instead. If you prefer it the other way around then you can use the `CamelCasedDataExportTrait` trait.
 
-> Note that all relations as well as accessors and mutators are expected to be defined using camel case when using the `CamelCasedTrait` and `CamelCasedDataInteractionTrait` traits.
+> Note: All relations as well as accessors and mutators are expected to be defined using camel case when using the `CamelCasedTrait` and `CamelCasedDataInteractionTrait` traits.
 
 #### <a id="traits:nullable" href="#traits:nullable">Nullable</a>
 
@@ -767,7 +767,7 @@ $article2->reload();
 
 The optimistic locking trait will also check for stale records when deleting.
 
-> Note that optimistic locking only works when working with a single record.
+> Note: Optimistic locking only works when working with a single record.
 
 ### <a id="traits:read_only_records" href="#traits:read_only_records">Read-only records</a>
 

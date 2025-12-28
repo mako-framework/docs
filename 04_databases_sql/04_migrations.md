@@ -181,7 +181,7 @@ All transactions are normally executed against the default database of your appl
 
 Running migrations for the non-default database requires you to use the optional `database` option of the `migration:status`, `migration:up`, `migration:down` and `migration:reset` commands.
 
-> Note that each database requires its own `mako_migrations` table.
+> Note: Each database requires its own `mako_migrations` table.
 
 --------------------------------------------------------
 
@@ -203,7 +203,7 @@ class Migration_20120824100019 extends Migration
 }
 ```
 
-> Note that migrations expect the first constructor parameter to be an instance of the `ConnectionManager` class.
+> Note: Migrations expect the first constructor parameter to be an instance of the `ConnectionManager` class.
 
 
 You can also inject dependencies directly into the up and down methods since they are executed by the `Container::call()` method.

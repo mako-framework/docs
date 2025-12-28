@@ -53,4 +53,4 @@ And finally you'll have to enable logging to sentry by setting the `logger.handl
 ],
 ```
 
-> Note that you can disable the default file logging by setting the value to `['Sentry']`.
+> Note: You can disable the default file logging by setting the value to `['Sentry']`.

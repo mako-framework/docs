@@ -52,7 +52,7 @@ class Hello extends Command
 }
 ```
 
-> Note that the `CommandName` attribute is only required when using automatic command registration.
+> Note: The `CommandName` attribute is only required when using automatic command registration.
 
 > You can return a custom exit code from your command's `execute` method. The default code if none is returned is `0`.
 
@@ -103,7 +103,7 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 )]
 ```
 
-> Note that there are 4 reserved argument names: `command`, `--env`, `--help` and `--mute`.
+> Note: There are 4 reserved argument names: `command`, `--env`, `--help` and `--mute`.
 
 Next you'll have to add matching camel cased arguments to your `execute` method.
 
@@ -145,7 +145,7 @@ new NamedArgument(
 );
 ```
 
-> Note that boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
+> Note: Boolean arguments are set as optional by default and the value will automatically be set to `false` if not used.
 
 Adding the `PromptForMissingArguments` attribute to your commands makes them prompt the user for any missing required command-line arguments. To disable prompting, pass the `--non-interactive` argument. This is useful when running the command as a cron job to prevent it from hanging due to a missing argument.
 
@@ -299,7 +299,7 @@ $this->spinner('Processing data', function () {
 });
 ```
 
-> Note that the spinner will only animate when you have the `pcntl` and `posix` extensions enabled. It will gracefully degrade to a static message if the extensions are missing.
+> Note: The spinner will only animate when you have the `pcntl` and `posix` extensions enabled. It will gracefully degrade to a static message if the extensions are missing.
 
 The `table` method allows you to generate and display well-formatted ASCII tables, making it easy to present tabular data directly in the console. This feature is especially useful for commands that output multiple columns of related information, such as lists of users, configuration settings, or task statuses.
 
@@ -421,7 +421,7 @@ $escaped = $this->output->formatter->escape($string);
 | bg_cyan    | Cyan background              |
 | bg_white   | white background             |
 
-> Note that formatting will only work on linux/unix and windows consoles with ANSI support.
+> Note: Formatting will only work on linux/unix and windows consoles with ANSI support.
 >
 > Formatting is stripped when the output is redirected (e.g. to a log file `php reactor command > log.txt`).
 
@@ -532,7 +532,7 @@ class Hello extends Command
 }
 ```
 
-> Note that commands expect the first two constructor parameters to be instances of the `Input` and `Output` classes.
+> Note: Commands expect the first two constructor parameters to be instances of the `Input` and `Output` classes.
 
 You can also inject your dependencies directly into the `execute` method since its executed by the `Container::call()` method.
 

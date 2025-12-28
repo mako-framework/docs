@@ -88,7 +88,7 @@ opcache.validate_timestamps=0
 
 [Cachetool](https://github.com/gordalina/cachetool) can be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
 
-> Note that setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
+> Note: Setting `validate_timestamps` to `0` tells OPcache to never check PHP files for changes. This is great for performance but it means that you'll have to clear the bytecode cache after each deployment to ensure that your files are recompiled.
 >
 > This can be done by reloading or restarting the php-fpm process, by calling [`opcache_reset()`](https://php.net/manual/en/function.opcache-reset.php) (this must be done via php-fpm and not php-cli) or by using `cachetool`.
 
@@ -113,7 +113,7 @@ return [
 ];
 ```
 
-> Note that the `app:generate-preloader` command will automatically add any missing dependencies to the list of preloaded classes to ensure full linking of classes, interfaces and traits.
+> Note: The `app:generate-preloader` command will automatically add any missing dependencies to the list of preloaded classes to ensure full linking of classes, interfaces and traits.
 
 #### <a id="configure_php:security" href="#configure_php:security">Security</a>
 

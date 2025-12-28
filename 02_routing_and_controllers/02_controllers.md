@@ -50,7 +50,7 @@ Passing parameters to your controller actions is easy. Just define a route with 
 $routes->get('/articles/{id}', [Article::class, 'view']);
 ```
 
-> Note that it is important that that the method parameter has the same name as the route parameter.
+> Note: It is important that that the method parameter has the same name as the route parameter.
 
 ```
 public function view($id)
@@ -84,7 +84,7 @@ You can set a custom file name, mime type, content disposition and a closure to 
 
 	return $this->fileResponse('/path/to/file.ext')->setName('foo.ext')->setType('text/plain');
 
-> Note that any errors that happen in the closure will not be displayed as it happens after the output has been sent to the client. You'll have to check your logs for errors.
+> Note: Any errors that happen in the closure will not be displayed as it happens after the output has been sent to the client. You'll have to check your logs for errors.
 
 #### <a id="controller_helpers:redirect_response" href="#controller_helpers:redirect_response">Redirect response</a>
 
@@ -190,7 +190,7 @@ public function beforeAction()
 }
 ```
 
-> Note that a controller action and its after action will **not** be executed if the before action returns data.
+> Note: A controller action and its after action will **not** be executed if the before action returns data.
 
 --------------------------------------------------------
 
@@ -229,7 +229,7 @@ In the example above, `Hello, world!` will be returned to the client immediately
 
 Task handlers can be any type of callable and are executed using the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection), allowing you to inject any dependencies you need.
 
-> Note that deferred tasks will only be processed after the response has been sent to the client if your application runs on a FastCGI server, such as PHP-FPM. When running on a non-FastCGI server, the response will hang until the tasks are completed.
+> Note: Deferred tasks will only be processed after the response has been sent to the client if your application runs on a FastCGI server, such as PHP-FPM. When running on a non-FastCGI server, the response will hang until the tasks are completed.
 
 --------------------------------------------------------
 

@@ -64,7 +64,7 @@ If you only want to retrieve a single row then you can use the `first` method.
 $person = $query->table('persons')->where('id', '=', 1)->first();
 ```
 
-> Note that the `first` method will return `null` if nothing is found.
+> Note: The `first` method will return `null` if nothing is found.
 
 If you want to throw an exception if there isn't a matching record then you can use the `firstOrThrow` method.
 
@@ -97,7 +97,7 @@ To make a distinct selection use the `distinct` method
 $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 ```
 
-> Note that the `all` and `paginate` methods return a result set object and not an array so you'll need to use the `isEmpty` method to check if it's empty.
+> Note: The `all` and `paginate` methods return a result set object and not an array so you'll need to use the `isEmpty` method to check if it's empty.
 
 Selecting from the results of a subquery is also possible.
 
@@ -143,7 +143,7 @@ foreach ($persons as $person) {
 }
 ```
 
-> Note that when using MySQL you might have to configure PDO to use [unbuffered queries](https://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
+> Note: When using MySQL you might have to configure PDO to use [unbuffered queries](https://php.net/manual/en/mysqlinfo.concepts.buffering.php) for this to work as expected.
 {.warning}
 
 In addition to using the `yield` method to process large amounts of data you can also use the `batch` method. The default batch size is a 1000 records but you can override this using the optional second parameter.

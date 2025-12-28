@@ -60,7 +60,7 @@ Available commands:
 ```
 {.language-none}
 
-> Note that the list of available commands may vary depending on which services you have enabled.
+> Note: The list of available commands may vary depending on which services you have enabled.
 
 Executing a command is easy and can be done like this:
 

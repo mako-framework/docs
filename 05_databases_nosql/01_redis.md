@@ -98,7 +98,7 @@ $replies = $redis->pipeline(function ($redis) {
 });
 ```
 
-> Note that pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node.
+> Note: Pipelining will not work when connected to a Redis cluster unless all keys used in the pipeline are stored on the same node.
 {.warning}
 
 --------------------------------------------------------
@@ -160,4 +160,4 @@ $redis->monitor(function ($command) {
 
 You can stop the monitor at any time by returning `false` from your monitor closure.
 
-> Note that he connection is closed as soon as the monitor closure returns `false`.
+> Note: The connection is closed as soon as the monitor closure returns `false`.
