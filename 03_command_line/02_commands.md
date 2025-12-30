@@ -383,10 +383,10 @@ If you find yourself using the same nested set of formatting tags over and over 
 $this->output->formatter->addStyle('awesome', ['bg_green', 'black', 'blinking']);
 ```
 
-Tags can also be escaped by prepending them with a backslash.
+If you want to "escape" output tags so that they are just displayed as text without being parsed then you can use the `literal` modifier.
 
 ```
-$this->write('\<blue>Hello, World\</blue>');
+$this->write('<literal:blue>Hello, World<literal:/blue>');
 ```
 
 If you want to escape all tags in a string then you can use the `Formatter::escape()` method.
