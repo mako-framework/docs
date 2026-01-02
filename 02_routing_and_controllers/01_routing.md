@@ -293,7 +293,7 @@ $routes->group($options, function ($routes) {
 
 All routes within the group will now use the same middleware and regex pattern. You can also nest groups if needed.
 
-You can also pass parameters to middleware and constraints in route groups by using the following nested array structure.
+You can also pass parameters to middleware and constraints in route groups by using the following syntax.
 
 ```
 $options = [
