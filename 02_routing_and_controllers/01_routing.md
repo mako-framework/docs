@@ -297,7 +297,7 @@ You can also pass parameters to middleware and constraints in route groups by us
 
 ```
 $options = [
-	'middleware' => [[CacheMiddleware::class, ['minutes' => 60]]],
+	'middleware' => [CacheMiddleware::class => ['minutes' => 60]],
 	'patterns'   => ['id' => '[0-9]+'],
 ];
 ```
