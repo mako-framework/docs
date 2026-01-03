@@ -161,6 +161,7 @@ The following validation rules are included with Mako:
 | email                    | Checks that the field value is a valid email address.                                                   |
 | email_domain             | Checks that the field value contains a valid MX record.                                                 |
 | enum                     | Checks that the field contains a valid enum value.                                                      |
+| exact_count              | Checks that the field value has the right number of items (`exact_count(20`).                           |
 | exact_length             | Checks that the field value is of the right length (`exact_length(20)`).                                |
 | greater_than             | Checks that the field value is greater than x (`greater_than(5)`).                                      |
 | greater_than_or_equal_to | Checks that the field value is greater than or equal to x (`greater_than_or_equal_to(5)`).              |
@@ -171,7 +172,9 @@ The following validation rules are included with Mako:
 | less_than                | Checks that the field value is less than x (`less_than(5)`).                                            |
 | less_than_or_equal_to    | Checks that the field value is less than or equal to x (`less_than_or_equal_to(5)`).                    |
 | match                    | Checks that the field value matches the value of another field (`match("password_confirmation")`).      |
+| max_count                | Checks that the field value has at most x items (`max_count(20)`).                                      |
 | max_length               | Checks that the field value is short enough (`max_length(20)`).                                         |
+| min_count                | Checks that the field value has at minimum x items (`min_count(20)`).                                   |
 | min_length               | Checks that the field value is long enough (`min_length(10)`).                                          |
 | not_empty                | Checks that the field isn't empty.                                                                      |
 | not_in                   | Checks that the field value does not contain one of the given values (`not_in(["foo","bar","baz"])`).   |
