@@ -135,7 +135,7 @@ You can also use the `mako\env` function to fetch environment variables, which i
 [
 	'username'    => mako\env('USERNAME'),
 	'password'    => mako\env('PASSWORD'),
-	'doSomething' => mako\env('DO_SOMETHING', isBool: true),
+	'doSomething' => mako\env('DO_SOMETHING', as: Type::BOOL),
 ]
 ```
 
@@ -145,7 +145,7 @@ You can also specify default values:
 [
 	'username'    => mako\env('USERNAME', 'user'),
 	'password'    => mako\env('PASSWORD', '1234'),
-	'doSomething' => mako\env('DO_SOMETHING', false, isBool: true),
+	'doSomething' => mako\env('DO_SOMETHING', false, as: Type::BOOL),
 ]
 ```
 
