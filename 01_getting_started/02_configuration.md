@@ -149,6 +149,18 @@ You can also specify default values:
 ]
 ```
 
+By default the `mako\env` function returns a string but you can cast the return value to a number of types by using the `as` parameter.
+
+| Type                 | Description                                       |
+|----------------------|---------------------------------------------------|
+| Type::BOOL           | Casts the value to `TRUE` or `FALSE`              |
+| Type::INT            | Casts the value to an integer                     |
+| Type::FLOAT          | Casts the value to a float                        |
+| Type::JSON_AS_OBJECT | Casts a valid JSON object to an object            |
+| Type::JSON_AS_ARRAY  | Casts a valid JSON object to an associative array |
+
+> Note: If the value is "uncastable" then `null` or the specified default value will be returned instead.
+
 --------------------------------------------------------
 
 ### <a id="package_configuration" href="#package_configuration">Package configuration</a>
