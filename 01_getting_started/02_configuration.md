@@ -149,7 +149,7 @@ You can also specify default values:
 ]
 ```
 
-By default the `mako\env` function returns a string but you can cast the return value to a number of types by using the `as` parameter.
+By default, the `mako\env` function returns a string, but you can cast the return value to other types by using the `as` parameter.
 
 | Type                 | Description                                       |
 |----------------------|---------------------------------------------------|
@@ -159,7 +159,7 @@ By default the `mako\env` function returns a string but you can cast the return 
 | Type::JSON_AS_OBJECT | Casts a valid JSON object to an object            |
 | Type::JSON_AS_ARRAY  | Casts a valid JSON object to an associative array |
 
-> Note: If the value is "uncastable" then `null` or the specified default value will be returned instead.
+> Note: If the value cannot be cast to the requested type, `null` or the specified default value will be returned instead.
 
 --------------------------------------------------------
 
