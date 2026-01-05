@@ -20,7 +20,7 @@ The pixel library allows you to manipulate images through a consistent API using
 First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the ImageMagick processor.
 
 ```
-$image = new Gd('image.png');
+$image = new ImageMagick('image.png');
 ```
 
 #### <a id="usage:image_information" href="#usage:image_information">Image information</a>
