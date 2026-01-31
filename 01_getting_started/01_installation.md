@@ -69,7 +69,7 @@ composer update
 ```
 {.language-none}
 
-If you want to bump the Mako version (e.g. from `10.0.*` to `10.1.*`) then you'll have to update your `composer.json` file before running the update command.
+If you want to bump the Mako to the next major version (e.g. from `^11.0` to `^12.0`) then you'll have to update your `composer.json` file before running the update command.
 
 > Some releases might require some minor code changes. These will be documented in the upgrade guides.
 {.warning}
