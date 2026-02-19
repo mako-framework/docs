@@ -17,7 +17,7 @@
 
 --------------------------------------------------------
 
-The Mako router lets you map URL patterns to class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
+The Mako router lets you map URL patterns to invocable classes, class methods and closures. It also allows you to perform reverse routing so that you don't have to hardcode URLs in your application.
 
 Routes are registered in the `app/http/routing/routes.php` file and there are three variables available in the scope, `$routes` (the route collection) and `$app` (the application instance) and `$container` (the container instance).
 
