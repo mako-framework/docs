@@ -149,6 +149,8 @@ $responseBody = new File('/path/to/file.ext')
 ->setType('text/plain');
 ```
 
+> Note: Any errors that happen in the closure will not be displayed as it happens after the output has been sent to the client. You'll have to check your logs for errors.
+
 ##### <a id="advanced:senders:redirect">Redirect</a>
 
 The `Redirect` response sender allows you to redirect the client to another URL.
