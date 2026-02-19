@@ -84,13 +84,13 @@ $responseStatus = $this->response->getStatus();
 
 #### <a id="advanced:builders">Builders</a>
 
-The `JSON` response builder will convert the provided data to JSON and set the correct content type header.
+The `JSON` response builder encodes the provided data as JSON and sets the appropriate `Content-Type` header.
 
 ```
 $responseBody = new JSON([1, 2, 3]);
 ```
 
-If you want your API endpoint to be able to serve JSONP as well then you'll have to chain the `asJsonpWith` method.
+If you want your API endpoint to serve JSONP responses as well, chain the `asJsonpWith` method.
 
 ```
 $responseBody = new JSON([1, 2 , 3])->asJsonpWith('callback');
@@ -107,7 +107,7 @@ You can also set the character set and status code using the following methods.
 
 The `EventStream` response sender allows you to send an [event stream](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to the client.
 
-The closure passed to the `EventStream` constructor must yield at least one event. Each event can contain multiple fields.
+The closure passed to the `EventStream` constructor must yield at least one event. Each event may contain multiple fields.
 
 ```
 $responseBody = $new EventStream(function () {
@@ -117,7 +117,7 @@ $responseBody = $new EventStream(function () {
 });
 ```
 
-The `File` response sender lets you stream a file to the client. The file download will be resumable, something that can be very useful when downloading large files.
+The `File` response sender enables memory-efficient streaming of files to the client. Downloads are resumable, which is particularly beneficial for large files.
 
 ```
 $responseBody = new File('/path/to/file.ext');
@@ -138,13 +138,13 @@ $responseBody = new File('/path/to/file.ext')
 ->setType('text/plain');
 ```
 
-The `Redirect` response sender allows you to redirect the client to a different URL.
+The `Redirect` response sender allows you to redirect the client to another URL.
 
 ```
 $responseBody = new Redirect('https://example.org');
 ```
 
-The default status code is set to 302 (Found) but you can override it by using the chainable setStatus method.
+The default status code is `302` (Found), but you can override it by chaining the `setStatus` method.
 
 ```
 $responseBody = new Redirect('https://example.org')
@@ -161,9 +161,9 @@ It is also possible to use the following methods to set the status code.
 | temporaryRedirect | Sets the status code to `307` |
 | permanentRedirect | Sets the status code to `308` |
 
-The `Stream` response sender allows you to stream data to the client. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+The `Stream` response sender allows you to stream data to the client. This is useful when sending large amounts of data, as it flushes content to the client in chunks, minimizing memory usage.
 
-It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
+It also allows you to begin transmitting dynamically generated content before knowing the total size of the response.
 
 ```
 $responseBody = new Stream(function ($stream) {
