@@ -119,7 +119,7 @@ The `EventStream` response sender allows you to send an [event stream](https://d
 The closure passed to the `EventStream` constructor must yield at least one event. Each event may contain multiple fields.
 
 ```
-$responseBody = $new EventStream(function () {
+$responseBody = new EventStream(function () {
     yield new Event(
         new Field(Type::DATA, 'hello, world!')
     );
