@@ -5,7 +5,12 @@
 * [Basics](#basics)
 * [Advanced](#advanced)
     - [Builders](#advanced:builders)
+        - [JSON](#advanced:builders:json)
     - [Senders](#advanced:senders)
+        - [Event stream](#advanced:senders:event_stream)
+        - [File](#advanced:senders:file)
+        - [Redirect](#advanced:senders:redirect)
+        - [Stream](#advanced:senders:stream)
 * [Cookies](#cookies)
 * [Headers](#headers)
 * [Caching and compression](#caching_and_compression)
@@ -84,6 +89,8 @@ $responseStatus = $this->response->getStatus();
 
 #### <a id="advanced:builders">Builders</a>
 
+##### <a id="advanced:builders:json">JSON</a>
+
 The `JSON` response builder encodes the provided data as JSON and sets the appropriate `Content-Type` header.
 
 ```
@@ -105,6 +112,8 @@ You can also set the character set and status code using the following methods.
 
 #### <a id="advanced:senders">Senders</a>
 
+##### <a id="advanced:senders:event_stream">Event stream</a>
+
 The `EventStream` response sender allows you to send an [event stream](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to the client.
 
 The closure passed to the `EventStream` constructor must yield at least one event. Each event may contain multiple fields.
@@ -116,6 +125,8 @@ $responseBody = $new EventStream(function () {
     );
 });
 ```
+
+##### <a id="advanced:senders:file">File</a>
 
 The `File` response sender enables memory-efficient streaming of files to the client. Downloads are resumable, which is particularly beneficial for large files.
 
@@ -137,6 +148,8 @@ $responseBody = new File('/path/to/file.ext')
 ->setName('foo.ext')
 ->setType('text/plain');
 ```
+
+##### <a id="advanced:senders:redirect">Redirect</a>
 
 The `Redirect` response sender allows you to redirect the client to another URL.
 
@@ -160,6 +173,8 @@ It is also possible to use the following methods to set the status code.
 | seeOther          | Sets the status code to `303` |
 | temporaryRedirect | Sets the status code to `307` |
 | permanentRedirect | Sets the status code to `308` |
+
+##### <a id="advanced:senders:stream">Stream</a>
 
 The `Stream` response sender allows you to stream data to the client. This is useful when sending large amounts of data, as it flushes content to the client in chunks, minimizing memory usage.
 
