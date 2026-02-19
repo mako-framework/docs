@@ -3,6 +3,9 @@
 --------------------------------------------------------
 
 * [Basics](#basics)
+* [Advanced](#advanced)
+    - [Builders](#advanced:builders)
+    - [Senders](#advanced:senders)
 * [Cookies](#cookies)
 * [Headers](#headers)
 * [Caching and compression](#caching_and_compression)
@@ -74,6 +77,112 @@ The `getStatus` method returns the current status code.
 ```
 $responseStatus = $this->response->getStatus();
 ```
+
+--------------------------------------------------------
+
+### <a id="advanced" href="#advanced">Advanced</a>
+
+#### <a id="advanced:builders">Builders</a>
+
+The `JSON` response builder will convert the provided data to JSON and set the correct content type header.
+
+```
+$responseBody = new JSON([1, 2, 3]);
+```
+
+If you want your API endpoint to be able to serve JSONP as well then you'll have to chain the `asJsonpWith` method.
+
+```
+$responseBody = new JSON([1, 2 , 3])->asJsonpWith('callback');
+```
+
+You can also set the character set and status code using the following methods.
+
+| Method name | Description               |
+|-------------|---------------------------|
+| setCharset  | Sets the character set    |
+| setStatus   | Sets the status code      |
+
+#### <a id="advanced:senders">Senders</a>
+
+The `EventStream` response sender allows you to send an [event stream](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to the client.
+
+The closure passed to the `EventStream` constructor must yield at least one event. Each event can contain multiple fields.
+
+```
+$responseBody = $new EventStream(function () {
+    yield new Event(
+        new Field(Type::DATA, 'hello, world!')
+    );
+});
+```
+
+The `File` response sender lets you stream a file to the client. The file download will be resumable, something that can be very useful when downloading large files.
+
+```
+$responseBody = new File('/path/to/file.ext');
+```
+
+You can set a custom file name, mime type, content disposition and a closure to be executed after a completed download using a set of chainable methods.
+
+| Method name      | Description                                                                                      |
+|------------------|--------------------------------------------------------------------------------------------------|
+| setName          | The file name sent to the client                                                                 |
+| setDisposition   | Content-disposition (default is attachment)                                                      |
+| setType          | The framework will try to detect the mime type for you but you can override it using this method |
+| done             | Closure that will be executed when the download has been completed                               |
+
+```
+$responseBody = new File('/path/to/file.ext')
+->setName('foo.ext')
+->setType('text/plain');
+```
+
+The `Redirect` response sender allows you to redirect the client to a different URL.
+
+```
+$responseBody = new Redirect('https://example.org');
+```
+
+The default status code is set to 302 (Found) but you can override it by using the chainable setStatus method.
+
+```
+$responseBody = new Redirect('https://example.org')
+->setStatus(Status::FOUND);
+```
+
+It is also possible to use the following methods to set the status code.
+
+| Method name       | Description                   |
+|-------------------|-------------------------------|
+| movedPermanently  | Sets the status code to `301` |
+| found             | Sets the status code to `302` |
+| seeOther          | Sets the status code to `303` |
+| temporaryRedirect | Sets the status code to `307` |
+| permanentRedirect | Sets the status code to `308` |
+
+The `Stream` response sender allows you to stream data to the client. They can be useful when sending large amounts data as the data will be flushed to the client in chunks, thus minimizing your application memory usage.
+
+It also allows you to begin transmitting dynamically-generated content before knowing the total size of the content.
+
+```
+$responseBody = new Stream(function ($stream) {
+	$stream->flush('Hello, world!');
+
+	sleep(2);
+
+	$stream->flush('Hello, world!');
+}, 'text/plain', 'UTF-8');
+```
+
+You can also set and get the content type and character set using the following methods.
+
+| Method name | Description               |
+|-------------|---------------------------|
+| setType     | Sets the content type     |
+| setCharset  | Sets the character set    |
+
+> Streaming responses may not always behave as expected because some web servers and reverse proxies buffer output or wait until larger chunks of data are available before sending them.
 
 --------------------------------------------------------
 
