@@ -5,7 +5,7 @@
 * [Basics](#basics)
 * [Advanced](#advanced)
     - [Builders](#advanced:builders)
-        - [JSON](#advanced:builders:json)
+        - [JSON](#advanced:builders:json)
     - [Senders](#advanced:senders)
         - [Event stream](#advanced:senders:event_stream)
         - [File](#advanced:senders:file)
