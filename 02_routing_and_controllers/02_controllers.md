@@ -11,7 +11,7 @@
 
 --------------------------------------------------------
 
-The role of a controller is to respond to a HTTP request and construct a response. See the [routing docs](:base_url:/docs/:version:/routing-and-controllers:routing) on how to direct HTTP requests to a controller action.
+The role of a controller is to respond to an HTTP request and construct a response. See the [routing documentation](:base_url:/docs/:version:/routing-and-controllers:routing) to learn how to direct HTTP requests to a controller action.
 
 --------------------------------------------------------
 
@@ -19,7 +19,7 @@ The role of a controller is to respond to a HTTP request and construct a respons
 
 #### <a id="basics:getting_started" href="#basics:getting_started">Getting started</a>
 
-Here's a basic example controller that extends the base controller included with the framework.
+Here’s a basic example controller that extends the base controller included with the framework. Controllers do not need to extend the base controller; however, doing so gives you access to the useful `redirectResponse` method, which allows you to redirect to named routes or external URLs.
 
 ```
 <?php
@@ -39,7 +39,7 @@ class Home extends Controller
 
 #### <a id="basics:parameters" href="#basics:parameters">Parameters</a>
 
-Passing parameters to your controller actions is easy. Just define a route with the parameters you need and add the corresponding parameters to your method.
+Passing parameters to your controller actions is simple. Define a route that includes the parameters you need, then add matching parameters to your action method.
 
 ```
 $routes->get('/articles/{id}', [Article::class, 'view']);
@@ -58,9 +58,9 @@ public function view($id)
 
 ### <a id="controller_events" href="#controller_events">Controller events</a>
 
-All controllers can have two special methods. The `beforeAction` method which gets executed right before the controller action and the `afterAction` method which gets executed right after the controller action.
+All controllers can define two special methods: `beforeAction` and `afterAction`. The `beforeAction` method is executed immediately before the controller action, and the `afterAction` method is executed immediately after the controller action.
 
-The controller action and `afterAction` methods will be skipped if the `beforeAction` returns data.
+If `beforeAction` returns a value, the controller action and the `afterAction` method will be skipped.
 
 ```
 public function beforeAction()

@@ -42,7 +42,7 @@ The query builder currently supports the following dialects:
 * SQLite
 * SQLServer
 
-> The example SQL in the documentation is generated using the MySQL compiler.
+> The example SQL in the documentation is generated using the MariaDB compiler.
 
 --------------------------------------------------------
 
