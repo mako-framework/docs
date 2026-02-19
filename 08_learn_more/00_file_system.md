@@ -259,33 +259,36 @@ $this->fileSystem->clearCache();
 
 #### <a id="permissions:permission_enum" href="#permissions:permission_enum">Permission enum</a>
 
-The `Permission` enum contains cases that represents all the different owner, group and public permissions.
+The `Permission` enum contains cases that represent all the different owner, group, and public permissions, as well as the special bits.
 
 | Case                                     | Permission in octal form |
 |------------------------------------------|--------------------------|
-| Permission::NONE                         | 0o000                    |
-| Permission::OWNER_EXECUTE                | 0o100                    |
-| Permission::OWNER_WRITE                  | 0o200                    |
-| Permission::OWNER_EXECUTE_WRITE          | 0o300                    |
-| Permission::OWNER_READ                   | 0o400                    |
-| Permission::OWNER_EXECUTE_READ           | 0o500                    |
-| Permission::OWNER_WRITE_READ             | 0o600                    |
-| Permission::OWNER_FULL                   | 0o700                    |
-| Permission::GROUP_EXECUTE                | 0o010                    |
-| Permission::GROUP_WRITE                  | 0o020                    |
-| Permission::GROUP_EXECUTE_WRITE          | 0o030                    |
-| Permission::GROUP_READ                   | 0o040                    |
-| Permission::GROUP_EXECUTE_READ           | 0o050                    |
-| Permission::GROUP_WRITE_READ             | 0o060                    |
-| Permission::GROUP_FULL                   | 0o070                    |
-| Permission::PUBLIC_EXECUTE               | 0o001                    |
-| Permission::PUBLIC_WRITE                 | 0o002                    |
-| Permission::PUBLIC_EXECUTE_WRITE         | 0o003                    |
-| Permission::PUBLIC_READ                  | 0o004                    |
-| Permission::PUBLIC_EXECUTE_READ          | 0o005                    |
-| Permission::PUBLIC_WRITE_READ            | 0o006                    |
-| Permission::PUBLIC_FULL                  | 0o007                    |
-| Permission::FULL                         | 0o777                    |
+| Permission::NONE                         | 0o0000                    |
+| Permission::OWNER_EXECUTE                | 0o0100                    |
+| Permission::OWNER_WRITE                  | 0o0200                    |
+| Permission::OWNER_EXECUTE_WRITE          | 0o0300                    |
+| Permission::OWNER_READ                   | 0o0400                    |
+| Permission::OWNER_EXECUTE_READ           | 0o0500                    |
+| Permission::OWNER_WRITE_READ             | 0o0600                    |
+| Permission::OWNER_FULL                   | 0o0700                    |
+| Permission::GROUP_EXECUTE                | 0o0010                    |
+| Permission::GROUP_WRITE                  | 0o0020                    |
+| Permission::GROUP_EXECUTE_WRITE          | 0o0030                    |
+| Permission::GROUP_READ                   | 0o0040                    |
+| Permission::GROUP_EXECUTE_READ           | 0o0050                    |
+| Permission::GROUP_WRITE_READ             | 0o0060                    |
+| Permission::GROUP_FULL                   | 0o0070                    |
+| Permission::PUBLIC_EXECUTE               | 0o0001                    |
+| Permission::PUBLIC_WRITE                 | 0o0002                    |
+| Permission::PUBLIC_EXECUTE_WRITE         | 0o0003                    |
+| Permission::PUBLIC_READ                  | 0o0004                    |
+| Permission::PUBLIC_EXECUTE_READ          | 0o0005                    |
+| Permission::PUBLIC_WRITE_READ            | 0o0006                    |
+| Permission::PUBLIC_FULL                  | 0o0007                    |
+| Permission::FULL                         | 0o0777                    |
+| Permission::SPECIAL_STICKY               | 0o1000                    |
+| Permission::SPECIAL_SETGID               | 0o2000                    |
+| Permission::SPECIAL_SETUID               | 0o4000                    |
 
 The `calculate` method returns an integer representing the sum of the chosen permissions.
 
@@ -321,6 +324,18 @@ $permissions = new Permissions(
 // Create an instance from an integer
 
 $permissions = Permissions::fromInt(0o644);
+```
+
+The `add` method adds one or more `Permission` instances to the collection.
+
+```
+$permissions->add(Permission::GROUP_WRITE);
+```
+
+The `remove` method removes one or more `Permission` instances from the collection.
+
+```
+$permissions->remove(Permission::GROUP_WRITE);
 ```
 
 The `getPermissions` method will return an array of `Permission` instances.
