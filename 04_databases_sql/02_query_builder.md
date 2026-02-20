@@ -19,6 +19,7 @@
 	* [HAVING clauses](#clauses:having_clauses)
 	* [ORDER BY clauses](#clauses:order_by_clauses)
 	* [LIMIT and OFFSET clauses](#clauses:limit_and_offset_clauses)
+* [Vector queries](#vector_queries)
 * [Common table expressions](#common_table_expressions)
 * [Set operations](#set_operations)
 * [Row-level locking](#row_level_locking)
@@ -605,6 +606,73 @@ You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pa
 // SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
 $persons = $query->table('persons')->paginate(10);
+```
+
+--------------------------------------------------------
+
+### <a id="vector_queries" href="#vector_queries">Vector queries</a>
+
+Vector queries are currently supported by `MariaDB`, `MySQL`, and `PostgreSQL`, allowing you to store embeddings and perform similarity search directly in your database. You can insert vectors, calculate cosine or Euclidean distances, filter by similarity thresholds, and sort by nearest matches to power semantic search and recommendation features at the database level.
+
+Vectors can be inserted into the database by wrapping them in the `Vector` value class.
+
+```
+// Use mako\database\query\values\in\Vector for input
+
+$query = $query
+->table('embeddings')
+->insert([
+    'embedding' => new Vector([1, 2, 3, 4, 5])
+]);
+```
+
+Vectors can be selected using the `Vector` class. You may chain the `as` method to alias the selected column.
+
+```
+// Use mako\database\query\values\out\Vector for output
+
+$query = $query
+->table('foobar')
+->select([
+    new Vector('embedding')->as('vector')
+]);
+```
+
+You can also select vector distances using the `VectorDistance` class. The first parameter is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter. You may chain the `as` method to alias the selected value.
+
+```
+// Use mako\database\query\values\out\VectorDistance for output
+// Use mako\database\query\VectorDistance to set the type
+
+$query = $query
+->table('foobar')
+->select([
+    new VectorDistance('embedding', [1, 2, 3, 4, 5])->as('distance')
+]);
+```
+
+You can filter by vector distance using the `whereVectorDistance` and `orWhereVectorDistance` methods. The first parameter is the name of the vector column, the second is the vector you want to compare against, and the third is the maximum allowed distance. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional fourth parameter.
+
+```
+// Use mako\database\query\VectorDistance to set the type
+
+$query = $query
+->table('foobar')
+->whereVectorDistance('embedding', [1, 2, 3, 4, 5], maxDistance: 0.15)
+->limit(10)
+->all();
+```
+
+You can also sort by vector distance using the `orderByVectorDistance`, `ascendingVectorDistance`, and `descendingVectorDistance` methods. The first argument is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter.
+
+```
+// Use mako\database\query\VectorDistance to set the type
+
+$query = $query
+->table('foobar')
+->orderByVectorDistance('embedding', [1, 2, 3, 4, 5])
+->limit(10)
+->all();
 ```
 
 --------------------------------------------------------
