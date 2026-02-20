@@ -18,7 +18,7 @@ The `fileResponse`, `streamResponse`, and `jsonResponse` methods of the `Control
 |-------------------|-----------------------------------|
 | fileResponse      | mako\http\response\senders\File   |
 | streamResponse    | mako\http\response\senders\Stream |
-| jsonResponse      | mako\http\response\builders\Json  |
+| jsonResponse      | mako\http\response\builders\JSON  |
 
 ```
 // Before
