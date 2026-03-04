@@ -306,7 +306,7 @@ The `isIdempotent` method returns `true` if the request method used is considere
 $isIdempotent = $this->request->isIdempotent();
 ```
 
-The `getBasePath` method returns the base path of the request. A request to `http://example.org/foo/index.php` will return `/foo` while a request to `http://example.org/index.php` will return an empty string.
+The `getBasePath` method returns the base path of the request. A request to `http://example.org/foo` will return `/foo` while a request to `http://example.org` will return an empty string.
 
 ```
 $basePath = $this->request->getBasePath();
