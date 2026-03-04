@@ -104,7 +104,7 @@ $fileSize = stream_copy_to_stream($body, $storageStream);
 
 ### <a id="cookies" href="#cookies">Cookies</a>
 
-The `cookies` property is a cookie collection that allows to you access both signed and unsigned cookies.
+The `cookies` property is a cookie collection that allows you to access both signed and unsigned cookies.
 
 ```
 $cookies = $this->request->cookies;
