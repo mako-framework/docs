@@ -354,13 +354,13 @@ The `isFaked` method returns `true` if the request method method has been faked 
 $isFaked = $this->request->isFaked();
 ```
 
-The `getUsername` method returns a basic HTTP authentication username of `null` if it isn't set.
+The `getUsername` method returns a basic HTTP authentication username or `null` if it isn't set.
 
 ```
 $username = $this->request->getUsername();
 ```
 
-The `getPassword` method returns a basic HTTP authentication password of `null` if it isn't set.
+The `getPassword` method returns a basic HTTP authentication password or `null` if it isn't set.
 
 ```
 $password = $this->request->getPassword();
