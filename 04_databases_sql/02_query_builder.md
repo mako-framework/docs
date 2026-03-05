@@ -562,12 +562,12 @@ $customers = $query->table('orders')
 
 #### <a id="clauses:order_by_clauses" href="#clauses:order_by_clauses">ORDER BY clauses</a>
 
-orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw()
+orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw(), orderByNullsFirst(), orderByNullsLast(), ascendingNullsFirst(), descendingNullsFirst(), ascendingNullsLast(), descendingNullsLast()
 
 ```
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
-$persons = $query->table('persons')->orderBy('name', 'asc')->all();
+$persons = $query->table('persons')->orderBy('name', SortDirection::Ascending)->all();
 
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
@@ -579,11 +579,11 @@ $persons = $query->table('persons')->descending('name')->all();
 
 // SELECT * FROM `persons` ORDER BY `name` ASC, `age` DESC
 
-$persons = $query->table('persons')->orderBy('name', 'asc')->orderBy('age', 'desc')->all();
+$persons = $query->table('persons')->orderBy('name', SortDirection::Ascending)->orderBy('age', SortDirection::Descending)->all();
 
 // SELECT * FROM `persons` ORDER BY `name`, `age` ASC
 
-$persons = $query->table('persons')->orderBy(['name', 'age'], 'asc')->all();
+$persons = $query->table('persons')->orderBy(['name', 'age'], SortDirection::Ascending)->all();
 ```
 
 #### <a id="clauses:limit_and_offset_clauses" href="#clauses:limit_and_offset_clauses">LIMIT and OFFSET clauses</a>

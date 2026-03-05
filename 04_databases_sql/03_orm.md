@@ -316,14 +316,14 @@ The ORM is built on top of the [query builder](:base_url:/docs/:version:/databas
 ```
 public function articles()
 {
-	return $this->hasMany(Article::class)->orderBy('title', 'asc');
+	return $this->hasMany(Article::class)->orderBy('title', SortDirection::Ascending);
 }
 ```
 
 They can be in the relation definition itself or you can add them when you're accessing the related records.
 
 ```
-$articles = $user->articles()->orderBy('title', 'asc')->all();
+$articles = $user->articles()->orderBy('title', SortDirection::Ascending)->all();
 ```
 
 #### <a id="relations:creating_related_records" href="#relations:creating_related_records">Creating related records</a>
