@@ -192,7 +192,7 @@ $status = $this->gatekeeper->login($email, $password, true);
 
 The possible statuses are:
 
-| Enum value                       | Description                                                                   |
+| Enum value                      | Description                                                                   |
 |---------------------------------|-------------------------------------------------------------------------------|
 | LoginStatus::Ok                 | The user was successfully logged in                                           |
 | LoginStatus::InvalidCredentials | The provided credentials are invalid                                          |

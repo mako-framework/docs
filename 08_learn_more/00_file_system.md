@@ -53,9 +53,9 @@ $this->fileSystem->setPermissions('/foo/bar.txt', 0o644);
 // Set the permissions to 644 using a Permissions instance
 
 $this->fileSystem->setPermissions('/foo/bar.txt', new Permissions(
-    Permission::OWNER_WRITE_READ,
-    Permission::GROUP_READ,
-    Permission::PUBLIC_READ,
+    Permission::OwnerWriteRead,
+    Permission::GroupRead,
+    Permission::PublicRead,
 ));
 ```
 
@@ -64,7 +64,7 @@ The `getPermissions` method returns a [`Permissions`](#permissions:permission_co
 ```
 $permissions = $this->fileSystem->getPermissions('/foo/bar.txt');
 
-if($permissions->hasPermissions(Permission::PUBLIC_READ)) {
+if($permissions->hasPermissions(Permission::PublicRead)) {
     // The file is readable for everyone
 }
 ```
@@ -261,51 +261,51 @@ $this->fileSystem->clearCache();
 
 The `Permission` enum contains cases that represent all the different owner, group, and public permissions, as well as the special bits.
 
-| Case                                     | Permission in octal form |
-|------------------------------------------|--------------------------|
-| Permission::NONE                         | 0o0000                    |
-| Permission::OWNER_EXECUTE                | 0o0100                    |
-| Permission::OWNER_WRITE                  | 0o0200                    |
-| Permission::OWNER_EXECUTE_WRITE          | 0o0300                    |
-| Permission::OWNER_READ                   | 0o0400                    |
-| Permission::OWNER_EXECUTE_READ           | 0o0500                    |
-| Permission::OWNER_WRITE_READ             | 0o0600                    |
-| Permission::OWNER_FULL                   | 0o0700                    |
-| Permission::GROUP_EXECUTE                | 0o0010                    |
-| Permission::GROUP_WRITE                  | 0o0020                    |
-| Permission::GROUP_EXECUTE_WRITE          | 0o0030                    |
-| Permission::GROUP_READ                   | 0o0040                    |
-| Permission::GROUP_EXECUTE_READ           | 0o0050                    |
-| Permission::GROUP_WRITE_READ             | 0o0060                    |
-| Permission::GROUP_FULL                   | 0o0070                    |
-| Permission::PUBLIC_EXECUTE               | 0o0001                    |
-| Permission::PUBLIC_WRITE                 | 0o0002                    |
-| Permission::PUBLIC_EXECUTE_WRITE         | 0o0003                    |
-| Permission::PUBLIC_READ                  | 0o0004                    |
-| Permission::PUBLIC_EXECUTE_READ          | 0o0005                    |
-| Permission::PUBLIC_WRITE_READ            | 0o0006                    |
-| Permission::PUBLIC_FULL                  | 0o0007                    |
-| Permission::FULL                         | 0o0777                    |
-| Permission::SPECIAL_STICKY               | 0o1000                    |
-| Permission::SPECIAL_SETGID               | 0o2000                    |
-| Permission::SPECIAL_SETUID               | 0o4000                    |
+| Case                           | Permission in octal form |
+|--------------------------------|--------------------------|
+| Permission::None               | 0o0000                   |
+| Permission::OwnerExecute       | 0o0100                   |
+| Permission::OwnerWrite         | 0o0200                   |
+| Permission::OwnerExecuteWrite  | 0o0300                   |
+| Permission::OwnerRead          | 0o0400                   |
+| Permission::OwnerExecuteRead   | 0o0500                   |
+| Permission::OwnerWriteRead     | 0o0600                   |
+| Permission::OwnerFull          | 0o0700                   |
+| Permission::GroupExecute       | 0o0010                   |
+| Permission::GroupWrite         | 0o0020                   |
+| Permission::GroupExecuteWrite  | 0o0030                   |
+| Permission::GroupRead          | 0o0040                   |
+| Permission::GroupExecuteRead   | 0o0050                   |
+| Permission::GroupWriteRead     | 0o0060                   |
+| Permission::GroupFull          | 0o0070                   |
+| Permission::PublicExecute      | 0o0001                   |
+| Permission::PublicWrite        | 0o0002                   |
+| Permission::PublicExecuteWrite | 0o0003                   |
+| Permission::PublicRead         | 0o0004                   |
+| Permission::PublicExecuteRead  | 0o0005                   |
+| Permission::PublicWriteRead    | 0o0006                   |
+| Permission::PublicFull         | 0o0007                   |
+| Permission::Full               | 0o0777                   |
+| Permission::SpecialSticky      | 0o1000                   |
+| Permission::SpecialSetGid      | 0o2000                   |
+| Permission::SpecialSetUid      | 0o4000                   |
 
 The `calculate` method returns an integer representing the sum of the chosen permissions.
 
 ```
 $permissions = Permission::calculate(
-    Permission::OWNER_WRITE_READ,
-    Permission::GROUP_READ,
-    Permission::PUBLIC_READ,
+    Permission::OwnerWriteRead,
+    Permission::GroupRead,
+    Permission::PublicRead,
 );
 ```
 
 The `hasPermissions` method allows you to check if a permission set contains the chosen permission(s).
 
 ```
-$hasPublicRead = Permission::hasPermissions(0o644, Permission::PUBLIC_READ);
+$hasPublicRead = Permission::hasPermissions(0o644, Permission::PublicRead);
 
-$hasGroupAndPublicRead = Permission::hasPermissions(0o644, Permission::GROUP_READ, Permission::PUBLIC_READ);
+$hasGroupAndPublicRead = Permission::hasPermissions(0o644, Permission::GroupRead, Permission::PublicRead);
 ```
 
 #### <a id="permissions:permission_collection" href="#permissions:permission_collection">Permission collection</a>
@@ -316,9 +316,9 @@ The `Permissions` class allows you to work with a collection of `Permission` ins
 // Create an instance using the constructor
 
 $permissions = new Permissions(
-    Permission::OWNER_WRITE_READ,
-    Permission::GROUP_READ,
-    Permission::PUBLIC_READ,
+    Permission::OwnerWriteRead,
+    Permission::GroupRead,
+    Permission::PublicRead,
 );
 
 // Create an instance from an integer
@@ -329,13 +329,13 @@ $permissions = Permissions::fromInt(0o644);
 The `add` method adds one or more `Permission` instances to the collection.
 
 ```
-$permissions->add(Permission::GROUP_WRITE);
+$permissions->add(Permission::GroupWrite);
 ```
 
 The `remove` method removes one or more `Permission` instances from the collection.
 
 ```
-$permissions->remove(Permission::GROUP_WRITE);
+$permissions->remove(Permission::GroupWrite);
 ```
 
 The `getPermissions` method will return an array of `Permission` instances.
@@ -347,9 +347,9 @@ $permissions = $permissions->getPermissions();
 The `hasPermissions` method allows you to check if the permission collection contains the chosen permission(s).
 
 ```
-$hasPublicRead = $permissions->hasPermissions(Permission::PUBLIC_READ);
+$hasPublicRead = $permissions->hasPermissions(Permission::PublicRead);
 
-$hasGroupAndPublicRead = $permissions->hasPermissions(Permission::GROUP_READ, Permission::PUBLIC_READ);
+$hasGroupAndPublicRead = $permissions->hasPermissions(Permission::GroupRead, Permission::PublicRead);
 ```
 
 The `toInt` returns an integer representation of the permissions.

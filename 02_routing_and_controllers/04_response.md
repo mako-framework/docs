@@ -121,7 +121,7 @@ The closure passed to the `EventStream` constructor must yield at least one even
 ```
 $responseBody = new EventStream(function () {
     yield new Event(
-        new Field(Type::DATA, 'hello, world!')
+        new Field(Type::Data, 'hello, world!')
     );
 });
 ```

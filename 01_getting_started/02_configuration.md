@@ -135,7 +135,7 @@ You can also use the `mako\env` function to fetch environment variables, which i
 [
 	'username'    => mako\env('USERNAME'),
 	'password'    => mako\env('PASSWORD'),
-	'doSomething' => mako\env('DO_SOMETHING', as: Type::BOOL),
+	'doSomething' => mako\env('DO_SOMETHING', as: Type::Bool),
 ]
 ```
 
@@ -145,19 +145,19 @@ You can also specify default values:
 [
 	'username'    => mako\env('USERNAME', 'user'),
 	'password'    => mako\env('PASSWORD', '1234'),
-	'doSomething' => mako\env('DO_SOMETHING', false, as: Type::BOOL),
+	'doSomething' => mako\env('DO_SOMETHING', false, as: Type::Bool),
 ]
 ```
 
 By default, the `mako\env` function returns a string, but you can cast the return value to other types by using the `as` parameter.
 
-| Type                 | Description                                       |
-|----------------------|---------------------------------------------------|
-| Type::BOOL           | Casts the value to `TRUE` or `FALSE`              |
-| Type::INT            | Casts the value to an integer                     |
-| Type::FLOAT          | Casts the value to a float                        |
-| Type::JSON_AS_OBJECT | Casts a valid JSON object to an object            |
-| Type::JSON_AS_ARRAY  | Casts a valid JSON object to an associative array |
+| Type               | Description                                       |
+|--------------------|---------------------------------------------------|
+| Type::Bool         | Casts the value to `TRUE` or `FALSE`              |
+| Type::Int          | Casts the value to an integer                     |
+| Type::Float        | Casts the value to a float                        |
+| Type::JsonAsObject | Casts a valid JSON object to an object            |
+| Type::JsonAsArray  | Casts a valid JSON object to an associative array |
 
 > Note: If the value cannot be cast to the requested type, `null` or the specified default value will be returned instead.
 
