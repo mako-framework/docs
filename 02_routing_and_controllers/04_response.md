@@ -70,7 +70,7 @@ The `setStatus` method lets you set the response status.
 ```
 // You can set the status using the Status enum
 
-$this->response->setStatus(Status::NOT_FOUND);
+$this->response->setStatus(Status::NotFound);
 
 // Or by passing a valid status code integer
 
@@ -163,7 +163,7 @@ The default status code is `302` (Found), but you can override it by chaining th
 
 ```
 $responseBody = new Redirect('https://example.org')
-->setStatus(Status::FOUND);
+->setStatus(Status::Found);
 ```
 
 It is also possible to use the following methods to set the status code.

@@ -193,14 +193,14 @@ $status = $this->gatekeeper->login($email, $password, true);
 The possible statuses are:
 
 | Enum value                       | Description                                                                   |
-|----------------------------------|-------------------------------------------------------------------------------|
-| LoginStatus::OK                  | The user was successfully logged in                                           |
-| LoginStatus::INVALID_CREDENTIALS | The provided credentials are invalid                                          |
-| LoginStatus::NOT_ACTIVATED       | The account has not been activated                                            |
-| LoginStatus::BANNED              | The account has been banned                                                   |
-| LoginStatus::LOCKED              | The account has been temporarily locked due to too many failed login attempts |
+|---------------------------------|-------------------------------------------------------------------------------|
+| LoginStatus::Ok                 | The user was successfully logged in                                           |
+| LoginStatus::InvalidCredentials | The provided credentials are invalid                                          |
+| LoginStatus::NotActivated       | The account has not been activated                                            |
+| LoginStatus::Banned             | The account has been banned                                                   |
+| LoginStatus::Locked             | The account has been temporarily locked due to too many failed login attempts |
 
-You can also use the `toBool` method of the `LoginStatus` enum to check if the user was successfully logged in. The method will return `true` if the status is `LoginStatus::OK` and `false` if not.
+You can also use the `toBool` method of the `LoginStatus` enum to check if the user was successfully logged in. The method will return `true` if the status is `LoginStatus::Ok` and `false` if not.
 
 ```
 if($this->gatekeeper->login($email, $password)->toBool()) {
