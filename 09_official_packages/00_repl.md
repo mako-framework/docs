@@ -18,7 +18,6 @@ Install the package using the following composer command:
 ```
 composer require mako/repl
 ```
-{.language-none}
 
 Next, add the `mako\repl\ReplPackage` package to your `app/config/application.php` config file.
 
@@ -31,7 +30,6 @@ Start the interactive shell using the following reactor command.
 ```
 php app/reactor repl
 ```
-{.language-none}
 
 You should see something similar to this:
 
@@ -42,7 +40,6 @@ Type help to see a list of available commands.
 Psy Shell v0.8.0 (PHP 7.0.14 — cli) by Justin Hileman
 >>>
 ```
-{.language-none}
 
 There's an anonymous container aware class instance available as `$mako` by default. This allows you to easily interact with services registered in the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection#services).
 
@@ -63,4 +60,3 @@ In the example below we're selecting all records from our `tests` table using th
 	},
 }
 ```
-{.language-none}

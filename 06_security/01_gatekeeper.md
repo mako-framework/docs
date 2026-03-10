@@ -32,7 +32,7 @@ We'll need users and maybe a group or two before we can start authenticating and
 
 The `createUser` method allows you to create a new user. A user object is returned upon successful creation.
 
-```
+```php
 $user = $this->gatekeeper->createUser('foo@example.org', 'username', 'password');
 
 // You can also choose to activate the user upon creation
@@ -44,7 +44,7 @@ $user = $this->gatekeeper->createUser('foo@example.org', 'username', 'password',
 
 If you chose to create a user without activating it then you'll probably want to implement email validation using the action token which can be retrieved from the user object using the `getActionToken` method.
 
-```
+```php
 $token = $user->getActionToken();
 
 // Send the user an email with an activation link containing the token
@@ -55,13 +55,13 @@ $token = $user->getActionToken();
 
 To activate the user you'll have to use the `activateUser` method. The method will return `true` on success and `false` if the activation fails. The method will also automatically generate a new action token for the user upon successful activation.
 
-```
+```php
 $activated = $this->gatekeeper->activateUser($token);
 ```
 
 Action tokens can also be used to validate "forgot password" requests (etc...) and should always be regenerated upon a successful action. This can be done using the `generateActionToken` method.
 
-```
+```php
 $user->generateActionToken();
 
 $user->save();
@@ -69,7 +69,7 @@ $user->save();
 
 Users have a second type of token called "access tokens" that are used by gatekeeper to identify users. The token can be retrieved using the `getAccessToken` method. New access token can be generated using the `generateAccessToken` method.
 
-```
+```php
 $user->generateAccessToken();
 
 $user->save();
@@ -112,7 +112,7 @@ The user class also comes with the following methods in addition to the ones sho
 
 User passwords are hashed using the [hashing library](:base_url:/docs/:version:/security:password-hashing). You can change the hashing algorithm or the default computing cost by reimplementing the `getHasher` method of the user class.
 
-```
+```php
 protected function getHasher(): HasherInterface
 {
 	return new Bcrypt(['cost' => 14]);
@@ -125,7 +125,7 @@ protected function getHasher(): HasherInterface
 
 Users can be fetched from the database using the user repository.
 
-```
+```php
 $userRepository = $this->gatekeeper->getUserRepository();
 ```
 
@@ -142,7 +142,7 @@ The user repository class comes with the following methods:
 
 The `createGroup` method allows you to create a new group. A group object is returned upon successful creation.
 
-```
+```php
 $group = $this->gatekeeper->createGroup('admin');
 ```
 
@@ -165,7 +165,7 @@ The group class comes with the following methods:
 
 Groups can be fetched from the database using the group repository.
 
-```
+```php
 $groupRepository = $this->gatekeeper->getGroupRepository();
 ```
 
@@ -182,7 +182,7 @@ The group repository class comes with the following methods:
 
 The `login` method will attempt to log a user in. The method returns a `LoginStatus` enum instance.
 
-```
+```php
 $status = $this->gatekeeper->login($email, $password);
 
 // You can also tell gatekeeper to set a "remember me" cookie
@@ -202,7 +202,7 @@ The possible statuses are:
 
 You can also use the `toBool` method of the `LoginStatus` enum to check if the user was successfully logged in. The method will return `true` if the status is `LoginStatus::Ok` and `false` if not.
 
-```
+```php
 if($this->gatekeeper->login($email, $password)->toBool()) {
 	// The user was successfully logged in
 }
@@ -210,7 +210,7 @@ if($this->gatekeeper->login($email, $password)->toBool()) {
 
 The `forceLogin` method allows you to login a user without a password. It will return a `LoginStatus` enum instance.
 
-```
+```php
 $status = $this->gatekeeper->forceLogin($email);
 
 // You can also tell gatekeeper to set a "remember me" cookie
@@ -220,7 +220,7 @@ $status = $this->gatekeeper->forceLogin($email, true);
 
 The `basicAuth` method can be useful when creating simple APIs or if you don't want to create a full login page. It will return `true` if the user is logged in and `false` if not.
 
-```
+```php
 if ($this->gatekeeper->basicAuth() === false) {
 	return 'Authentication required.';
 }
@@ -233,25 +233,25 @@ if ($this->gatekeeper->basicAuth() === false) {
 
 The `isGuest` method returns `false` if the user is logged in and `true` if not.
 
-```
+```php
 $isGuest = $this->gatekeeper->isGuest();
 ```
 
 The `isLoggedIn` method returns `true` of the user is logged in and `false` if not.
 
-```
+```php
 $isLoggedIn = $this->gatekeeper->isLoggedIn();
 ```
 
 The `getUser` method will return a user object if the user is logged in and `null` if not.
 
-```
+```php
 $user = $this->gatekeeper->getUser();
 ```
 
 The `logout` method will log out the user and delete the "remember me" cookie if it is set.
 
-```
+```php
 $this->gatekeeper->logout();
 ```
 
@@ -265,7 +265,7 @@ The authorization component of the gatekeeper library allows you to check if a u
 
 Authorization logic is defined in policy classes so that it can be reused anywhere in your application. In the example below we'll create a simple policy that authorizes the `view`, `create`, and `edit` actions on a article entity.
 
-```
+```php
 <?php
 
 namespace app\policies;
@@ -302,7 +302,7 @@ class ArticlePolicy extends Policy
 
 The policy above extends the `Policy` class but you can choose to implement the `PolicyInterface` interface yourself if you want to implement the `before` method which lets you perform common checks in a single place.
 
-```
+```php
 public function before(?UserEntityInterface $user, string $action, $entity): ?bool
 {
 	if ($user !== null && $user->isMemberOf('admins')) {
@@ -317,7 +317,7 @@ public function before(?UserEntityInterface $user, string $action, $entity): ?bo
 
 Before we can use the policy we'll have to associate it with the corresponding entity. This is done in the `app/config/gatekeeper.php` configuration file. The array key is the class name of the entity and the value is the class name of the corresponding policy.
 
-```
+```php
 [
 	Article::class => ArticlePolicy::class,
 ]
@@ -327,7 +327,7 @@ Before we can use the policy we'll have to associate it with the corresponding e
 
 There are multiple ways of checking if a user is authorized to perform a certain action. The authorizer `can` method lets you authorize both guests and authenticated users.
 
-```
+```php
 if ($this->authorizer->can($user, 'view', $article) === false) {
 	throw new ForbiddenException;
 }
@@ -337,7 +337,7 @@ if ($this->authorizer->can($user, 'view', $article) === false) {
 
 If you already know that you have an authenticated user then you can use the `can` method of the user class.
 
-```
+```php
 if ($user->can('edit', $article) === false) {
 	throw new ForbiddenException;
 }
@@ -347,7 +347,7 @@ if ($user->can('edit', $article) === false) {
 
 And finally if your controller uses the `AuthorizationTrait` trait then you can use the `authorize` method that allows you to authorize both guests and authenticated users. It will automatically throw a `ForbiddenException` if the authorization fails.
 
-```
+```php
 $this->authorize('view', $article);
 
 ...
@@ -355,7 +355,7 @@ $this->authorize('view', $article);
 
 You'll not always be able to authorize actions on a entity instance so it is also possible to pass the class name.
 
-```
+```php
 $this->authorize('create', Article::class);
 
 ...
@@ -372,7 +372,7 @@ The gatekeeper library requires three database tables: a users table, a groups t
 [collapse:Click to view]
 Users table
 
-```
+```sql
 CREATE TABLE `users` (
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	`created_at` datetime NOT NULL,
@@ -393,11 +393,10 @@ CREATE TABLE `users` (
 	UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
-{.language-sql}
 
 Groups table
 
-```
+```sql
 CREATE TABLE `groups` (
 	`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	`created_at` datetime NOT NULL,
@@ -407,11 +406,10 @@ CREATE TABLE `groups` (
 	UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
-{.language-sql}
 
 Junction table
 
-```
+```sql
 CREATE TABLE `groups_users` (
 	`group_id` int(11) unsigned NOT NULL,
 	`user_id` int(11) unsigned NOT NULL,
@@ -428,7 +426,6 @@ CREATE TABLE `groups_users` (
 		ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
-{.language-sql}
 [/collapse]
 
 #### <a id="database_schema:postgresql" href="#database_schema:postgresql">PostgreSQL</a>
@@ -436,7 +433,7 @@ CREATE TABLE `groups_users` (
 [collapse:Click to view]
 Users table
 
-```
+```sql
 CREATE TABLE "users" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
 	"created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
@@ -454,11 +451,10 @@ CREATE TABLE "users" (
 	"locked_until" TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL
 );
 ```
-{.language-sql}
 
 Groups table
 
-```
+```sql
 CREATE TABLE "groups" (
 	"id" SERIAL NOT NULL PRIMARY KEY,
 	"created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
@@ -466,11 +462,10 @@ CREATE TABLE "groups" (
 	"name" VARCHAR(255) NOT NULL UNIQUE
 );
 ```
-{.language-sql}
 
 Junction table
 
-```
+```sql
 CREATE TABLE "groups_users" (
 	"group_id" INTEGER NOT NULL REFERENCES "groups" ON DELETE CASCADE,
 	"user_id" INTEGER NOT NULL REFERENCES "users" ON DELETE CASCADE,
@@ -481,7 +476,6 @@ CREATE INDEX "groups_users_group_id_idx" ON "groups_users" USING btree("group_id
 
 CREATE INDEX "groups_users_user_id_idx" ON "groups_users" USING btree("user_id");
 ```
-{.language-sql}
 [/collapse]
 
 #### <a id="database_schema:sqlite" href="#database_schema:sqlite">SQLite</a>
@@ -489,7 +483,7 @@ CREATE INDEX "groups_users_user_id_idx" ON "groups_users" USING btree("user_id")
 [collapse:Click to view]
 Users table
 
-```
+```sql
 CREATE TABLE `users` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`created_at` TEXT NOT NULL,
@@ -509,11 +503,10 @@ CREATE TABLE `users` (
 	CONSTRAINT `email` UNIQUE (`email`)
 );
 ```
-{.language-sql}
 
 Groups table
 
-```
+```sql
 CREATE TABLE `groups` (
 	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
 	`created_at` TEXT NOT NULL,
@@ -522,11 +515,10 @@ CREATE TABLE `groups` (
 	CONSTRAINT `name` UNIQUE (`name`)
 );
 ```
-{.language-sql}
 
 Junction table
 
-```
+```sql
 CREATE TABLE `groups_users` (
 	`group_id` INTEGER NOT NULL,
 	`user_id` INTEGER NOT NULL,
@@ -541,7 +533,6 @@ CREATE TABLE `groups_users` (
 CREATE INDEX `group_id` ON `groups_users` (`group_id`);
 CREATE INDEX `user_id` ON `groups_users` (`user_id`);
 ```
-{.language-sql}
 [/collapse]
 
 --------------------------------------------------------
@@ -552,7 +543,7 @@ Gatekeeper comes with a session based adapter out of the box but you can impleme
 
 In the examples above we have chosen to use the gatekeeper class as a proxy to the default adapter. You can specify which adapter to use by calling the `adapter` method.
 
-```
+```php
 // Default adapter
 
 $adapter = $this->gatekeeper->adapter();
@@ -564,7 +555,7 @@ $adapter = $this->gatekeeper->adapter('custom');
 
 You can choose to replace the default adapter by creating a custom [`GatekeeperService`](:base_url:/docs/:version:/getting-started:dependency-injection#services) or you can add additional adapters by registering them using the `extend` method.
 
-```
+```php
 // Register an instance
 
 $this->gatekeeper->extend(new CustomAdapter);
@@ -579,6 +570,6 @@ $this->gatekeeper->extend(['custom', fn () => new CustomAdapter])
 
 You can switch the default adapter at any time by using the `useAsDefaultAdapter` method.
 
-```
+```php
 $this->gatekeeper->useAsDefaultAdapter('custom');
 ````

@@ -18,7 +18,6 @@ Install the package using the following composer command:
 ```
 composer require mako/toolbar
 ```
-{.language-none}
 
 Next, add the `mako\toolbar\ToolbarPackage` package to your `app/config/application.php` config file.
 
@@ -26,13 +25,13 @@ Finally, you need to make sure that the toolbar gets rendered. The quickest way 
 
 You should make sure that the middleware gets executed first to ensure that the toolbar is able to collect all the information about your application.
 
-```
+```php
 $dispatcher->setMiddlewarePriority(ToolbarMiddleware::class, 1);
 ```
 
 You can now add the middleware to the routes of your choice or make it global if you want to apply it to all your routes.
 
-```
+```php
 $dispatcher->registerGlobalMiddleware(ToolbarMiddleware::class);
 ```
 
@@ -46,7 +45,7 @@ Custom panels must implement the `PanelInterface` class. You can extend the `Pan
 
 In the following example we'll create a simple dummy panel. First, lets start by creating the toolbar class.
 
-```
+```php
 <?php
 
 namespace app\toolbar\panels;
@@ -71,7 +70,7 @@ class HelloWorldPanel extends Panel implements PanelInterface
 
 Next, we'll need to create a view for our toolbar.
 
-```
+```html
 <div class="mako-panel-header">
 	<span class="mako-title">Hello, World!</span>
 </div>
@@ -87,6 +86,6 @@ Next, we'll need to create a view for our toolbar.
 
 All we have to do now is to add our custom panel to the toolbar:
 
-```
+```php
 $toolbar->addPanel(new HelloWorldPanel($container->get(ViewFactory::class)));
 ```

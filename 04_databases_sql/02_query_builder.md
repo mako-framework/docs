@@ -51,7 +51,7 @@ The query builder currently supports the following dialects:
 
 You can create a query builder instance using the `Connection::getQuery()` method.
 
-```
+```php
 $query = $connection->getQuery();
 ```
 
@@ -61,7 +61,7 @@ $query = $connection->getQuery();
 
 If you only want to retrieve a single row then you can use the `first` method.
 
-```
+```php
 $person = $query->table('persons')->where('id', '=', 1)->first();
 ```
 
@@ -69,7 +69,7 @@ $person = $query->table('persons')->where('id', '=', 1)->first();
 
 If you want to throw an exception if there isn't a matching record then you can use the `firstOrThrow` method.
 
-```
+```php
 // By default if throws a mako\database\exceptions\NotFoundException
 
 $person = $query->table('persons')->where('id', '=', 1)->firstOrThrow();
@@ -82,19 +82,19 @@ $person = $query->table('persons')->where('id', '=', 1)->firstOrThrow(NotFoundEx
 
 Fetching all rows is done using the `all` method.
 
-```
+```php
 $persons = $query->table('persons')->all();
 ```
 
 You can also specify which columns you want to include in the result set
 
-```
+```php
 $persons = $query->table('persons')->select(['name', 'email'])->all();
 ```
 
 To make a distinct selection use the `distinct` method
 
-```
+```php
 $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all();
 ```
 
@@ -102,7 +102,7 @@ $persons = $query->table('persons')->select(['name', 'email'])->distinct()->all(
 
 Selecting from the results of a subquery is also possible.
 
-```
+```php
 $persons = $query->table(new Subquery(function ($query) {
 	$query->table('persons')->select(['name'])->distinct();
 }, 'distinct_names'))
@@ -112,7 +112,7 @@ $persons = $query->table(new Subquery(function ($query) {
 
 You can also use the `as` method of the `Subquery` to set the subquery table alias.
 
-```
+```php
 $persons = $query->table((new Subquery(function ($query) {
 	$query->table('persons')->select(['name'])->distinct();
 }))->as('distinct_names'))
@@ -122,7 +122,7 @@ $persons = $query->table((new Subquery(function ($query) {
 
 Advanced column selections can also be made using raw SQL and subqueries.
 
-```
+```php
 $persons = $query->table('persons')->select([
 	'name',
 	'email',
@@ -136,7 +136,7 @@ $persons = $query->table('persons')->select([
 
 If you need to process a large dataset and don't want to put the entire result set in memory then you can use the `yield` method. It returns a generator that lets you iterate over the result set.
 
-```
+```php
 $persons = $query->table('persons')->select(['name', 'email'])->yield();
 
 foreach ($persons as $person) {
@@ -151,7 +151,7 @@ In addition to using the `yield` method to process large amounts of data you can
 
 You can also set the offset starting point and offset end point using the optional third and fourth parameters respectively. This is useful if you have parallel workers processing data.
 
-```
+```php
 $query->table('persons')->ascending('id')->batch(function ($batch) {
 	// Process the batch here
 });
@@ -159,7 +159,7 @@ $query->table('persons')->ascending('id')->batch(function ($batch) {
 
 Fetching the value of a single column is done using the `column` method.
 
-```
+```php
 $email = $query->table('persons')->select(['email'])->where('id', '=', 1)->column();
 
 // You can also use the following syntax
@@ -169,7 +169,7 @@ $email = $query->table('persons')->where('id', '=', 1)->column('email');
 
 It is also possible to fetch an array containing the values of a single column using the `columns` method.
 
-```
+```php
  $emails = $query->table('persons')->select(['email'])->columns();
 
  // You can also use the following syntax
@@ -179,13 +179,13 @@ It is also possible to fetch an array containing the values of a single column u
 
 The `pairs` method allows you to fetch an array where the first column is used as the array keys and the second is used as the array values.
 
-```
+```php
 $pairs = $query->table->('users')->pairs('id', 'email');
 ```
 
 The `blob` method allows you to stream the contents of a blob column. The method will return `null` if no matching record is found.
 
-```
+```php
 $stream = $query->table->('images')->where('id', '=', 1)->blob('image');
 
 if ($stream !== null) {
@@ -205,14 +205,14 @@ if ($stream !== null) {
 
 Inserting data is done using the `insert` method.
 
-```
+```php
 $query->table('foobars')
 ->insert(['field1' => 'foo', 'field2' => new DateTime]);
 ```
 
 If you want to insert multiple rows in a single query then you can use the `insertMultiple` method.
 
-```
+```php
 $query->table('foobars')
 ->insertMultiple(
 	['field1' => 'foo1', 'field2' => new DateTime],
@@ -222,7 +222,7 @@ $query->table('foobars')
 
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
 
-```
+```php
 $query->table('foobars')
 ->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
 ```
@@ -231,7 +231,7 @@ $query->table('foobars')
 
 Sometimes you want to insert data only if a matching record doesn't already exist. This is where the `insertOrUpdate` method comes in handy. The first parameter is the values you want to insert when creating a new record while the second parameter is the values you want to update in case of a conflict.
 
-```
+```php
 $query->table('foobars')
 ->insertOrUpdate(
 	['field1' => 'foo', 'field2' => new DateTime], 
@@ -243,7 +243,7 @@ There is also a optional third parameter that lets you define the conflict targe
 
 It is advised to use the third optional parameter if you want your code to be database agnostic. The value will simply be ignored when querying databases that don't require it to be set.
 
-```
+```php
 $query->table('foobars')
 ->insertOrUpdate(
 	['field1' => 'foo', 'field2' => new DateTime], 
@@ -256,7 +256,7 @@ You can also insert and return data in a single query using the `insertAndReturn
 
 The first parameter of the `insertAndReturn` method is the row you want to insert and the second parameter is the names of the fields you want to return after the insert.
 
-```
+```php
 $query->table('foobars')
 ->insertAndReturn(
 	['field1' => 'foo', 'field2' => new DateTime]
@@ -266,7 +266,7 @@ $query->table('foobars')
 
 The first parameter of the `insertMultipleAndReturn` method is the names of the fields you want to return after the insert and the following parameters are the rows you want to insert.
 
-```
+```php
 $query->table('foobars')
 ->insertMultipleAndReturn(
 	['id'],
@@ -281,7 +281,7 @@ $query->table('foobars')
 
 Updating data is done using the `update` method.
 
-```
+```php
 $query->table('foobars')
 ->where('id', '=', 10)
 ->update(['field1' => 'foo', 'field2' => new DateTime]);
@@ -289,7 +289,7 @@ $query->table('foobars')
 
 You can also use the `updateAndReturn` method to modify data while retrieving the updated values in a single operation. This can be particularly useful when you need to track changes without making additional queries. The method is currently supported by the [Firebird](https://www.firebirdsql.org/), [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/) and [SQL Server](https://www.microsoft.com/sql-server) query compilers.
 
-```
+```php
 $updated = $query->table('articles')
 ->where('published', '=', 0)
 ->updateAndReturn(
@@ -300,7 +300,7 @@ $updated = $query->table('articles')
 
 There are also shortcuts for incrementing and decrementing column values:
 
-```
+```php
 $query->table('articles')->where('id', '=', 1)->increment('views');
 
 $query->table('articles')->where('id', '=', 1)->increment('views', 10);
@@ -316,7 +316,7 @@ $query->table('shows')->where('id', '=', 1)->decrement('tickets', 50);
 
 Deleting data is done using the `delete` method.
 
-```
+```php
 $query->table('articles')->where('id', '=', 10)->delete();
 ```
 
@@ -326,7 +326,7 @@ $query->table('articles')->where('id', '=', 10)->delete();
 
 The query builder also includes a few handy shortcuts to the most common aggregate functions:
 
-```
+```php
 // Counting
 
 $count = $query->table('persons')->count();
@@ -372,7 +372,7 @@ $height = $query->table('persons')->where('age', '>', 25)->sum('height');
 
 where(), orWhere(), whereColumn(), orWhereColumn(), whereRaw(), orWhereRaw(), whereDate(), orWhereDate()
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` > 25
 
 $persons = $query->table('persons')->where('age', '>', 25)->all();
@@ -397,7 +397,7 @@ $persons = $query->table('persons')
 
 The `whereColumn` and `orWhereColumn` methods allow you to compare two columns.
 
-```
+```php
 // SELECT * FROM `persons` WHERE `first_name` = `last_name`
 
 $persons = $query->table('persons')->whereColumn('first_name', '=', 'last_name')->all();
@@ -405,7 +405,7 @@ $persons = $query->table('persons')->whereColumn('first_name', '=', 'last_name')
 
 The `wereRaw` and `orWhereRaw` methods allow you to set a "raw" parameter value or to write an entire sql expression.
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` > AVG(`age`)
 
 $persons = $query->table('persons')->whereRaw('age', '>', 'AVG(`age`)')->all();
@@ -417,7 +417,7 @@ $persons = $query->table('persons')->whereRaw('MATCH(`name`) AGAINST (? IN BOOLE
 
 The `whereDate` and `orWhereDate` methods allow you to easily match records based on the date portion of a datetime column. The methods accept dates in the `YYYY-MM-DD` format and instances of `DateTimeInterface`.
 
-```
+```php
 // SELECT * FROM `articles` WHERE `created_at` > '2019-07-08 23:59:59.999999'
 
 $articles = $query->table('articles')->whereDate('created_at', '>', '2019-07-08')->all();
@@ -427,7 +427,7 @@ $articles = $query->table('articles')->whereDate('created_at', '>', '2019-07-08'
 
 between(), orBetween(), notBetween(), orNotBetween(), betweenDate(), orBetweenDate(), notBetweenDate(), orNotBetweenDate()
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` BETWEEN 20 AND 25
 
 $persons = $query->table('persons')->between('age', 20, 25)->all();
@@ -439,7 +439,7 @@ $persons = $query->table('persons')->between('age', 20, 25)->orBetween('age', 30
 
 The `betweenDate`, `orBetweenDate`, `notBetweenDate` and `orNotBetweenDate` methods make it easy to match records between two dates using the date portion of a datetime column. The methods accept dates in the `YYYY-MM-DD` format and instances of `DateTimeInterface`.
 
-```
+```php
 // SELECT * FROM `articles` WHERE `created_at` 
 // BETWEEN '2019-07-01 00:00:00.000000' AND '2019-07-31 23:59:59.999999'
 
@@ -450,7 +450,7 @@ $articles = $query->table('articles')->betweenDate('created_at', '2019-07-01', '
 
 in(), orIn(), notIn(), orNotIn()
 
-```
+```php
 // SELECT * FROM `persons` WHERE `id` IN (1, 2, 3, 4, 5)
 
 $persons = $query->table('persons')->in('id', [1, 2, 3, 4, 5])->all();
@@ -468,7 +468,7 @@ $persons = $query->table('persons')
 
 isNull(), orIsNull(), isNotNull(), orIsNotNull()
 
-```
+```php
 // SELECT * FROM `persons` WHERE `address` IS NULL
 
 $persons = $query->table('persons')->isNull('address')->all();
@@ -478,7 +478,7 @@ $persons = $query->table('persons')->isNull('address')->all();
 
 exists(), orExists(), notExists(), orNotExists()
 
-```
+```php
 // SELECT * FROM `persons` WHERE EXISTS (SELECT * FROM `cars` WHERE `cars`.`person_id` = `persons`.`id`)
 
 $persons = $query->table('persons')
@@ -492,7 +492,7 @@ $persons = $query->table('persons')
 
 join(), joinRaw(), leftJoin(), leftJoinRaw(), rightJoin(), rightJoinRaw(), crossJoin(), lateralJoin()
 
-```
+```php
 // SELECT * FROM `persons` INNER JOIN `phones` ON `persons`.`id` = `phones`.`user_id`
 
 $persons = $query->table('persons')->join('phones', 'persons.id', '=', 'phones.user_id')->all();
@@ -530,7 +530,7 @@ $customers = $query->table('customers')
 
 groupBy()
 
-```
+```php
 // SELECT `customer`, `order_date`, SUM(`order_price`) as `sum` FROM `orders` GROUP BY `customer`
 
 $customers = $query->table('orders')
@@ -550,7 +550,7 @@ $customers = $query->table('orders')
 
 having(), havingRaw(), orHaving(), orHavingRaw()
 
-```
+```php
 // SELECT `customer`, SUM(`price`) AS `sum` FROM `orders` GROUP BY `customer` HAVING SUM(`price`) < 2000
 
 $customers = $query->table('orders')
@@ -564,7 +564,7 @@ $customers = $query->table('orders')
 
 orderBy(), orderByRaw(), descending(), descendingRaw(), ascending(), ascendingRaw(), orderByNullsFirst(), orderByNullsLast(), ascendingNullsFirst(), descendingNullsFirst(), ascendingNullsLast(), descendingNullsLast()
 
-```
+```php
 // SELECT * FROM `persons` ORDER BY `name` ASC
 
 $persons = $query->table('persons')->orderBy('name', SortDirection::Ascending)->all();
@@ -590,7 +590,7 @@ $persons = $query->table('persons')->orderBy(['name', 'age'], SortDirection::Asc
 
 limit(), offset(), paginate()
 
-```
+```php
 // SELECT * FROM `persons` LIMIT 10
 
 $persons = $query->table('persons')->limit(10)->all();
@@ -602,7 +602,7 @@ $persons = $query->table('persons')->limit(10)->offset(10)->all();
 
 You can also use the [`paginate` method](:base_url:/docs/:version:/learn-more:pagination#usage_with_the_query_builder) to limit your results.
 
-```
+```php
 // SELECT * FROM `persons` LIMIT 10 OFFSET 0
 
 $persons = $query->table('persons')->paginate(10);
@@ -616,7 +616,7 @@ Vector queries are currently supported by `MariaDB`, `MySQL`, and `PostgreSQL`, 
 
 Vectors can be inserted into the database by wrapping them in the `Vector` value class.
 
-```
+```php
 // Use mako\database\query\values\in\Vector for input
 
 $query = $query
@@ -628,7 +628,7 @@ $query = $query
 
 Vectors can be selected using the `Vector` class. You may chain the `as` method to alias the selected column.
 
-```
+```php
 // Use mako\database\query\values\out\Vector for output
 
 $query = $query
@@ -640,7 +640,7 @@ $query = $query
 
 You can also select vector distances using the `VectorDistance` class. The first parameter is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter. You may chain the `as` method to alias the selected value.
 
-```
+```php
 // Use mako\database\query\values\out\VectorDistance for output
 // Use mako\database\query\VectorDistance to set the type
 
@@ -653,7 +653,7 @@ $query = $query
 
 You can filter by vector distance using the `whereVectorDistance` and `orWhereVectorDistance` methods. The first parameter is the name of the vector column, the second is the vector you want to compare against, and the third is the maximum allowed distance. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional fourth parameter.
 
-```
+```php
 // Use mako\database\query\VectorDistance to set the type
 
 $query = $query
@@ -665,7 +665,7 @@ $query = $query
 
 You can also sort by vector distance using the `orderByVectorDistance`, `ascendingVectorDistance`, and `descendingVectorDistance` methods. The first argument is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter.
 
-```
+```php
 // Use mako\database\query\VectorDistance to set the type
 
 $query = $query
@@ -683,7 +683,7 @@ with(), withRecursive()
 
 The `with` method allows you to add common table expressions to your queries.
 
-```
+```php
 // WITH `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
 $result = $query->with('cte', [], new Subquery(function ($query) {
@@ -700,7 +700,7 @@ $result = $query->with('cte', ['one', 'two', 'three'], new Subquery(function ($q
 
 You can also add recursive common table expressions using the `withRecursive` method.
 
-```
+```php
 // WITH RECURSIVE `cte` AS (SELECT 1, 2, 3) SELECT * FROM `cte`
 
 $result = $query->withRecursive('cte', [], new Subquery(function ($query) {
@@ -725,7 +725,7 @@ union(), unionAll(), intersect(), intersectAll(), except(), exceptAll()
 
 You can also combine the results of multiple queries into a single result set using set operations.
 
-```
+```php
 // SELECT * FROM `sales2015` UNION SELECT * FROM `sales2016`
 
 $result = $query->table('sales2015')->union()->table('sales2016')->all();
@@ -739,7 +739,7 @@ lock(), sharedLock()
 
 The `lock()` method can be used to enable row-level locking during database transactions.
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` = 30 FOR UPDATE
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
@@ -747,7 +747,7 @@ $persons = $query->table('persons')->where('age', '=', 30)->lock()->all();
 
 It will use an exclusive lock by default but you can enable shared locking by passing `false` to the `lock()` method or by using the `sharedLock()` method.
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` = 30 LOCK IN SHARE MODE
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
@@ -755,7 +755,7 @@ $persons = $query->table('persons')->where('age', '=', 30)->lock(false)->all();
 
 It is also possible to provide a custom locking clause.
 
-```
+```php
 // SELECT * FROM `persons` WHERE `age` = 30 CUSTOM LOCK
 
 $persons = $query->table('persons')->where('age', '=', 30)->lock('CUSTOM LOCK')->all();
@@ -781,7 +781,7 @@ Sometimes you'll find yourself in situations where you have to use dialect speci
 
 The first parameter is the compiler class name and the second one is a closure where you can build upon the query.
 
-```
+```php
 $events = $query->table('events')
 ->forCompiler(PostgreSQL::class, function ($query) {
 	$query->whereRaw('EXTRACT(YEAR FROM "date") = ?', ['1337']);
@@ -798,7 +798,7 @@ $events = $query->table('events')
 
 The query builder features a unified syntax for querying JSON data and it currently supports `MySQL`, `Oracle`, `PostgreSQL`, `SQLServer` and `SQLite`.
 
-```
+```php
 $foos = $query->table('articles')
 ->select(['meta->foo as foo'])
 ->where('meta->bar', '=', json_encode(1))
@@ -807,7 +807,7 @@ $foos = $query->table('articles')
 
 You can also use the unified syntax to update JSON values. This feature currently supports `MySQL`, `PostgreSQL` (jsonb), `SQLServer` and `SQLite`.
 
-```
+```php
 $query->table('articles')->update(['meta->bar' => json_encode(0)]);
 ```
 
@@ -819,13 +819,13 @@ You can convert both single result and result set objects to arrays and JSON usi
 
 > The `toJson` method accepts the same optional option flags as the [`json_encode`](https://php.net/manual/en/function.json-encode.php) function.
 
-```
+```php
 $json = (string) $query->table('articles')->select(['id', 'title', 'content'])->limit(10)->all();
 ```
 
 The code above will result in the following JSON:
 
-```
+```json
 [
 	{"id": 1, "title": "Article 1", "content": "Article 1 content"},
 	{"id": 2, "title": "Article 2", "content": "Article 2 content"},
@@ -834,11 +834,10 @@ The code above will result in the following JSON:
 	{"id": 10, "title": "Article 10", "content": "Article 10 content"}
 ]
 ```
-{.language-json}
 
 Data fetched using the `paginate` method will return a JSON object instead of an array. The records are available as `data` while pagination information is available as `pagination`:
 
-```
+```json
 {
 	"data": [
 		{"id": 1, "title": "Article 1", "content": "Article 1 content"},
@@ -859,4 +858,3 @@ Data fetched using the `paginate` method will return a JSON object instead of an
 	}
 }
 ```
-{.language-json}

@@ -30,7 +30,7 @@ The mako validator provides a simple and consistent way of validating user input
 
 First you'll need to define a set of rules that you want to validate your input against.
 
-```
+```php
 $rules = [
 	'username' => ['required', 'min_length(4)', 'max_length(20)'],
 	'password' => ['required'],
@@ -44,7 +44,7 @@ The rules defined above will make sure that the username, password and email fie
 
 Next you'll need to create a validator object. The first parameter is the input data you want to validate and the second is the set of validation rules you just defined.
 
-```
+```php
 $postData = $this->request->getPost();
 
 $validator = $this->validator->create($postData->all(), $rules);
@@ -54,7 +54,7 @@ Now all that is left is to check if the input data is valid using either of the 
 
 The `getValidatedInput` method returns the validated input data and throws a `ValidationException` if any of the rules fail. You can retrieve the validation errors using the `ValidationException::getErrors()` method.
 
-```
+```php
 $validatedInput = $validator->getValidatedInput();
 ```
 
@@ -63,7 +63,7 @@ $validatedInput = $validator->getValidatedInput();
 
 The `isValid` method returns `true` if the input is valid and `false` if not, while the `isInvalid` method returns `false` when the input validates and `true` when not.
 
-```
+```php
 if ($validator->isValid()) {
 	// Do something
 }
@@ -71,13 +71,13 @@ if ($validator->isValid()) {
 
 Retrieving the error messages is done using the `getErrors` method
 
-```
+```php
 $errors = $validator->getErrors();
 ```
 
 You can also assign it to a variable by passing it to either of the `isValid` or `isInvalid` methods.
 
-```
+```php
 if ($validator->isValid($errors)) {
 	// Do something
 }
@@ -87,7 +87,7 @@ if ($validator->isValid($errors)) {
 
 The validator also supports nested arrays. You can assign validation rule sets to nested fields using the "dot notation" syntax.
 
-```
+```php
 $rules = [
 	'user.email' => ['required', 'email'],
 ];
@@ -95,7 +95,7 @@ $rules = [
 
 You can also apply rule sets to multiple keys using wildcards.
 
-```
+```php
 $rules = [
 	'users.*.email' => ['email'],
 ];
@@ -107,7 +107,7 @@ $rules = [
 
 You can add rule sets to your validator instance if a certain condition is met using either the `addRules` or `addRulesIf` methods.
 
-```
+```php
 $validator->addRulesIf('state', ['required', 'valid_us_state'], function () use ($postData) {
 	return $postData->get('country') === 'United States of America';
 });
@@ -119,7 +119,7 @@ $validator->addRulesIf('state', ['required', 'valid_us_state'], function () use 
 
 Mako comes with a handy helper function called `mako\f` that makes it easier to build rule sets that have rules with dynamic arguments. The first parameter of the function is the name of the validation rule and any subsequent arguments are treated as rule arguments.
 
-```
+```php
 use function mako\f;
 
 $rules = [
@@ -253,7 +253,7 @@ All error messages are defined in the `app/i18n/*/strings/validate.php` language
 
 Adding custom field specific error messages can be done using the `overrides.messages` array:
 
-```
+```php
 'overrides' =>
 [
 	'messages' =>
@@ -268,7 +268,7 @@ Adding custom field specific error messages can be done using the `overrides.mes
 
 You can also add custom field name translations using the `overrides.fieldnames` array:
 
-```
+```php
 'overrides' =>
 [
 	'fieldnames' =>
@@ -284,7 +284,7 @@ You can also add custom field name translations using the `overrides.fieldnames`
 
 You can, of course, create your own custom validator rules. All rules must implement the `RuleInterface` interface.
 
-```
+```php
 <?php
 
 use mako\validator\rules\RuleInterface;
@@ -326,19 +326,19 @@ If you want it to return error messages from a language file then you'll have to
 
 You can register your custom rules with the validation factory, thus making it available to all future validator instances.
 
-```
+```php
 $this->validator->extend('is_foo', IsFooRule::class);
 ```
 
 You can also register it into an existing validator instance.
 
-```
+```php
 $validator->extend('is_foo', IsFooRule::class);
 ```
 
 Or you can just use the class name when setting up your input validation.
 
-```
+```php
 $rules = [
 	'foo' => ['required', IsFooRule::class],
 ];
@@ -356,7 +356,7 @@ The middleware will catch `ValidationException` exceptions and convert them to a
 
 The trait includes two helpful methods, `getValidatedInput` and `getValidatedFiles`, that will allow you to validate user input as well as uploaded files.
 
-```
+```php
 <?php
 
 namespace app\http\controllers;

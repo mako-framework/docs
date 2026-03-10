@@ -31,7 +31,7 @@ The query bus is used to handle queries. One example is a `GetUserQuery` query w
 
 First let's create a simple DTO class for holding the command data.
 
-```
+```php
 readonly class CreateUserCommand
 {
     public function __construct(
@@ -45,7 +45,7 @@ readonly class CreateUserCommand
 
 Next we'll create a handler using an invokable class.
 
-```
+```php
 class CreateUserHandler
 {
     public function __construct(
@@ -66,13 +66,13 @@ class CreateUserHandler
 
 For the sake of simplicity we'll register the handler by calling the `CommandBus::registerHandler()` method. Head down to the "[registering handlers](#registering_handlers)" section of the documentation to see the suggested way of registering handlers in your application.
 
-```
+```php
 $this->commandBus->registerHandler(CreateUserCommand::class, CreateUserHandler::class);
 ```
 
 Finally we can handle our command using the command bus.
 
-```
+```php
 $this->commandBus->handle(new CreateUserCommand('foo@example.org', 'foo', 'supersecurepassword'));
 ```
 
@@ -82,7 +82,7 @@ $this->commandBus->handle(new CreateUserCommand('foo@example.org', 'foo', 'super
 
 First let's create a simple DTO class for holding the event data.
 
-```
+```php
 readonly class UserCreatedEvent
 {
     public function __construct(
@@ -95,7 +95,7 @@ readonly class UserCreatedEvent
 
 Next we'll create a handler using an invokable class.
 
-```
+```php
 class UserCreatedHandler
 {
     public function __construct(
@@ -115,13 +115,13 @@ class UserCreatedHandler
 
 For the sake of simplicity we'll register the handler by calling the `EventBus::registerHandler()` method. Head down to the "[registering handlers](#registering_handlers)" section of the documentation to see the suggested way of registering handlers in your application.
 
-```
+```php
 $this->eventBus->registerHandler(UserCreatedEvent::class, UserCreatedHandler::class);
 ```
 
 Finally we can handle our event using the event bus.
 
-```
+```php
 $this->eventBus->handle(new UserCreatedEvent('foo@example.org', 'foo'));
 ```
 
@@ -131,7 +131,7 @@ $this->eventBus->handle(new UserCreatedEvent('foo@example.org', 'foo'));
 
 First let's create a simple DTO class for holding the query data.
 
-```
+```php
 readonly class GetUserQuery
 {
     public function __construct(
@@ -143,7 +143,7 @@ readonly class GetUserQuery
 
 Next we'll create a handler using an invokable class.
 
-```
+```php
 class GetUserHandler
 {
     public function __construct(
@@ -165,13 +165,13 @@ class GetUserHandler
 
 For the sake of simplicity we'll register the handler by calling the `QueryBus::registerHandler()` method. Head down to the "[registering handlers](#registering_handlers)" section of the documentation to see the suggested way of registering handlers in your application.
 
-```
+```php
 $this->queryBus->registerHandler(GetUserQuery::class, GetUserHandler::class);
 ```
 
 Finally we can handle our query using the query bus.
 
-```
+```php
 $user = $this->queryBus->handle(new GetUserQuery(1));
 ```
 
@@ -181,7 +181,7 @@ $user = $this->queryBus->handle(new GetUserQuery(1));
 
 The Mako skeleton application comes with a `BusService` that allows you to register your command, event and query handlers in a sentralized place using the `getCommandHandlers`, `getEventHandlers` and `getQueryHandlers` methods.
 
-```
+```php
 <?php
 
 namespace app\services;

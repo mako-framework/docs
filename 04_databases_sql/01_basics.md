@@ -27,7 +27,7 @@ The database connection manager provides a simple way of handling database conne
 
 Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
-```
+```php
 // Returns connection object using the "default" database configuration defined in the config file
 
 $connection = $this->database->getConnection();
@@ -41,13 +41,13 @@ $connection = $this->database->getConnection('mydb');
 
 You can check if a connection is still alive using the `Connection::isAlive()` method. It will return `true` if it is and `false` if not.
 
-```
+```php
 $isConnectionAlive = $connection->isAlive();
 ```
 
 You can attempt to reconnect using the `Connection::reconnect()` method.
 
-```
+```php
 $connection->reconnect();
 ```
 
@@ -57,7 +57,7 @@ $connection->reconnect();
 
 You can access the default database connection directly without having to go through the `getConnection` method thanks to the magic `__call` method.
 
-```
+```php
 $this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 ```
 
@@ -69,13 +69,13 @@ $this->database->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit
 
 The `Connection::query()` method lets you execute a query. It returns `true` on success and `false` on failure.
 
-```
+```php
 $connection->query('INSERT INTO `foo` (`bar`, `baz`) VALUES (?, ?)', ['fruit', 'banana']);
 ```
 
 The `Connection::queryAndCount()` method will return the number of rows modified by the query.
 
-```
+```php
 $count = $connection->queryAndCount('UPDATE `users` SET `email` = ?', ['foo@example.org']);
 
 $count = $connection->queryAndCount('DELETE FROM `users`');
@@ -85,13 +85,13 @@ $count = $connection->queryAndCount('DELETE FROM `users`');
 
 The `Connection::first()` method executes a query and returns the first row of the result set or `null` if nothing is found.
 
-```
+```php
 $row = $connection->first('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 ```
 
 The `Connection::firstOrThrow()` method executes a query and returns the first row of the result set or throws an exception if nothing is found.
 
-```
+```php
 // By default if throws a mako\database\exceptions\NotFoundException
 
 $row = $connection->firstOrThrow('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
@@ -104,7 +104,7 @@ $row = $connection->firstOrThrow('SELECT * FROM `foo` WHERE `bar` = ?', [$bar], 
 
 The `Connection::all()` method executes a query and returns an array containing all of the result set rows.
 
-```
+```php
 $rows = $connection->all('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
 // There's also a handy syntax for assigning arrays for use in "IN" clauses
@@ -114,7 +114,7 @@ $rows = $connection->all('SELECT * FROM `foo` WHERE `bar` IN ([?])', [['banana',
 
 The `Connection::yield()` method executes a query and returns a generator that lets you iterate over the result set rows. This is very useful if you want to process a large dataset without having to worry about memory consumption.
 
-```
+```php
 $rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 ```
 
@@ -123,25 +123,25 @@ $rows = $connection->yield('SELECT * FROM `foo` WHERE `bar` = ?', [$bar]);
 
 The `Connection::column()` method executes a query and returns the value of the first column of the first row of the result set or `null` if nothing is found.
 
-```
+```php
 $email = $connection->column('SELECT `email` FROM `users` WHERE `id` = ?', [1]);
 ```
 
 The `Connection::columns()` method executes a query and returns an array containing the values of the first column.
 
-```
+```php
 $emails = $connection->columns('SELECT `email` FROM `users`');
 ```
 
 The `Connection::pairs()` method will return an array where the first column is used as array keys and the second column is used as array values.
 
-```
+```php
 $pairs = $connection->pairs('SELECT `id`, `email` FROM `users`');
 ```
 
 The `blob` method allows you to stream the contents of a blob column. The method will return `null` if no matching record is found.
 
-```
+```php
 $stream = $connection->blob('SELECT `image` FROM `images` WHERE `id` = ?', [1]);
 
 if ($stream !== null) {
@@ -165,31 +165,31 @@ if ($stream !== null) {
 
 You begin a transaction using the `Connection::beginTransaction()` method.
 
-```
+```php
 $connection->beginTransaction();
 ```
 
 Committing the transaction is done using the `Connection::commitTransaction()` method.
 
-```
+```php
 $connection->commitTransaction();
 ```
 
 Rolling back the transaction is done using the `Connection::rollBackTransaction()` method.
 
-```
+```php
 $connection->rollBackTransaction();
 ```
 
 You can check whether or not you're already in a transaction using the `Connection::inTransaction()` method.
 
-```
+```php
 $inTransaction = $connection->inTransaction();
 ```
 
 The `Connection::transaction()` method provides a handy shortcut for performing simple database transactions. Any failed queries in the closure will automatically roll back the transaction.
 
-```
+```php
 $connection->transaction(function ($connection) {
 	$connection->getQuery()->table('accounts')->where('user_id', '=', 10)->decrement('cash', 100);
 
@@ -205,7 +205,7 @@ In the example below we'll create a user named `foo`. The nested transaction tha
 
 The parent transaction is unaffected and `foo` user is still created. If you want your entire transaction to roll back when the nested transaction fails then you can just re-throw the exception.
 
-```
+```php
 try
 {
 	$connection->beginTransaction();
@@ -239,7 +239,7 @@ catch(PDOException $e)
 
 You can get the transaction nesting level at any point using the `Connection::getTransactionNestingLevel()` method.
 
-```
+```php
 $nestingLevel = $connection->getTransactionNestingLevel();
 ```
 
@@ -251,7 +251,7 @@ Transaction nesting is also possible when using the `Connection::transaction()` 
 
 The `Connection::getQuery()` method returns an instance of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) which allows you to build database agnostic queries programmatically.
 
-```
+```php
 $rows = $connection->getQuery()->table('foo')->where('bar', '=', $bar)->all();
 ```
 
@@ -261,6 +261,6 @@ $rows = $connection->getQuery()->table('foo')->where('bar', '=', $bar)->all();
 
 You can also access the [PDO](https://php.net/manual/en/book.pdo.php) object directly when needed.
 
-```
+```php
 $serverVersion = $connection->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION);
 ```

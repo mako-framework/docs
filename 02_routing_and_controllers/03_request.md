@@ -23,7 +23,7 @@ The request class provides an object oriented interface to global variables such
 
 The `query` property is a parameter collection containing query string data.
 
-```
+```php
 $queryString = $this->request->query;
 
 // You can also use the "getQuery" method
@@ -33,7 +33,7 @@ $queryString = $this->request->getQuery();
 
 The `get` method of the parameter collection returns the value of a parameter and `null` if it doesn't exist.
 
-```
+```php
 $value = $queryString->get('foo');
 
 // You can also specify a custom default return value
@@ -43,7 +43,7 @@ $value = $queryString->get('foo', false);
 
 The `post` property is a parameter collection containing post data.
 
-```
+```php
 $post = $this->request->post;
 
 // You can also use the "getPost" method
@@ -53,7 +53,7 @@ $post = $this->request->getPost();
 
 The `body` property is a parameter collection containing data from a parsed request body. The property currently supports `application/x-www-form-urlencoded` and `application/json` request bodies.
 
-```
+```php
 $body = $this->request->body;
 
 // You can also use the "getBody" method
@@ -63,7 +63,7 @@ $body = $this->request->getBody();
 
 The `data` property is a parameter collection containing the data corresponding to the request method (query string for `GET` requests, post data or a parsed body for `POST` requests and the parsed body for any other type of request).
 
-```
+```php
 $data = $this->request->data;
 
 // You can also use the "getData" method
@@ -86,13 +86,13 @@ The parameter collections also includes the following methods in addition to the
 
 The `getRawBody` method returns the raw request body as a string.
 
-```
+```php
 $body = $this->request->getRawBody();
 ```
 
 The `getRawBodyAsStream` method returns the raw request body as a stream. This can be useful if you want to minimize the memory footprint of your application while handling large request bodies.
 
-```
+```php
 $body = $this->request->getRawBodyAsStream();
 
 $storageStream = fopen($this->app->getPath() . '/storage/uploads/' . $filename, 'w');
@@ -106,7 +106,7 @@ $fileSize = stream_copy_to_stream($body, $storageStream);
 
 The `cookies` property is a cookie collection that allows you to access both signed and unsigned cookies.
 
-```
+```php
 $cookies = $this->request->cookies;
 
 // You can also use the "getCookies" method
@@ -116,7 +116,7 @@ $cookies = $this->request->getCookies();
 
 The `get` method of the cookie collection returns the value of a cookie and `null` if it doesn't exist.
 
-```
+```php
 $value = $cookies->get('foobar');
 
 // You can also define a custom default return value
@@ -142,7 +142,7 @@ The cookie collection also includes the following methods in addition to the one
 
 The `headers` property is a header collection.
 
-```
+```php
 $headers = $this->request->headers;
 
 // You can also use the "getHeaders" method
@@ -152,7 +152,7 @@ $headers = $this->request->getHeaders();
 
 The `get` method of the header collection returns the value of the header an `null` it it isn't set.
 
-```
+```php
 $value = $headers->get('content-type');
 
 // You can also define a custom default return value
@@ -162,25 +162,25 @@ $value = $headers->get('content-type', 'text/plain');
 
 The `getAcceptableContentTypes` method of the header collection returns an array of acceptable content types in descending order of preference.
 
-```
+```php
 $contentTypes = $headers->getAcceptableContentTypes();
 ```
 
 The `getAcceptableLanguages` method of the header collection returns an array of acceptable languages in descending order of preference.
 
-```
+```php
 $languages = $headers->getAcceptableLanguages();
 ```
 
 The `getAcceptableCharsets` method of the header collection returns an array of acceptable character sets in descending order of preference.
 
-```
+```php
 $charsets = $headers->getAcceptableCharsets();
 ```
 
 The `getAcceptableEncodings` method of the header collection returns an array of acceptable encodings in descending order of preference.
 
-```
+```php
 $charsets = $headers->getAcceptableEncodings();
 ```
 
@@ -200,7 +200,7 @@ The header collection also includes the following methods in addition to the one
 
 The `files` property is a file collection that extends the parameter collection.
 
-```
+```php
 $files = $this->request->files;
 
 // You can also use the "getFiles" method
@@ -210,7 +210,7 @@ $files = $this->request->getFiles();
 
 The `get` method of the file collection returns a `UploadedFile` instance or `null` if the file doesn't exist.
 
-```
+```php
 $file = $files->get('myfile');
 
 // If you're fetching a file from a multi upload then you'll have to include the key as well
@@ -240,7 +240,7 @@ The `UploadedFile` class extends the [`FileInfo`](:base_url:/docs/:version:/lear
 
 The `server` property is a collection that extends the parameter collection.
 
-```
+```php
 $server = $this->request->server;
 
 // You can also use the "getServer" method
@@ -254,13 +254,13 @@ $server = $this->request->getServer();
 
 The `getContentType` method returns the content type of the request body.
 
-```
+```php
 $contentType = $this->request->getContentType();
 ```
 
 The `getReferrer` method returns the address that referred the client to the current resource or `null` if there is no referrer.
 
-```
+```php
 // Returns the referrer if there is one and "null" if not
 
 $referrer = $this->request->getReferrer();
@@ -272,102 +272,102 @@ $referrer = $this->request->getReferrer($this->urlBuilder->toRoute('home'));
 
 The `getIp` method returns IP of the client that made the request.
 
-```
+```php
 $ip = $this->request->getIp();
 ```
 
 The `isAjax` method returns `true` if the request was made using AJAX and `false` if not.
 
-```
+```php
 $isAjax = $this->request->isAjax();
 ```
 
 The `isSecure` method returns `true` if the request was made using HTTPS and `false` if not.
 
-```
+```php
 $isSecure = $this->request->isSecure();
 ```
 
 The `isSafe` method returns `true` if the request method used is considered safe and `false` if not. The methods that are considered safe are `GET`, `HEAD`, `OPTIONS` and `TRACE`.
 
-```
+```php
 $isSafe = $this->request->isSafe();
 ```
 
 The `isCacheable` method returns `true` if the request method used is considered cacheable and `false` if not. The methods that are considered cacheable are `GET` and `HEAD`.
 
-```
+```php
 $isCacheable = $this->request->isCacheable();
 ```
 
 The `isIdempotent` method returns `true` if the request method used is considered idempotent and `false` if not. The methods that are considered idempotent are `DELETE`, `GET`, `HEAD`, `OPTIONS`, `PUT` and `TRACE`.
 
-```
+```php
 $isIdempotent = $this->request->isIdempotent();
 ```
 
 The `getBasePath` method returns the base path of the request. A request to `http://example.org/foo` will return `/foo` while a request to `http://example.org` will return an empty string.
 
-```
+```php
 $basePath = $this->request->getBasePath();
 ```
 
 The `getBaseURL` method returns the base URL of the request. A request to `http://example.org/foo/bar` will return `http://example.org`.
 
-```
+```php
 $baseURL = $this->request->getBaseURL();
 ```
 
 The `getPath` method will return the request path. A request to `http://example.org/index.php/foo/bar` or `http://example.org/foo/bar` will return `/foo/bar`.
 
-```
+```php
 $path = $this->request->getPath();
 ```
 
 The `getLanguage` method returns the request language (see the `app/config/application.php` config file for more information).
 
-```
+```php
 $language = $this->request->getLanguage();
 ```
 
 The `getLanguagePrefix` method returns the language prefix (see the `app/config/application.php` config file for more information).
 
-```
+```php
 $languagePrefix = $this->request->getLanguagePrefix();
 ```
 
 The `getMethod` method returns the request method used to access the resource.
 
-```
+```php
 $method = $this->request->getMethod();
 ```
 
 The `getRealMethod` method returns the real request method used to access the resource.
 
-```
+```php
 $method = $this->request->getRealMethod();
 ```
 
 The `isFaked` method returns `true` if the request method method has been faked and `false` if not.
 
-```
+```php
 $isFaked = $this->request->isFaked();
 ```
 
 The `getUsername` method returns a basic HTTP authentication username or `null` if it isn't set.
 
-```
+```php
 $username = $this->request->getUsername();
 ```
 
 The `getPassword` method returns a basic HTTP authentication password or `null` if it isn't set.
 
-```
+```php
 $password = $this->request->getPassword();
 ```
 
 The `getRoute` method returns the route that matched the request.
 
-```
+```php
 $route = $this->request->getRoute();
 ```

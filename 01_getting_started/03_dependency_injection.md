@@ -24,14 +24,14 @@ Mako comes with an easy to use dependency injection container. Using dependency 
 
 The `register` method allows you to register a dependency in the container.
 
-```
+```php
 $container->register(FooInterface::class, Foo::class);
 ```
 
 
 The `mako\syringe\intersection` helper function makes it easy to register an intersection of interfaces.
 
-```
+```php
 // The "FooInterface&BarInterface" type will be resolved to the "FooBar" class
 
 $container->register(intersection(FooInterface::class, BarInterface::class), FooBar::class);
@@ -39,31 +39,31 @@ $container->register(intersection(FooInterface::class, BarInterface::class), Foo
 
 It is possible to register a key along with the type hint. This will save a few keystrokes when resolving classes and also make it possible to access dependencies using overloading in [container aware](#container_aware) classes.
 
-```
+```php
 $container->register([FooInterface::class, 'foo'], Foo::class);
 ```
 
 Additionally, the container allows you to register your dependencies using a closure.
 
-```
+```php
 $container->register([BarInterface::class, 'bar'], fn ($container) => new Bar('parameter value'));
 ```
 
 The `registerSingleton` method works just like the `register` method except that it makes sure that the same instance is returned every time the class is resolved through the container.
 
-```
+```php
 $container->registerSingleton([BarInterface::class, 'bar'], fn ($container) => new Bar('parameter value'));
 ```
 
 The `registerInstance` method is similar to the `registerSingleton` method. The only difference is that it allows you to register an existing instance in the container.
 
-```
+```php
 $container->registerInstance([BarInterface::class, 'bar'], new Bar('parameter value'));
 ```
 
 The `has` method allows you to check for the presence of an item in the container.
 
-```
+```php
 // Check using the type hint
 
 if ($container->has(BarInterface::class)) {
@@ -79,7 +79,7 @@ if ($container->has('bar')) {
 
 The `get` method lets you resolve a dependency through the container.
 
-```
+```php
 // Resolve the class using the type hint
 
 $foo = $container->get(FooInterface::class);
@@ -91,7 +91,7 @@ $foo = $container->get('foo');
 
 The class does not have to be registered in the container to be resolvable.
 
-```
+```php
 <?php
 
 class Depends
@@ -106,13 +106,13 @@ class Depends
 
 We can now resolve the `Depends` class using the container. Both its dependencies will automatically be injected.
 
-```
+```php
 $depends = $container->get(Depends::class);
 ```
 
 The `getFresh` method works just like the `get` method except that it returns a fresh instance even if the class that you are resolving is registered as a singleton.
 
-```
+```php
 $foo = $container->getFresh('bar');
 ```
 
@@ -120,7 +120,7 @@ $foo = $container->getFresh('bar');
 
 The `call` method allows you to execute a callable and automatically inject its dependencies.
 
-```
+```php
 $returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\BarInterface $bar) {
 	// $foo and $bar will automatically be injected into the callable
 });
@@ -132,7 +132,7 @@ $returnValue = $container->call(function (\app\lib\FooInterface $foo, \app\lib\B
 
 Sometimes you'll need to inject different implementations of the same interface to different classes. This can easily be achieved with contextual dependency injection.
 
-```
+```php
 $container->registerContextualDependency(ClassA::class, FooBarInterface::class, FooBarImplementationA::class);
 $container->registerContextualDependency(ClassB::class, FooBarInterface::class, FooBarImplementationB::class);
 ```
@@ -141,7 +141,7 @@ $container->registerContextualDependency(ClassB::class, FooBarInterface::class, 
 
 You can also register contextual dependencies for class methods.
 
-```
+```php
 $container->registerContextualDependency([ClassA::class, 'methodA'], FooBarInterface::class, FooBarImplementationA::class);
 $container->registerContextualDependency([ClassA::class, 'methodB'], FooBarInterface::class, FooBarImplementationB::class);
 ```
@@ -154,19 +154,19 @@ The container also allows you to replaces previously registered dependencies.
 
 The `replace` method allows you to replace a previously registered dependency in the container.
 
-```
+```php
 $container->replace(FooInterface::class, OtherFoo::class);
 ```
 
 The `replaceSingleton` method allows you to replace a previously registered singleton dependency in the container.
 
-```
+```php
 $container->replaceSingleton([BarInterface::class, 'bar'], fn ($container) => new OtherBar('parameter value'));
 ```
 
 The `replaceInstance` method allows you to replace a previously registered instance dependency in the container.
 
-```
+```php
 $container->replaceInstance([BarInterface::class, 'bar'], new OtherBar('parameter value'));
 ```
 
@@ -174,7 +174,7 @@ You can also replace instances that already have been injected by the container 
 
 In the following example we'll register an instance of the `Dependency` class along with a factory closure for the `Dependent` class. Inside the factory method we'll tell the container to replace the previous instance of the `Dependency` class using the `Dependent::replaceDependency()` method in the event that it gets replaced.
 
-```
+```php
 $container->registerInstance(Dependency::class, new Dependency('original'));
 
 $container->register(Dependent::class, function ($container) {
@@ -196,7 +196,7 @@ var_dump($dependent->dependency->value); // string(11) "replacement"
 
 In the example above we assumed that the `Dependent` class had a `replaceDependency` method. This might not always be the case so we can also use a closure to achieve the same result.
 
-```
+```php
 $container->onReplace(Dependency::class, (function ($dependency) {
 	$this->dependency = $dependency;
 })->bindTo($dependent, Dependent::class));
@@ -273,13 +273,13 @@ You can also make a class that is instantiated by the container "container aware
 
 The container is always available through the `$container` property.
 
-```
+```php
 $this->container->get('view');
 ```
 
 The `ContainerAwareTrait` also implements the magic `__get()` method. This allows you to resolve classes through the container using overloading.
 
-```
+```php
 $this->view; // Instance of mako\view\ViewFactory
 ```
 
@@ -298,7 +298,7 @@ This is where injector attributes come in. Attributes allow you to guide the dep
 
 If your application is configured with multiple database connections, you can instruct the container which one to inject. By type-hinting the `Connection` class and applying the `InjectConnection` attribute, you can specify the connection name:
 
-```
+```php
 public function __construct(
 	#[InjectConnection('statistics')] protected Connection $connection
 ) {
@@ -319,7 +319,7 @@ The framework comes with the following injector attributes:
 
 You can also implement your own injector attributes by implementing the `InjectorInterface`. The following example defines an attribute that injects the currently authenticated user if one is available, or `null` otherwise:
 
-```
+```php
 <?php
 
 use Attribute;

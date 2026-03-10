@@ -29,7 +29,7 @@ The Mako session library comes with five different session stores by default.
 
 Adding an item to the session is done using the `put` method.
 
-```
+```php
 $this->session->put('name', $name);
 ```
 
@@ -38,49 +38,49 @@ $this->session->put('name', $name);
 
 You can check if an item exists in the session using the `has` method.
 
-```
+```php
 $this->session->has('name');
 ```
 
 Getting an item from the session is done using the `get` method.
 
-```
+```php
 $this->session->get('name');
 ```
 
 You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is `null`.
 
-```
+```php
 $this->session->get('name', 'John Doe');
 ```
 
 You can also get data from the session and replace it using the `getAndPut` method.
 
-```
+```php
 $this->session->getAndPut('name', $name);
 ```
 
 It is also possible to retrieve and remove data with a single method call using the `getAndRemove` method.
 
-```
+```php
 $this->session->getAndRemove('name');
 ```
 
 If you want to return custom value if the key you're looking for doesn't exist then you can set it using the optional second parameter. The default return value for non-existing items is `null`.
 
-```
+```php
 $this->session->getAndRemove('name', 'John Doe');
 ```
 
 Removing data from the session is done using the `remove` method.
 
-```
+```php
 $this->session->remove('name');
 ```
 
 If you want to clear all session data then you can use the `clear` method.
 
-```
+```php
 $this->session->clear();
 ```
 
@@ -88,43 +88,43 @@ $this->session->clear();
 
 Sometimes you'll want to store temporary data that should expire after the next request (e.g., error and status messages). For this you can use the `putFlash` method.
 
-```
+```php
 $this->session->putFlash('success', 'The article has successfully been deleted!');
 ```
 
 Retrieving flash data is done using the `getFlash` method.
 
-```
+```php
 $data = $this->session->getFlash('success');
 ```
 
 You can also tell the method to return a custom value if the key you're looking for doesn't exist. The default return value for non-existing items is `null`.
 
-```
+```php
 $data = $this->session->getFlash('success', 'Some other message.');
 ```
 
 You can check if a flash item exists in the session using the `hasFlash` method.
 
-```
+```php
 $this->session->hasFlash('success');
 ```
 
 You can remove flash data using the `removeFlash` method. This is usually not needed as flash data expires after one request.
 
-```
+```php
 $this->session->removeFlash('success');
 ```
 
 Sometimes you'll want to extend the lifetime of the flash data by one request. This can be done using the `reflash` method.
 
-```
+```php
 $this->session->reflash();
 ```
 
 You can also choose to reflash only a set of keys if you don't want to reflash all the flash data.
 
-```
+```php
 $this->session->reflash(['success', 'error']);
 ```
 
@@ -134,19 +134,19 @@ $this->session->reflash(['success', 'error']);
 
 The `getToken` returns a token that can be used in forms and AJAX requests to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
-```
+```php
 $token = $this->session->getToken();
 ```
 
 The `validateToken` method allows you to validate a token. It will return `true` if the token is valid and `false` if not. You can also validate tokens using the `token` rule of the [validator library](:base_url:/docs/:version:/learn-more:validation).
 
-```
+```php
 $valid = $this->session->validateToken($token);
 ```
 
 The `regenerateToken` method lets you generates a new token.
 
-```
+```php
 $token = $this->session->regenerateToken();
 ```
 
@@ -154,13 +154,13 @@ $token = $this->session->regenerateToken();
 
 ##### <a id="usage:security:one_time_tokens" href="#usage:security:one_time_tokens">One time tokens</a>
 
-```
+```php
 $token = $this->session->regenerateToken();
 ```
 
 The `generateOneTimeToken` method allows you to generate a one time token that can be used in forms to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
-```
+```php
 $token = $this->session->generateOneTimeToken();
 ```
 
@@ -168,7 +168,7 @@ The `validateOneTimeToken` method allows you to validate a one time token. It wi
 
 One time tokens that have been validated once are no longer considered valid so they are not well suited for use with AJAX requests.
 
-```
+```php
 $valid = $this->session->validateOneTimeToken($token);
 ```
 
@@ -178,19 +178,19 @@ $valid = $this->session->validateOneTimeToken($token);
 
 Retrieving the session id is done by using the `getId` method.
 
-```
+```php
 $id = $this->session->getId();
 ```
 
 Regenerating the session id can be done by using the `regenerateId` method. A general rule of thumb is to regenerate the session id each time the access level of the user changes.
 
-```
+```php
 $this->session->regenerateId();
 ```
 
 You can tell it to keep the data associated with the old session id
 
-```
+```php
 $this->session->regenerateId(true);
 ```
 
@@ -200,6 +200,6 @@ $this->session->regenerateId(true);
 
 To destroy a session use the `destroy` method.
 
-```
+```php
 $this->session->destroy();
 ```

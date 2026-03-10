@@ -19,7 +19,7 @@ The pixel library allows you to manipulate images through a consistent API using
 
 First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the ImageMagick processor.
 
-```
+```php
 $image = new ImageMagick('image.png');
 ```
 
@@ -27,25 +27,25 @@ $image = new ImageMagick('image.png');
 
 The `getHeight` method returns the height of your image.
 
-```
+```php
 $height = $image->getHeight();
 ```
 
 The `getWidth` method returns the width of your image.
 
-```
+```php
 $width = $image->getWidth();
 ```
 
 The `getDimensions` method returns an array containing both the height and width of your image.
 
-```
+```php
 $dimensions = $image->getDimensions();
 ```
 
 The `getTopColors` method returns an array of the top `n` colors in an image, represented as `Color` class instances. By default, it returns the top five colors, but you can specify a custom number of colors to return.
 
-```
+```php
 $topColors = $image->getTopColors();
 
 foreach ($topColors as $color) {
@@ -76,19 +76,19 @@ The following methods are available on the `Color` class:
 
 The `snapshot` method allows you to create a snapshot of your image.
 
-```
+```php
 $image->snapshot();
 ```
 
 The `restore` method allows you to restore an image snapshot.
 
-```
+```php
 $image->restore();
 ```
 
 The `apply` method allows you to apply an image operation to your image.
 
-```
+```php
 $image->apply(new Sharpen);
 $image->apply(new Border(new Color(0, 0, 0, 127), width: 10));
 ```
@@ -117,7 +117,7 @@ Here are all of the included image operations:
 
 You can also create your own custom image operations by implementing the `OperationInterface`.
 
-```
+```php
 class MyOperation implements OperationInterface
 {
     #[Override]
@@ -130,7 +130,7 @@ class MyOperation implements OperationInterface
 
 The `getImageBlob` method returns the raw binary image data.
 
-```
+```php
 $image = $image->getImageBlob();
 
 // You can also tell it to return a different image type
@@ -144,7 +144,7 @@ $image = $image->getImageBlob('jpg', 70);
 
 As the name suggests the `save` method will save your edited image to disk.
 
-```
+```php
 // Override original file
 
 $image->save();
@@ -170,7 +170,7 @@ The `XmpReader` class allows you to extract XMP metadata from the image file.
 
 > Note: The XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
 
-```
+```php
 $reader = new XmpReader('image.tif');
 
 // You can specify the shared library if needed
@@ -180,7 +180,7 @@ $reader = new XmpReader('image.tif', 'libexempi.so.8');
 
 The `getXml` method returns all the XMP data as XML.
 
-```
+```php
 $xml = $reader->getXml();
 
 // You can also cast the reader object to a string
@@ -190,7 +190,7 @@ $xml = (string) $reader;
 
 The `getProperties` method returns all the XMP properties as objects.
 
-```
+```php
 $properties = $reader->getProperties();
 
 // You can also select the properties from a specific namespace
@@ -200,7 +200,7 @@ $properties = $reader->getProperties('http://purl.org/dc/elements/1.1/');
 
 The `getProperty` method allows you to get a specific property. The first parameter is the property namespace and the second is the property name.
 
-```
+```php
 $property = $reader->getProperty('http://purl.org/dc/elements/1.1/', 'title');
 
 echo $property->value;

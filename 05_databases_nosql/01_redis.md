@@ -24,7 +24,7 @@ The Redis client provides a simple and consistent way of communicating with a [R
 
 Creating a database connection is done using the `ConnectionManager::getConnection()` method.
 
-```
+```php
 // Returns connection object using the "default" redis configuration defined in the config file
 
 $redis = $this->redis->getConnection();
@@ -38,7 +38,7 @@ $redis = $this->redis->getConnection('mydb');
 
 You can access the default redis connection directly without having to go through the `getConnection` method thanks to the magic `__call` method.
 
-```
+```php
 $lolWut = $this->redis->lolWut(); // Yes, this is a valid Redis command
 ```
 
@@ -48,7 +48,7 @@ $lolWut = $this->redis->lolWut(); // Yes, this is a valid Redis command
 
 The Redis client supports all official [commands](https://redis.io/docs/latest/commands/) including the ones included in the Redis Stack (Bloom filter, JSON, Redis Query Engine, etc...) as well as RESP2 and RESP3 responses.
 
-```
+```php
 // Add some dummy data
 
 $redis->rPush('drinks', 'water');
@@ -66,7 +66,7 @@ $redis->del('drinks');
 
 If you encounter a new command that hasn't been implemented in the client yet then you can use the `executeCommand` method. This can also be useful when working with a Redis compatible superset like [KeyDB](https://docs.keydb.dev/).
 
-```
+```php
 // Add some dummy data
 
 $redis->executeCommand('RPUSH', 'drinks', 'water');
@@ -88,7 +88,7 @@ $redis->executeCommand('DEL', 'drinks');
 
 The `pipeline` method allows you to send multiple commands to the Redis server without having to wait for the replies. Using pipelining can be useful if you need to send a large number of commands as you will not be paying the cost of round-trip time for every single call.
 
-```
+```php
 $redis->set('x', 0);
 
 $replies = $redis->pipeline(function ($redis) {
@@ -109,7 +109,7 @@ $replies = $redis->pipeline(function ($redis) {
 
 You can publish messages to channels using the `publish` method. The first parameter is the channel name while the second parameter is your message. The method will return the number of subscribers that have received the message.
 
-```
+```php
 $redis->publish('channel1', 'Hello, World!');
 ```
 
@@ -119,7 +119,7 @@ The `subscribeTo` method allows you to subscribe to channels. You can also use t
 
 > Message subscribers are blocking and should *not* be used in controllers. [Reactor commands](:base_url:/docs/:version:/command-line:commands), however, are perfect for handling long running tasks. You should also set the `timeout` value of the connection used to subscribe to `-1` in your redis configuration file to avoid dropped connections while waiting for new messages.
 
-```
+```php
 $redis->subscribeTo(['channel1', 'channel2'], function ($message) {
 	$this->write($message);
 });
@@ -127,7 +127,7 @@ $redis->subscribeTo(['channel1', 'channel2'], function ($message) {
 
 By default the subscribers will only receive messages (`message` and `pmessage`). You can however subscribe to more messages types using the optional third parameter.
 
-```
+```php
 $redis->subscribeTo(['channel1', 'channel2'], function ($message) {
 	$this->write($message);
 }, ['message', 'subscribe', 'pong']);
@@ -152,7 +152,7 @@ The `monitor` method can be useful when debugging applications that use Redis. O
 
 > The method should only be used in a [reactor command](:base_url:/docs/:version:/command-line:commands). You should also set the `timeout` value of the connection used to monitor to `-1` in your redis configuration file to avoid dropped connections while waiting for new commands.
 
-```
+```php
 $redis->monitor(function ($command) {
 	$this->write($command);
 });

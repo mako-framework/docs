@@ -27,19 +27,19 @@ An instance of the response class is always available in all controller classes.
 
 The `setBody` method allows you to set the response body. This is not normally needed as the framework automatically sets the response body to the return value of your controller/route action. It can; however, be useful if you want to alter the response body in [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware).
 
-```
+```php
 $this->response->setBody('Hello, world!');
 ```
 
 The `getBody` method returns the response body.
 
-```
+```php
 $responseBody = $this->response->getBody();
 ```
 
 The `setType` method lets you define the response type as well as the response charset. The default response type is `text/html` and the default charset is `UTF-8`. The default charset is defined in your `app\config\application.php` config file.
 
-```
+```php
 $this->response->setType('application/json');
 
 // You can also override the default charset
@@ -49,25 +49,25 @@ $this->response->setType('application/json', 'iso-8859-1');
 
 The `getType` method returns the current response type.
 
-```
+```php
 $responseType = $this->response->getType();
 ```
 
 The `setCharset` method lets you set the response charset. The default charset is `UTF-8`and it is defined in your `app\config\application.php` config file.
 
-```
+```php
 $this->response->setCharset('iso-8859-1');
 ```
 
 The `getCharset` method returns the current response charset.
 
-```
+```php
 $responseCharset = $this->response->getCharset();
 ```
 
 The `setStatus` method lets you set the response status.
 
-```
+```php
 // You can set the status using the Status enum
 
 $this->response->setStatus(Status::NotFound);
@@ -79,7 +79,7 @@ $this->response->setStatus(404);
 
 The `getStatus` method returns the current status code.
 
-```
+```php
 $responseStatus = $this->response->getStatus();
 ```
 
@@ -93,13 +93,13 @@ $responseStatus = $this->response->getStatus();
 
 The `JSON` response builder encodes the provided data as JSON and sets the appropriate `Content-Type` header.
 
-```
+```php
 $responseBody = new JSON([1, 2, 3]);
 ```
 
 If you want your API endpoint to serve JSONP responses as well, chain the `asJsonpWith` method.
 
-```
+```php
 $responseBody = new JSON([1, 2 , 3])->asJsonpWith('callback');
 ```
 
@@ -118,7 +118,7 @@ The `EventStream` response sender allows you to send an [event stream](https://d
 
 The closure passed to the `EventStream` constructor must yield at least one event. Each event may contain multiple fields.
 
-```
+```php
 $responseBody = new EventStream(function () {
     yield new Event(
         new Field(Type::Data, 'hello, world!')
@@ -130,7 +130,7 @@ $responseBody = new EventStream(function () {
 
 The `File` response sender enables memory-efficient streaming of files to the client. Downloads are resumable, which is particularly beneficial for large files.
 
-```
+```php
 $responseBody = new File('/path/to/file.ext');
 ```
 
@@ -143,7 +143,7 @@ You can set a custom file name, mime type, content disposition and a closure to 
 | setType          | The framework will try to detect the mime type for you but you can override it using this method |
 | done             | Closure that will be executed when the download has been completed                               |
 
-```
+```php
 $responseBody = new File('/path/to/file.ext')
 ->setName('foo.ext')
 ->setType('text/plain');
@@ -155,13 +155,13 @@ $responseBody = new File('/path/to/file.ext')
 
 The `Redirect` response sender allows you to redirect the client to another URL.
 
-```
+```php
 $responseBody = new Redirect('https://example.org');
 ```
 
 The default status code is `302` (Found), but you can override it by chaining the `setStatus` method.
 
-```
+```php
 $responseBody = new Redirect('https://example.org')
 ->setStatus(Status::Found);
 ```
@@ -182,7 +182,7 @@ The `Stream` response sender allows you to stream data to the client. This is us
 
 It also allows you to begin transmitting dynamically generated content before knowing the total size of the response.
 
-```
+```php
 $responseBody = new Stream(function ($stream) {
 	$stream->flush('Hello, world!');
 
@@ -207,7 +207,7 @@ You can also set and get the content type and character set using the following 
 
 The `cookies` property is a cookie collection.
 
-```
+```php
 $cookies = $this->response->cookies;
 
 // You can also use the "getCookies" method
@@ -217,7 +217,7 @@ $cookies = $this->response->getCookies();
 
 The `add` method adds a cookie to the response.
 
-```
+```php
 // Sets a cookie that expires when the browser closes
 
 $cookies->add('name', 'value');
@@ -235,7 +235,7 @@ $cookies->add('name', 'value', 3600, ['path' => '/mydir', 'domain' => '.example.
 
 The `delete` method allows you to delete both normal and signed cookies from the client.
 
-```
+```php
 $cookies->delete('name');
 
 // You can also set the `path`, `domain`, `secure`, `httponly` and `samesite` options using the fourth parameter
@@ -262,7 +262,7 @@ The cookie collection also includes the following methods in addition to the one
 
 The `headers` property is a header collection.
 
-```
+```php
 $headers = $this->response->headers;
 
 // You can also use the "getHeaders" method
@@ -272,7 +272,7 @@ $headers = $this->response->getHeaders();
 
 The `add` method adds a header to your response.
 
-```
+```php
 $headers->add('X-My-Header', 'value');
 ```
 
@@ -293,19 +293,19 @@ The header collection also includes the following methods in addition to the one
 
 You can enable `ETag` caching using the `enableCaching` method. Doing so can save bandwidth as the response body will only be sent if it has been modified since the last request.
 
-```
+```php
 $this->response->enableCaching();
 ```
 
 The `disableCaching` method disables `ETag` caching if it has been enabled.
 
-```
+```php
 $this->response->disableCaching();
 ```
 
 The `isCacheable` method returns `true` if the response in its current state is considered cacheable and `false` if not.
 
-```
+```php
 $isCacheable = $this->response->isCacheable();
 ```
 
@@ -313,13 +313,13 @@ $isCacheable = $this->response->isCacheable();
 
 The `enableCompression` method enables output compression. This will save you bandwidth in exchange for a slight bump in CPU usage.
 
-```
+```php
 $this->response->enableCompression();
 ```
 
 The `disableCompression` method disables output compression if it has been enabled.
 
-```
+```php
 $this->response->disableCompression();
 ```
 
@@ -334,7 +334,7 @@ When implementing a custom [compression handler](https://www.php.net/manual/en/f
 
 The best place to implement this functionality is within a custom [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware). Middleware allows you to intercept and modify HTTP requests and responses before they reach your application logic or before being sent to the client.
 
-```
+```php
 $this->response->setCompressionHandler(static function (string $buffer, int $phase): string {
     // Your custom compression code goes here
 });
@@ -342,6 +342,6 @@ $this->response->setCompressionHandler(static function (string $buffer, int $pha
 
 The `getCompressionHandler` method returns the currently active compression handler being used for output buffering. By default, this is `ob_gzhandler`, which automatically compresses output using gzip or deflate, depending on what the client supports.
 
-```
+```php
 $compressionHandler = $this->response->getCompressionHandler();
 ```

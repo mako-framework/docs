@@ -18,13 +18,13 @@ The humanizer class helps you bring a human touch to your application.
 
 The `fileSize` method converts a file size in bytes to a more human friendly format.
 
-```
+```php
 $this->humanizer->fileSize(1024); // Will return "1 KiB"
 ```
 
 It will return binary suffixes by default can also make it output file sizes using decimal suffixes by setting the optional second parameter to `false`.
 
-```
+```php
 $this->humanizer->fileSize(1024, false); // Will return "1.02 KB"
 ```
 
@@ -32,7 +32,7 @@ $this->humanizer->fileSize(1024, false); // Will return "1.02 KB"
 
 The `day` method will return a human friendly representation of the day. If the day isn't within the **yesterday/today/tomorrow** range then it'll return the date in the format specified by the optional second parameter.
 
-```
+```php
 $this->humanizer->day(Time::now()); // Will return "today"
 
 $this->humanizer->day(Time::now()->rewind(60*60*24)); // Will return "yesterday"
@@ -42,7 +42,7 @@ $this->humanizer->day(Time::now()->forward(60*60*24)); // Will return "tomorrow"
 
 The `time` method will return a human friendly representation of the time. If the time isn't within the **yesterday/today/tomorrow** range then it'll return the time in the format specified by the optional second parameter. There is also a third parameter that lets you set the clock format.
 
-```
+```php
 $this->humanizer->time(Time::now()); // Will return "a minute ago"
 
 $this->humanizer->time(Time::now()->rewind(60*4)); // Will return "4 minutes ago"

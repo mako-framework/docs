@@ -32,7 +32,7 @@ The Mako command line tool comes with a set of useful commands but you can also 
 
 All commands must extend the `mako\reactor\Command` base command and implement the `execute` method.
 
-```
+```php
 <?php
 
 namespace app\console\commands;
@@ -68,7 +68,7 @@ You'll have to register your command with the reactor command line tool before y
 
 If you add the `CommandName` attribute to your command class as shown in the example above then you can let Mako register the commands for you at runtime. Mako will look for commands in the `app/console/commands` directory tree but you can override this by setting the `commands_directory` config key of the `app/config/application.php` configuration file to your desired value.
 
-```
+```php
 'commands_directory' => MAKO_APPLICATION_PATH . '/console/commands',
 ```
 
@@ -76,7 +76,7 @@ If you add the `CommandName` attribute to your command class as shown in the exa
 
 If you want to manually register your commands then you'll have to do so in the `app/config/application.php` configuration file. The array key is the name of your command and the value is the command class name.
 
-```
+```php
 'commands' => [
 	'hello' => app\console\commands\Hello::class,
 ],
@@ -94,7 +94,7 @@ Check out [this page](:base_url:/docs/:version:/packages:packages#commands) of t
 
 You'll most likely want to pass arguments to your commands and to do so you'll have to define them using the `CommandArguments` attribute.
 
-```
+```php
 #[CommandArguments(
 	new NamedArgument('option1', description: 'This is an option argument'),
 	new NamedArgument('option2', alias: 'o', description: 'This is an option argument with an alias'),
@@ -107,7 +107,7 @@ You'll most likely want to pass arguments to your commands and to do so you'll h
 
 Next you'll have to add matching camel cased arguments to your `execute` method.
 
-```
+```php
 public function execute(string $option1, string $option2, string $option3, string $argument)
 {
 	// ...
@@ -119,7 +119,6 @@ You can now pass values to your command like this:
 ```
 php reactor command "argument value" --option1 "option1 value" -O "option3 value" -o "option2 value"
 ```
-{.language-none}
 
 ##### <a id="input:arguments:options" href="#input:arguments:options">Options</a>
 
@@ -135,7 +134,7 @@ You can customize how your arguments behave by using the following options:
 
 You can also make your own custom combination of options:
 
-```
+```php
 new NamedArgument(
 	'arg',
 	alias: 'a',
@@ -153,25 +152,25 @@ Adding the `PromptForMissingArguments` attribute to your commands makes them pro
 
 The `input` method lets you prompt the user for input.
 
-```
+```php
 $input = $this->input('How old are you?');
 ```
 
 You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is `null`.
 
-```
+```php
 $input = $this->input('How old are you?', 25);
 ```
 
 The `secret` method lets you ask the user for hidden input.
 
-```
+```php
 $input = $this->secret('Password:');
 ```
 
 You can also specify a default return value in the event that the user chooses not to enter anything. The default return value for empty input is `null`.
 
-```
+```php
 $input = $this->secret('Password:', false);
 ```
 
@@ -179,7 +178,7 @@ $input = $this->secret('Password:', false);
 
 The `confirm` method lets you ask the user to confirm their action.
 
-```
+```php
 if ($this->confirm('Do you want to delete all your files?')) {
 	// Delete all files
 }
@@ -187,7 +186,7 @@ if ($this->confirm('Do you want to delete all your files?')) {
 
 The default answer is `No` (false) but you can choose to make `Yes` (true) the default answer.
 
-```
+```php
 if ($this->confirm('Do you want to keep all your files?', default: true)) {
 	// Keep all files
 }
@@ -195,7 +194,7 @@ if ($this->confirm('Do you want to keep all your files?', default: true)) {
 
 The `select` method lets you present the user with a list of choices. By default, it returns the key of the chosen option. However, you can configure it to return the value instead by setting `returnKey` to `false`. To allow multiple selections, set `allowMultiple` to `true`.
 
-```
+```php
 $selection = $this->select('What do you want to do?', [
 	'Execute order 66',
 	'Open the pod bay doors',
@@ -205,7 +204,7 @@ $selection = $this->select('What do you want to do?', [
 
 If you're passing a set of objects to `select`, you can define a custom option formatter using the `optionFormatter` argument.
 
-```
+```php
 $selection = $this->select('What do you want to do?', [
 	(object) ['label' => 'Execute order 66'],
 	(object) ['label' => 'Open the pod bay doors'],
@@ -221,31 +220,31 @@ $selection = $this->select('What do you want to do?', [
 
 The `write` method lets you write output.
 
-```
+```php
 $this->write('Hello, World!');
 ```
 
 The method writes to `STDOUT` by default but you can make it write to `STDERR` like this.
 
-```
+```php
 $this->write('Hello, World!', Output::ERROR);
 ```
 
 There's also a handy `error` method that lets you write to `STDERR`.
 
-```
+```php
 $this->error('Hello, World!');
 ```
 
 The `nl` method writes a newline to the output.
 
-```
+```php
 $this->nl();
 ```
 
 The `clear` method lets you clear all output from the terminal window.
 
-```
+```php
 $this->clear();
 ```
 
@@ -253,25 +252,25 @@ $this->clear();
 
 The `bell` method triggers the terminal bell, providing an audible alert or visual cue (depending on terminal settings) to signal a specific event. This can be particularly useful for drawing attention to important moments in a process, such as task completion, errors, or user prompts requiring immediate attention.
 
-```
+```php
 $this->bell();
 ```
 
 You can also make it ring multiple times if you want to.
 
-```
+```php
 $this->bell(3);
 ```
 
 The `countdown` method will print a countdown that disappears after n seconds.
 
-```
+```php
 $this->countdown(5);
 ```
 
 The `progress` method allows you to display a progress bar, which is particularly useful when your command is processing a known number of items. By giving real-time feedback, it helps users track the operation's progress, providing a more engaging and user-friendly experience.
 
-```
+```php
 $items = 100;
 
 $progress = $this->progress($items);
@@ -283,7 +282,7 @@ for ($i = 0; $i < $items; $i++) {
 
 The `progressIterator` method provides a convenient way to display a progress bar as you iterate over an array or any object that implements both `Traversable` and `Countable`. This method simplifies the process by automatically updating the progress bar with each iteration, ensuring that the progress accurately reflects the position within the collection.
 
-```
+```php
 $progress = $this->progressIterator(range(1, 100));
 
 foreach($progress as $key => $value) {
@@ -293,7 +292,7 @@ foreach($progress as $key => $value) {
 
 The `spinner` method displays an animated spinner, which is ideal for tasks that have an unknown or variable completion time. This visual indicator provides feedback that a process is actively running, keeping users informed and reducing the perception of wait time. The spinner can enhance the user experience in situations where a task's duration is uncertain, such as network requests, data loading, or complex computations. By signaling that the task is in progress, it improves engagement and helps maintain the interface’s responsiveness.
 
-```
+```php
 $this->spinner('Processing data', function () {
 	// Process your data here
 });
@@ -303,7 +302,7 @@ $this->spinner('Processing data', function () {
 
 The `table` method allows you to generate and display well-formatted ASCII tables, making it easy to present tabular data directly in the console. This feature is especially useful for commands that output multiple columns of related information, such as lists of users, configuration settings, or task statuses.
 
-```
+```php
 $this->table(['Col1', 'Col2'], [['R1 C1', 'R1 C2'], ['R2 C1', 'R2 C2']]);
 ```
 
@@ -317,11 +316,10 @@ The code above will result in a table looking like this.
 ┃ R2 C1 ┃ R2 C2 ┃
 ┗━━━━━━━┻━━━━━━━┛
 ```
-{.language-none}
 
 The `ol` method enables you to generate and display an ordered list, perfect for presenting sequential information or ranked data directly in the console. By numbering each item, this method provides clear organization and structure, making it easier for users to follow steps, review prioritized tasks, or understand hierarchical information.
 
-```
+```php
 $this->ol(['one', 'two', 'three', ['one', 'two'], 'four']);
 ```
 
@@ -335,11 +333,10 @@ The example above will output the following list.
    2. two
 4. four
 ```
-{.language-none}
 
 The `ul` method allows you to generate and display an unordered list, ideal for presenting collections of items where sequence or ranking isn’t necessary.
 
-```
+```php
 $this->ul(['one', 'two', 'three', ['one', 'two'], 'four']);
 ```
 
@@ -353,11 +350,10 @@ The example above will output the following list.
   * two
 * four
 ```
-{.language-none}
 
 The `alert` method lets you output alert panels that will auto-wrap your text to fit the console window. You can use one of the predefined templates (default, info, success, warning, and danger) or pass your own.
 
-```
+```php
 $this->alert('This is a success alert.', Alert::SUCCESS);
 
 $this->alert('This is a custom alert.', '<bg_purple><white>%s</white></bg_purple>');
@@ -367,31 +363,31 @@ $this->alert('This is a custom alert.', '<bg_purple><white>%s</white></bg_purple
 
 You can format your output using formatting tags.
 
-```
+```php
 $this->write('<blue>Hello, World!</blue>');
 ```
 
 You can also nest formatting tags. Just make sure to close them in the right order.
 
-```
+```php
 $this->write('<bg_green><black>Hello, World</black><yellow>!</yellow></bg_green>');
 ```
 
 If you find yourself using the same nested set of formatting tags over and over again, then you'll probably want to define your own custom tags. This can be done using the `Formatter::addStyle()` method.
 
-```
+```php
 $this->output->formatter->addStyle('awesome', ['bg_green', 'black', 'blinking']);
 ```
 
 If you want to "escape" output tags so that they are just displayed as text without being parsed then you can use the `literal` modifier.
 
-```
+```php
 $this->write('<literal:blue>Hello, World<literal:/blue>');
 ```
 
 If you want to escape all tags in a string then you can use the `Formatter::escape()` method.
 
-```
+```php
 $escaped = $this->output->formatter->escape($string);
 ```
 
@@ -433,7 +429,7 @@ If you need to call a command from within another command then you can use the `
 
 The `fire` method executes your command in a separate process and it lets you handle the output using the optional second parameter.
 
-```
+```php
 <?php
 
 namespace app\console\commands;
@@ -458,7 +454,7 @@ class Proxy extends Command
 
 If you don't want to wait for the command to finish then you can start a background process using the `fireAndForget` method.
 
-```
+```php
 <?php
 
 namespace app\console\commands;
@@ -487,7 +483,7 @@ When your commands need to manage asynchronous signals, the `SignalHandler` clas
 
 To set up specific signal handling behaviors, use the `addHandler` method to attach custom handlers for different signals. Additionally, before adding handlers, you may want to verify that your PHP installation supports signal handling by calling the `canHandleSignals` method.
 
-```
+```php
 $signalHandler->addHandler(SIGINT, function ($signal, $isLast) {
 	// Handle SIGINT
 });
@@ -499,7 +495,7 @@ The second argument is a boolean flag that indicates whether this handler is the
 
 If you want to handle multiple signals with the same logic, you can pass an array of signals when setting up the handler. This approach allows you to consolidate signal management, reducing redundancy and simplifying your code by using a single handler function for multiple signal types.
 
-```
+```php
 $signalHandler->addHandler([SIGINT, SIGTERM], function ($signal, $isLast) {
 	// HANDLE SIGINT and SIGTERM
 });
@@ -511,7 +507,7 @@ $signalHandler->addHandler([SIGINT, SIGTERM], function ($signal, $isLast) {
 
 Commands are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
-```
+```php
 <?php
 
 namespace app\console\commands;
@@ -536,7 +532,7 @@ class Hello extends Command
 
 You can also inject your dependencies directly into the `execute` method since its executed by the `Container::call()` method.
 
-```
+```php
 public function execute(Config $config)
 {
 	$foo = $config->get('settings.foo');

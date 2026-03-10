@@ -20,13 +20,13 @@ The pagination class makes easy to generate pagination links.
 
 First you'll have to create a pagination object. The first parameter is the total count of the items you want to paginate. The second parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional third parameter that lets you override the other settings set in the configuration file.
 
-```
+```php
 $pagination = $this->pagination->create((new Articles)->count());
 ```
 
 Once the pagination object is created we can fetch the articles from the database. Use the `limit` and `offset` methods to set the range of your query.
 
-```
+```php
 $articles = (new Articles)->limit($pagination->limit())->offset($pagination->offset())->all();
 ```
 
@@ -36,7 +36,7 @@ You can also use the `pagination` method of the [query builder](:base_url:/docs/
 
 The first parameter is optional and lets you set the number of items to be displayed on each page. If left empty then it'll use the default value specified in the pagination config file. There's also an optional second parameter that lets you override the other settings set in the configuration file.
 
-```
+```php
 $articles = (new Articles)->paginate();
 ```
 
@@ -46,13 +46,13 @@ $articles = (new Articles)->paginate();
 
 You can render the pagination partial in the article list view using the `render` method.
 
-```
+```php
 $pagination->render('partials.pagination');
 ```
 
 If you used the `paginate` method of the query builder then you can access the pagination object using the `getPagination` method on the result set.
 
-```
+```php
 $articles->getPagination()->render('partials.pagination');
 ```
 
@@ -60,7 +60,7 @@ $articles->getPagination()->render('partials.pagination');
 
 Here's an example of what a pagination partial can look like if you're using Twitter Bootstrap.
 
-```
+```php
 <ul class="pagination">
 	{% if(isset($previous)) %}
 		<li><a href="{{preserve:$first}}">First</a></li>

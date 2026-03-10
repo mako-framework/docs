@@ -51,7 +51,6 @@ server
 	}
 }
 ```
-{.language-nginx}
 
 > You can also use php-fpm over a unix socket instead of tcp. Just make sure that the [rlimit_files](https://php.net/manual/en/install.fpm.configuration.php) value is lower or equal to the file descriptor limit at the OS level.
 
@@ -64,7 +63,6 @@ You should consider running the following command as part of your deployment pro
 ```
 composer dump-autoload --optimize --no-dev --classmap-authoritative
 ```
-{.language-none}
 
 --------------------------------------------------------
 
@@ -78,13 +76,12 @@ You should make sure that your production server has the [OPcache](https://php.n
 
 The following OPcache settings have been known to work well with a Mako application in production:
 
-```
+```ini
 opcache.memory_consumption=256
 opcache.interned_strings_buffer=16
 opcache.max_accelerated_files=20000
 opcache.validate_timestamps=0
 ```
-{.language-ini}
 
 [Cachetool](https://github.com/gordalina/cachetool) can be used to check the OPcache status. This is useful if you want to see if you need to tweak some of the configuration values.
 
@@ -104,7 +101,7 @@ The preloader script will be generated in the `app/storage/` directory by defaul
 
 You can also add your own or additional Mako core classes to the preloader by adding a `preload.php` config file to your `app/config/` directory.
 
-```
+```php
 <?php
 
 return [
@@ -121,7 +118,7 @@ It is advisable to disable the exposure of the PHP version installed on your ser
 
 Additionally, it is recommended to disable the automatic declaration of the `argv` and `argc` variables in your PHP configuration. These variables are primarily used in command-line scripts to handle arguments passed to the script, which have little to no practical application in a typical web environment.
 
-```
+```ini
 expose_php = Off
 register_argc_argv = Off
 ```

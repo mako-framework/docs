@@ -28,7 +28,7 @@ composer require mako/open-api
 
 Next you'll need to add the package to the `cli` section of the `packages` configuration array in the `application.php` config file.
 
-```
+```php
 'cli' => [
 	mako\openapi\OpenApiPackage::class,
 ]
@@ -36,7 +36,7 @@ Next you'll need to add the package to the `cli` section of the `packages` confi
 
 And finally replace the contents of your `routes.php` file with the following:
 
-```
+```php
 <?php
 
 use mako\openapi\http\routing\Registrar;
@@ -56,7 +56,7 @@ You can build an OpenAPI specification using a tool such as [Apicurito](https://
 
 Here is a basic example of documenting API routes using attributes::
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -86,7 +86,7 @@ If you want to generate a specification file from your documentation, you can do
 
 Below is an example of the generated specification:
 
-```
+```yaml
 openapi: 3.0.0
 info:
   title: 'Example API'
@@ -99,7 +99,6 @@ paths:
         '200':
           description: 'Displays a greeting to the user.'
 ```
-{.language-yaml}
 
 > Note: If you manually write your OpenAPI specification, you must set the `operationId` parameter to the fully qualified method name (for example, app\controllers\Index::welcome) of the controller action in order for the route generator to work.
 

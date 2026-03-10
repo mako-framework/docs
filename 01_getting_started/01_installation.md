@@ -32,14 +32,12 @@ First you'll have to create a new project:
 ```
 composer create-project mako/app <project name>
 ```
-{.language-none}
 
 Next you'll have to make the `app/storage/*` directories writable (command my vary depending on your system):
 
 ```
 chown www-data:www-data -R app/storage
 ```
-{.language-none}
 
 > Note: Only the most essential [services](:base_url:/docs/:version:/getting-started:dependency-injection#services) are enabled by default. Enable the ones that you need by uncommenting them in the `app/config/application.php` configuration file.
 
@@ -52,7 +50,6 @@ Mako includes a simple development server which can be started with the followin
 ```
 php app/reactor server
 ```
-{.language-none}
 
 Open `http://localhost:8000` in your browser of choice and you're ready to start coding!
 
@@ -67,7 +64,6 @@ Mako and all your other dependencies can easily be updated when a new patch rele
 ```
 composer update
 ```
-{.language-none}
 
 If you want to bump the Mako to the next major version (e.g. from `^11.0` to `^12.0`) then you'll have to update your `composer.json` file before running the update command.
 

@@ -16,7 +16,7 @@ The `random` method returns a random string of the selected type and length. The
 
 > Generated strings containing characters from the 'SYMBOLS' pool should be escaped if used in HTLM and/or XML documents.
 
-```
+```php
 $str = Str::random(Str::ALNUM);
 
 $str = Str::random(Str::ALPHA);
@@ -30,7 +30,7 @@ $str = Str::random(Str::ALNUM . 'æøåÆØÅ', 64);
 
 The `nl2br` method converts newlines to `<br>`.
 
-```
+```php
 $str = Str::nl2br($_POST['input']);
 ```
 
@@ -38,32 +38,32 @@ $str = Str::nl2br($_POST['input']);
 
 The br2nl method converts `<br />` and `<br>` to newlines.
 
-```
+```php
 $str = Str::br2nl($input);
 ```
 
 The `limitChars` method will limit the number of characters in a string.
 
-```
+```php
 $str = Str::limitChars($input, 300);
 ```
 
 The `limitWords` method will limit the number of words in a string.
 
-```
+```php
 $str = Str::limitWords($input, 300);
 ```
 
 The `increment` method append an incremental numeric suffix to a string.
 
-```
+```php
 $str = Str::increment('banana'); // Will return "banana_1"
 $str = Str::increment('banana_1'); // Will return "banana_2"
 ```
 
 The `alternator` method will return a `Alternator` instance that alternates between the chosen strings.
 
-```
+```php
 $alternator = Str::alternator(['foo', 'bar']);
 
 echo $alternator; // foo
@@ -73,7 +73,7 @@ echo $alternator; // foo
 
 The `ascii` method returns a string where all non-ASCII characters have been stripped.
 
-```
+```php
 // $str will be set to "Hello, world! It Works!"
 
 $str = Str::ascii('Hello, world! ÆØÅ It Works!');
@@ -81,25 +81,25 @@ $str = Str::ascii('Hello, world! ÆØÅ It Works!');
 
 The `slug` method returns a URL friendly string.
 
-```
+```php
 $str = Str::slug('Hello World!'); // $str will be set to "hello-world"
 ```
 
 The `autolink` method returns a string where all URLs have been converted into clickable links.
 
-```
+```php
 $str = Str::autolink($text);
 ```
 
 The `mask` method will return a masked string where n characters are visible while the rest will be masked.
 
-```
+```php
 $str = Str::mask('password'); // $str will be set to "*****ord"
 ```
 
 The `pluralize` method will return the pluralized form of a singular word.
 
-```
+```php
 $str = Str::pluralize('apple');
 ```
 
@@ -107,13 +107,13 @@ $str = Str::pluralize('apple');
 
 The `camelToSnake` method will convert camel case to snake case.
 
-```
+```php
 $str = Str::camelToSnake('HelloWorld'); // $str will be set to "hello_world"
 ```
 
 The `snakeToCamel` method will convert snake cased strings to camel case.
 
-```
+```php
 $str = Str::snakeToCamel('hello_world'); // $str will be set to "helloWorld"
 $str = Str::snakeToCamel('hello_world', true); // $str will be set to "HelloWorld"
 ```

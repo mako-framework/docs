@@ -81,7 +81,7 @@ Use the `$primaryKeyType` property to define the key type.
 
 Lets say you have a table called `articles` with three columns (id, title and content). These few lines of code is all you need to interact with the table:
 
-```
+```php
 <?php
 
 namespace app\models;
@@ -96,7 +96,7 @@ class Article extends ORM
 
 Creating a new record is as simple as this:
 
-```
+```php
 $article = new Article;
 
 $article->title   = 'Super awesome stuff';
@@ -107,7 +107,7 @@ $article->save();
 
 You can then fetch the article by its primary key value like this:
 
-```
+```php
 $article = Article::get(1);
 ```
 
@@ -115,7 +115,7 @@ $article = Article::get(1);
 
 If you want to throw an exception if there isn't a matching article then you can use the `getOrThrow` method.
 
-```
+```php
 // By default if throws a mako\database\exceptions\NotFoundException
 
 $article = Article::getOrThrow(1);
@@ -128,13 +128,13 @@ $article = Article::getOrThrow(1, exception: NotFoundException::class);
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can also use other criteria to find your record:
 
-```
+```php
 $article = (new Article)->where('title', '=', 'Super awesome stuff')->first();
 ```
 
 Modifying an existing record is done like this:
 
-```
+```php
 $article = Article::get(1);
 
 $article->title = 'New title';
@@ -144,7 +144,7 @@ $article->save();
 
 And deleting a record is done like this:
 
-```
+```php
 $article = Article::get(1);
 
 $article->delete();
@@ -154,7 +154,7 @@ $article->delete();
 
 By default the ORM selects all columns from the result set. You can specify the columns you want to select like this:
 
-```
+```php
 $articles = (new Article)->select(['id', 'title'])->all();
 ```
 
@@ -162,19 +162,19 @@ $articles = (new Article)->select(['id', 'title'])->all();
 
 You can also use joins when working with the ORM. In the following example we'll select all articles that have at least one comment:
 
-```
+```php
 $articles = (new Article)->join('comments', 'article.id', '=', 'comments.article_id')->all();
 ```
 
 The code above will execute the following SQL:
 
-```
+```php
 SELECT `articles`.* FROM `articles` INNER JOIN `comments` ON `article`.`id` = `comments`.`article_id`
 ```
 
 It will return duplicates for articles that have more than one comment. This can be solved using a distinct select:
 
-```
+```php
 $articles = (new Article)->distinct()->join('comments', 'article.id', '=', 'comments.article_id')->all();
 ```
 
@@ -188,7 +188,7 @@ Being able to set up relations between tables is important when working with dat
 
 Lets create a user model and a profile model and set up a `has one` relation between them.
 
-```
+```php
 <?php
 
 namespace app\models;
@@ -208,7 +208,7 @@ class User extends ORM
 
 Lets not bother creating a relation in the profile model jus yet.
 
-```
+```php
 <?php
 
 namespace app\models;
@@ -223,7 +223,7 @@ class Profile extends ORM
 
 You can now access a users profile like this:
 
-```
+```php
 $user = User::get(1);
 
 $profile = $user->profile;
@@ -233,7 +233,7 @@ $profile = $user->profile;
 
 We can now add a `has many` relation to our user model.
 
-```
+```php
 public function articles()
 {
 	return $this->hasMany(Article::class);
@@ -242,7 +242,7 @@ public function articles()
 
 We can now fetch all the articles that belong to the user like this:
 
-```
+```php
 $user = User::get(1);
 
 $articles = $user->articles;
@@ -254,7 +254,7 @@ The `belongs` to relation is the opposite of a `has one` or `has many` relation.
 
 We can continue to build on the article model and add a `belongs` to relation. All we need to get this to work is add a foreign key column named `user_id` to the articles table.
 
-```
+```php
 public function user()
 {
 	return $this->belongsTo(User::class);
@@ -263,7 +263,7 @@ public function user()
 
 Fetching the user that owns the article can now be done line this:
 
-```
+```php
 $article = Article::get(1);
 
 $user = $article->user;
@@ -277,7 +277,7 @@ The `many to many` relation requires a [junction table](https://en.wikipedia.org
 
 The relation would then look like this in the user model:
 
-```
+```php
 public function groups()
 {
 	return $this->manyToMany(Group::class);
@@ -286,7 +286,7 @@ public function groups()
 
 And like this in the group model:
 
-```
+```php
 public function users()
 {
 	return $this->manyToMany(User::class);
@@ -295,7 +295,7 @@ public function users()
 
 This is how you would use the relations:
 
-```
+```php
 // Fetch all the groups that the user belongs to
 
 $user = User::get(1);
@@ -313,7 +313,7 @@ $users = $group->users;
 
 The ORM is built on top of the [query builder](:base_url:/docs/:version:/databases-sql:query-builder) so you can add query criteria to your relations.
 
-```
+```php
 public function articles()
 {
 	return $this->hasMany(Article::class)->orderBy('title', SortDirection::Ascending);
@@ -322,7 +322,7 @@ public function articles()
 
 They can be in the relation definition itself or you can add them when you're accessing the related records.
 
-```
+```php
 $articles = $user->articles()->orderBy('title', SortDirection::Ascending)->all();
 ```
 
@@ -330,7 +330,7 @@ $articles = $user->articles()->orderBy('title', SortDirection::Ascending)->all()
 
 The ORM lets you create related records without having to worry about remembering to set the right foreign key value.
 
-```
+```php
 $user = User::get(1);
 
 $article = new Article();
@@ -345,7 +345,7 @@ The article will now be saved and the value of the `user_id` foreign key will au
 
 The `many to many` relation is a bit different since it requires a junction table. You'll have to use the `link` method to create a link between two related records.
 
-```
+```php
 $user = User::get(1);
 
 $group = Group::get(1);
@@ -365,7 +365,7 @@ $group->users()->link($user);
 
 Sometimes you'll need to store additional information in your junction table. This can easily be achieved by using the second parameter of the `link` method.
 
-```
+```php
 // Create a single link with attributes
 
 $user->groups()->link(1, ['foo' => 'data']);
@@ -381,7 +381,7 @@ $user->groups()->link([1, 2], [['foo' => 'data1'], ['foo' => 'data2']]);
 
 You can also update the junction attributes by using the `updateLink` method.
 
-```
+```php
 // Update a single link
 
 $user->groups()->updateLink(1, ['foo' => 'data']);
@@ -397,13 +397,13 @@ $user->groups()->updateLink([1, 2], [['foo' => 'data1'], ['foo' => 'data2']]);
 
 Fetching the junction attributes is done using the `alongWith` method.
 
-```
+```php
 $groups = $user->groups()->alongWith(['foo'])->all();
 ```
 
 The `unlink` method is used to remove the link between the records:
 
-```
+```php
 $user->groups()->unlink($group);
 
 // This will produce the same result as the example above:
@@ -415,7 +415,7 @@ $group->users()->unlink($user);
 
 Loading related records can sometimes cause the `1 + N` query problem. This is where eager loading becomes handy.
 
-```
+```php
 foreach ((new Comment)->limit(10)->all() as $comment) {
 	$comment->user->username;
 }
@@ -423,7 +423,7 @@ foreach ((new Comment)->limit(10)->all() as $comment) {
 
 The code above will execute `1` query to fetch `10` comments and then `1` query per iteration to retrieve the user who wrote the comment. This means that it has to execute `11` queries in total. Using eager loading can solve this problem.
 
-```
+```php
 foreach ((new Comment)->including('users')->limit(10)->all() as $comment) {
 	$comment->user->username;
 }
@@ -433,13 +433,13 @@ The code above will produce the same result as the previous example but it will 
 
 You can eager load more relations using an array and nested relations using the dot syntax.
 
-```
+```php
 $articles = (new Article)->including(['user', 'comments', 'comments.user'])->limit(10)->all();
 ```
 
 If you need to add query criteria to your relations then you can do so using a closure.
 
-```
+```php
 $articles = (new Article)->including(['user', 'comments as approved_comments' => function ($query) {
 	$query->where('approved', '=', true);
 }, 'comments.user'])->limit(10)->all();
@@ -447,19 +447,19 @@ $articles = (new Article)->including(['user', 'comments as approved_comments' =>
 
 You can also define relations to eager load in the model definition using the `$including` property. This is useful if you know that you're going to need to eager load the relations more often than not.
 
-```
+```php
 protected array $including = ['user', 'comments', 'comments.user'];
 ```
 
 You can then disable eager loading of the relations if needed by using the `excluding` method:
 
-```
+```php
 $articles = (new Article)->excluding(['user', 'comments'])->limit(10)->all();
 ```
 
 It is also possible to eager load relations using the `include` method on both model and result set instances. You can check if a model already has loaded a relation using the `includes` method.
 
-```
+```php
 $article = Article::get(1);
 
 if (!$article->includes('comments')) {
@@ -471,7 +471,7 @@ if (!$article->includes('comments')) {
 
 Sometimes you'll want to count the number of related records without having to execute a second query. This can easily be achieved using the `withCountOf` method.
 
-```
+```php
 $articles = (new Article)->withCountOf('comments')->limit(10)->all();
 ```
 
@@ -481,7 +481,7 @@ Each `Article` object in the `$articles` result set will now have a `comments_co
 
 If you want to add custom query criteria when counting related records then you can do so using a closure.
 
-```
+```php
 $articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function ($query) {
 	$query->where('approved', '=', true);
 }])->limit(10)->all();
@@ -493,7 +493,7 @@ The ORM relations rely on strict naming conventions but they can be overridden u
 
 In the example below we are telling the relation to use a foreign key named `user` instead of the default, which should have been `user_id`.
 
-```
+```php
 public function articles()
 {
 	return $this->hasMany(Article::class, 'user');
@@ -508,7 +508,7 @@ You can configure your model to automatically typecast values on the way in and 
 
 #### <a id="automatic_typecasting:scalars" href="#automatic_typecasting:scalars">Scalars</a>
 
-```
+```php
 protected array $cast = ['id' => 'int', 'published' => 'bool'];
 ```
 
@@ -520,13 +520,13 @@ Valid scalar types are `bool`, `int`, `float` and `string`.
 
 The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
 
-```
+```php
 protected array $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
 ```
 
 You'll now be able to treat the `joined_at` and `last_seen` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
 
-```
+```php
 $user = User::get(1);
 
 $lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:i');
@@ -536,7 +536,7 @@ $lastSeen = 'The user was last seen on ' . $user->last_seen->format('Y-m-d at H:
 
 Both the query builder and ORM support enums values. You can automatically cast database values to the appropriate enum using the `enum` typecast.
 
-```
+```php
 protected array $cast = ['transfer_status' => ['enum' => TransferStatus::class]];
 ```
 
@@ -550,7 +550,7 @@ Mutators and accessors allow you to modify data on the way in and out of the dat
 
 The following mutator will encode the value when its assigned.
 
-```
+```php
 protected function numbersMutator(array $numbers)
 {
 	return json_encode($numbers);
@@ -559,13 +559,13 @@ protected function numbersMutator(array $numbers)
 
 You can assign the value like any normal value and it will be JSON-encoded internally in the model making it possible to store it in the database.
 
-```
+```php
 $model->numbers = [1, 2, 3, 4];
 ```
 
 And the following accessor will decode the value when accessing it.
 
-```
+```php
 protected function numbersAccessor($numbers)
 {
 	return json_decode($numbers);
@@ -574,7 +574,7 @@ protected function numbersAccessor($numbers)
 
 You can now retrieve the value like any normal value and it will automatically be JSON-decoded for you.
 
-```
+```php
 $arrayOfNumbers = $model->numbers;
 ```
 
@@ -584,7 +584,7 @@ $arrayOfNumbers = $model->numbers;
 
 Scopes allow you to specify commonly used query criteria as methods. All scope methods must be suffixed with the `Scope` suffix.
 
-```
+```php
 public function publishedScope($query)
 {
 	$query->where('published', '=', 1);
@@ -598,7 +598,7 @@ public function popularAndPublishedScope($query, $minViewCount = 1000)
 
 You can now retrieve published articles like this:
 
-```
+```php
 $articles = (new Article)->scope('published')->all();
 
 $articles = (new Article)->scope('popularAndPublished')->all();
@@ -610,7 +610,7 @@ $articles = User::get(1)->articles()->scope('popular_and_published')->all();
 
 Scopes also work through relations, and you can of course pass parameters to your scopes:
 
-```
+```php
 $articles = User::get(1)->articles()->scope('published')->all();
 
 $articles = User::get(1)->articles()->scope('popularAndPublished', 2000)->all();
@@ -622,7 +622,7 @@ $articles = User::get(1)->articles()->scope('popularAndPublished', 2000)->all();
 
 The ORM allows you to use mass assignment when creating or updating records. This can save you a few lines of code since you don't have to set each value individually but it can open attack vectors in your application if you're not careful.
 
-```
+```php
 // Create a new record using mass assignment
 
 User::create($this->request->getPost()->all());
@@ -647,7 +647,7 @@ $user->save();
 
 You can clone records using the `clone` keyword:
 
-```
+```php
 $clone = clone User::get(1);
 
 $clone->save();
@@ -655,7 +655,7 @@ $clone->save();
 
 You can also clone an entire result set:
 
-```
+```php
 $clones = clone (new User)->all();
 
 foreach ($clones as $clone) {
@@ -681,7 +681,7 @@ You can convert both your result and result set objects to arrays and JSON when 
 
 Databases are usually designed with snake cased column and table names so interacting with columns and relations mapped to properties on ORM objects will lead to inconsistency in your code base if you use camel case everywhere else. This can be solved by using the `CamelCasedTrait` trait.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -712,7 +712,7 @@ If you have database columns that allow `null` values then you can use the `Null
 
 All you have to do is to use the trait and configure your nullable columns using the `$nullable` property.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -732,7 +732,7 @@ When two users are attempting to update the same record simultaneously, one of t
 
 To enable optimistic locking you need to use `OptimisticLockingTrait` trait. The database table also needs an integer column named `lock_version`. The name of the column can be configured using the `$lockingColumn` property.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -746,7 +746,7 @@ class Article extends ORM
 
 The second save in the example below will throw a `StaleRecordException` since the record is now outdated compared to the one stored in the database.
 
-```
+```php
 $article1 = Article::get(1);
 $article2 = Article::get(1);
 
@@ -761,7 +761,7 @@ $article2->save();
 
  The `reload` method can be used to refresh the outdated record.
 
-```
+```php
 $article2->reload();
 ```
 
@@ -773,7 +773,7 @@ The optimistic locking trait will also check for stale records when deleting.
 
 You can make your records read-only by using the `ReadOnlyTrait`.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -787,7 +787,7 @@ class User extends ORM
 
 This will make it impossible to update or delete the records and a `ReadOnlyException` will be thrown if attempted.
 
-```
+```php
 // Load a read-only record
 
 $user = User::get(1);
@@ -801,7 +801,7 @@ $user->delete();
 
 Sometimes you'll have strings that you don't want to show up in the query log or in exception messages. You can use the `SensitiveStringTrait` trait to hide them from logged queries.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -821,7 +821,7 @@ You'll often want to track when a record has been created and when it was update
 
 The trait requires you to add two `DATETIME` columns to your database table, `created_at` and `updated_at`. You can override the column names using the `$createdAtColumn` and `$updatedAtColumn` properties.
 
-```
+```php
 <?php
 
 use mako\database\midgard\ORM;
@@ -835,7 +835,7 @@ class Article extends ORM
 
 You can touch the `updated_at` timestamp without having to modify any other data by using the `touch` method.
 
-```
+```php
 $article = Article::get(1);
 
 $article->touch();
@@ -843,7 +843,7 @@ $article->touch();
 
 You can also make the ORM touch related records upon saving by listing the relations you want to touch in the `$touch` property.
 
-```
+```php
 protected array $touch = ['foo', 'foo.bar']; // Nested relations are also supported
 ```
 

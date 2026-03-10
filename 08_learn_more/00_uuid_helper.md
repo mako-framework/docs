@@ -14,7 +14,7 @@ The UUID class contains methods used to validate and generate [UUIDs](https://en
 
 The `validate` method checks if a string is a valid UUID. It will return `true` if is does and `false` if not.
 
-```
+```php
 $valid = UUID::validate('f47ac10b-58cc-4372-a567-0e02b2c3d479'); // "true"
 
 $valid = UUID::validate('x47ac10b-58cc-4372-a567-0e02b2c3d479'); // "false"
@@ -22,7 +22,7 @@ $valid = UUID::validate('x47ac10b-58cc-4372-a567-0e02b2c3d479'); // "false"
 
 The `v3` method will generate and return a version 3 UUID.
 
-```
+```php
 // The namespace must be a valid UUID
 
 $uuid = UUID::v3('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'foobar');
@@ -34,13 +34,13 @@ $uuid = UUID::v3(UUID::OID, 'foobar');
 
 The `v4` method will return a version 4 UUID.
 
-```
+```php
 $uuid = UUID::v4();
 ```
 
 The `v4Sequential` methods lets you generate sequential UUIDs where the first 48 bit are reserved for the timestamp.
 
-```
+```php
 $uuid = UUID::v4Sequential();
 ```
 
@@ -48,7 +48,7 @@ $uuid = UUID::v4Sequential();
 
 The `v5` method will return a version 5 UUID.
 
-```
+```php
 // The namespace must be a valid UUID
 
 $uuid = UUID::v5('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'foobar');
@@ -60,12 +60,12 @@ $uuid = UUID::v5(UUID::OID, 'foobar');
 
 The `toBinary` method converts a UUID from a hexadecimal representation to binary.
 
-```
+```php
 $binary = UUID::toBinary('f47ac10b-58cc-4372-a567-0e02b2c3d479');
 ```
 
 The `toHexadecimal` method converts a binary representation of a UUID to a hexadecimal representation.
 
-```
+```php
 $hexadecimal = UUUID::toHexadecimal($binary);
 ```

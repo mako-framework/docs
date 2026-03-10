@@ -14,7 +14,7 @@ The number helper contains methods that can be useful when working with numbers.
 
 The `arabic2roman` method converts Arabic numerals to roman numerals.
 
-```
+```php
 echo Num::arabic2roman(1984); // Will print "MCMLXXXIV"
 ```
 
@@ -22,7 +22,7 @@ echo Num::arabic2roman(1984); // Will print "MCMLXXXIV"
 
 The `roman2arabic` method will convert roman numerals to Arabic numerals.
 
-```
+```php
 echo Num::roman2arabic('MCMLXXXIV'); // Will print "1984"
 ```
 

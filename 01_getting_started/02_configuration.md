@@ -21,7 +21,7 @@ All of the remaining application configuration is done by editing the files that
 
 Mako config files are just simple arrays. In addition to the core config files that are created, you can create your own custom config files:
 
-```
+```php
 <?php
 
 // app/config/redis.php
@@ -33,19 +33,19 @@ return [
 
 And loading a config file is done by using the `get` method.
 
-```
+```php
 $config = $this->config->get('redis'); // Loads the app/config/redis.php file
 ```
 
 You can also fetch config items using `dot notation`. If we are using the example above, you can fetch `key_1` in this manner:
 
-```
+```php
 $default = $this->config->get('redis.key_1');
 ```
 
 It is also possible to override settings or add new configurations at runtime:
 
-```
+```php
 // Adds a new Crypto configuration named "user" that you can
 // use when creating a Crypto instance "Crypto::getInstance('user');"
 
@@ -58,7 +58,7 @@ $this->config->set('crypto.configurations.user', [
 
 Removing the custom configuration is done using the `remove` method:
 
-```
+```php
 $this->config->remove('crypto.configurations.user');
 ```
 
@@ -74,7 +74,7 @@ Many developers have made mistakes with committing config files containing sensi
 
 Place your sensitive configuration values in environment variables, which can then be accessed using the `mako\env` function.
 
-```
+```php
 'default' => [
 	'dsn'         => mako\env('DB_DSN'),
 	'username'    => mako\env('DB_USERNAME'),
@@ -101,14 +101,12 @@ Setting the environment in Apache:
 ```
 SetEnv MAKO_ENV dev
 ```
-{.language-apacheconf}
 
 Setting the environment in Nginx:
 
 ```
 fastcgi_param MAKO_ENV dev;
 ```
-{.language-nginx}
 
 Setting the environment in a linux/unix shell:
 
@@ -116,14 +114,12 @@ Setting the environment in a linux/unix shell:
 export MAKO_ENV=dev # for Bourne, bash, and related shells
 setenv MAKO_ENV=dev # for csh and related shells
 ```
-{.language-none}
 
 You can also manually set the environment in the [CLI](:base_url:/docs/:version:/command-line:basics) using the env option.
 
 ```
 php reactor <command> --env=dev
 ```
-{.language-none}
 
 Using the above methods to set up the `dev` environment, it will now read your configurations from `app/config/dev/`. If you changed the environment to `prod` it will pull from `app/config/prod/` instead.
 
@@ -131,7 +127,7 @@ Using the above methods to set up the `dev` environment, it will now read your c
 
 You can also use the `mako\env` function to fetch environment variables, which is recommended for sensitive configuration values like credentials, encryption keys, and more.
 
-```
+```php
 [
 	'username'    => mako\env('USERNAME'),
 	'password'    => mako\env('PASSWORD'),
@@ -141,7 +137,7 @@ You can also use the `mako\env` function to fetch environment variables, which i
 
 You can also specify default values:
 
-```
+```php
 [
 	'username'    => mako\env('USERNAME', 'user'),
 	'password'    => mako\env('PASSWORD', '1234'),

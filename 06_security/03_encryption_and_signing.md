@@ -27,7 +27,7 @@ The encryption library allows you to encrypt data using OpenSSL.
 
 First we'll need to get an encrypter instance. This is done using the `CryptoManager::getInstance()` method.
 
-```
+```php
 // Returns instance of the "default" crypto configuration defined in the config file
 
 $encrypter = $this->crypto->getInstance();
@@ -39,13 +39,13 @@ $encrypter = $this->crypto->getInstance('openssl');
 
 The `encrypt` method is used to encrypt your data.
 
-```
+```php
 $encrypted = $encrypter->encrypt('Hello, world!');
 ```
 
 The `decrypt` method is used to decrypt your data. It throws a `CryptoException` if it's unable to decrypt your data.
 
-```
+```php
 $decrypted = $encrypter->decrypt($encrypted);
 ```
 
@@ -55,7 +55,7 @@ $decrypted = $encrypter->decrypt($encrypted);
 
 You can access the default crypto configuration directly without having to go through the `getInstance` method thanks to the magic `__call` method.
 
-```
+```php
 $encrypted = $this->crypto->encrypt('Hello, world!');
 ```
 
@@ -63,7 +63,7 @@ $encrypted = $this->crypto->encrypt('Hello, world!');
 
 Sometimes you'll have to re-encrypt data. This could be because you have generated a new application secret or encryption key. Luckily, this can easily be achieved in a few simple lines of code.
 
-```
+```php
 // Decrypt data using the old key and secret
 
 $crypto = new Crypto(new OpenSSL(Key::decode($oldKey)), new Signer(Key::decode($oldSecret)));
@@ -87,13 +87,13 @@ Signing strings allows you to verify both the data integrity and the authenticit
 
 You can easily sign strings with the application secret using the default signer instance.
 
-```
+```php
 $signed = $this->signer->sign('Hello, world!');
 ```
 
 If you want to sign strings with a different secret then you can do so by creating a new Signer instance.
 
-```
+```php
 $signer = new Signer('secret_used_to_sign_data');
 ```
 
@@ -102,12 +102,12 @@ $signer = new Signer('secret_used_to_sign_data');
 
 The `sign` method returns a signed version of the provided string.
 
-```
+```php
 $signed = $signer->sign('Hello, world!');
 ```
 
 The `validate` method will check if your string is valid. It returns the original string if it is and `false` if not.
 
-```
+```php
 $string = $signer->validate($signed);
 ```

@@ -27,13 +27,13 @@ Routes are registered in the `app/http/routing/routes.php` file and there are th
 
 The following route will forward all `GET` requests to the `/` route to the `welcome` method of the `app\http\controllers\Home` controller class.
 
-```
+```php
 $routes->get('/', [Home::class, 'welcome']);
 ```
 
 If you want the route to respond to `POST` requests instead then you'll have to use the `post` method.
 
-```
+```php
 $routes->post('/', [Home::class, 'welcome']);
 ```
 
@@ -41,7 +41,7 @@ The available methods are `get`, `post`, `put`, `patch`, and `delete`.
 
 You can also make a route respond to all request methods using the `all` method.
 
-```
+```php
 $routes->all('/', [Home::class, 'welcome']);
 ```
 
@@ -49,13 +49,13 @@ $routes->all('/', [Home::class, 'welcome']);
 
 It is also possible to register a route that responds to a custom set of request methods using the `register` method.
 
-```
+```php
 $routes->register(['GET', 'POST'], '/', [Home::class, 'welcome']);
 ```
 
 As previously mentioned, routes can also point to closures instead of class methods.
 
-```
+```php
 $routes->get('/hello-world', fn () => 'Hello, world!');
 ```
 
@@ -65,26 +65,26 @@ $routes->get('/hello-world', fn () => 'Hello, world!');
 
 You'll often want to send parameters to your route actions. This can easily be achieved using the following syntax.
 
-```
+```php
 $routes->get('/articles/{id}', fn ($id) => $id);
 ```
 
 Parameters can be marked as optional by suffixing them with a question mark (`?`).
 
-```
+```php
 $routes->get('/articles/{id}/{slug}?', fn ($id, $slug = null) => $id . ' ' . $slug);
 ```
 
 Parameters will match any character except for slashes (`/`); however, you can define your own custom parameter patterns using the `patterns` method.
 
-```
+```php
 $routes->get('/articles/{id}', fn ($id) => 'article ' . $id)
 ->patterns(['id' => '[0-9]+']);
 ```
 
 Both class method and closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
-```
+```php
 $routes->get('/article/{id}', fn (ViewFactory $view, $id) => $view->render('article', ['id' => $id]))
 ->patterns(['id' => '[0-9]+']);
 ```
@@ -101,7 +101,7 @@ Route middleware allows you to alter the request and response both before and af
 
 The example below is the most basic middleware implementation (it doesn't actually do anything).
 
-```
+```php
 <?php
 
 namespace app\http\routing\middleware;
@@ -124,7 +124,7 @@ In the next example we'll create a middleware that returns a cached response if 
 
 Note that all middleware is instantiated through the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection) so you can easily inject your dependencies through the constructor.
 
-```
+```php
 <?php
 
 namespace app\http\routing\middleware;
@@ -165,7 +165,7 @@ class CacheMiddleware implements MiddlewareInterface
 
 Assigning middleware to a route can be done using the `middleware` method. If your route requires multiple middleware then you can chain multiple calls to the `middleware` method.
 
-```
+```php
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware(CacheMiddleware::class);
@@ -173,7 +173,7 @@ $routes->get('/articles/{id}', [Articles::class, 'view'])
 
 You can also pass parameters to your middleware. In the example below we're telling the middleware to cache the response for 60 minutes instead of the default 10.
 
-```
+```php
 $routes->get('/articles/{id}', [Articles::class, 'view'])
 ->patterns(['id' => '[0-9]+'])
 ->middleware(CacheMiddleware::class, minutes: 60);
@@ -181,7 +181,7 @@ $routes->get('/articles/{id}', [Articles::class, 'view'])
 
 Middleware can also be assigned using the `Middleware` attribute on route action classes and methods.
 
-```
+```php
 #[Middleware(CacheMiddleware::class, minutes: 60)]
 public function myAction(): string
 {
@@ -191,7 +191,7 @@ public function myAction(): string
 
 If you have middleware that you want to assign to all your routes then you can register them as global in the `app/http/routing/middleware.php` file. There are three variables available in the scope, `$dispatcher` (the route dispatcher), `$app` (the application instance) and `$container` (the container instance).
 
-```
+```php
 $dispatcher->registerGlobalMiddleware(CacheMiddleware::class, minutes: 60);
 ```
 
@@ -199,7 +199,7 @@ $dispatcher->registerGlobalMiddleware(CacheMiddleware::class, minutes: 60);
 
 As mentioned above, middleware get executed in the order that they are assigned to the route. You can dictate the execution order by configuring middleware priority using the `setMiddlewarePriority` method.
 
-```
+```php
 $dispatcher->setMiddlewarePriority(CacheMiddleware::class, 1);
 $dispatcher->setMiddlewarePriority(PassthroughMiddleware::class, 2);
 ```
@@ -220,7 +220,7 @@ Note that all constraints are instantiated through the [dependency injection con
 
 The following constraint will match a route if the `X-Api-Version` header matches the desired version. A default value of `2.0` is assumed if no header is present.
 
-```
+```php
 <?php
 
 namespace app\http\routing\constraints;
@@ -247,7 +247,7 @@ class ApiVersionConstraint implements ConstraintInterface
 
 Assigning constraints to a route is done using the `constraint` method. If your route requires multiple constraints then you can chain multiple calls to the `constraint` method.
 
-```
+```php
 $routes->get('/', [Api2::class, 'index'])->constraint(ApiVersionConstraint::class, version: '2.0');
 $routes->get('/', [Api1::class, 'index'])->constraint(ApiVersionConstraint::class, version: '1.0');
 ```
@@ -258,7 +258,7 @@ The first route will be matched if no `X-Api-Version` header is present or if th
 
 Constraints can also be assigned using the `Constraint` attribute on route action classes and methods.
 
-```
+```php
 #[Constraint(ApiVersionConstraint::class, version: '2.0')]
 public function myAction(): string
 {
@@ -268,7 +268,7 @@ public function myAction(): string
 
 If you have constraints that you want to assign to all your routes then you can register them as global in the `app/http/routing/constraints.php` file. There are three variables available in the scope, `$router` (the router), `$app` (the application instance) and `$container` (the container instance).
 
-```
+```php
 $router->registerGlobalConstraint(ApiVersionConstraint::class, version: '2.0');
 ```
 
@@ -278,7 +278,7 @@ $router->registerGlobalConstraint(ApiVersionConstraint::class, version: '2.0');
 
 Route groups are useful when you have a set of routes with the same settings.
 
-```
+```php
 $options = [
 	'middleware' => [CacheMiddleware::class],
 	'patterns'   => ['id' => '[0-9]+'],
@@ -295,7 +295,7 @@ All routes within the group will now use the same middleware and regex pattern. 
 
 You can also pass parameters to middleware and constraints in route groups by using the following syntax.
 
-```
+```php
 $options = [
 	'middleware' => [CacheMiddleware::class => ['minutes' => 60]],
 	'patterns'   => ['id' => '[0-9]+'],
@@ -317,19 +317,19 @@ The following options are available when creating a route group. They are also a
 
 You can assign names to your routes when you define them. This will allow you to perform reverse routing, thus removing the need of hardcoding URLs in your project.
 
-```
+```php
 $routes->get('/', [Home::class, 'welcome'], 'home');
 ```
 
 The route in the example above has been named `home` and we can now create a URL to the route using the `toRoute` method of the `URLBuilder` class.
 
-```
+```php
 <a href="{{$urlBuilder->toRoute('home')}}">Home</a>
 ```
 
 You can also pass parameters to your route URLs.
 
-```
+```php
 <a href="{{$urlBuilder->toRoute('articles.view', ['id' => 1])">Article</a>
 ```
 
@@ -339,7 +339,7 @@ You can also pass parameters to your route URLs.
 
 Most browsers only support sending `GET` and `POST` form requests. You can get around this limitation by performing a `POST` request including a `REQUEST_METHOD_OVERRIDE` field where you specify the request method you want to use.
 
-```
+```php
 <input type="hidden" name="REQUEST_METHOD_OVERRIDE" value="DELETE">
 ```
 

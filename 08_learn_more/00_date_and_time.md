@@ -21,7 +21,7 @@ You can create a new instance using the constructor. The difference between Mako
 
 > There is also an immutable class called `TimeImmutable` that implements the same methods with a [couple of exceptions](#time:timeimmutable_specific_methods).
 
-```
+```php
 $time = new Time();
 
 $time = new Time('now', 'Europe/Paris');
@@ -31,7 +31,7 @@ $time = new Time('now', new DateTimeZone('Europe/Paris'));
 
 The `now` method allow you to create a `Time` instance where the time is set to "now". There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
-```
+```php
 $time = Time::now();
 
 $time = Time::now('Europe/Paris');
@@ -41,7 +41,7 @@ $time = Time::now(new DateTimeZone('Europe/Paris'));
 
 The `createFromFormat` method allows you to create a `Time` instance from a time string. The difference between Mako's `Time` class and PHP's `DateTime` class is  that the optional third parameter can be either a valid timezone string or a `DateTimeZone` instance.
 
-```
+```php
 $time = Time::createFromFormat('Y-m-d', '2014-03-28');
 
 $time = Time::createFromFormat('Y-m-d', '2014-03-28', 'Europe/Paris');
@@ -51,7 +51,7 @@ $time = Time::createFromFormat('Y-m-d', '2014-03-28', new DateTimeZone('Europe/P
 
 The `createFromDate` method allows you to create a `Time` instance using a date. Only the first parameter (year) is required. It'll use the current month and day if not specified. There's also an optional fourth parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
-```
+```php
 $time = Time::createFromDate(2014);
 
 $time = Time::createFromDate(2014, 4);
@@ -65,7 +65,7 @@ $time = Time::createFromDate(2014, 4, 28, new DateTimeZone('Europe/Paris'));
 
 The `createFromTimestamp` method allows you to create a `Time` instance using a UNIX timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
-```
+```php
 $time = Time::createFromTimestamp($timestamp);
 
 $time = Time::createFromTimestamp($timestamp, 'Europe/Paris');
@@ -75,7 +75,7 @@ $time = Time::createFromTimestamp($timestamp, new DateTimeZone('Europe/Paris'));
 
 The `createFromDOSTimestamp` method allows you to create a `Time` instance using a DOS timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
-```
+```php
 $time = Time::createFromDOSTimestamp($timestamp);
 
 $time = Time::createFromDOSTimestamp($timestamp, 'Europe/Paris');
@@ -85,7 +85,7 @@ $time = Time::createFromDOSTimestamp($timestamp, new DateTimeZone('Europe/Paris'
 
 The `setTimeZone` method allows you to change the timezone after instance creation. The timezone parameter accepts either a valid time zone string or a `DateTimeZone` instance.
 
-```
+```php
 $time->setTimeZone('Europe/Paris');
 
 $time->setTimeZone(new DateTimeZone('Europe/Paris'));
@@ -93,43 +93,43 @@ $time->setTimeZone(new DateTimeZone('Europe/Paris'));
 
 The `forward` method moves you forward in time by **x** seconds.
 
-```
+```php
 $time->forward(60);
 ```
 
 The `rewind` method moves you backward in time by **x** seconds.
 
-```
+```php
 $time->rewind(60);
 ```
 
 The `getDOSTimestamp` method returns the DOS timestamp of the `Time` instance.
 
-```
+```php
 $dosTimestamp = $time->getDOSTimestamp();
 ```
 
 The `isLeapYear` method returns `true` if the year of the `Time` instance is a leap year and `false` if not.
 
-```
+```php
 $isLeapYear = $time->isLeapYear();
 ```
 
 The `daysInMonth` method returns the number of days in the month of the `Time` instance. The method also takes into account whether it is a leap year or not.
 
-```
+```php
 $daysInMonth = $time->daysInMonth();
 ```
 
 The `daysInMonths` method returns an array containing the number of days in each month of the `Time` instance. The method also takes into account whether it is a leap year or not.
 
-```
+```php
 $daysInMonths = $time->daysInMonths();
 ```
 
 The `copy` method returns a copy of the instance.
 
-```
+```php
 $time2 = $time1->copy();
 
 $time1->forward(30); // $time2 will be 30 seconds behind $time1
@@ -141,7 +141,7 @@ $time1->forward(30); // $time2 will be 30 seconds behind $time1
 
 The `getImmutable` method returns a `TimeImmutable` instance set to the same time.
 
-```
+```php
 $immutable = $time->getImmutable();
 ```
 
@@ -149,7 +149,7 @@ $immutable = $time->getImmutable();
 
 The `getMutable` method returns a `Time` instance set to the same time.
 
-```
+```php
 $mutable = $time->getMutable();
 ```
 
@@ -159,12 +159,12 @@ $mutable = $time->getMutable();
 
 The `getTimeZones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 
-```
+```php
 $timeZones = TimeZone::getTimeZones();
 ```
 
 The `getGroupedTimeZones` method returns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
 
-```
+```php
 $timeZones = TimeZone::getGroupedTimeZones();
 ```

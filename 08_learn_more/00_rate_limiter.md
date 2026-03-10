@@ -38,7 +38,7 @@ If a user or IP exceeds this limit, the application will throw a `TooManyRequest
 
 The `resetAfter` parameter accepts a `DateInterval` instance or a valid [date time string](https://www.php.net/manual/en/datetime.formats.php#datetime.formats.relative).
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -61,7 +61,7 @@ class Endpoint
 
 To integrate rate limiting into your application, you can inject a rate limiter instance into your dependencies using the `RateLimiterInterface`.
 
-```
+```php
 <?php
 
 use mako\throttle\RateLimiterInterface;
@@ -79,13 +79,13 @@ The `isLimitReached` method allows you to check whether the maximum number of al
 
 The method will return `true` if the limit has been reached and `false` if it hasn't.
 
-```
+```php
 $limitReached = $rateLimiter->isLimitReached('send_email', 10);
 ```
 
 The `getRemaining` method returns the number of remaining attempts for the action before the limit has been reached. The first parameter is a string that uniquely identifies the action you want to limit. The second parameter is an integer that defines the maximum number of times the action can be performed before being restricted.
 
-```
+```php
 $remainingAttempts = $rateLimiter->remainingAttempts('send_email', 10);
 ```
 
@@ -93,7 +93,7 @@ The `getRetryAfter` method provides a convenient way to determine when a rate li
 
 If there isn’t an active limiter for the specified action, the method will return `null`.
 
-```
+```php
 $retryAfter = $rateLimiter->getRetryAfter('send_email');
 ```
 
@@ -101,7 +101,7 @@ The `increment` method increments the counter for the specified action. The firs
 
 After incrementing the counter, the method returns the updated count, making it possible to immediately check how many attempts have been made. This is particularly useful when implementing logic that needs to respond differently based on how close the user is to reaching the limit.
 
-```
+```php
 $attempts = $rateLimiter->increment('send_email', DateInterval::createFromDateString('10 minutes'));
 ```
 
@@ -115,7 +115,7 @@ Additionally, if you need a custom storage solution, you can implement your own 
 
 To use the `Redis` store or a custom implementation, you'll need to override the `getStore` method of the `RateLimiterService` class.
 
-```
+```php
 <?php
 
 namespace app\services;

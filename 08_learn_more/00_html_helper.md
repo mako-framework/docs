@@ -14,7 +14,7 @@ The HTML helper can be used to generate nearly any HTML tag.
 
 First we'll need to create a HTML instance.
 
-```
+```php
 $html = new HTML;
 
 // You can make it return XHTML by setting the $xhtml parameter to "true"
@@ -24,7 +24,7 @@ $html = new HTML(true);
 
 The `tag` method can be used to generate nearly any HTML tag.
 
-```
+```php
 // Will print "<br>"
 
 echo $html->tag('br');
@@ -40,7 +40,7 @@ echo $html->tag('span', ['id' => 'foo', 'class' => 'bar'], 'Hello, world!');
 
 The `audio` method generates HTML5 tags for audio files.
 
-```
+```php
 echo $html->audio('http://example.org/file.mp3');
 
 echo $html->audio(['http://example.org/file.mp3', 'http://example.org/file.ogg']);
@@ -48,7 +48,7 @@ echo $html->audio(['http://example.org/file.mp3', 'http://example.org/file.ogg']
 
 The `video` method generates HTML5 tags for video files.
 
-```
+```php
 echo $html->video('http://example.org/file.mp4');
 
 echo $html->video(['http://example.org/file.mp4', 'http://example.org/file.ogg']);
@@ -56,7 +56,7 @@ echo $html->video(['http://example.org/file.mp4', 'http://example.org/file.ogg']
 
 The `ul` method generates HTML tags for an unordered list.
 
-```
+```php
 $items = ['apple', 'banana', 'orange'];
 
 echo $html->ul($items);
@@ -72,7 +72,7 @@ echo $html->ul($items);
 
 The `ol` method generates HTML tags for a ordered list.
 
-```
+```php
 $items = ['apple', 'banana', 'orange'];
 
 echo $html->ol($items);
@@ -88,7 +88,7 @@ echo $html->ol($items);
 
 The `addMethod` method allows you to register custom tag methods.
 
-```
+```php
 HTML::addMethod('p', fn ($content, array $attributes = []) => $this->tag('p', $attributes, $content));
 
 // Will print <p>Hello</p>

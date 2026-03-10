@@ -21,7 +21,7 @@ The role of a controller is to respond to an HTTP request and construct a respon
 
 Here’s a basic example controller that extends the base controller included with the framework. Controllers do not need to extend the base controller; however, doing so gives you access to the useful `redirectResponse` method, which allows you to redirect to named routes or external URLs.
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -41,13 +41,13 @@ class Home extends Controller
 
 Passing parameters to your controller actions is simple. Define a route that includes the parameters you need, then add matching parameters to your action method.
 
-```
+```php
 $routes->get('/articles/{id}', [Article::class, 'view']);
 ```
 
 > Note: It is important that that the method parameter has the same name as the route parameter.
 
-```
+```php
 public function view($id)
 {
 	return $id;
@@ -62,7 +62,7 @@ All controllers can define two special methods: `beforeAction` and `afterAction`
 
 If `beforeAction` returns a value, the controller action and the `afterAction` method will be skipped.
 
-```
+```php
 public function beforeAction()
 {
 	if ($this->gatekeeper->isGuest()) {
@@ -83,7 +83,7 @@ Deferred tasks are still processed within the same request, so memory limits and
 
 To use deferred tasks, simply inject the `DeferredTasks` class and add your task using the `defer` method.
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -118,7 +118,7 @@ Task handlers can be any type of callable and are executed using the [dependency
 
 Controllers are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -137,7 +137,7 @@ class Articles extends Controller
 
 You can also inject your dependencies directly into a method since controller actions are executed by the `Container::call()` method.
 
-```
+```php
 public function view(ViewFactory $view, $id)
 {
 	return $view->render('article', ['id' => $id]);

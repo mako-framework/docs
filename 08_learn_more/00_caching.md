@@ -29,7 +29,7 @@ The cache library provides a simple and consistent interface to the most common 
 
 To get an instance of the default cache just call the `CacheManager::getInstance()` method. If you want to get an instance of any of the other cache configurations defined in the config file then you'll have to pass it the configuration name.
 
-```
+```php
 // Returns instance of the "default" cache configuration defined in the config file
 
 $cache = $this->cache->getInstance();
@@ -41,19 +41,19 @@ $cache = $this->cache->getInstance('apc');
 
 Adding data to the cache is done using the `put` method. The method returns `true` on success or `false` on failure.
 
-```
+```php
 $cache->put('my_array', [1, 2, 3, 4], 3600);
 ```
 
 You can also add data to the cache only if it doesn't already exist by using the `putIfNotExists` method.
 
-```
+```php
 $cache->putIfNotExists('my_array', [1, 2, 3, 4], 3600);
 ```
 
 You can check whether or not an item exists in the cache by using the `has` method.
 
-```
+```php
 if ($cache->has('foo')) {
 	// Do something
 }
@@ -61,13 +61,13 @@ if ($cache->has('foo')) {
 
 The `get` method is used to retrieve data from the cache. The method returns `null` if the cached data has expired or if it is not found.
 
-```
+```php
 $cached = $cache->get('my_array');
 ```
 
 The `getOrElse` method returns the data if the key exists and caches the return value of the closure if it doesn't. The closure does not get executed if the key exists in the cache.
 
-```
+```php
 $cached = $cache->getOrElse('foo', function () {
 	sleep(5);
 
@@ -77,25 +77,25 @@ $cached = $cache->getOrElse('foo', function () {
 
 The `getAndPut` method allows you to retrieve a cached value and replace it with a new value in a single call. The method returns `null` if the cached data has expired or if it is not found.
 
-```
+```php
 $cached = $cache->getAndPut('my_array', [1, 3, 4, 5], 3600);
 ```
 
 If you need to retrieve and remove a value then you can use the `getAndRemove` method. The method returns `null` if the cached data has expired or if it is not found.
 
-```
+```php
 $cached = $cache->getAndRemove('my_array');
 ```
 
 Removing data from the cache is done by using the `remove` method. The method returns `true` on success or `false` on failure.
 
-```
+```php
 $cache->remove('my_array');
 ```
 
 You can clear the entire cache by using the `clear` method. The method returns `true` on success or `false` on failure. Note that clearing the cache might also affect other applications.
 
-```
+```php
 $cache->clear();
 ```
 
@@ -108,13 +108,13 @@ The `APCU`, `Memcached`, `Memory`, `NullStore` and `Redis` stores implement the 
 
 The `increment` method allows you to increment a stored number.
 
-```
+```php
 $incremented = $cache->increment('counter');
 ```
 
 The `decrement` method allows you to decrement a stored number.
 
-```
+```php
 $incremented = $cache->increment('counter');
 ```
 
@@ -124,6 +124,6 @@ Both methods also have an optional second parameter that allows you to set amoun
 
 You can access the default cache instance directly without having to go through the `getInstance` method thanks to the magic `__call` method.
 
-```
+```php
 $cached = $this->cache->get('my_array');
 ```

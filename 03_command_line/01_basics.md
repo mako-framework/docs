@@ -17,7 +17,6 @@ To list the available commands just type the following in your console:
 ```
 php reactor
 ```
-{.language-none}
 
 It should print something similar to the following on a default Mako installation.
 
@@ -58,7 +57,6 @@ Available commands:
 ┃ migration:up           ┃ Runs all outstanding migrations.                ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
-{.language-none}
 
 > Note: The list of available commands may vary depending on which services you have enabled.
 
@@ -67,11 +65,9 @@ Executing a command is easy and can be done like this:
 ```
 php reactor app:routes
 ```
-{.language-none}
 
 You can list detailed information about a specific command using the `--help` flag.
 
 ```
 php reactor app:server --help
 ```
-{.language-none}

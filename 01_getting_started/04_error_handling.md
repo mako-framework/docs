@@ -17,7 +17,7 @@ You can register custom error handlers for different kinds of exception types us
 
 A great place to do so is in the `app/bootstrap.php` file.
 
-```
+```php
 $errorHandler = $container->get(ErrorHandler::class);
 
 $errorHandler->addHandler(PDOException::class, function ($exception) {
@@ -27,7 +27,7 @@ $errorHandler->addHandler(PDOException::class, function ($exception) {
 
 > Your error handler should **not** have a return value unless you want it to stop further error handling.
 
-```
+```php
 $errorHandler->addHandler(Throwable::class, function ($exception) {
 	// Do something else here
 });
@@ -45,7 +45,7 @@ $errorHandler->addHandler(PDOException::class, function ($exception) {
 
 Having error logging enabled can be useful even when in production, but not all error types are worth logging. You can disable error logging for specific exception types by using the `error_handler.dont_log` config key in your application config file.
 
-```
+```php
 'error_handler' => [
 	'dont_log' => [
 		mako\http\exceptions\NotFoundException::class,
@@ -56,7 +56,7 @@ Having error logging enabled can be useful even when in production, but not all 
 
 You can also disable logging programmatically using the `dontLog` method.
 
-```
+```php
 $errorHandler->dontLog(mako\http\exceptions\NotFoundException::class);
 
 // You can also pass an array of exception types.

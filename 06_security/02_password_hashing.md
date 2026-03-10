@@ -25,7 +25,7 @@ Using `md5` or `sha1` hashes for storing passwords is **not recommended** as the
 
 We'll be using the Bcrypt hasher in all our examples but all the hashers implement the same interface.
 
-```
+```php
 $hasher = new Bcrypt;
 
 // You can also pass an array of algorithm options
@@ -37,7 +37,7 @@ $hahser = new Bcrypt(['cost' => 14]);
 
 The `create` method will return a hash of the provided password.
 
-```
+```php
 $hash = $hasher->create('foobar');
 ```
 
@@ -46,12 +46,12 @@ $hash = $hasher->create('foobar');
 
 The `verify` method will validate hashes generated using the `create` method.
 
-```
+```php
 $valid = $hasher->verify('foobar', $hash);
 ```
 
 The `needsRehash` method returns `true` if the provided hash needs to be rehashed and `false` if not.
 
-```
+```php
 $needsRehash = $hasher->needsRehash($hash);
 ```

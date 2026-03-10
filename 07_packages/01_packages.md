@@ -24,11 +24,10 @@ There are two files that must be present in a package. A package "boot" class (c
 │  └─ FooPackage.php
 └─ composer.json
 ```
-{.language-none}
 
 The package class is used to register your package with the application that uses it. The minimum information you need to provide is the package name.
 
-```
+```php
 <?php
 
 namespace acme\foo;
@@ -45,7 +44,7 @@ You also have to set the name of your package in the composer.json file. This is
 
 The example file below only contains the bare minimum so head over to the [composer website](https://getcomposer.org) for a full overview of the complete composer.json schema.
 
-```
+```json
 {
 	"name": "acme/foo",
 	"autoload": {
@@ -55,7 +54,6 @@ The example file below only contains the bare minimum so head over to the [compo
 	}
 }
 ```
-{.language-json}
 
 --------------------------------------------------------
 
@@ -77,17 +75,16 @@ Packages can also have their own configuration files, language strings and views
 │  └─ FooPackage.php
 └─ composer.json
 ```
-{.language-none}
 
 Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (`::`).
 
-```
+```php
 $view = $this->view->create('acme-foo::vista');
 ```
 
 By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. `acme/foo` becomes `acme-foo`). You can override this by setting the `$fileNamespace` property in your package class.
 
-```
+```php
 protected string $fileNamespace = 'foo';
 ```
 
@@ -105,7 +102,7 @@ Lets say you have a packaged named `acme-foo` with a config file you want to mod
 
 Registering [package](:base_url:/docs/:version:/command-line:commands) commands is done using the `$commands` property in your package class.
 
-```
+```php
 protected array $commands = [
 	'acme-foo::command' => acme\foo\commands\Command::class,
 ];
@@ -122,14 +119,12 @@ Installing packages is extremely easy. All you need to do is running a simple [c
 ```
 composer require <vendor>/<package name>
 ```
-{.language-none}
 
 So, to install `acme/foo` package using composer, you have to issue following command from the project directory
 
 ```
 composer require acme/foo
 ```
-{.language-none}
 
 --------------------------------------------------------
 

@@ -24,7 +24,7 @@ Mako migrations are created and executed from the [reactor CLI tool](:base_url:/
 
 You need to add a table called `mako_migrations` to your database. The table will be used to keep track of the migrations that have been ran. Here's the SQL for creating the table using MySQL:
 
-```
+```sql
 CREATE TABLE `mako_migrations`
 (
 	`batch` int(10) unsigned NOT NULL,
@@ -32,7 +32,6 @@ CREATE TABLE `mako_migrations`
 	`version` varchar(255) NOT NULL
 );
 ```
-{.language-sql}
 
 #### <a id="usage:creating_migrations" href="#usage:creating_migrations">Creating migrations</a>
 
@@ -51,7 +50,6 @@ php reactor migration:create --package="vendor/package"
 
 php reactor migration:create --description="Creates session table"
 ```
-{.language-none}
 
 Running the `migration:create` commands will return the following messages:
 
@@ -62,11 +60,10 @@ Migration created at "/var/www/app/packages/foobar/migrations/Migration_20140824
 
 Migration created at "/var/www/app/migrations/Migration_20140824100019.php".
 ```
-{.language-none}
 
 The generated migration will contain a skeleton class with two methods, `up` and `down`.
 
-```
+```php
 <?php
 
 class Migration_20120824100019 extends Migration
@@ -104,14 +101,12 @@ You can check if there are any outstanding migrations using the `migration:statu
 ```
 php reactor migration:status
 ```
-{.language-none}
 
 If there are outstanding migrations then you can run them like this:
 
 ```
 php reactor migration:up
 ```
-{.language-none}
 
 This will show you the names of the migrations that were executed:
 
@@ -126,7 +121,6 @@ Ran the following migrations:
 | Migration_20140824100019                  | Creates session table |
 +-------------------------------------------+-----------------------+
 ```
-{.language-none}
 
 #### <a id="usage:rolling_back_migrations" href="#usage:rolling_back_migrations">Rolling back migrations</a>
 
@@ -135,7 +129,6 @@ If you need to revert the changes made to your database then you can use the `mi
 ```
 php reactor migration:down
 ```
-{.language-none}
 
 This will show you the migrations that were rolled back:
 
@@ -150,28 +143,24 @@ Rolled back the following migrations:
 | Migration_20140824100019                  |                       |
 +-------------------------------------------+-----------------------+
 ```
-{.language-none}
 
 You can roll back multiple batches by telling the rollback command how many batches you want to roll back using the `batches` option.
 
 ```
 php reactor migration:down --batches=2
 ```
-{.language-none}
 
 If you want to roll back all database changes in one go then you can use the `migration:reset` command.
 
 ```
 php reactor migration:reset
 ```
-{.language-none}
 
 This will prompt you for confirmation. To force the reset just use the `force` option.
 
 ```
 php reactor migration:reset --force
 ```
-{.language-none}
 
 --------------------------------------------------------
 
@@ -189,7 +178,7 @@ Running migrations for the non-default database requires you to use the optional
 
 Migrations are instantiated by the [dependency injection container](:base_url:/docs/:version:/getting-started:dependency-injection). This makes it easy to inject your dependencies using the constructor.
 
-```
+```php
 <?php
 
 class Migration_20120824100019 extends Migration
@@ -208,7 +197,7 @@ class Migration_20120824100019 extends Migration
 
 You can also inject dependencies directly into the up and down methods since they are executed by the `Container::call()` method.
 
-```
+```php
 public function down(LoggerInterface $log): void
 {
 	$log->info('Executed the down method of the ' . static::class . ' migration');
