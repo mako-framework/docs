@@ -3,7 +3,7 @@
 --------------------------------------------------------
 
 * [Config files](#config_files)
-	- [Security rirst](#security_first)
+	- [Security first](#security_first)
 * [Environment aware configuration](#environment_aware_configuration)
 	- [Setting the environment](#environment_aware_configuration:setting_the_environment)
 	- [Environment variables](#environment_aware_configuration:environment_variables)
