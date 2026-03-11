@@ -25,6 +25,7 @@ Mako config files are just simple arrays. In addition to the core config files t
 <?php
 
 // app/config/redis.php
+
 return [
 	'key_1' => 'value',
 	'key_2' => 'value',
