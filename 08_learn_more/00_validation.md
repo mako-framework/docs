@@ -289,6 +289,7 @@ You can, of course, create your own custom validator rules. All rules must imple
 <?php
 
 use mako\validator\rules\RuleInterface;
+use Override;
 
 /**
  * Is foo validation rule.
@@ -298,6 +299,7 @@ class IsFooRule implements RuleInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function validateWhenEmpty(): bool
 	{
 		return false;
@@ -306,6 +308,7 @@ class IsFooRule implements RuleInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function validate($value, string $field, array $input): bool
 	{
 		return mb_strtolower($value) === 'foo';
@@ -314,6 +317,7 @@ class IsFooRule implements RuleInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	#[Override]
 	public function getErrorMessage(string $field): string
 	{
 		return sprintf('The value of the %1$s field must be "foo".', $field);
