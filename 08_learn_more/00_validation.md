@@ -193,6 +193,7 @@ The following validation rules are included with Mako:
 | required                 | Checks that the field exists and isn't empty.                                                           |
 | string                   | Checks that the field contains a string.                                                                |
 | time_zone                | Checks that the field value contains a valid PHP time zone.                                             |
+| unique_values            | Checks that the field only contains unique values.                                                      |
 | url                      | Checks that the field value is a valid URL.                                                             |
 | uuid                     | Checks that the field value matches a valid uuid.                                                       |
 
