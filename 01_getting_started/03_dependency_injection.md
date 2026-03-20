@@ -322,6 +322,8 @@ You can also implement your own injector attributes by implementing the `Injecto
 ```php
 <?php
 
+namespace app\attributes;
+
 use Attribute;
 use mako\gatekeeper\entities\user\UserEntityInterface;
 use mako\gatekeeper\Gatekeeper;
@@ -332,6 +334,7 @@ use ReflectionParameter;
 #[Attribute(Attribute::TARGET_PARAMETER)]
 class InjectCurrentUser implements InjectorInterface
 {
+	#[Override]
 	public function getParameterValue(Container $container, ReflectionParameter $parameter): ?UserEntityInterface
 	{
 		return $container->get(Gatekeeper::class)->getUser();

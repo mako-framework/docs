@@ -145,7 +145,7 @@ class CacheMiddleware implements MiddlewareInterface
 
 	public function execute(Request $request, Response $response, Closure $next): Response
 	{
-		if (this->cache->has('route.' . $request->getPath())) {
+		if ($this->cache->has('route.' . $request->getPath())) {
 			return $response->setBody($cache->get('route.' . $request->getPath()));
 		}
 
