@@ -114,7 +114,7 @@ You can also set the character set and status code using the following methods.
 
 ##### <a id="advanced:senders:event_stream">Event stream</a>
 
-The `EventStream` response sender allows you to send an [event stream](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to the client.
+The `EventStream` response sender allows you to send [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) to the client.
 
 The closure passed to the `EventStream` constructor must yield at least one event. Each event may contain multiple fields.
 
