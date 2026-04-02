@@ -2,6 +2,7 @@
 --------------------------------------------------------
 
 * [Enum cases](#enum_cases)
+* [Query builder sorting](#query_builder_sorting)
 
 --------------------------------------------------------
 
@@ -16,8 +17,6 @@ There are no breaking changes in this release but there are some deprecations. C
 All enum cases have been converted from `UPPER_SNAKE_CASE` to `PascalCase` to follow the standard PHP convention for naming enum cases. The reason they were previously in `UPPER_SNAKE_CASE` is that many of them were converted from classes with class constants.
 
 ```php{1}
-use mako\http\Status;
-
 {- Status::NOT_FOUND -}
 {+ Status::NotFound +}
 ```
@@ -36,3 +35,27 @@ All code will continue to work as is until Mako `13.0`, but we recommend making 
 - mako\pixel\image\operations\Flip
 - mako\pixel\image\operations\WatermarkPosition
 - mako\pixel\metadata\xmp\properties\Type
+
+--------------------------------------------------------
+
+### <a id="query_builder_sorting" href="#query_builder_sorting">Query builder sorting</a>
+
+Passing the strings `ASC` and `DESC` to the following methods has been deprecated in favor of the `SortDirection` enum:
+
+- Query::orderBy()
+- Query::orderByRaw()
+- Query::orderByVectorDistance()
+
+```php{1}
+{- $query->orderBy('id', 'DESC') -}
+{+ $query->orderBy('id', SortDirection::Descending) +}
+```
+
+You may still use the following methods:
+
+- Query::ascending()
+- Query::descending()
+- Query::ascendingRaw()
+- Query::descendingRaw()
+- Query::ascendingVectorDistance()
+- Query::descendingVectorDistance()
