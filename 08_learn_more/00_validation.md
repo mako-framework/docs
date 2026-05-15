@@ -160,7 +160,7 @@ The following validation rules are included with Mako:
 | different                | Checks that the field value is different from the value of another field (`different("old_password")`). |
 | email                    | Checks that the field value is a valid email address.                                                   |
 | email_domain             | Checks that the field value contains a valid MX record.                                                 |
-| enum                     | Checks that the field contains a valid enum value.                                                      |
+| enum                     | Checks that the field contains a valid enum value (`\mako\f('enum', \namespaced\EnumName::class)`).     |
 | exact_count              | Checks that the field value has the right number of items (`exact_count(20`).                           |
 | exact_length             | Checks that the field value is of the right length (`exact_length(20)`).                                |
 | greater_than             | Checks that the field value is greater than x (`greater_than(5)`).                                      |
