@@ -485,7 +485,7 @@ If you want to add custom query criteria when counting related records then you 
 
 ```php
 $articles = (new Article)->withCountOf([
-	'comments AS approved_comments_count' => fn ($query) => $query->where('approved', '=', true)
+	'comments AS approved_comments_count' => static fn ($query) => $query->where('approved', '=', true)
 ])->limit(10)->all();
 ```
 
