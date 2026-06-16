@@ -440,9 +440,11 @@ $articles = (new Article)->including(['user', 'comments', 'comments.user'])->lim
 If you need to add query criteria to your relations then you can do so using a closure.
 
 ```php
-$articles = (new Article)->including(['user', 'comments as approved_comments' => function ($query) {
-	$query->where('approved', '=', true);
-}, 'comments.user'])->limit(10)->all();
+$articles = (new Article)->including([
+	'user', 
+	'comments as approved_comments' => static fn ($query) => $query->where('approved', '=', true),
+	'comments.user'
+])->limit(10)->all();
 ```
 
 You can also define relations to eager load in the model definition using the `$including` property. This is useful if you know that you're going to need to eager load the relations more often than not.
@@ -482,9 +484,9 @@ Each `Article` object in the `$articles` result set will now have a `comments_co
 If you want to add custom query criteria when counting related records then you can do so using a closure.
 
 ```php
-$articles = (new Article)->withCountOf(['comments AS approved_comments_count' => function ($query) {
-	$query->where('approved', '=', true);
-}])->limit(10)->all();
+$articles = (new Article)->withCountOf([
+	'comments AS approved_comments_count' => fn ($query) => $query->where('approved', '=', true)
+])->limit(10)->all();
 ```
 
 #### <a id="relations:overriding_naming_conventions" href="#relations:overriding_naming_conventions">Overriding naming conventions</a>
