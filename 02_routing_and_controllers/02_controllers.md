@@ -45,7 +45,7 @@ Passing parameters to your controller actions is simple. Define a route that inc
 $routes->get('/articles/{id}', [Article::class, 'view']);
 ```
 
-> Note: It is important that that the method parameter has the same name as the route parameter.
+> Note: It is important that the method parameter has the same name as the route parameter.
 
 ```php
 public function view($id)
