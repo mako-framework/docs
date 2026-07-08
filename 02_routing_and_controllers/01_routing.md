@@ -37,7 +37,7 @@ If you want the route to respond to `POST` requests instead then you'll have to 
 $routes->post('/', [Home::class, 'welcome']);
 ```
 
-The available methods are `get`, `post`, `put`, `patch`, and `delete`.
+The available methods are `get`, `query`, `post`, `put`, `patch`, and `delete`.
 
 You can also make a route respond to all request methods using the `all` method.
 
