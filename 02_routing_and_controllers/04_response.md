@@ -183,12 +183,10 @@ The `Stream` response sender allows you to stream data to the client. This is us
 It also allows you to begin transmitting dynamically generated content before knowing the total size of the response.
 
 ```php
-$responseBody = new Stream(function ($stream) {
-	$stream->flush('Hello, world!');
-
+$responseBody = new Stream(function () {
+	yield 'Hello, world!';
 	sleep(2);
-
-	$stream->flush('Hello, world!');
+	yield 'Hello, world!';
 }, 'text/plain', 'UTF-8');
 ```
 
