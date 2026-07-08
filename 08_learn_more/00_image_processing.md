@@ -63,9 +63,10 @@ The following methods are available on the `Color` class:
 | getBlue()                                      | Returns the blue value (0-255)                                                        |
 | getAlpha()                                     | Returns the alpha value (0-255)                                                       |
 | toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toHexaString()                                 | Returns a hexa string representation of the color (e.g. "#FF000000")                |
 | toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
 | toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
-| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")       |
+| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")     |
 | toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
 | toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
 | toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
