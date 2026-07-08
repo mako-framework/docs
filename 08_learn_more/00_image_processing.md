@@ -62,7 +62,7 @@ The following methods are available on the `Color` class:
 | getGreen()                                     | Returns the green value (0-255)                                                       |
 | getBlue()                                      | Returns the blue value (0-255)                                                        |
 | getAlpha()                                     | Returns the alpha value (0-255)                                                       |
-| toHexString($withAlpha = false)                | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
 | toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
 | toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
 | toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")       |
