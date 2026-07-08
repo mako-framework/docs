@@ -357,7 +357,7 @@ $rules = [
 
 Mako includes a [middleware](:base_url:/docs/:version:/routing-and-controllers:routing#route_middleware) and a trait that will greatly reduce the ammount of boilerplate code that you need to write to validate user input in controllers.
 
-The middleware will catch `ValidationException` exceptions and convert them to a [`Bad Request`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400) response where the response body will be delivered as HTML, JSON or XML based on the request context.
+The middleware will catch `ValidationException` exceptions and convert them to a [`Unprocessable Content`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422) response where the response body will be delivered as HTML, JSON or XML based on the request context.
 
 The trait includes two helpful methods, `getValidatedInput` and `getValidatedFiles`, that will allow you to validate user input as well as uploaded files.
 
