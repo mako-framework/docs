@@ -72,12 +72,12 @@ The `setStatus` method lets you set the response status.
 
 $this->response->setStatus(Status::NotFound);
 
-// Or by passing a valid status code integer
+// Or by passing a CustomStatus instance for non-standard statuses
 
-$this->response->setStatus(404);
+$this->response->setStatus(new CustomStatus(499, 'Nope'));
 ```
 
-The `getStatus` method returns the current status code.
+The `getStatus` method returns the current status.
 
 ```php
 $responseStatus = $this->response->getStatus();
