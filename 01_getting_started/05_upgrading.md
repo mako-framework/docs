@@ -105,7 +105,7 @@ The option to pass the string values `ASC` and `DESC` to the following methods h
 The `$order` parameter of these methods has been renamed to `$sortDirection`. This is only relevant if you are using named parameters:
 
 ```php{1}
-{- $query->orderBy('id', sort: SortDirection::Descending) -}
+{- $query->orderBy('id', order: SortDirection::Descending) -}
 {+ $query->orderBy('id', sortDirection: SortDirection::Descending) +}
 ```
 

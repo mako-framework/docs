@@ -612,7 +612,7 @@ $persons = $query->table('persons')->paginate(10);
 
 ### <a id="vector_queries" href="#vector_queries">Vector queries</a>
 
-Vector queries are currently supported by `MariaDB`, `MySQL`, and `PostgreSQL`, allowing you to store embeddings and perform similarity search directly in your database. You can insert vectors, calculate cosine or Euclidean distances, filter by similarity thresholds, and sort by nearest matches to power semantic search and recommendation features at the database level.
+Vector queries are currently supported by `MariaDB`, `MySQL`, and `PostgreSQL`, allowing you to store embeddings and perform similarity search directly in your database. PostgreSQL supports cosine, Euclidean (L2), Manhattan (L1), and inner product distance metrics, while MariaDB and MySQL support cosine and Euclidean (L2) distance metrics. You can insert vectors, calculate distances, filter by similarity thresholds, and sort by nearest matches to power semantic search and recommendation features at the database level.
 
 Vectors can be inserted into the database by wrapping them in the `Vector` value class.
 
@@ -638,7 +638,7 @@ $query = $query
 ]);
 ```
 
-You can also select vector distances using the `VectorDistance` class. The first parameter is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter. You may chain the `as` method to alias the selected value.
+You can also select vector distances using the `VectorDistance` class. The first parameter is the name of the vector column and the second is the vector you want to compare against. By default, cosine distance is used, but you can specify an alternative distance metric by passing a `VectorDistance` enum value as the optional third parameter. You may chain the `as` method to alias the selected value.
 
 ```php
 // Use mako\database\query\values\out\VectorDistance for output
@@ -651,7 +651,7 @@ $query = $query
 ]);
 ```
 
-You can filter by vector distance using the `whereVectorDistance` and `orWhereVectorDistance` methods. The first parameter is the name of the vector column, the second is the vector you want to compare against, and the third is the maximum allowed distance. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional fourth parameter.
+You can filter by vector distance using the `whereVectorDistance` and `orWhereVectorDistance` methods. The first parameter is the name of the vector column, the second is the vector you want to compare against, and the third is the maximum allowed distance. By default, cosine distance is used, but you can specify an alternative distance metric by passing a `VectorDistance` enum value as the optional fourth parameter.
 
 ```php
 // Use mako\database\query\VectorDistance to set the type
@@ -663,7 +663,7 @@ $query = $query
 ->all();
 ```
 
-You can also sort by vector distance using the `orderByVectorDistance`, `ascendingVectorDistance`, and `descendingVectorDistance` methods. The first argument is the name of the vector column and the second is the vector you want to compare against. Cosine distance is used by default, but you can calculate Euclidean distance by passing the `VectorDistance` enum as the optional third parameter.
+You can also sort by vector distance using the `orderByVectorDistance`, `ascendingVectorDistance`, and `descendingVectorDistance` methods. The first argument is the name of the vector column and the second is the vector you want to compare against. By default, cosine distance is used, but you can specify an alternative distance metric by passing a `VectorDistance` enum value as the optional third parameter.
 
 ```php
 // Use mako\database\query\VectorDistance to set the type
