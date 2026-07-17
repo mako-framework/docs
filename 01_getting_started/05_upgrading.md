@@ -189,7 +189,7 @@ class InputValidation extends BaseInputValidation
 
 #### <a id="13.0-immutable_time" href="#13.0-immutable_time">Immutable time</a>
 
-Everywhere that previously returned a `Time` instance now returns a `TimeImmutable` instance. This should not cause any issues unless you type hint `Time` instead of `DateTimeInterface`, which both classes implement.
+Everywhere that previously returned a `Time` instance now returns a `TimeImmutable` instance. This should not cause any issues unless you type hint `Time` instead of `DateTimeInterface` or `TimeInterface`, which both classes implement.
 
 If you previously mutated returned `Time` instances directly, update your code to assign the modified instance instead:
 
