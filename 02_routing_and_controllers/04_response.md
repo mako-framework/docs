@@ -83,6 +83,17 @@ The `getStatus` method returns the current status.
 $responseStatus = $this->response->getStatus();
 ```
 
+Both the `Status` enum and the `CustomStatus` class implement `StatusInterface`, which provides access to the following helpful methods:
+
+| Method            | Description                                                                  |
+|-------------------|------------------------------------------------------------------------------|
+| isInformational() | Returns `true` if the status code is in the 100-199 range and `false` if not |
+| isSuccessful()    | Returns `true` if the status code is in the 200-299 range and `false` if not |
+| isRedirection()   | Returns `true` if the status code is in the 300-399 range and `false` if not |
+| isClientError()   | Returns `true` if the status code is in the 400-499 range and `false` if not |
+| isServerError()   | Returns `true` if the status code is in the 500-599 range and `false` if not |
+
+
 --------------------------------------------------------
 
 ### <a id="advanced" href="#advanced">Advanced</a>
