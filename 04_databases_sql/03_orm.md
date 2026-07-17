@@ -520,13 +520,13 @@ Valid scalar types are `bool`, `int`, `float` and `string`.
 
 #### <a id="automatic_typecasting:datetime" href="#automatic_typecasting:datetime">DateTime</a>
 
-The ORM and query builder both allow you to save dates as DateTime objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as DateTime objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
+The ORM and query builder both allow you to save dates as DateTimeInterface objects without first having to convert them to the appropriate format. Wouldn't it be nice if you could also automatically retrieve them as TimeImmutable objects when fetching them from the database as well? This is possible thanks to the `date` typecast.
 
 ```php
 protected array $cast = ['joined_at' => 'date', 'last_seen' => 'date'];
 ```
 
-You'll now be able to treat the `joined_at` and `last_seen` values as [DateTime](:base_url:/docs/:version:/learn-more:date-and-time) objects.
+You'll now be able to treat the `joined_at` and `last_seen` values as [TimeImmutable](:base_url:/docs/:version:/learn-more:date-and-time) objects.
 
 ```php
 $user = User::get(1);

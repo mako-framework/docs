@@ -207,7 +207,7 @@ Inserting data is done using the `insert` method.
 
 ```php
 $query->table('foobars')
-->insert(['field1' => 'foo', 'field2' => new DateTime]);
+->insert(['field1' => 'foo', 'field2' => new DateTimeImmutable]);
 ```
 
 If you want to insert multiple rows in a single query then you can use the `insertMultiple` method.
@@ -215,8 +215,8 @@ If you want to insert multiple rows in a single query then you can use the `inse
 ```php
 $query->table('foobars')
 ->insertMultiple(
-	['field1' => 'foo1', 'field2' => new DateTime],
-	['field1' => 'foo2', 'field2' => new DateTime]
+	['field1' => 'foo1', 'field2' => new DateTimeImmutable],
+	['field1' => 'foo2', 'field2' => new DateTimeImmutable]
 );
 ```
 
@@ -224,7 +224,7 @@ You can also insert data using the `insertAndGetId` method. It will create the r
 
 ```php
 $query->table('foobars')
-->insertAndGetId(['field1' => 'foo', 'field2' => new DateTime]);
+->insertAndGetId(['field1' => 'foo', 'field2' => new DateTimeImmutable]);
 ```
 
 > When working with [PostgreSQL](https://www.postgresql.org) the `insertAndGetId` method assumes that the sequence follows the default naming convention (`<table_name>_<primary_key_name>_seq`) You can override the default primary key name (`id`) by using the optional second parameter.
@@ -234,8 +234,8 @@ Sometimes you want to insert data only if a matching record doesn't already exis
 ```php
 $query->table('foobars')
 ->insertOrUpdate(
-	['field1' => 'foo', 'field2' => new DateTime], 
-	['field2' => new DateTime]
+	['field1' => 'foo', 'field2' => new DateTimeImmutable], 
+	['field2' => new DateTimeImmutable]
 );
 ```
 
@@ -246,8 +246,8 @@ It is advised to use the third optional parameter if you want your code to be da
 ```php
 $query->table('foobars')
 ->insertOrUpdate(
-	['field1' => 'foo', 'field2' => new DateTime], 
-	['field2' => new DateTime]
+	['field1' => 'foo', 'field2' => new DateTimeImmutable], 
+	['field2' => new DateTimeImmutable]
 	['field1']
 );
 ```
@@ -259,7 +259,7 @@ The first parameter of the `insertAndReturn` method is the row you want to inser
 ```php
 $query->table('foobars')
 ->insertAndReturn(
-	['field1' => 'foo', 'field2' => new DateTime]
+	['field1' => 'foo', 'field2' => new DateTimeImmutable]
 	['id']
 );
 ```
@@ -270,8 +270,8 @@ The first parameter of the `insertMultipleAndReturn` method is the names of the 
 $query->table('foobars')
 ->insertMultipleAndReturn(
 	['id'],
-	['field1' => 'foo1', 'field2' => new DateTime]
-	['field1' => 'foo2', 'field2' => new DateTime]
+	['field1' => 'foo1', 'field2' => new DateTimeImmutable]
+	['field1' => 'foo2', 'field2' => new DateTimeImmutable]
 );
 ```
 
@@ -284,7 +284,7 @@ Updating data is done using the `update` method.
 ```php
 $query->table('foobars')
 ->where('id', '=', 10)
-->update(['field1' => 'foo', 'field2' => new DateTime]);
+->update(['field1' => 'foo', 'field2' => new DateTimeImmutable]);
 ```
 
 You can also use the `updateAndReturn` method to modify data while retrieving the updated values in a single operation. This can be particularly useful when you need to track changes without making additional queries. The method is currently supported by the [Firebird](https://www.firebirdsql.org/), [PostgreSQL](https://www.postgresql.org), [SQLite](https://www.sqlite.org/) and [SQL Server](https://www.microsoft.com/sql-server) query compilers.

@@ -8,6 +8,7 @@
     - [HTTP statuses](#13.0-http_statuses)
     - [Uploaded files](#13.0-uploaded_files)
     - [Input validation](#13.0-input_validation)
+    - [Immutable time](#13.0-immutable_time)
 
 --------------------------------------------------------
 
@@ -184,4 +185,15 @@ class InputValidation extends BaseInputValidation
     #[Override]
 	protected const string HTTP_STATUS_EXCEPTION = BadRequestException::class;
 }
+```
+
+#### <a id="13.0-immutable_time" href="#13.0-immutable_time">Immutable time</a>
+
+Everywhere that previously returned a `Time` instance now returns a `TimeImmutable` instance. This should not cause any issues unless you type hint `Time` instead of `DateTimeInterface`, which both classes implement.
+
+If you previously mutated returned `Time` instances directly, update your code to assign the modified instance instead:
+
+```php
+{- $time->modify('+1 day'); -}
+{+ $time = $time->modify('+1 day'); +}
 ```
