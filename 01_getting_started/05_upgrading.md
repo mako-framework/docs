@@ -202,14 +202,14 @@ The `Time::getImmutable()` method has been renamed to `Time::toImmutable()`.
 
 ```php{1}
 {- $immutable = $mutable->getImmutable(); -}
-{+ $immutable = $mutable->toImmutable(); -}
+{+ $immutable = $mutable->toImmutable(); +}
 ```
 
 The `TimeImmutable::getMutable()` method has been renamed to `TimeImmutable::toMutable()`.
 
 ```php{1}
 {- $mutable = $immutable->getMutable(); -}
-{+ $mutable = $immutable->toMutable(); -}
+{+ $mutable = $immutable->toMutable(); +}
 ```
 
 The `TimeInterface::copy()` method has been removed. The same functionality can be achieved with the `clone` keyword:
