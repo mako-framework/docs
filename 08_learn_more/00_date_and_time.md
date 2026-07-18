@@ -3,21 +3,20 @@
 --------------------------------------------------------
 
 * [Date and time](#date_and_time)
-    - [TimeImmutable specific methods](#time:timeimmutable_specific_methods)
-    - [Time specific methods](#time:time_specific_methods)
-* [Time zones](#time_zones)
-
---------------------------------------------------------
-
-Mako includes a couple of classes that extends the `DateTimeImmutable`, `DateTime` and `DateTimeZone` classes from the PHP core. 
-
-We'll only go over our customizations in this document. If you need documentation for all the methods defined in the base classes then you can read about them [here](https://php.net/manual/en/class.datetimeimmutable.php), [here](https://php.net/manual/en/class.datetime.php) and [here](https://php.net/manual/en/class.datetimezone.php).
+    - [TimeImmutable specific methods](#date_and_time:timeimmutable_specific_methods)
+    - [Time specific methods](#date_and_time:time_specific_methods)
+    - [Time zones](#date_and_time:time_zones)
+* [Sleeper](#sleeper)
 
 --------------------------------------------------------
 
 ### <a id="date_and_time" href="#date_and_time">Date and time</a>
 
-You can create a new instance using the constructor. While the first parameter behaves the same as in PHP's native date/time constructors, the optional second parameter accepts either a valid time zone string or a `DateTimeZone` instance.
+Mako includes a couple of classes that extends the `DateTimeImmutable`, `DateTime` and `DateTimeZone` classes from the PHP core. 
+
+We'll only go over our customizations in this document. If you need documentation for all the methods defined in the base classes then you can read about them [here](https://php.net/manual/en/class.datetimeimmutable.php), [here](https://php.net/manual/en/class.datetime.php) and [here](https://php.net/manual/en/class.datetimezone.php).
+
+You can create a new instance using the constructor. While the first parameter behaves the same as in PHP's native `DateTime` constructors, the optional second parameter accepts either a valid time zone string or a `DateTimeZone` instance.
 
 > There is also a mutable class called `Time` that implements the same methods with a [couple of exceptions](#time:time_specific_methods). We recommend using `TimeImmutable`, as immutable date and time objects help prevent accidental modifications and make it easier to reason about values as they are passed around your application.
 
@@ -29,7 +28,7 @@ $time = new TimeImmutable('now', 'Europe/Paris');
 $time = new TimeImmutable('now', new DateTimeZone('Europe/Paris'));
 ```
 
-The `now` method allow you to create a `TimeImmutable` instance where the time is set to "now". There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+The `now` method allow you to create an instance where the time is set to "now". There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
 ```php
 $time = TimeImmutable::now();
@@ -39,7 +38,37 @@ $time = TimeImmutable::now('Europe/Paris');
 $time = TimeImmutable::now(new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromFormat` method allows you to create a `TimeImmutable` instance from a time string. Unlike PHP's `DateTimeImmutable` implementation, Mako's `TimeImmutable` class accepts either a valid timezone string or a `DateTimeZone` instance as the optional third parameter. The method returns `false` if date parsing fails.
+The `today` method creates an instance where the time is set to todays date at 00:00:00. There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+
+```php
+$time = TimeImmutable::today();
+
+$time = TimeImmutable::today('Europe/Paris');
+
+$time = TimeImmutable::today(new DateTimeZone('Europe/Paris'));
+```
+
+The `yesterday` method creates an instance where the time is set to yesterdays date at 00:00:00. There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+
+```php
+$time = TimeImmutable::yesterday();
+
+$time = TimeImmutable::yesterday('Europe/Paris');
+
+$time = TimeImmutable::yesterday(new DateTimeZone('Europe/Paris'));
+```
+
+The `tomorrow` method creates an instance where the time is set to tomorrows date at 00:00:00. There's an optional parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+
+```php
+$time = TimeImmutable::tomorrow();
+
+$time = TimeImmutable::tomorrow('Europe/Paris');
+
+$time = TimeImmutable::tomorrow(new DateTimeZone('Europe/Paris'));
+```
+
+The `createFromFormat` method allows you to create an instance from a time string. Unlike PHP's `DateTimeImmutable` implementation, Mako's time classes accepts either a valid timezone string or a `DateTimeZone` instance as the optional third parameter. The method returns `false` if date parsing fails.
 
 ```php
 $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28');
@@ -59,7 +88,7 @@ $time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28', 'Europe/Pa
 $time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28', new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromDate` method allows you to create a `TimeImmutable` instance using a date. Only the first parameter (year) is required. It'll use the current month and day if not specified. There's also an optional fourth parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+The `createFromDate` method allows you to create an instance using a date. Only the first parameter (year) is required. It'll use the current month and day if not specified. There's also an optional fourth parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
 ```php
 $time = TimeImmutable::createFromDate(2014);
@@ -73,7 +102,7 @@ $time = TimeImmutable::createFromDate(2014, 4, 28, 'Europe/Paris');
 $time = TimeImmutable::createFromDate(2014, 4, 28, new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromTimestamp` method allows you to create a `TimeImmutable` instance using a UNIX timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+The `createFromTimestamp` method allows you to create an instance using a UNIX timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
 ```php
 $time = TimeImmutable::createFromTimestamp($timestamp);
@@ -83,7 +112,7 @@ $time = TimeImmutable::createFromTimestamp($timestamp, 'Europe/Paris');
 $time = TimeImmutable::createFromTimestamp($timestamp, new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromDOSTimestamp` method allows you to create a `TimeImmutable` instance using a DOS timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
+The `createFromDOSTimestamp` method allows you to create an instance using a DOS timestamp. There's an optional second parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
 ```php
 $time = TimeImmutable::createFromDOSTimestamp($timestamp);
@@ -137,7 +166,7 @@ The `daysInMonths` method returns an array containing the number of days in each
 $daysInMonths = $time->daysInMonths();
 ```
 
-#### <a id="time:timeimmutable_specific_methods" href="#time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
+#### <a id="date_and_time:timeimmutable_specific_methods" href="#date_and_time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
 The `toMutable` method returns a `Time` instance set to the same time.
 
@@ -151,7 +180,7 @@ The `toNative` method returns a `DateTime` instance set to the same time.
 $mutable = $time->toNative();
 ```
 
-#### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
+#### <a id="date_and_time:time_specific_methods" href="#date_and_time:time_specific_methods">Time specific methods</a>
 
 The `toImmutable` method returns a `TimeImmutable` instance set to the same time.
 
@@ -165,9 +194,7 @@ The `toNative` method returns a `DateTimeImmutable` instance set to the same tim
 $mutable = $time->toNative();
 ```
 
---------------------------------------------------------
-
-### <a id="time_zones" href="#time_zones">Time zones</a>
+#### <a id="date_and_time:time_zones" href="#date_and_time:time_zones">Time zones</a>
 
 The `getTimezones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 
@@ -179,4 +206,40 @@ The `getGroupedTimezones` method returns an array consisting of grouped time zon
 
 ```php
 $timeZones = TimeZone::getGroupedTimezones();
+```
+
+--------------------------------------------------------
+
+### <a id="sleeper" href="#sleeper">Sleeper</a>
+
+The `Sleeper` class provides a convenient abstraction over PHP's native sleep functions. While you can call `sleep`, `usleep`, `time_nanosleep`, and `time_sleep_until` directly, using the `SleeperInterface` allows you to inject and mock time-based delays in your applications and tests. This makes it possible to verify that code performs the expected delays without actually pausing execution, resulting in faster and more reliable tests.
+
+The `sleep` method will sleep for the given number of seconds.
+
+```php
+$sleeper->sleep(10);
+```
+
+The `milliSleep` method will sleep for the given number of milliseconds.
+
+```php
+$sleeper->milliSleep(500); // Equivalent to 0.5 seconds
+```
+
+The `microSleep` method will sleep for the given number of microseconds.
+
+```php
+$sleeper->microSleep(500_000); // Equivalent to 0.5 seconds
+```
+
+The `nanoSleep` method will sleep for the given number of nanoseconds. Note that actual sleep duration depends on OS timer resolution.
+
+```php
+$sleeper->nanoSleep(500_000_000); // Equivalent to 0.5 seconds
+```
+
+The `sleepUntil` method will sleep until the specified time.
+
+```php
+$sleeper->sleepUntil(new TimeImmutable('now +10 minutes'));
 ```
