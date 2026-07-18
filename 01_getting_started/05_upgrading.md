@@ -193,14 +193,28 @@ Everywhere that previously returned a `Time` instance now returns a `TimeImmutab
 
 If you previously mutated returned `Time` instances directly, update your code to assign the modified instance instead:
 
-```php
+```php{1}
 {- $time->modify('+1 day'); -}
 {+ $time = $time->modify('+1 day'); +}
 ```
 
+The `Time::getImmutable()` method has been renamed to `Time::toImmutable()`.
+
+```php{1}
+{- $immutable = $mutable->getImmutable(); -}
+{- $immutable = $mutable->toImmutable(); -}
+```
+
+The `TimeImmutable::getMutable()` method has been renamed to `TimeImmutable::toMutable()`.
+
+```php{1}
+{- $mutable = $immutable->getMutable(); -}
+{- $mutable = $immutable->toMutable(); -}
+```
+
 The `TimeInterface::copy()` method has been removed. The same functionality can be achieved with the `clone` keyword:
 
-```php
+```php{1}
 {- $copy = $time->copy(); -}
 {+ $copy = clone $time; +}
 ```

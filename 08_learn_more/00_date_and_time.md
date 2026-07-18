@@ -39,7 +39,7 @@ $time = TimeImmutable::now('Europe/Paris');
 $time = TimeImmutable::now(new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromFormat` method allows you to create a `TimeImmutable` instance from a time string. The difference between Mako's `TimeImmutable` class and PHP's `DateTimeImmutable` class is  that the optional third parameter can be either a valid timezone string or a `DateTimeZone` instance.
+The `createFromFormat` method allows you to create a `TimeImmutable` instance from a time string. Unlike PHP's `DateTimeImmutable` implementation, Mako's `TimeImmutable` class accepts either a valid timezone string or a `DateTimeZone` instance as the optional third parameter. The method returns `false` if date parsing fails.
 
 ```php
 $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28');
@@ -49,7 +49,7 @@ $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28', 'Europe/Paris');
 $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28', new DateTimeZone('Europe/Paris'));
 ```
 
-Unline the `createFromFormat` method the `createFromFormatOrThrow` will throw a `ChronoException` if parsing a date isn't successful.
+The `createFromFormatOrThrow` method works like `createFromFormat`, but throws a `ChronoException` if date parsing fails.
 
 ```php
 $time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28');
@@ -139,18 +139,30 @@ $daysInMonths = $time->daysInMonths();
 
 #### <a id="time:timeimmutable_specific_methods" href="#time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
-The `getMutable` method returns a `Time` instance set to the same time.
+The `toMutable` method returns a `Time` instance set to the same time.
 
 ```php
-$mutable = $time->getMutable();
+$mutable = $time->toMutable();
+```
+
+The `toNative` method returns a `DateTime` instance set to the same time.
+
+```php
+$mutable = $time->toNative();
 ```
 
 #### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
 
-The `getImmutable` method returns a `TimeImmutable` instance set to the same time.
+The `toImmutable` method returns a `TimeImmutable` instance set to the same time.
 
 ```php
-$immutable = $time->getImmutable();
+$immutable = $time->toImmutable();
+```
+
+The `toNative` method returns a `DateTimeImmutable` instance set to the same time.
+
+```php
+$mutable = $time->toNative();
 ```
 
 --------------------------------------------------------
