@@ -89,7 +89,7 @@ The `getRemaining` method returns the number of remaining attempts for the actio
 $remainingAttempts = $rateLimiter->remainingAttempts('send_email', 10);
 ```
 
-The `getRetryAfter` method provides a convenient way to determine when a rate limit for a specific action will expire. When called, it returns a `DateTimeInterface` instance that represents the exact time and date when the limit will reset, allowing the action to be attempted again.
+The `getRetryAfter` method provides a convenient way to determine when a rate limit for a specific action will expire. When called, it returns a [`TimeImmutable`](:base_url:/docs/:version:/learn-more:time-and-date-handling) instance that represents the exact time and date when the limit will reset, allowing the action to be attempted again.
 
 If there isn’t an active limiter for the specified action, the method will return `null`.
 
