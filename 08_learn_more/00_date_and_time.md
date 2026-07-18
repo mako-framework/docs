@@ -2,24 +2,24 @@
 
 --------------------------------------------------------
 
-* [Time](#time)
-    - [Time specific methods](#time:time_specific_methods)
+* [Date and time](#date_and_time)
     - [TimeImmutable specific methods](#time:timeimmutable_specific_methods)
+    - [Time specific methods](#time:time_specific_methods)
 * [Time zones](#time_zones)
 
 --------------------------------------------------------
 
-Mako includes a couple of classes that extends the `DateTime`, `DateTimeImmutable` and `DateTimeZone` classes from the PHP core. 
+Mako includes a couple of classes that extends the `DateTimeImmutable`, `DateTime` and `DateTimeZone` classes from the PHP core. 
 
-We'll only go over our customizations in this document. If you need documentation for all the methods defined in the base classes then you can read about them [here](https://php.net/manual/en/class.datetime.php), [here](https://php.net/manual/en/class.datetimeimmutable.php) and [here](https://php.net/manual/en/class.datetimezone.php).
+We'll only go over our customizations in this document. If you need documentation for all the methods defined in the base classes then you can read about them [here](https://php.net/manual/en/class.datetimeimmutable.php), [here](https://php.net/manual/en/class.datetime.php) and [here](https://php.net/manual/en/class.datetimezone.php).
 
 --------------------------------------------------------
 
-### <a id="time" href="#time">Time</a>
+### <a id="date_and_time" href="#date_and_time">Date and time</a>
 
-You can create a new instance using the constructor. The difference between Mako's `TimeImmutable` constructor and PHP's `DateTimeImmutable` constructor is that the optional second parameter can be either a valid time zone string or a `DateTimeZone` instance.
+You can create a new instance using the constructor. While the first parameter behaves the same as in PHP's native date/time constructors, the optional second parameter accepts either a valid time zone string or a `DateTimeZone` instance.
 
-> There is also an mutable class called `Time` that implements the same methods with a [couple of exceptions](#time:time_specific_methods).
+> There is also a mutable class called `Time` that implements the same methods with a [couple of exceptions](#time:time_specific_methods). We recommend using `TimeImmutable`, as immutable date and time objects help prevent accidental modifications and make it easier to reason about values as they are passed around your application.
 
 ```php
 $time = new TimeImmutable;
@@ -39,7 +39,7 @@ $time = TimeImmutable::now('Europe/Paris');
 $time = TimeImmutable::now(new DateTimeZone('Europe/Paris'));
 ```
 
-The `createFromFormat` method allows you to create a `TimeImmutable` instance from a time string. The difference between Mako's `TimeImmutable` class and PHP's `DateTime` class is  that the optional third parameter can be either a valid timezone string or a `DateTimeZone` instance.
+The `createFromFormat` method allows you to create a `TimeImmutable` instance from a time string. The difference between Mako's `TimeImmutable` class and PHP's `DateTimeImmutable` class is  that the optional third parameter can be either a valid timezone string or a `DateTimeZone` instance.
 
 ```php
 $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28');
@@ -127,30 +127,20 @@ The `daysInMonths` method returns an array containing the number of days in each
 $daysInMonths = $time->daysInMonths();
 ```
 
-#### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
-
-The `getImmutable` method returns a `TimeImmutable` instance set to the same time.
-
-```php
-$immutable = $time->getImmutable();
-```
-
-The `copy` method returns a copy of the instance.
-
-```php
-$time2 = $time1->copy();
-
-$time1->forward(30); // $time2 will be 30 seconds behind $time1
-```
-
-> The `copy` method doesn't make much sense when using the `TimeImmutable` class but it is included to keep feature parity between the two classes.
-
 #### <a id="time:timeimmutable_specific_methods" href="#time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
 The `getMutable` method returns a `Time` instance set to the same time.
 
 ```php
 $mutable = $time->getMutable();
+```
+
+#### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
+
+The `getImmutable` method returns a `TimeImmutable` instance set to the same time.
+
+```php
+$immutable = $time->getImmutable();
 ```
 
 --------------------------------------------------------

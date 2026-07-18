@@ -8,7 +8,7 @@
     - [HTTP statuses](#13.0-http_statuses)
     - [Uploaded files](#13.0-uploaded_files)
     - [Input validation](#13.0-input_validation)
-    - [Immutable time](#13.0-immutable_time)
+    - [Date and time](#13.0-date_and_time)
 
 --------------------------------------------------------
 
@@ -187,7 +187,7 @@ class InputValidation extends BaseInputValidation
 }
 ```
 
-#### <a id="13.0-immutable_time" href="#13.0-immutable_time">Immutable time</a>
+#### <a id="13.0-date_and_time" href="#13.0-date_and_time">Date and time</a>
 
 Everywhere that previously returned a `Time` instance now returns a `TimeImmutable` instance. This should not cause any issues unless you type hint `Time` instead of `DateTimeInterface` or `TimeInterface`, which both classes implement.
 
@@ -196,4 +196,11 @@ If you previously mutated returned `Time` instances directly, update your code t
 ```php
 {- $time->modify('+1 day'); -}
 {+ $time = $time->modify('+1 day'); +}
+```
+
+The `TimeInterface::copy()` method has been removed. The same functionality can be achieved with the `clone` keyword:
+
+```php
+{- $copy = $time->copy(); -}
+{+ $copy = clone $time; +}
 ```
