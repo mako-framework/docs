@@ -148,6 +148,20 @@ The `getDOSTimestamp` method returns the DOS timestamp of the `Time` instance.
 $dosTimestamp = $time->getDOSTimestamp();
 ```
 
+The `isPast` method returns `true` if the time is in the past and `false` if not.
+
+```php
+$isPast = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isPast(); // true
+$isPast = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isPast(); // false
+```
+
+The `isFuture` method returns `true` if the time is in the future and `false` if not.
+
+```php
+$isFuture = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isFuture(); // true
+$isFuture = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isFuture(); // false
+```
+
 The `isLeapYear` method returns `true` if the year of the `Time` instance is a leap year and `false` if not.
 
 ```php
