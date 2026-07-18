@@ -49,6 +49,16 @@ $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28', 'Europe/Paris');
 $time = TimeImmutable::createFromFormat('Y-m-d', '2014-03-28', new DateTimeZone('Europe/Paris'));
 ```
 
+Unline the `createFromFormat` method the `createFromFormatOrThrow` will throw a `ChronoException` if parsing a date isn't successful.
+
+```php
+$time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28');
+
+$time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28', 'Europe/Paris');
+
+$time = TimeImmutable::createFromFormatOrThrow('Y-m-d', '2014-03-28', new DateTimeZone('Europe/Paris'));
+```
+
 The `createFromDate` method allows you to create a `TimeImmutable` instance using a date. Only the first parameter (year) is required. It'll use the current month and day if not specified. There's also an optional fourth parameter that accepts a valid time zone string or a `DateTimeZone` instance.
 
 ```php
