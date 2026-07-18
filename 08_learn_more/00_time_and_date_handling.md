@@ -259,5 +259,5 @@ $sleeper->nanoSleep(500_000_000); // Equivalent to 0.5 seconds
 The `sleepUntil` method will sleep until the specified time.
 
 ```php
-$sleeper->sleepUntil(new TimeImmutable('now +10 minutes'));
+$sleeper->sleepUntil(new TimeImmutable('+10 minutes'));
 ```
