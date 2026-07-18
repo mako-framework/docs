@@ -2,15 +2,19 @@
 
 --------------------------------------------------------
 
-* [Date and time](#date_and_time)
-    - [TimeImmutable specific methods](#date_and_time:timeimmutable_specific_methods)
-    - [Time specific methods](#date_and_time:time_specific_methods)
-    - [Time zones](#date_and_time:time_zones)
+* [Time](#time)
+    - [TimeImmutable specific methods](#time:timeimmutable_specific_methods)
+    - [Time specific methods](#time:time_specific_methods)
+    - [Time zones](#time:time_zones)
 * [Sleeper](#sleeper)
 
 --------------------------------------------------------
 
-### <a id="date_and_time" href="#date_and_time">Date and time</a>
+The Mako `Chrono` library offers a set of abstractions for common time-related operations. It provides enhanced date/time classes, clock abstractions for accessing the current time, and sleeper abstractions for delaying execution, making time-based code easier to work with and test.
+
+--------------------------------------------------------
+
+### <a id="time" href="#time">Time</a>
 
 Mako includes a couple of classes that extends the `DateTimeImmutable`, `DateTime` and `DateTimeZone` classes from the PHP core. 
 
@@ -180,7 +184,7 @@ The `daysInMonths` method returns an array containing the number of days in each
 $daysInMonths = $time->daysInMonths();
 ```
 
-#### <a id="date_and_time:timeimmutable_specific_methods" href="#date_and_time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
+#### <a id="time:timeimmutable_specific_methods" href="#time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
 The `toMutable` method returns a `Time` instance set to the same time.
 
@@ -194,7 +198,7 @@ The `toNative` method returns a `DateTime` instance set to the same time.
 $mutable = $time->toNative();
 ```
 
-#### <a id="date_and_time:time_specific_methods" href="#date_and_time:time_specific_methods">Time specific methods</a>
+#### <a id="time:time_specific_methods" href="#time:time_specific_methods">Time specific methods</a>
 
 The `toImmutable` method returns a `TimeImmutable` instance set to the same time.
 
@@ -208,7 +212,7 @@ The `toNative` method returns a `DateTimeImmutable` instance set to the same tim
 $mutable = $time->toNative();
 ```
 
-#### <a id="date_and_time:time_zones" href="#date_and_time:time_zones">Time zones</a>
+#### <a id="time:time_zones" href="#time:time_zones">Time zones</a>
 
 The `getTimezones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 
