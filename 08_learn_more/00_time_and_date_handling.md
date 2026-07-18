@@ -1,4 +1,4 @@
-# Date and time
+# Time and date handling
 
 --------------------------------------------------------
 
@@ -10,7 +10,7 @@
 
 --------------------------------------------------------
 
-The Mako `Chrono` library offers a set of abstractions for common time-related operations. It provides enhanced date/time classes, clock abstractions for accessing the current time, and sleeper abstractions for delaying execution, making time-based code easier to work with and test.
+The chrono library offers a set of abstractions for common time-related operations. It provides enhanced date/time classes, clock abstractions for accessing the current time, and sleeper abstractions for delaying execution, making time-based code easier to work with and test.
 
 --------------------------------------------------------
 
