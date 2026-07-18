@@ -83,12 +83,12 @@ $time = TimeImmutable::createFromDOSTimestamp($timestamp, 'Europe/Paris');
 $time = TimeImmutable::createFromDOSTimestamp($timestamp, new DateTimeZone('Europe/Paris'));
 ```
 
-The `setTimeZone` method allows you to change the timezone after instance creation. The timezone parameter accepts either a valid time zone string or a `DateTimeZone` instance.
+The `setTimezone` method allows you to change the timezone after instance creation. The timezone parameter accepts either a valid time zone string or a `DateTimeZone` instance.
 
 ```php
-$time = $time->setTimeZone('Europe/Paris');
+$time = $time->setTimezone('Europe/Paris');
 
-$time = $time->setTimeZone(new DateTimeZone('Europe/Paris'));
+$time = $time->setTimezone(new DateTimeZone('Europe/Paris'));
 ```
 
 The `forward` method moves you forward in time by **x** seconds.
@@ -147,14 +147,14 @@ $immutable = $time->getImmutable();
 
 ### <a id="time_zones" href="#time_zones">Time zones</a>
 
-The `getTimeZones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
+The `getTimezones` method returns an array consisting of all available time zones where the key is a valid time zone string while the value is a presentable name.
 
 ```php
-$timeZones = TimeZone::getTimeZones();
+$timeZones = TimeZone::getTimezones();
 ```
 
-The `getGroupedTimeZones` method returns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
+The `getGroupedTimezones` method returns an array consisting of grouped time zones where the key is a valid PHP time zone string while the value is a presentable name.
 
 ```php
-$timeZones = TimeZone::getGroupedTimeZones();
+$timeZones = TimeZone::getGroupedTimezones();
 ```
