@@ -175,13 +175,13 @@ $isBefore = $time->isBefore(TimeImmutable::tomorrow()); // true
 $isBefore = $time->isBefore(TimeImmutable::yesterday()); // false
 ```
 
-The `isBefore` method returns `true` if the time instance is after the given time and `false` if not.
+The `isAfter` method returns `true` if the time instance is after the given time and `false` if not.
 
 ```php
 $time = TimeImmutable::now();
 
-$isBefore = $time->isAfter(TimeImmutable::yesterday()); // true
-$isBefore = $time->isAfter(TimeImmutable::tomorrow()); // false
+$isAfter = $time->isAfter(TimeImmutable::yesterday()); // true
+$isAfter = $time->isAfter(TimeImmutable::tomorrow()); // false
 ```
 
 The `isBetween` method returns `true` if the time instance is between the given times and `false` if not.
