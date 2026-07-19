@@ -155,15 +155,42 @@ $dosTimestamp = $time->getDOSTimestamp();
 The `isPast` method returns `true` if the time is in the past and `false` if not.
 
 ```php
-$isPast = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isPast(); // true
-$isPast = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isPast(); // false
+$isPast = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isPast(); // true
+$isPast = TimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isPast(); // false
 ```
 
 The `isFuture` method returns `true` if the time is in the future and `false` if not.
 
 ```php
-$isFuture = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isFuture(); // true
-$isFuture = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isFuture(); // false
+$isFuture = TimeImmutable::createFromFormat('Y-m-d H:i:s', '2980-01-01 00:00:00')->isFuture(); // true
+$isFuture = TimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')->isFuture(); // false
+```
+
+The `isBefore` method returns `true` if the time instance is before the given time and `false` if not.
+
+```php
+$time = TimeImmutable::now();
+
+$isBefore = $time->isBefore(TimeImmutable::tomorrow()); // true
+$isBefore = $time->isBefore(TimeImmutable::yesterday()); // false
+```
+
+The `isBefore` method returns `true` if the time instance is after the given time and `false` if not.
+
+```php
+$time = TimeImmutable::now();
+
+$isBefore = $time->isAfter(TimeImmutable::yesterday()); // true
+$isBefore = $time->isAfter(TimeImmutable::tomorrow()); // false
+```
+
+The `isBetween` method returns `true` if the time instance is between the given times and `false` if not.
+
+```php
+$time = TimeImmutable::now();
+
+$isBetween = $time->isBetween(new TimeImmutable('-14 days'), new TimeImmutable('+7 days')); // true
+$isBetween = $time->isBetween(new TimeImmutable('-14 days'), new TimeImmutable('-7 days')); // false
 ```
 
 The `isLeapYear` method returns `true` if the year of the `Time` instance is a leap year and `false` if not.
