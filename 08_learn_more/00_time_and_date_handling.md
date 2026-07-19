@@ -223,13 +223,13 @@ The `toIso8601String` returns the time as an ISO 8601 date-time string.
 $iso8601String = $time->toIso8601String();
 ```
 
-The `toExpandedIso8601String` returns the time as an expanded ISO 8601 date-time string capable of representing dates outside the 0000-9999 year range.
+The `toExpandedIso8601String` method returns the time as an expanded ISO 8601 date-time string that can represent years outside the 0000–9999 range.
 
 ```php
 $expandedIso8601String = $time->toExpandedIso8601String();
 ```
 
-The `toRfc7231String` returns the time as an ISO 8601 date-time string.
+The `toRfc7231String` returns the time as an RFC 7231 date-time string.
 
 ```php
 $rfc7231String = $time->toRfc7231String();
