@@ -211,6 +211,30 @@ The `daysInMonths` method returns an array containing the number of days in each
 $daysInMonths = $time->daysInMonths();
 ```
 
+The `toAtomString` returns the time as an ATOM date-time string.
+
+```php
+$atomString = $time->toAtomString();
+```
+
+The `toIso8601String` returns the time as an ISO 8601 date-time string.
+
+```php
+$iso8601String = $time->toIso8601String();
+```
+
+The `toExpandedIso8601String` returns the time as an expanded ISO 8601 date-time string capable of representing dates outside the 0000-9999 year range.
+
+```php
+$expandedIso8601String = $time->toExpandedIso8601String();
+```
+
+The `toRfc7231String` returns the time as an ISO 8601 date-time string.
+
+```php
+$rfc7231String = $time->toRfc7231String();
+```
+
 #### <a id="date_and_time:timeimmutable_specific_methods" href="#date_and_time:timeimmutable_specific_methods">TimeImmutable specific methods</a>
 
 The `toMutable` method returns a `Time` instance set to the same time.
