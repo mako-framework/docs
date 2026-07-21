@@ -129,18 +129,50 @@ class MyOperation implements OperationInterface
 }
 ```
 
-The `getImageBlob` method returns the raw binary image data.
+The `toBlob` method returns the raw binary image data.
 
 ```php
-$image = $image->getImageBlob();
+$image = $image->toBlob();
 
 // You can also tell it to return a different image type
 
-$image = $image->getImageBlob('jpg');
+$image = $image->toBlob('jpg');
 
 // You can also adjust the image quality in percent (default is 95%)
 
-$image = $image->getImageBlob('jpg', 70);
+$image = $image->toBlob('jpg', 70);
+```
+
+The `toBase64` method returns a base64 encoded representation of the raw binary image data.
+
+```php
+$image = $image->toBase64();
+
+// You can also tell it to return a different image type
+
+$image = $image->toBase64('jpg');
+
+// You can also adjust the image quality in percent (default is 95%)
+
+$image = $image->toBase64('jpg', 70);
+```
+
+The `toDataUri` method returns a data uri representation of the image.
+
+```php
+$image = $image->toDataUri();
+
+// You can also tell it to return a different image type
+
+$image = $image->toDataUri('jpg');
+
+// You can also adjust the image quality in percent (default is 95%)
+
+$image = $image->toDataUri('jpg', 70);
+
+// Display the image
+
+echo "<image src='{$image}'>"; // <image src='data:image/jpeg;base64,...'>
 ```
 
 As the name suggests the `save` method will save your edited image to disk.

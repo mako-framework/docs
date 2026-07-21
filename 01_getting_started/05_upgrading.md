@@ -9,6 +9,7 @@
     - [Uploaded files](#13.0-uploaded_files)
     - [Input validation](#13.0-input_validation)
     - [Date and time](#13.0-date_and_time)
+    - [Image processing](#13.0-image-processing)
 
 --------------------------------------------------------
 
@@ -217,4 +218,13 @@ The `TimeInterface::copy()` method has been removed. The same functionality can 
 ```php{1}
 {- $copy = $time->copy(); -}
 {+ $copy = clone $time; +}
+```
+
+#### <a id="13.0-image-processing" href="#13.0-image-processing">Image processing</a>
+
+The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface::toBlob()`.
+
+```php{1}
+{- $blob = $image->getImageBlob(); -}
+{+ $blob = $image->toBlob(); +}
 ```
