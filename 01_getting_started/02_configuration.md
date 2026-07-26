@@ -2,24 +2,26 @@
 
 --------------------------------------------------------
 
-* [Config files](#config_files)
+* [Configuration files](#configuration_files)
 	- [Security first](#security_first)
-* [Environment aware configuration](#environment_aware_configuration)
+* [Environment-aware configuration](#environment_aware_configuration)
 	- [Setting the environment](#environment_aware_configuration:setting_the_environment)
 	- [Environment variables](#environment_aware_configuration:environment_variables)
 * [Package configuration](#package_configuration)
 
 --------------------------------------------------------
 
-The configuration of the Mako core is done in the `app/init.php` file. This is where you set the error reporting level and define the paths to the application and vendor directories.
+The Mako core is configured in the `app/init.php` file. This is where you configure the error reporting level, define the paths to the application and vendor directories, and customize the `dotenv` loader.
 
-All of the remaining application configuration is done by editing the files that are located in the `app/config` directory.
+The `.env` file is located in the application root directory and is intended for local development environments. It should not be committed to version control. By default, values defined in the environment take precedence over values loaded from the `.env` file, and variable interpolation is disabled.
+
+All remaining application configuration is done by editing the files located in the `app/config` directory.
 
 --------------------------------------------------------
 
-### <a id="config_files" href="#config_files">Config files</a>
+### <a id="config_files" href="#configuration_files">Configuration files</a>
 
-Mako config files are just simple arrays. In addition to the core config files that are created, you can create your own custom config files:
+Mako configuration files are simple arrays. In addition to the core configuration files created by default, you can create your own custom configuration files:
 
 ```php
 <?php
@@ -32,19 +34,19 @@ return [
 ];
 ```
 
-And loading a config file is done by using the `get` method.
+Configuration files can be loaded using the `get` method.
 
 ```php
 $config = $this->config->get('redis'); // Loads the app/config/redis.php file
 ```
 
-You can also fetch config items using `dot notation`. If we are using the example above, you can fetch `key_1` in this manner:
+You can also fetch configuration items using `dot notation`. Using the example above, `key_1` can be fetched like this:
 
 ```php
 $default = $this->config->get('redis.key_1');
 ```
 
-It is also possible to override settings or add new configurations at runtime:
+It is also possible to override settings or add new configuration values at runtime:
 
 ```php
 // Adds a new Crypto configuration named "user" that you can
@@ -63,12 +65,12 @@ Removing the custom configuration is done using the `remove` method:
 $this->config->remove('crypto.configurations.user');
 ```
 
-> Setting configuration at runtime is not always possible. Some components such as the connections managers (database, redis, etc...) will cache the settings once they get loaded. You can override them using their `addConfiguration` and `removeConfiguration` methods instead.
+> Setting configuration at runtime is not always possible. Some components, such as the connection managers (database, Redis, etc.), cache their settings once they are loaded. You can override them using their `addConfiguration` and `removeConfiguration` methods instead.
 {.warning}
 
 #### <a id="security_first" href="#security_first">Security first</a>
 
-Many developers have made mistakes with committing config files containing sensitive information. In some cases those repositories are made public and there are credential sniffing bots that find exposed credentials. When you are dealing with Mako application, please take caution into what files you commit to the repository and which files you add to your `.gitignore` or equivalent ignore file for your VCS. 
+Accidentally committing configuration files containing sensitive information is a common security mistake. Public repositories are frequently scanned by automated tools looking for exposed credentials. Take care when deciding which files to commit and which files to add to your `.gitignore` file or equivalent ignore file for your VCS. 
 
 > Any configuration files that hold an API key, a username/password, an encryption key or any other type of sensitive data should _not_ be committed to your repository!
 {.danger}
@@ -91,9 +93,9 @@ Place your sensitive configuration values in environment variables, which can th
 
 --------------------------------------------------------
 
-### <a id="environment_aware_configuration" href="#environment_aware_configuration">Environment aware configuration</a>
+### <a id="environment_aware_configuration" href="#environment_aware_configuration">Environment-aware configuration</a>
 
-Mako supports environment aware configuration. This means that you can have separate configuration files for your different environments. All you have to do is create a subdirectory with the name of your environment in the `app/config` directory and copy the environment specific files into it.
+Mako supports environment-aware configuration. This means that you can have separate configuration files for your different environments. All you have to do is create a subdirectory named after your environment inside the `app/config` directory and copy the environment-specific files into it.
 
 #### <a id="environment_aware_configuration:setting_the_environment" href="#environment_aware_configuration:setting_the_environment">Setting the environment</a>
 
@@ -126,7 +128,7 @@ Using the above methods to set up the `dev` environment, it will now read your c
 
 #### <a id="environment_aware_configuration:environment_variables" href="#environment_aware_configuration:environment_variables">Environment variables</a>
 
-You can also use the `mako\env` function to fetch environment variables, which is recommended for sensitive configuration values like credentials, encryption keys, and more.
+You can use the `mako\env` function to fetch environment variables, which is recommended for sensitive configuration values such as credentials and encryption keys.
 
 ```php
 [
