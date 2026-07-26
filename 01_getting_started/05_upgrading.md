@@ -2,6 +2,7 @@
 --------------------------------------------------------
 
 * [13.0](#13.0)
+    - [Dotenv loader](#13.0-dotenv-loader)
     - [Controller helper](#13.0-controller_helper)
     - [Enum cases](#13.0-enum_cases)
     - [Query builder sorting](#13.0-query_builder_sorting)
@@ -16,6 +17,21 @@
 ### <a id="13.0" href="#13.0">13.0</a>
 
 This portion of the guide takes you through the steps needed to migrate from Mako 12.* to 13.0
+
+#### <a id="13.0-dotenv-loader" href="#13.0-dotenv-loader">Dotenv loader</a>
+
+In Mako 13, we added a `dotenv` loader for use in development environments. This allows you to define environment variables in a `.env` file located in the application root directory. Make sure to add the `.env` file to your `.gitignore` file (or equivalent ignore file for your VCS) to prevent sensitive values from being committed.
+
+Add the following to the end of your `init.php` file to enable it:
+
+```php
+/*
+ * Load .env if it exists.
+ */
+if (file_exists($dotenv = dirname(__DIR__) . '/.env')) {
+	(new DotenvLoader)->load($dotenv);
+}
+```
 
 #### <a id="13.0-controller_helper" href="#13.0-controller_helper">Controller helper</a>
 
