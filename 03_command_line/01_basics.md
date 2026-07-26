@@ -45,7 +45,6 @@ Available commands:
 ┣━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃ app:generate-key       ┃ Generates a 256-bit encryption key.             ┃
 ┃ app:generate-preloader ┃ Generates a opcache preloader script.           ┃
-┃ app:generate-secret    ┃ Generates a new application secret.             ┃
 ┃ app:routes             ┃ Lists all registered routes.                    ┃
 ┃ app:server             ┃ Starts the local development server.            ┃
 ┃ cache:clear            ┃ Clears the cache.                               ┃
