@@ -25,6 +25,12 @@ $image = new ImageMagick('image.png');
 
 #### <a id="usage:image_information" href="#usage:image_information">Image information</a>
 
+The `getMimeType` method returns the mime type of your image.
+
+```php
+$mimeType = $image->getMimeType();
+```
+
 The `getHeight` method returns the height of your image.
 
 ```php
