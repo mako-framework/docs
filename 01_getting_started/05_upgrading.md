@@ -11,6 +11,7 @@
     - [Input validation](#13.0-input_validation)
     - [Date and time](#13.0-date_and_time)
     - [Image processing](#13.0-image-processing)
+    - [Signer](#13.0-signer)
 
 --------------------------------------------------------
 
@@ -243,4 +244,13 @@ The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface:
 ```php{1}
 {- $blob = $image->getImageBlob(); -}
 {+ $blob = $image->toBlob(); +}
+```
+
+#### <a id="13.0-signer" href="#13.0-signer">Signer</a>
+
+The `Signer` class has been moved fromt the `mako\security` namespace to  the `mako\security\signer` namespace.
+
+```php{1}
+{- use mako\security\Signer; -}
+{+ use mako\security\signer\Signer; +}
 ```
