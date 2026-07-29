@@ -248,7 +248,7 @@ The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface:
 
 #### <a id="13.0-signer" href="#13.0-signer">Signer</a>
 
-The `Signer` class has been moved fromt the `mako\security` namespace to  the `mako\security\signer` namespace.
+The `Signer` class has been moved from the `mako\security` namespace to  the `mako\security\signer` namespace.
 
 ```php{1}
 {- use mako\security\Signer; -}
