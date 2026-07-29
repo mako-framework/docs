@@ -12,7 +12,7 @@
 
 Mako comes with a set of classes to help you encrypt and sign your data.
 
-> Mako automatically generates new application secrets and encryption keys when creating a project, but these are only intended for development because the .env file should never be committed to version control.
+> Mako automatically generates new application secrets and encryption keys when creating a project, but these are only intended for development. The .env file should never be committed to version control.
 {.danger}
 
 > You can easily generate your own secure keys using the `app:generate-key` reactor command.
