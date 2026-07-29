@@ -106,8 +106,14 @@ The `sign` method returns a signed version of the provided string.
 $signed = $signer->sign('Hello, world!');
 ```
 
-The `validate` method will check if your string is valid. It returns the original string if it is and `false` if not.
+The `validate` method verifies that the string is valid. If it is, the original string is returned; otherwise, `false` is returned.
 
 ```php
 $string = $signer->validate($signed);
+```
+
+The `validateOrThrow` method verifies that the string is valid. If it is, the original string is returned. Otherwise, a `SignerException` is thrown.
+
+```php
+$string = $signer->validateOrThrow($signed);
 ```
