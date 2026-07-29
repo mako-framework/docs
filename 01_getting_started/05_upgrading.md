@@ -17,7 +17,9 @@
 
 ### <a id="13.0" href="#13.0">13.0</a>
 
-This portion of the guide takes you through the steps needed to migrate from Mako 12.* to 13.0
+This portion of the guide takes you through the steps needed to migrate from Mako 12.* to 13.0.
+
+While most applications won't be affected by every change, we recommend reviewing the entire guide to make sure your application is ready for 13.0.
 
 #### <a id="13.0-dotenv-loader" href="#13.0-dotenv-loader">Dotenv loader</a>
 
