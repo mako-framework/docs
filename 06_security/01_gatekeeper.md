@@ -50,7 +50,6 @@ $token = $user->getActionToken();
 // Send the user an email with an activation link containing the token
 
 ...
-
 ```
 
 To activate the user you'll have to use the `activateUser` method. The method will return `true` on success and `false` if the activation fails. The method will also automatically generate a new action token for the user upon successful activation.
@@ -226,6 +225,8 @@ if ($this->gatekeeper->basicAuth() === false) {
 }
 
 // Code here gets executed if the user is logged in
+
+...
 ```
 
 > The username and password is sent with every subsequent request when using basic authentication so make sure to use `HTTPS` whenever possible!

@@ -63,8 +63,7 @@ $assoc = Arr::isAssoc(['one' => 1, 'two' => 2, 'three' => 3]);
 The `pluck` method returns the values from a single column of the input array, identified by the key.
 
 ```php
-$fruits =
-[
+$fruits = [
 	['name' => 'apple', 'color' => 'green'],
 	['name' => 'banana', 'color' => 'yellow'];
 ];

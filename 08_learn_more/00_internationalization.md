@@ -84,10 +84,9 @@ echo $this->i18n->pluralize('woman', 2); // Will print "women"
 You can also pluralize words in translated strings.
 
 ```php
-return array
-(
+return [
 	'new_messages' => 'You have %1$u new <pluralize:%1$u>message</pluralize>.',
-);
+];
 ```
 
 We can now enjoy simple pluralization in our views

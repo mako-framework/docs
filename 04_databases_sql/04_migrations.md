@@ -73,8 +73,7 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function up(): void
 	{
-		$this->getConnection()->query
-		(
+		$this->getConnection()->query(
 			// Write your SQL here
 		);
 	}
@@ -84,8 +83,7 @@ class Migration_20120824100019 extends Migration
 	 */
 	public function down(): void
 	{
-		$this->getConnection()->query
-		(
+		$this->getConnection()->query(
 			// Write your SQL here
 		);
 	}

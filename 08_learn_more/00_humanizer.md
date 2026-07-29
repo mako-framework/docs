@@ -33,29 +33,29 @@ $this->humanizer->fileSize(1024, false); // Will return "1.02 KB"
 The `day` method will return a human friendly representation of the day. If the day isn't within the **yesterday/today/tomorrow** range then it'll return the date in the format specified by the optional second parameter.
 
 ```php
-$this->humanizer->day(Time::now()); // Will return "today"
+$this->humanizer->day(TimeImmutable::now()); // Will return "today"
 
-$this->humanizer->day(Time::now()->rewind(60*60*24)); // Will return "yesterday"
+$this->humanizer->day(TimeImmutable::now()->rewind(60*60*24)); // Will return "yesterday"
 
-$this->humanizer->day(Time::now()->forward(60*60*24)); // Will return "tomorrow"
+$this->humanizer->day(TimeImmutable::now()->forward(60*60*24)); // Will return "tomorrow"
 ```
 
 The `time` method will return a human friendly representation of the time. If the time isn't within the **yesterday/today/tomorrow** range then it'll return the time in the format specified by the optional second parameter. There is also a third parameter that lets you set the clock format.
 
 ```php
-$this->humanizer->time(Time::now()); // Will return "a minute ago"
+$this->humanizer->time(TimeImmutable::now()); // Will return "a minute ago"
 
-$this->humanizer->time(Time::now()->rewind(60*4)); // Will return "4 minutes ago"
+$this->humanizer->time(TimeImmutable::now()->rewind(60*4)); // Will return "4 minutes ago"
 
-$this->humanizer->time(Time::now()->rewind(60*60)); // Will return "today, 08:43"
+$this->humanizer->time(TimeImmutable::now()->rewind(60*60)); // Will return "today, 08:43"
 
-$this->humanizer->time(Time::now()->rewind(60*60*24)); // Will return "yesterday, 08:43"
+$this->humanizer->time(TimeImmutable::now()->rewind(60*60*24)); // Will return "yesterday, 08:43"
 
-$this->humanizer->time(Time::now()->forward(60*4)); // Will return "in 4 minutes"
+$this->humanizer->time(TimeImmutable::now()->forward(60*4)); // Will return "in 4 minutes"
 
-$this->humanizer->time(Time::now()->forward(60*60)); // Will return "today, 10:43"
+$this->humanizer->time(TimeImmutable::now()->forward(60*60)); // Will return "today, 10:43"
 
-$this->humanizer->time(Time::now()->forward(60*60*24)); // Will return "tomorrow, 10:43"
+$this->humanizer->time(TimeImmutable::now()->forward(60*60*24)); // Will return "tomorrow, 10:43"
 ```
 
 

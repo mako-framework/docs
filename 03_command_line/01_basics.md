@@ -21,7 +21,7 @@ php reactor
 It should print something similar to the following on a default Mako installation.
 
 ```
-MAKO FRAMEWORK [ 11.0.0 ]
+MAKO FRAMEWORK [ 13.0.0 ]
 
 Usage:
 
@@ -43,7 +43,7 @@ Available commands:
 ┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Command                ┃ Description                                     ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃ app:generate-key       ┃ Generates a 256-bit encryption key.             ┃
+┃ app:generate-key       ┃ Generates a cryptographic key.                  ┃
 ┃ app:generate-preloader ┃ Generates a opcache preloader script.           ┃
 ┃ app:routes             ┃ Lists all registered routes.                    ┃
 ┃ app:server             ┃ Starts the local development server.            ┃
