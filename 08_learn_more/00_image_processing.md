@@ -21,6 +21,14 @@ First you'll have to decide whether to use GD or ImageMagick. In this example we
 
 ```php
 $image = new ImageMagick('image.png');
+
+// You can also create an instace from a path like this
+
+$image = ImageMagick::fromPath('image.png');
+
+// Or directly from a binary blob like this
+
+$image = ImageMagick::fromBlob($blob);
 ```
 
 #### <a id="usage:image_information" href="#usage:image_information">Image information</a>
