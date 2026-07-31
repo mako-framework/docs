@@ -100,19 +100,21 @@ $image->apply(new Sharpen);
 $image->apply(new Border(new Color(0, 0, 0, 127), width: 10));
 ```
 
-The `applyOnClone` method allows you to apply an image operation to a clone of your image.
-
-```php
-$image = $image->applyOnClone(new Sharpen);
-$image = $image->applyOnClone(new Border(new Color(0, 0, 0, 127), width: 10));
-```
-
 You can also pipeline multiple operations using the `Pipeline` class.
 
 ```php
 $image->apply(new Pipeline(
     new Sharpen,
     new Border(new Color(0, 0, 0, 127), width: 10),
+));
+```
+
+The `applyOnClone` method allows you to apply an image operation to a copy of the image instance while leaving the original unchanged. Just like with the `apply` method, you can apply individual operations directly or use the `Pipeline` class to apply multiple operations.
+
+```php
+$greyscaleThumbnail = $image->applyOnClone(new Pipeline(
+    new Resize(300, 300),
+    new Greyscale,
 ));
 ```
 
