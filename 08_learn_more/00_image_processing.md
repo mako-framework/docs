@@ -89,23 +89,18 @@ The following methods are available on the `Color` class:
 
 #### <a id="usage:image_manipulation" href="#usage:image_manipulation">Image manipulation</a>
 
-The `snapshot` method allows you to create a snapshot of your image.
-
-```php
-$image->snapshot();
-```
-
-The `restore` method allows you to restore an image snapshot.
-
-```php
-$image->restore();
-```
-
 The `apply` method allows you to apply an image operation to your image.
 
 ```php
 $image->apply(new Sharpen);
 $image->apply(new Border(new Color(0, 0, 0, 127), width: 10));
+```
+
+The `applyOnClone` method allows you to apply an image operation to a clone of your image.
+
+```php
+$image = $image->applyOnClone(new Sharpen);
+$image = $image->applyOnClone(new Border(new Color(0, 0, 0, 127), width: 10));
 ```
 
 Here are all of the included image operations:

@@ -248,6 +248,34 @@ The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface:
 {+ $blob = $image->toBlob(); +}
 ```
 
+The `ImageInterface::snapshot()` and `ImageInterface::restore()` methods have been removed. The same functionality can now be achieved using the `clone` keyword or using the ``ImageInterface::applyOnClone()` method.
+
+```php
+// Before
+
+$image = new ImageMagick('image.png');
+$image->apply(new Resize(48, 48));
+$image->snapshot();
+$image->apply(new Flip());
+$image->save('flipped.png');
+$image->restore();
+$image->save('image.png');
+
+// Now using clone
+
+$image = new ImageMagick('image.png');
+$image->apply(new Resize(48, 48));
+(clone $image)->apply(new Flip())->save('flipped.png');
+$image->save('image.png');
+
+// Now using applyOnClone
+
+$image = new ImageMagick('image.png');
+$image->apply(new Resize(48, 48));
+$image->applyOnClone(new Flip())->save('flipped.png');
+$image->save('image.png');
+```
+
 #### <a id="13.0-signer" href="#13.0-signer">Signer</a>
 
 The `Signer` class has been moved from the `mako\security` namespace to  the `mako\security\signer` namespace.
