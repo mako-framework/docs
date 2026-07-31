@@ -4,14 +4,17 @@
 
 * [Usage](#usage)
     - [Image information](#usage:image_information)
+        - [Inspectors](#usage:image_information:inspectors)
     - [Image manipulation](#usage:image_manipulation)
     - [Image metadata](#usage:image_metadata)
         - [XMP](#usage:image_metadata:xmp)
             - [Reading](#usage:image_metadata:xmp:reading)
+    - [Value objects](#usage:value_objects)
+        - [Color](#usage:value_objects:color)
 
 --------------------------------------------------------
 
-The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick.
+The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick. GD generally provides slightly faster processing for many operations, while ImageMagick offers better color accuracy and more advanced image processing capabilities.
 
 --------------------------------------------------------
 
@@ -61,35 +64,49 @@ The `getDimensions` method returns an array containing both the height and width
 $dimensions = $image->getDimensions();
 ```
 
-The `getTopColors` method returns an array of the top `n` colors in an image, represented as `Color` class instances. By default, it returns the top five colors, but you can specify a custom number of colors to return.
+##### <a id="usage:image_information:inspectors" href="#usage:image_information:inspectors">Inspectors</a>
+
+To retrieve more advanced image information you can use inspectors.
+
+The `TopColors` inspector returns an array of the top `n` colors in an image, represented as [`Color`](#usage:value_objects:color) class instances. By default, it returns the top five colors, but you can specify a custom number of colors to return.
 
 ```php
-$topColors = $image->getTopColors();
+$topColors = $image->inspect(new TopColors);
 
 foreach ($topColors as $color) {
     var_dump($color->toHexString());
 }
 ```
 
-The following methods are available on the `Color` class:
+Here are all of the included image inspectors:
 
-| Method                                         | Description                                                                           |
-|------------------------------------------------|---------------------------------------------------------------------------------------|
-| fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
-| getRed()                                       | Returns the red value (0-255)                                                         |
-| getGreen()                                     | Returns the green value (0-255)                                                       |
-| getBlue()                                      | Returns the blue value (0-255)                                                        |
-| getAlpha()                                     | Returns the alpha value (0-255)                                                       |
-| toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
-| toHexaString()                                 | Returns a hexa string representation of the color (e.g. "#FF000000")                |
-| toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
-| toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
-| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")     |
-| toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
-| toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
-| toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
+| Class                | Description                                                    | Gd | ImageMagick |
+|----------------------|----------------------------------------------------------------|----|-------------|
+| TopColors            | Returns the top colors of the image                            | ✓  | ✓           |
 
-> Note: If you want the best color accuracy then you should use the `ImageMagick` class.
+You can also create your own custom image inspectors by implementing the `InspectorInterface`.
+
+```php
+/**
+ * @implements InspectorInterface<array{width:int, height:int}>
+ */
+class Dimensions implements InspectorInterface
+{
+	/**
+	 * {@inheritDoc}
+	 */
+	#[Override]
+	public function inspect(object &$imageResource): array
+	{
+		return [
+			'width'  => $imageResource->getImageWidth(),
+			'height' => $imageResource->getImageHeight(),
+		];
+	}
+}
+```
+
+> The generics annotation connects the inspector implementation with its return type. This allows your IDE and static analysis tools such as PHPStan to understand the value returned by `inspect()` and provide accurate type hints, auto-completion, and type checking.
 
 #### <a id="usage:image_manipulation" href="#usage:image_manipulation">Image manipulation</a>
 
@@ -280,3 +297,31 @@ $property = $reader->getProperty('http://purl.org/dc/elements/1.1/', 'title');
 
 echo $property->value;
 ```
+
+#### <a id="usage:value_objects" href="#usage:value_objects">Value objects</a>
+
+##### <a id="usage:value_objects:color" href="#usage:value_objects:color">Color</a>
+
+The `Color` class is a value object for representing colors. It is used by image [operations](#usage:image_manipulation) and [inspectors](#usage:image_information:inspectors).
+
+```php
+$color = new Color(0, 0, 0, 127);
+```
+
+The following methods are available:
+
+| Method                                         | Description                                                                           |
+|------------------------------------------------|---------------------------------------------------------------------------------------|
+| fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
+| getRed()                                       | Returns the red value (0-255)                                                         |
+| getGreen()                                     | Returns the green value (0-255)                                                       |
+| getBlue()                                      | Returns the blue value (0-255)                                                        |
+| getAlpha()                                     | Returns the alpha value (0-255)                                                       |
+| toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toHexaString()                                 | Returns a hexa string representation of the color (e.g. "#FF000000")                |
+| toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
+| toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
+| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")     |
+| toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
+| toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
+| toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
