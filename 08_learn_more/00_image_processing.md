@@ -184,6 +184,24 @@ $image = $image->toDataUri('jpg', 70);
 echo "<image src='{$image}'>"; // <image src='data:image/jpeg;base64,...'>
 ```
 
+The `toStream` method returns the image as a stream. By default, it uses `StreamStorage::Temp`, which creates a PHP `php://temp` stream. This stream stores data in memory until it reaches 2 MB before automatically spilling over to a temporary file on disk, providing a good balance between performance and memory usage. If you prefer to keep the entire stream in memory, pass `StreamStorage::Memory`, which creates a `php://memory` stream.
+
+```php
+$stream = $image->toStream();
+
+// You can also tell it to return a different image type
+
+$stream = $image->toStream('jpg');
+
+// You can also adjust the image quality in percent (default is 95%)
+
+$stream = $image->toStream('jpg', 70);
+
+// And as mentioned above you can choose which stream wrapper to use
+
+$stream = $image->toStream(stream: StreamStorage::Memory);
+```
+
 As the name suggests the `save` method will save your edited image to disk.
 
 ```php
