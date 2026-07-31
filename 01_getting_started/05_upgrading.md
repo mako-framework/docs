@@ -248,7 +248,7 @@ The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface:
 {+ $blob = $image->toBlob(); +}
 ```
 
-The `ImageInterface::snapshot()` and `ImageInterface::restore()` methods have been removed. The same functionality can now be achieved using the `clone` keyword or using the ``ImageInterface::applyOnClone()` method.
+The `ImageInterface::snapshot()` and `ImageInterface::restore()` methods have been removed. The same functionality can now be achieved using the `clone` keyword or using the `ImageInterface::applyOnClone()` method.
 
 ```php
 // Before
