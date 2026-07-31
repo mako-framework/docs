@@ -29,6 +29,10 @@ $image = ImageMagick::fromPath('image.png');
 // Or directly from a binary blob like this
 
 $image = ImageMagick::fromBlob($blob);
+
+// And finally from a stream
+
+$image = ImageMagick::fromStream($stream);
 ```
 
 #### <a id="usage:image_information" href="#usage:image_information">Image information</a>
