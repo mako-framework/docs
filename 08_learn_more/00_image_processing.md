@@ -107,6 +107,15 @@ $image = $image->applyOnClone(new Sharpen);
 $image = $image->applyOnClone(new Border(new Color(0, 0, 0, 127), width: 10));
 ```
 
+You can also pipeline multiple operations using the `Pipeline` class.
+
+```php
+$image->apply(new Pipeline(
+    new Sharpen,
+    new Border(new Color(0, 0, 0, 127), width: 10),
+));
+```
+
 Here are all of the included image operations:
 
 | Class                | Description                                                    | Gd | ImageMagick |
