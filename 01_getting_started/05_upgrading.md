@@ -21,6 +21,8 @@ This portion of the guide takes you through the steps needed to migrate from Mak
 
 While most applications won't be affected by every change, we recommend reviewing the entire guide to make sure your application is ready for 13.0.
 
+Check out the [changelog](:base_url:/changelog) to view a complete overview of all changes and new features of this release.
+
 #### <a id="13.0-dotenv-loader" href="#13.0-dotenv-loader">Dotenv loader</a>
 
 In Mako 13, we added a `dotenv` loader for use in development environments. This allows you to define environment variables in a `.env` file located in the application root directory. Make sure to add the `.env` file to your `.gitignore` file (or equivalent ignore file for your VCS) to prevent sensitive values from being committed.
