@@ -278,10 +278,10 @@ $reader = new XmpReader('image.tif');
 $reader = new XmpReader('image.tif', 'libexempi.so.8');
 ```
 
-The `getXml` method returns all the XMP data as XML.
+The `toXml` method returns all the XMP data as XML.
 
 ```php
-$xml = $reader->getXml();
+$xml = $reader->toXml();
 
 // You can also cast the reader object to a string
 
