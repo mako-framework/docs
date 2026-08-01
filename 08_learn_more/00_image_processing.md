@@ -102,7 +102,7 @@ class Dimensions implements InspectorInterface
 	 * {@inheritDoc}
 	 */
 	#[Override]
-	public function inspect(object &$imageResource): array
+	public function inspect(object &$imageResource): Dimensions
 	{
 		return new Dimensions(
             $imageResource->getImageWidth(),
