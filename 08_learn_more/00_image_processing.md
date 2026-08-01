@@ -17,7 +17,7 @@
 
 --------------------------------------------------------
 
-The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick. GD generally provides slightly faster processing for many operations, while ImageMagick offers better color accuracy and more advanced image processing capabilities.
+The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick. GD generally provides faster processing for many operations and is available in most PHP installations, while ImageMagick offers more advanced image processing capabilities, improved color handling, and better support for complex formats such as animated GIFs and multi-frame images.
 
 --------------------------------------------------------
 
