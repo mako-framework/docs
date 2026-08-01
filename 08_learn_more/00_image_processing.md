@@ -365,7 +365,7 @@ $y = $point->y; // 150
 
 ##### <a id="usage:value_objects:points" href="#usage:value_objects:points">Points</a>
 
-The `Points` class represents a collection of points that define the geometry of a shape. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
+The `Points` class represents a collection of points. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
 
 ```php
 $square = new Points(
@@ -385,6 +385,6 @@ The following additional methods are available:
 | Method                            | Description                                                                                                          |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | getPoints()                       | Returns the points contained in the collection                                                                       |
-| getDimensions()                   | Returns the a `Dimensions` instance representing the bounding box containing the points                              |
+| getDimensions()                   | Returns a `Dimensions` instance representing the bounding box containing the points                                  |
 | fitTo($dimensions)                | Returns a new set of points fitted to the given dimensions while preserving the aspect ratio and normalized to `0,0` |
 
