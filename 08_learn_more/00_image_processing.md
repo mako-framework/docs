@@ -94,7 +94,7 @@ You can also create your own custom image inspectors by implementing the `Inspec
 
 ```php
 /**
- * @implements InspectorInterface<array{width:int, height:int}>
+ * @implements InspectorInterface<Dimensions>
  */
 class Dimensions implements InspectorInterface
 {
@@ -104,10 +104,10 @@ class Dimensions implements InspectorInterface
 	#[Override]
 	public function inspect(object &$imageResource): array
 	{
-		return [
-			'width'  => $imageResource->getImageWidth(),
-			'height' => $imageResource->getImageHeight(),
-		];
+		return new Dimensions(
+            $imageResource->getImageWidth(),
+			$imageResource->getImageHeight()
+        );
 	}
 }
 ```
