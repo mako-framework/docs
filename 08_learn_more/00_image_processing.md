@@ -13,7 +13,7 @@
         - [Color](#usage:value_objects:color)
         - [Dimensions](#usage:value_objects:dimensions)
         - [Point](#usage:value_objects:point)
-        - [Vertices](#usage:value_objects:vertices)
+        - [Points](#usage:value_objects:points)
 
 --------------------------------------------------------
 
@@ -363,12 +363,12 @@ $x = $point->x; // 100
 $y = $point->y; // 150
 ```
 
-##### <a id="usage:value_objects:vertices" href="#usage:value_objects:vertices">Vertices</a>
+##### <a id="usage:value_objects:points" href="#usage:value_objects:points">Points</a>
 
-The `Vertices` class represents a collection of points that define the geometry of a shape. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
+The `Points` class represents a collection of points that define the geometry of a shape. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
 
 ```php
-$square = new Vertices(
+$square = new Points(
     new Point(0, 0),     // top-left
     new Point(100, 0),   // top-right
     new Point(100, 100), // bottom-right
@@ -382,9 +382,9 @@ foreach ($square as $point) {
 
 The following additional methods are available:
 
-| Method                            | Description                                                                        |
-|-----------------------------------|------------------------------------------------------------------------------------|
-| getPoints()                       | Returns the points contained in the vertices                                       |
-| getDimensions()                   | Returns the a `Dimensions` instance representing the bounding box containing the vertices                 |
-| fitTo($dimensions)                | Returns a new set of vertices fitted to the given dimensions while preserving the aspect ratio and normalized to `0,0` |
+| Method                            | Description                                                                                                          |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| getPoints()                       | Returns the points contained in the collection                                                                       |
+| getDimensions()                   | Returns the a `Dimensions` instance representing the bounding box containing the points                              |
+| fitTo($dimensions)                | Returns a new set of points fitted to the given dimensions while preserving the aspect ratio and normalized to `0,0` |
 
