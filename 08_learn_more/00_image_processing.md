@@ -11,6 +11,9 @@
             - [Reading](#usage:image_metadata:xmp:reading)
     - [Value objects](#usage:value_objects)
         - [Color](#usage:value_objects:color)
+        - [Dimensions](#usage:value_objects:dimensions)
+        - [Point](#usage:value_objects:point)
+        - [Vertices](#usage:value_objects:vertices)
 
 --------------------------------------------------------
 
@@ -58,10 +61,13 @@ The `getWidth` method returns the width of your image.
 $width = $image->getWidth();
 ```
 
-The `getDimensions` method returns an array containing both the height and width of your image.
+The `getDimensions` method returns a [`Dimensions`](#usage:value_objects:dimensions) instance representing the dimensions of the image.
 
 ```php
 $dimensions = $image->getDimensions();
+
+$width = $dimensions->width;
+$height = $dimensions->height;
 ```
 
 ##### <a id="usage:image_information:inspectors" href="#usage:image_information:inspectors">Inspectors</a>
@@ -130,7 +136,7 @@ The `applyOnClone` method allows you to apply an image operation to a copy of th
 
 ```php
 $greyscaleThumbnail = $image->applyOnClone(new Pipeline(
-    new Resize(300, 300),
+    new Resize(new Dimensions(300, 300)),
     new Greyscale,
 ));
 ```
@@ -149,6 +155,7 @@ Here are all of the included image operations:
 | Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
 | Negate               | Negates the image                                              | ✓  | ✓           |
 | Pixelate             | Pixelates the image                                            | ✓  | ✓           |
+| Polygon              | Draws a polygon on the image                                   | ✓  | ✓           |
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
 | Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
@@ -307,6 +314,13 @@ The `Color` class is a value object for representing colors. It is used by image
 
 ```php
 $color = new Color(0, 0, 0, 127);
+
+// The color values can be accessed as read-only attributes
+
+$red = $color->red;
+$green = $color->green;
+$blue = $color->blue;
+$alpha = $color->alpha;
 ```
 
 The following methods are available:
@@ -326,3 +340,51 @@ The following methods are available:
 | toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
 | toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
 | toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
+
+##### <a id="usage:value_objects:dimensions" href="#usage:value_objects:dimensions">Dimensions</a>
+
+The `Dimensions` class represents the dimensions of an object in pixels. It is a read-only value object with two properties: `width` and `height`.
+
+```php
+$dimensions = new Dimensions(100, 150);
+
+$width = $dimensions->width; // 100
+$height = $dimensions->height; // 150
+```
+
+##### <a id="usage:value_objects:point" href="#usage:value_objects:point">Point</a>
+
+The `Point` class represents a 2D coordinate. It is a read-only value object with two properties: `x` and `y`.
+
+```php
+$point = new Point(100, 150);
+
+$x = $point->x; // 100
+$y = $point->y; // 150
+```
+
+##### <a id="usage:value_objects:vertices" href="#usage:value_objects:vertices">Vertices</a>
+
+The `Vertices` class represents a collection of points that define the geometry of a shape. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
+
+```php
+$square = new Vertices(
+    new Point(0, 0),   // top-left
+    new Point(100, 0), // top-right
+    new Point(100, 100), // bottom-right
+    new Point(0, 100), // bottom-left
+);
+
+foreach ($square as $point) {
+    // ...
+}
+```
+
+The following additional methods are available:
+
+| Method                            | Description                                                                        |
+|-----------------------------------|------------------------------------------------------------------------------------|
+| getPoints()                       | Returns the points contained in the vertices                                       |
+| getDimensions()                   | Returns the a `Dimensions` instance representing the bounding box containing the vertices                 |
+| fitTo($dimensions)                | Returns a new set of vertices fitted to the given dimensions while preserving the aspect ratio and normalized to `0,0` |
+

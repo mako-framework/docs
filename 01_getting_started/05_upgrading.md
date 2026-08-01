@@ -250,13 +250,27 @@ The `ImageInterface::getImageBlob()` method has been renamed to `ImageInterface:
 {+ $blob = $image->toBlob(); +}
 ```
 
+The `Resize` operation now takes a `Dimensions` instance instead of separate width and height integers.
+
+```php{1}
+{- $image->apply(new Resize(200, 200)); -}
+{+ $image->apply(new Resize(new Dimensions(200, 200))); +}
+```
+
+The `Crop` operation now takes a `Dimensions` instance and a `Point` instance instead of separate width, height, x, and y integers.
+
+```php{1}
+{- $image->apply(new Crop(200, 200, 0, 50)); -}
+{+ $image->apply(new Crop(new Dimensions(200, 200), new Point(0, 50))); +}
+```
+
 The `ImageInterface::snapshot()` and `ImageInterface::restore()` methods have been removed. The same functionality can now be achieved using the `clone` keyword or using the `ImageInterface::applyOnClone()` method.
 
 ```php
 // Before
 
 $image = new ImageMagick('image.png');
-$image->apply(new Resize(48, 48));
+$image->apply(new Resize(new Dimensions(48, 48)));
 $image->snapshot();
 $image->apply(new Flip());
 $image->save('flipped.png');
@@ -266,14 +280,14 @@ $image->save('image.png');
 // Now using clone
 
 $image = new ImageMagick('image.png');
-$image->apply(new Resize(48, 48));
+$image->apply(new Resize(new Dimensions(48, 48)));
 (clone $image)->apply(new Flip())->save('flipped.png');
 $image->save('image.png');
 
 // Now using applyOnClone
 
 $image = new ImageMagick('image.png');
-$image->apply(new Resize(48, 48));
+$image->apply(new Resize(new Dimensions(48, 48)));
 $image->applyOnClone(new Flip())->save('flipped.png');
 $image->save('image.png');
 ```
@@ -290,6 +304,17 @@ The undocumented percentage-based scaling behavior when only passing a single pa
 ```php{1}
 {- $image->apply(new Resize(50)); -}
 {+ $image->apply(new Scale(50)); +}
+```
+
+The `ImageInterface::getDimensions()` method previously returned an associative array. Now it returns a `Dimensions` object.
+
+```php{1}
+$dimensions = $image->getDimensions();
+
+{- $width = $dimensions['width']; -}
+{- $height = $dimensions['height']; -}
+{+ $width = $dimensions->width; +}
+{+ $height = $dimensions->height; +}
 ```
 
 #### <a id="13.0-signer" href="#13.0-signer">Signer</a>
