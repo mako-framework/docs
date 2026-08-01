@@ -276,6 +276,20 @@ $image->applyOnClone(new Flip())->save('flipped.png');
 $image->save('image.png');
 ```
 
+The `ImageInterface::getTopColors()` method has been removed. Use the new `TopColors` inspector instead.
+
+```php{1}
+{- $topColors = $image->getTopColors(); -}
+{+ $topColors = $image->inspect(new TopColors); +}
+```
+
+The undocumented percentage-based scaling behavior when only passing a single parameter to the `Resize` operation has been removed. The `Resize` operation now always works with explicit dimensions. Use the new `Scale` operation when you need to scale an image by a percentage.
+
+```php{1}
+{- $image->apply(new Resize(50)); -}
+{+ $image->apply(new Scale(50)); +}
+```
+
 #### <a id="13.0-signer" href="#13.0-signer">Signer</a>
 
 The `Signer` class has been moved from the `mako\security` namespace to  the `mako\security\signer` namespace.

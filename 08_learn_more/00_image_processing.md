@@ -152,6 +152,7 @@ Here are all of the included image operations:
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
 | Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
+| Scale                | Scales the image to the chosen percentage                      | ✓  | ✓           |
 | Sepia                | Applies a sepia filter to the image                            | ✓  | ✓           |
 | Sharpen              | Sharpens the image                                             | ✓  | ✓           |
 | Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
