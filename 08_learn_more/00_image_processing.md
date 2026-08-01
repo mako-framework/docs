@@ -369,10 +369,10 @@ The `Vertices` class represents a collection of points that define the geometry 
 
 ```php
 $square = new Vertices(
-    new Point(0, 0),   // top-left
-    new Point(100, 0), // top-right
+    new Point(0, 0),     // top-left
+    new Point(100, 0),   // top-right
     new Point(100, 100), // bottom-right
-    new Point(0, 100), // bottom-left
+    new Point(0, 100),   // bottom-left
 );
 
 foreach ($square as $point) {
