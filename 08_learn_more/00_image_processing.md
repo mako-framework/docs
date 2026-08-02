@@ -156,6 +156,7 @@ Here are all of the included image operations:
 | Negate               | Negates the image                                              | ✓  | ✓           |
 | Pixelate             | Pixelates the image                                            | ✓  | ✓           |
 | Polygon              | Draws a polygon on the image                                   | ✓  | ✓           |
+| Polyline             | Draws a polyline on the image                                  | ✓  | ✓           |
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
 | Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
@@ -365,7 +366,7 @@ $y = $point->y; // 150
 
 ##### <a id="usage:value_objects:points" href="#usage:value_objects:points">Points</a>
 
-The `Points` class represents a collection of points. It is used by drawing operations such as `Polygon` to render shapes. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
+The `Points` class represents an ordered collection of points. It is used by drawing operations to define shapes, lines, and paths. The class implements `Countable` and `IteratorAggregate`, allowing it to be counted and iterated over directly.
 
 ```php
 $square = new Points(
