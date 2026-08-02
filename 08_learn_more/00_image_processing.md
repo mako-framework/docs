@@ -150,6 +150,7 @@ Here are all of the included image operations:
 | Bitonal              | Turns the image into a bitonal image                           | ✓  | ✓           |
 | Border               | Draws a border around the image                                | ✓  | ✓           |
 | Brightness           | Adjusts the brightness of the image (-100 to 100)              | ✓  | ✓           |
+| Circle               | Draws a circle on the image                                    | ✓  | ✓           |
 | Colorize             | Colorizes the image with the chosen color                      | ✓  | ✓           |
 | Contrast             | Adjusts the contrast of the image (-100 to 100)                | ✓  | ✓           |
 | Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
@@ -159,6 +160,7 @@ Here are all of the included image operations:
 | Pixelate             | Pixelates the image                                            | ✓  | ✓           |
 | Polygon              | Draws a polygon on the image                                   | ✓  | ✓           |
 | Polyline             | Draws a polyline on the image                                  | ✓  | ✓           |
+| Rectangle            | Draws a rectangle on the image                                 | ✓  | ✓           |
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
 | Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
