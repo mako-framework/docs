@@ -362,11 +362,11 @@ $height = $dimensions->height; // 150
 The `Font` class represents a font and is used by drawing operations.
 
 ```php
-$font = new Font('Arial.ttf', 14);
+$font = new Font('Arial.ttf', 14, new Color(255, 0, 0));
 
 $path = $font->path; // Arial.ttf
 $size = $font->size; // 150
-$color = $font->color; // Defaults to Color(0, 0, 0)
+$color = $font->color; // Color(255, 0, 0) - Defaults to Color(0, 0, 0)
 ```
 
 > Font sizes are interpreted by the underlying rendering engine and may produce slightly different results between GD and ImageMagick.
