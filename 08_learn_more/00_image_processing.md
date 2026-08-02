@@ -322,10 +322,10 @@ $color = new Color(0, 0, 0, 127);
 
 // The color values can be accessed as read-only attributes
 
-$red = $color->red;
-$green = $color->green;
-$blue = $color->blue;
-$alpha = $color->alpha;
+$red = $color->red; // 0
+$green = $color->green; // 0
+$blue = $color->blue; // 0
+$alpha = $color->alpha; // 127 - defaults to 255
 ```
 
 The following methods are available:
@@ -366,7 +366,7 @@ $font = new Font('Arial.ttf', 14, new Color(255, 0, 0));
 
 $path = $font->path; // Arial.ttf
 $size = $font->size; // 150
-$color = $font->color; // Color(255, 0, 0) - Defaults to Color(0, 0, 0)
+$color = $font->color; // Color(255, 0, 0) - defaults to Color(0, 0, 0)
 ```
 
 > Font sizes are interpreted by the underlying rendering engine and may produce slightly different results between GD and ImageMagick.
