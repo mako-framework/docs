@@ -257,6 +257,13 @@ The `Resize` operation now takes a `Dimensions` instance instead of separate wid
 {+ $image->apply(new Resize(new Dimensions(200, 200))); +}
 ```
 
+The undocumented percentage-based scaling behavior when only passing a single parameter to the `Resize` operation has been removed. The `Resize` operation now always works with explicit dimensions. Use the new `Scale` operation when you need to scale an image by a percentage.
+
+```php{1}
+{- $image->apply(new Resize(50)); -}
+{+ $image->apply(new Scale(50)); +}
+```
+
 The `Crop` operation now takes a `Dimensions` instance and a `Point` instance instead of separate width, height, x, and y integers.
 
 ```php{1}
@@ -297,13 +304,6 @@ The `ImageInterface::getTopColors()` method has been removed. Use the new `TopCo
 ```php{1}
 {- $topColors = $image->getTopColors(); -}
 {+ $topColors = $image->inspect(new TopColors); +}
-```
-
-The undocumented percentage-based scaling behavior when only passing a single parameter to the `Resize` operation has been removed. The `Resize` operation now always works with explicit dimensions. Use the new `Scale` operation when you need to scale an image by a percentage.
-
-```php{1}
-{- $image->apply(new Resize(50)); -}
-{+ $image->apply(new Scale(50)); +}
 ```
 
 The `ImageInterface::getDimensions()` method previously returned an associative array. Now it returns a `Dimensions` object.
