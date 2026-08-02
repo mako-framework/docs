@@ -12,6 +12,7 @@
     - [Value objects](#usage:value_objects)
         - [Color](#usage:value_objects:color)
         - [Dimensions](#usage:value_objects:dimensions)
+        - [Font](#usage:value_objects:font)
         - [Point](#usage:value_objects:point)
         - [Points](#usage:value_objects:points)
 
@@ -165,6 +166,8 @@ Here are all of the included image operations:
 | Sepia                | Applies a sepia filter to the image                            | ✓  | ✓           |
 | Sharpen              | Sharpens the image                                             | ✓  | ✓           |
 | Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
+| Text                 | Draws text on the image                                        | ✓  | ✓           |
+| TextBox              | Draws a text box on the image                                  | ✗  | ✓           |
 | Watermark            | Applies a custom watermark to the image                        | ✓  | ✓           |
 
 You can also create your own custom image operations by implementing the `OperationInterface`.
@@ -353,6 +356,20 @@ $dimensions = new Dimensions(100, 150);
 $width = $dimensions->width; // 100
 $height = $dimensions->height; // 150
 ```
+
+##### <a id="usage:value_objects:font" href="#usage:value_objects:font">Font</a>
+
+The `Font` class represents a font and is used by drawing operations.
+
+```php
+$font = new Font('Arial.ttf', 14);
+
+$path = $font->path; // Arial.ttf
+$size = $font->size; // 150
+$color = $font->color; // Defaults to Color(0, 0, 0)
+```
+
+> Font sizes are interpreted by the underlying rendering engine and may produce slightly different results between GD and ImageMagick.
 
 ##### <a id="usage:value_objects:point" href="#usage:value_objects:point">Point</a>
 
