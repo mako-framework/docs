@@ -154,6 +154,7 @@ Here are all of the included image operations:
 | Colorize             | Colorizes the image with the chosen color                      | ✓  | ✓           |
 | Contrast             | Adjusts the contrast of the image (-100 to 100)                | ✓  | ✓           |
 | Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
+| Ellipse              | Draws an ellipse on the image                                  | ✓  | ✓           |
 | Flip                 | Flips the image                                                | ✓  | ✓           |
 | Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
 | Negate               | Negates the image                                              | ✓  | ✓           |
