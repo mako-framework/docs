@@ -145,6 +145,7 @@ Here are all of the included image operations:
 
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
+| Bezier               | Draws Bézier curve on the image                                | ✗  | ✓           |
 | Bitonal              | Turns the image into a bitonal image                           | ✓  | ✓           |
 | Border               | Draws a border around the image                                | ✓  | ✓           |
 | Brightness           | Adjusts the brightness of the image (-100 to 100)              | ✓  | ✓           |
