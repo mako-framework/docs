@@ -89,7 +89,7 @@ Here are all of the included image inspectors:
 
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
-| PixelColor           | Returns the color of the specified pixel                       | ✓  | ✓           |
+| ColorAt              | Returns the color of the specified pixel                       | ✓  | ✓           |
 | TopColors            | Returns the top colors of the image                            | ✓  | ✓           |
 
 You can also create your own custom image inspectors by implementing the `InspectorInterface`.
