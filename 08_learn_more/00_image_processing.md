@@ -344,8 +344,9 @@ The following methods are available:
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
 | fromHsl($h, $s, $l, $alpha = 255)              | Creates a Color instance from HSL values                                              |
 | fromHwb($h, $w, $b, $alpha = 255)              | Creates a Color instance from HWB values                                              |
-| invert()                                       | Returns an inverted copy of the color                                                 |
 | with()                                         | Returns a copy of the color with one or more channels changed                         |
+| invert()                                       | Returns an inverted copy of the color                                                 |
+| complementary()                                | Returns a complementary copy of the color                                             |
 | getRed()                                       | Returns the red value (0-255)                                                         |
 | getGreen()                                     | Returns the green value (0-255)                                                       |
 | getBlue()                                      | Returns the blue value (0-255)                                                        |
