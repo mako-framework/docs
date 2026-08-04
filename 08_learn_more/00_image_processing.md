@@ -342,7 +342,7 @@ The following methods are available:
 | Method                                         | Description                                                                           |
 |------------------------------------------------|---------------------------------------------------------------------------------------|
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
-| fromHsl($h, $s, $s, $alpha = 255)              | Creates a Color instance from HSL values                                              |
+| fromHsl($h, $s, $l, $alpha = 255)              | Creates a Color instance from HSL values                                              |
 | fromHwb($h, $w, $b, $alpha = 255)              | Creates a Color instance from HWB values                                              |
 | invert()                                       | Returns an inverted copy of the color                                                 |
 | with()                                         | Returns a copy of the color with one or more channels changed                         |
