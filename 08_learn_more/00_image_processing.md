@@ -342,7 +342,7 @@ The following methods are available:
 | Method                                         | Description                                                                           |
 |------------------------------------------------|---------------------------------------------------------------------------------------|
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
-| invert()                                       | Returns an inverted version of the color                                              |
+| invert()                                       | Returns an inverted copy of the color                                                 |
 | with()                                         | Returns a copy of the color with one or more channels changed                         |
 | getRed()                                       | Returns the red value (0-255)                                                         |
 | getGreen()                                     | Returns the green value (0-255)                                                       |
