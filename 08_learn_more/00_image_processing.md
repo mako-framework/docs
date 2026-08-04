@@ -323,14 +323,18 @@ echo $property->value;
 The `Color` class is a value object for representing colors. It is used by image [operations](#usage:image_manipulation) and [inspectors](#usage:image_information:inspectors).
 
 ```php
-$color = new Color(0, 0, 0, 127);
+$black = new Color(0, 0, 0, 127);
 
 // The color values can be accessed as read-only attributes
 
-$red = $color->red; // 0
-$green = $color->green; // 0
-$blue = $color->blue; // 0
-$alpha = $color->alpha; // 127 - defaults to 255
+$red = $black->red; // 0
+$green = $black->green; // 0
+$blue = $black->blue; // 0
+$alpha = $black->alpha; // 127 - defaults to 255
+
+// A copy with modified values can be created using the "with" method
+
+$green = $color->with(green: 255);
 ```
 
 The following methods are available:
@@ -338,6 +342,8 @@ The following methods are available:
 | Method                                         | Description                                                                           |
 |------------------------------------------------|---------------------------------------------------------------------------------------|
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
+| invert()                                       | Returns an inverted version of the color                                              |
+| with()                                         | Returns a copy of the color with one or more channels changed                         |
 | getRed()                                       | Returns the red value (0-255)                                                         |
 | getGreen()                                     | Returns the green value (0-255)                                                       |
 | getBlue()                                      | Returns the blue value (0-255)                                                        |
