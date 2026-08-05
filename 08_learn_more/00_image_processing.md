@@ -164,6 +164,7 @@ Here are all of the included image operations:
 | Polygon              | Draws a polygon on the image                                   | ✓  | ✓           |
 | Polyline             | Draws a polyline on the image                                  | ✓  | ✓           |
 | Rectangle            | Draws a rectangle on the image                                 | ✓  | ✓           |
+| ReplaceColor         | Replaces pixels matching a specified color with another color  | ✗  | ✓           |
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
 | RoundedRectangle     | Draws a rounded rectangle on the image                         | ✗  | ✓           |
