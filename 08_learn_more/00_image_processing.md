@@ -344,7 +344,7 @@ The following methods are available:
 | fromHex($hex)                                  | Creates a new Color instance from a hex value (e.g. "#FF0000")                      |
 | fromHsl($h, $s, $l, $alpha = 255)              | Creates a Color instance from HSL values                                              |
 | fromHwb($h, $w, $b, $alpha = 255)              | Creates a Color instance from HWB values                                              |
-| fromWebColor($webColor)                        | Creates a Color instance from WebColor                                                |
+| fromWebColor($webColor)                        | Creates a Color instance from a WebColor                                              |
 | with()                                         | Returns a copy of the color with one or more channels changed                         |
 | invert()                                       | Returns an inverted copy of the color                                                 |
 | complementary()                                | Returns a complementary copy of the color                                             |
