@@ -158,7 +158,7 @@ Here are all of the included image operations:
 | Ellipse              | Draws an ellipse on the image                                  | ✓  | ✓           |
 | Flip                 | Flips the image                                                | ✓  | ✓           |
 | Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
-| Negate               | Negates the image                                              | ✓  | ✓           |
+| Invert               | Inverts the colors of the image                                | ✓  | ✓           |
 | Pixel                | Draws a pixel on the image at the specified coordinates        | ✓  | ✓           |
 | Pixelate             | Pixelates the image                                            | ✓  | ✓           |
 | Polygon              | Draws a polygon on the image                                   | ✓  | ✓           |
