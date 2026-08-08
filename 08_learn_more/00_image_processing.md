@@ -168,7 +168,7 @@ Here are all of the included image operations:
 | ReplaceColor         | Replaces pixels matching a specified color with another color  | ✓  | ✓           |
 | Resize               | Resizes the image to the chosen size                           | ✓  | ✓           |
 | Rotate               | Rotates the image                                              | ✓  | ✓           |
-| RoundedRectangle     | Draws a rounded rectangle on the image                         | ✗  | ✓           |
+| RoundedRectangle     | Draws a rounded rectangle on the image                         | ✓  | ✓           |
 | Saturation           | Adjusts the saturation of the image (-100 to 100)              | ✓  | ✓           |
 | Scale                | Scales the image to the chosen percentage                      | ✓  | ✓           |
 | Sepia                | Applies a sepia filter to the image                            | ✓  | ✓           |
