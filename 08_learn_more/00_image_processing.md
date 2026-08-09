@@ -147,7 +147,6 @@ Here are all of the included image operations:
 
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
-
 | Bezier               | Draws Bézier curve on the image                                | ✓  | ✓           |
 | Bitonal              | Turns the image into a bitonal image                           | ✓  | ✓           |
 | Border               | Draws a border around the image                                | ✓  | ✓           |
