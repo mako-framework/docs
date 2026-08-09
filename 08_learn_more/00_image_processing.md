@@ -147,18 +147,21 @@ Here are all of the included image operations:
 
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
+
 | Bezier               | Draws Bézier curve on the image                                | ✓  | ✓           |
 | Bitonal              | Turns the image into a bitonal image                           | ✓  | ✓           |
 | Border               | Draws a border around the image                                | ✓  | ✓           |
 | Brightness           | Adjusts the brightness of the image (-100 to 100)              | ✓  | ✓           |
 | Circle               | Draws a circle on the image                                    | ✓  | ✓           |
 | Colorize             | Colorizes the image with the chosen color                      | ✓  | ✓           |
+| Composite            | Composites an image onto the image at the specified position   | ✓  | ✓           |
 | Contrast             | Adjusts the contrast of the image (-100 to 100)                | ✓  | ✓           |
 | Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
 | Ellipse              | Draws an ellipse on the image                                  | ✓  | ✓           |
 | Flip                 | Flips the image                                                | ✓  | ✓           |
 | Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
 | Invert               | Inverts the colors of the image                                | ✓  | ✓           |
+| Opacity              | Adjusts the opacity of the image                               | ✓  | ✓           |
 | Orient               | Orients the image according to its metadata                    | ✗  | ✓           |
 | Pixel                | Draws a pixel on the image at the specified coordinates        | ✓  | ✓           |
 | Pixelate             | Pixelates the image                                            | ✓  | ✓           |
