@@ -72,21 +72,28 @@ $routes->get('/articles/{id}', fn ($id) => $id);
 Parameters can be marked as optional by suffixing them with a question mark (`?`).
 
 ```php
-$routes->get('/articles/{id}/{slug}?', fn ($id, $slug = null) => $id . ' ' . $slug);
+$routes->get('/articles/{id}/{slug}?', fn ($id, $slug = null) => "{$id} {$slug}");
 ```
 
-Parameters will match any character except for slashes (`/`); however, you can define your own custom parameter patterns using the `patterns` method.
+Parameters will match any character except for slashes (`/`); however, you can define your own custom parameter patterns using the `pattern` and `patterns` methods.
 
 ```php
-$routes->get('/articles/{id}', fn ($id) => 'article ' . $id)
-->patterns(['id' => '[0-9]+']);
+// Set a single pattern at a time
+
+$routes->get('/articles/{id}', fn ($id) => $id)
+->pattern('id', '[0-9]+');
+
+// Set multiple patterns at once
+
+$routes->get('/articles/{id}/{slug}?', fn ($id) => "{$id} {$slug}")
+->patterns(['id' => '[0-9]+', 'slug' => '[a-z0-9-]+']);
 ```
 
 Both class method and closure actions get executed by the `Container::call()` method so all dependencies are automatically [injected](:base_url:/docs/:version:/getting-started:dependency-injection).
 
 ```php
 $routes->get('/article/{id}', fn (ViewFactory $view, $id) => $view->render('article', ['id' => $id]))
-->patterns(['id' => '[0-9]+']);
+->pattern('id', '[0-9]+');
 ```
 
 --------------------------------------------------------
@@ -167,7 +174,7 @@ Assigning middleware to a route can be done using the `middleware` method. If yo
 
 ```php
 $routes->get('/articles/{id}', [Articles::class, 'view'])
-->patterns(['id' => '[0-9]+'])
+->pattern('id', '[0-9]+')
 ->middleware(CacheMiddleware::class);
 ```
 
@@ -175,7 +182,7 @@ You can also pass parameters to your middleware. In the example below we're tell
 
 ```php
 $routes->get('/articles/{id}', [Articles::class, 'view'])
-->patterns(['id' => '[0-9]+'])
+->pattern('id', '[0-9]+')
 ->middleware(CacheMiddleware::class, minutes: 60);
 ```
 
