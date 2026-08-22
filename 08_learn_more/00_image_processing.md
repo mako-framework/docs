@@ -42,6 +42,12 @@ $image = ImageMagick::fromBlob($blob);
 $image = ImageMagick::fromStream($stream);
 ```
 
+You can also create a blank canvas using the `create` method.
+
+```
+$image = ImageMagick::create(new Dimensions(800, 600), new Color(0, 0, 0, 0));
+```
+
 #### <a id="usage:image_information" href="#usage:image_information">Image information</a>
 
 The `getMimeType` method returns the mime type of your image.
@@ -350,21 +356,22 @@ The following methods are available:
 | fromHsl($h, $s, $l, $alpha = 255)              | Creates a Color instance from HSL values                                              |
 | fromHwb($h, $w, $b, $alpha = 255)              | Creates a Color instance from HWB values                                              |
 | fromWebColor($webColor)                        | Creates a Color instance from a WebColor                                              |
-| with()                                         | Returns a copy of the color with one or more channels changed                         |
-| invert()                                       | Returns an inverted copy of the color                                                 |
 | complementary()                                | Returns a complementary copy of the color                                             |
+| invert()                                       | Returns an inverted copy of the color                                                 |
+| with()                                         | Returns a copy of the color with one or more channels changed                         |
 | getRed()                                       | Returns the red value (0-255)                                                         |
 | getGreen()                                     | Returns the green value (0-255)                                                       |
 | getBlue()                                      | Returns the blue value (0-255)                                                        |
 | getAlpha()                                     | Returns the alpha value (0-255)                                                       |
-| toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
+| toColorFamily()                                | Returns the color family that most closely represents this color                      |
 | toHexaString()                                 | Returns a hexa string representation of the color (e.g. "#FF000000")                |
-| toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
-| toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
-| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")     |
+| toHexString()                                  | Returns a hex string representation of the color (e.g. "#FF0000")                   |
 | toHslaString()                                 | Returns a hsla string representation of the color (e.g. "hsl(0, 100.0%, 50.0%, 0.5)") |
-| toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
+| toHslString()                                  | Returns a hsl string representation of the color (e.g. "hsl(0, 100.0%, 50.0%)")     |
 | toHwbaString()                                 | Returns a hwba string representation of the color (e.g. "hwb(0 0.0% 0.0% / 0.5)")     |
+| toHwbString()                                  | Returns a hwb string representation of the color (e.g. "hwb(0 0.0% 0.0%)")            |
+| toRgbaString()                                 | Returns a rgb string representation of the color (e.g. "rgba(255, 0, 0, 0.5)")      |
+| toRgbString()                                  | Returns a rgb string representation of the color (e.g. "rgb(255, 0, 0)")            |
 
 ##### <a id="usage:value_objects:dimensions" href="#usage:value_objects:dimensions">Dimensions</a>
 
