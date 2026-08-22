@@ -44,7 +44,7 @@ $image = ImageMagick::fromStream($stream);
 
 You can also create a blank canvas using the `create` method.
 
-```
+```php
 $image = ImageMagick::create(new Dimensions(800, 600), new Color(0, 0, 0, 0));
 ```
 
