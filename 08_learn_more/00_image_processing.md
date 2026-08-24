@@ -141,6 +141,8 @@ $image->apply(new Pipeline(
 ));
 ```
 
+> There is also a special `SrgbPipeline` class for ImageMagick that temporarily transforms the image to sRGB while applying the pipelined operations, before restoring the original color space.
+
 The `applyOnClone` method allows you to apply an image operation to a copy of the image instance while leaving the original unchanged. Just like with the `apply` method, you can apply individual operations directly or use the `Pipeline` class to apply multiple operations.
 
 ```php
