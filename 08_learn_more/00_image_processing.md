@@ -96,6 +96,7 @@ Here are all of the included image inspectors:
 | Class                | Description                                                    | Gd | ImageMagick |
 |----------------------|----------------------------------------------------------------|----|-------------|
 | ColorAt              | Returns the color of the specified pixel                       | ✓  | ✓           |
+| ColorSpace           | Returns the color space of the image                           | ✗  | ✓           |
 | TopColors            | Returns the top colors of the image                            | ✓  | ✓           |
 
 You can also create your own custom image inspectors by implementing the `InspectorInterface`.
@@ -159,6 +160,7 @@ Here are all of the included image operations:
 | Brightness           | Adjusts the brightness of the image (-100 to 100)              | ✓  | ✓           |
 | Circle               | Draws a circle on the image                                    | ✓  | ✓           |
 | Colorize             | Colorizes the image with the chosen color                      | ✓  | ✓           |
+| ColorSpace           | Transforms the color space of the image                        | ✗  | ✓           |
 | Composite            | Composites an image onto the image at the specified position   | ✓  | ✓           |
 | Contrast             | Adjusts the contrast of the image (-100 to 100)                | ✓  | ✓           |
 | Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
