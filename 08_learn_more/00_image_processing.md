@@ -168,6 +168,7 @@ Here are all of the included image operations:
 | Crop                 | Crops the image to the selected region                         | ✓  | ✓           |
 | Ellipse              | Draws an ellipse on the image                                  | ✓  | ✓           |
 | Flip                 | Flips the image                                                | ✓  | ✓           |
+| Gamma                | Adjusts the gamma level of the image                           | ✓  | ✓           |
 | Greyscale            | Turns the image into a greyscale image                         | ✓  | ✓           |
 | Invert               | Inverts the colors of the image                                | ✓  | ✓           |
 | Opacity              | Adjusts the opacity of the image                               | ✓  | ✓           |
