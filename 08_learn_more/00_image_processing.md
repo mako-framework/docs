@@ -24,7 +24,7 @@ The pixel library allows you to manipulate images through a consistent API using
 
 ### <a id="usage" href="#usage">Usage</a>
 
-First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the ImageMagick processor.
+First you'll have to decide whether to use GD or ImageMagick. In this example we'll use the ImageMagick implementation.
 
 ```php
 $image = new ImageMagick('image.png');
