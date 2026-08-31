@@ -6,6 +6,7 @@
     - [Image information](#usage:image_information)
         - [Inspectors](#usage:image_information:inspectors)
     - [Image manipulation](#usage:image_manipulation)
+    - [Output](#usage:output)
     - [Value objects](#usage:value_objects)
         - [Color](#usage:value_objects:color)
         - [Dimensions](#usage:value_objects:dimensions)
@@ -103,6 +104,8 @@ Here are all of the included image inspectors:
 | ColorSpace           | Returns the color space of the image                           | ✗  | ✓           |
 | TopColors            | Returns the top colors of the image                            | ✓  | ✓           |
 
+> The optional [`mako/pixel-vips`](https://packagist.org/packages/mako/pixel-vips) implementation supports the same inspectors as the ImageMagick implementation.
+
 You can also create your own custom image inspectors by implementing the `InspectorInterface`.
 
 ```php
@@ -195,6 +198,8 @@ Here are all of the included image operations:
 | TextBox              | Draws a text box on the image                                  | ✓  | ✓           |
 | Watermark            | Applies a custom watermark to the image                        | ✓  | ✓           |
 
+> The optional [`mako/pixel-vips`](https://packagist.org/packages/mako/pixel-vips) implementation supports the same operations as the ImageMagick implementation.
+
 You can also create your own custom image operations by implementing the `OperationInterface`.
 
 ```php
@@ -207,6 +212,8 @@ class MyOperation implements OperationInterface
     }
 }
 ```
+
+#### <a id="usage:output" href="#usage:output">Output</a>
 
 The `toBlob` method returns the raw binary image data.
 
