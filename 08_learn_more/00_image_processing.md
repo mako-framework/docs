@@ -6,19 +6,23 @@
     - [Image information](#usage:image_information)
         - [Inspectors](#usage:image_information:inspectors)
     - [Image manipulation](#usage:image_manipulation)
-    - [Image metadata](#usage:image_metadata)
-        - [XMP](#usage:image_metadata:xmp)
-            - [Reading](#usage:image_metadata:xmp:reading)
     - [Value objects](#usage:value_objects)
         - [Color](#usage:value_objects:color)
         - [Dimensions](#usage:value_objects:dimensions)
         - [Font](#usage:value_objects:font)
         - [Point](#usage:value_objects:point)
         - [Points](#usage:value_objects:points)
+    - [Image metadata](#usage:image_metadata)
+        - [XMP](#usage:image_metadata:xmp)
+            - [Reading](#usage:image_metadata:xmp:reading)
 
 --------------------------------------------------------
 
-The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick. GD generally provides faster processing for many operations and is available in most PHP installations, while ImageMagick offers more advanced image processing capabilities, better color handling, and better support for complex formats such as animated GIFs and multi-frame images.
+The pixel library allows you to manipulate images through a consistent API using either GD or ImageMagick. 
+
+GD generally provides faster processing for many operations and is available in most PHP installations, while ImageMagick offers more advanced image processing capabilities, better color handling, and better support for complex formats such as animated GIFs and multi-frame images.
+
+There is also an optional [`mako/pixel-vips`](https://packagist.org/packages/mako/pixel-vips) package that provides a [libvips](https://www.libvips.org) based implementation. Libvips is fast and memory-efficient, making it a great choice for processing large images or handling high volumes of image operations.
 
 --------------------------------------------------------
 
@@ -284,54 +288,6 @@ $image->save('edited_image.png');
 $image->save('edited_image.png', 70);
 ```
 
-#### <a id="usage:image_metadata" href="#usage:image_metadata">Image metadata</a>
-
-The library also includes functionality for working with embedded image metadata.
-
-##### <a id="usage:image_metadata:xmp" href="#usage:image_metadata:xmp">XMP</a>
-
-###### <a id="usage:image_metadata:xmp:reading" href="#usage:image_metadata:xmp:reading">Reading</a>
-
-The `XmpReader` class allows you to extract XMP metadata from the image file.
-
-> Note: The XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
-
-```php
-$reader = new XmpReader('image.tif');
-
-// You can specify the shared library if needed
-
-$reader = new XmpReader('image.tif', 'libexempi.so.8');
-```
-
-The `toXml` method returns all the XMP data as XML.
-
-```php
-$xml = $reader->toXml();
-
-// You can also cast the reader object to a string
-
-$xml = (string) $reader;
-```
-
-The `getProperties` method returns all the XMP properties as objects.
-
-```php
-$properties = $reader->getProperties();
-
-// You can also select the properties from a specific namespace
-
-$properties = $reader->getProperties('http://purl.org/dc/elements/1.1/');
-```
-
-The `getProperty` method allows you to get a specific property. The first parameter is the property namespace and the second is the property name.
-
-```php
-$property = $reader->getProperty('http://purl.org/dc/elements/1.1/', 'title');
-
-echo $property->value;
-```
-
 #### <a id="usage:value_objects" href="#usage:value_objects">Value objects</a>
 
 ##### <a id="usage:value_objects:color" href="#usage:value_objects:color">Color</a>
@@ -440,3 +396,50 @@ The following additional methods are available:
 | getDimensions()                   | Returns a `Dimensions` instance representing the bounding box containing the points                                  |
 | fitTo($dimensions)                | Returns a new set of points fitted to the given dimensions while preserving the aspect ratio and normalized to `0,0` |
 
+#### <a id="usage:image_metadata" href="#usage:image_metadata">Image metadata</a>
+
+The library also includes functionality for working with embedded image metadata.
+
+##### <a id="usage:image_metadata:xmp" href="#usage:image_metadata:xmp">XMP</a>
+
+###### <a id="usage:image_metadata:xmp:reading" href="#usage:image_metadata:xmp:reading">Reading</a>
+
+The `XmpReader` class allows you to extract XMP metadata from the image file.
+
+> Note: The XMP reader relies on [`FFI`](https://www.php.net/manual/en/book.ffi.php) and `libexempi`. The reader will attempt to auto-detect the shared library, but depending on your setup, you may need to specify it manually.
+
+```php
+$reader = new XmpReader('image.tif');
+
+// You can specify the shared library if needed
+
+$reader = new XmpReader('image.tif', 'libexempi.so.8');
+```
+
+The `toXml` method returns all the XMP data as XML.
+
+```php
+$xml = $reader->toXml();
+
+// You can also cast the reader object to a string
+
+$xml = (string) $reader;
+```
+
+The `getProperties` method returns all the XMP properties as objects.
+
+```php
+$properties = $reader->getProperties();
+
+// You can also select the properties from a specific namespace
+
+$properties = $reader->getProperties('http://purl.org/dc/elements/1.1/');
+```
+
+The `getProperty` method allows you to get a specific property. The first parameter is the property namespace and the second is the property name.
+
+```php
+$property = $reader->getProperty('http://purl.org/dc/elements/1.1/', 'title');
+
+echo $property->value;
+```
