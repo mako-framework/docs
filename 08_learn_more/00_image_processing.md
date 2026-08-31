@@ -188,7 +188,7 @@ Here are all of the included image operations:
 | Sharpen              | Sharpens the image                                             | ✓  | ✓           |
 | Temperature          | Adjusts the color temperature of the image (-100 to 100)       | ✓  | ✓           |
 | Text                 | Draws text on the image                                        | ✓  | ✓           |
-| TextBox              | Draws a text box on the image                                  | ✗  | ✓           |
+| TextBox              | Draws a text box on the image                                  | ✓  | ✓           |
 | Watermark            | Applies a custom watermark to the image                        | ✓  | ✓           |
 
 You can also create your own custom image operations by implementing the `OperationInterface`.
@@ -394,14 +394,15 @@ $height = $dimensions->height; // 150
 The `Font` class represents a font and is used by drawing operations.
 
 ```php
-$font = new Font('Arial.ttf', 14, new Color(255, 0, 0));
+$font = new Font('Arial', '/path/to/Arial.ttf', 14, new Color(255, 0, 0));
 
+$name = $font->name; // Arial
 $path = $font->path; // Arial.ttf
 $size = $font->size; // 150
 $color = $font->color; // Color(255, 0, 0) - defaults to Color(0, 0, 0)
 ```
 
-> Font sizes are interpreted by the underlying rendering engine and may produce slightly different results between GD and ImageMagick.
+> Text rendering may produce slightly different results between drivers as they use different rasterizers.
 
 ##### <a id="usage:value_objects:point" href="#usage:value_objects:point">Point</a>
 
