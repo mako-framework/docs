@@ -152,7 +152,7 @@ By default, the `mako\env` function returns a string, but you can cast the retur
 
 | Type               | Description                                       |
 |--------------------|---------------------------------------------------|
-| Type::Bool         | Casts the value to `TRUE` or `FALSE`              |
+| Type::Bool         | Casts the value to `true` or `false`              |
 | Type::Int          | Casts the value to an integer                     |
 | Type::Float        | Casts the value to a float                        |
 | Type::JsonAsObject | Casts a valid JSON object to an object            |
