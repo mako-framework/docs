@@ -310,7 +310,7 @@ The framework comes with the following injector attributes:
 | Injector                                             | Description                                                                    |
 |------------------------------------------------------|--------------------------------------------------------------------------------|
 | mako\config\attributes\syringe\InjectConfig          | Allows you to inject a configuration value                                     |
-| mako\env\attributes\syringe\InjectEnv                | Allows you to inject a environment variable value                              |
+| mako\env\attributes\syringe\InjectEnv                | Allows you to inject an environment variable value                             |
 | mako\database\attributes\syringe\InjectConnection    | Allows you to inject a specific database connection                            |
 | mako\redis\attributes\syringe\InjectConnection       | Allows you to inject a specific redis connection                               |
 | mako\cache\attributes\syringe\InjectCache            | Allows you to inject a specific cache store                                    |
