@@ -132,7 +132,7 @@ $this->session->reflash(['success', 'error']);
 
 ##### <a id="usage:security:token" href="#usage:security:token">Token</a>
 
-The `getToken` returns a token that can be used in forms and AJAX requests to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
+The `getToken` method returns a token that can be used in forms and AJAX requests to prevent [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery).
 
 ```php
 $token = $this->session->getToken();
