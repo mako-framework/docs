@@ -78,14 +78,10 @@ Packages can also have their own configuration files, language strings and views
 
 Loading configuration files, language strings and views from a package is a little different from loading them from an application. You have to prefix the name of the item you want to load with the package file namespace followed by to colons (`::`).
 
+The file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. `acme/foo` becomes `acme-foo`).
+
 ```php
 $view = $this->view->create('acme-foo::vista');
-```
-
-By default the file namespace of a package will be the package name where the slash has been replaced by a hyphen (e.g. `acme/foo` becomes `acme-foo`). You can override this by setting the `$fileNamespace` property in your package class.
-
-```php
-protected string $fileNamespace = 'foo';
 ```
 
 #### <a id="configuration_i18n_and_views:overriding_configuration_i18n_and_views" href="#configuration_i18n_and_views:overriding_configuration_i18n_and_views">Overriding configuration, i18n and views</a>
