@@ -5,7 +5,7 @@
     - [Dotenv loader](#13.0-dotenv-loader)
     - [Controller helper](#13.0-controller_helper)
     - [Enum cases](#13.0-enum_cases)
-    - [Query builder sorting](#13.0-query_builder_sorting)
+    - [Query builder](#13.0-query_builder)
     - [HTTP statuses](#13.0-http_statuses)
     - [Uploaded files](#13.0-uploaded_files)
     - [Input validation](#13.0-input_validation)
@@ -112,7 +112,7 @@ Here's a list of the affected enums:
 - mako\pixel\image\operations\WatermarkPosition
 - mako\pixel\metadata\xmp\properties\Type
 
-#### <a id="13.0-query_builder_sorting" href="#13.0-query_builder_sorting">Query builder sorting</a>
+#### <a id="13.0-query_builder" href="#13.0-query_builder">Query builder</a>
 
 The option to pass the string values `ASC` and `DESC` to the following methods has been removed in favor of the `SortDirection` enum:
 
@@ -140,6 +140,57 @@ You may still use the following methods without any changes:
 - Query::descendingRaw()
 - Query::ascendingVectorDistance()
 - Query::descendingVectorDistance()
+
+The method signatures for the following methods have been changed for improved consistency:
+
+- Query::insertMultiple()
+- Query::insertMultipleAndReturn()
+
+The `insertMultiple` method is no longer variadic and now takes an array of rows to insert.
+
+```php
+// Before
+
+$query->table('foobars')
+->insertMultiple(
+	['field1' => 'foo1', 'field2' => new DateTime],
+	['field1' => 'foo2', 'field2' => new DateTime]
+);
+
+// Now
+$query->table('foobars')
+->insertMultiple(
+	[
+        ['field1' => 'foo1', 'field2' => new DateTime],
+	    ['field1' => 'foo2', 'field2' => new DateTime],
+    ]
+);
+```
+
+The `insertMultipleAndReturn` method is no longer variadic and now takes an array of rows to insert. The columns to return have been moved to the end of the argument list, which makes the call read more naturally.
+
+```php
+// Before
+
+$query->table('foobars')
+->insertMultipleAndReturn(
+	['id'],
+	['field1' => 'foo1', 'field2' => new DateTime],
+	['field1' => 'foo2', 'field2' => new DateTime]
+);
+
+
+// Now
+$query->table('foobars')
+->insertMultipleAndReturn(
+	[
+        ['field1' => 'foo1', 'field2' => new DateTime],
+	    ['field1' => 'foo2', 'field2' => new DateTime],
+    ],
+    ['id']
+);
+
+```
 
 #### <a id="13.0-http_statuses" href="#13.0-http_statuses">HTTP statuses</a>
 

@@ -214,10 +214,10 @@ If you want to insert multiple rows in a single query then you can use the `inse
 
 ```php
 $query->table('foobars')
-->insertMultiple(
-	['field1' => 'foo1', 'field2' => new TimeImmutable],
-	['field1' => 'foo2', 'field2' => new TimeImmutable]
-);
+->insertMultiple([
+		['field1' => 'foo1', 'field2' => new TimeImmutable],
+		['field1' => 'foo2', 'field2' => new TimeImmutable],
+]);
 ```
 
 You can also insert data using the `insertAndGetId` method. It will create the record and return the generated auto increment id.
@@ -247,7 +247,7 @@ It is advised to use the third optional parameter if you want your code to be da
 $query->table('foobars')
 ->insertOrUpdate(
 	['field1' => 'foo', 'field2' => new TimeImmutable], 
-	['field2' => new TimeImmutable]
+	['field2' => new TimeImmutable],
 	['field1']
 );
 ```
@@ -259,7 +259,7 @@ The first parameter of the `insertAndReturn` method is the row you want to inser
 ```php
 $query->table('foobars')
 ->insertAndReturn(
-	['field1' => 'foo', 'field2' => new TimeImmutable]
+	['field1' => 'foo', 'field2' => new TimeImmutable],
 	['id']
 );
 ```
@@ -269,9 +269,11 @@ The first parameter of the `insertMultipleAndReturn` method is the names of the 
 ```php
 $query->table('foobars')
 ->insertMultipleAndReturn(
-	['id'],
-	['field1' => 'foo1', 'field2' => new TimeImmutable]
-	['field1' => 'foo2', 'field2' => new TimeImmutable]
+	[
+		['field1' => 'foo1', 'field2' => new TimeImmutable],
+		['field1' => 'foo2', 'field2' => new TimeImmutable],
+	],
+	['id']
 );
 ```
 
