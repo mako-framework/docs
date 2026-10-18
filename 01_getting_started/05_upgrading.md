@@ -158,6 +158,7 @@ $query->table('foobars')
 );
 
 // Now
+
 $query->table('foobars')
 ->insertMultiple(
 	[
@@ -181,6 +182,7 @@ $query->table('foobars')
 
 
 // Now
+
 $query->table('foobars')
 ->insertMultipleAndReturn(
 	[
