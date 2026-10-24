@@ -2,16 +2,16 @@
 --------------------------------------------------------
 
 * [13.0](#13.0)
-    - [Dotenv loader](#13.0-dotenv-loader)
-    - [Controller helper](#13.0-controller_helper)
-    - [Enum cases](#13.0-enum_cases)
-    - [Query builder](#13.0-query_builder)
-    - [HTTP statuses](#13.0-http_statuses)
-    - [Uploaded files](#13.0-uploaded_files)
-    - [Input validation](#13.0-input_validation)
-    - [Date and time](#13.0-date_and_time)
-    - [Image processing](#13.0-image-processing)
-    - [Signer](#13.0-signer)
+	- [Dotenv loader](#13.0-dotenv-loader)
+	- [Controller helper](#13.0-controller_helper)
+	- [Enum cases](#13.0-enum_cases)
+	- [Query builder](#13.0-query_builder)
+	- [HTTP statuses](#13.0-http_statuses)
+	- [Uploaded files](#13.0-uploaded_files)
+	- [Input validation](#13.0-input_validation)
+	- [Date and time](#13.0-date_and_time)
+	- [Image processing](#13.0-image-processing)
+	- [Signer](#13.0-signer)
 
 --------------------------------------------------------
 
@@ -37,6 +37,19 @@ if (file_exists($dotenv = dirname(__DIR__) . '/.env')) {
 	(new DotenvLoader)->load($dotenv);
 }
 ```
+
+Since `.env` files are intended for development environments only, you may want to restrict the check to specific environments. This avoids the unnecessary `file_exists` call in production, where environment variables should be set by the server or deployment process rather than relying on a `.env` file:
+
+```php
+/*
+ * Load .env if it exists and we're running in a dev or test environment.
+ */
+if (in_array(getenv('MAKO_ENV'), ['dev', 'test'], true) && file_exists($dotenv = dirname(__DIR__) . '/.env')) {
+	(new DotenvLoader)->load($dotenv);
+}
+```
+
+> Adjust the list of environment names to match the ones used by your application.
 
 #### <a id="13.0-controller_helper" href="#13.0-controller_helper">Controller helper</a>
 
@@ -162,9 +175,9 @@ $query->table('foobars')
 $query->table('foobars')
 ->insertMultiple(
 	[
-        ['field1' => 'foo1', 'field2' => new DateTime],
-	    ['field1' => 'foo2', 'field2' => new DateTime],
-    ]
+		['field1' => 'foo1', 'field2' => new DateTime],
+		['field1' => 'foo2', 'field2' => new DateTime],
+	]
 );
 ```
 
@@ -186,10 +199,10 @@ $query->table('foobars')
 $query->table('foobars')
 ->insertMultipleAndReturn(
 	[
-        ['field1' => 'foo1', 'field2' => new DateTime],
-	    ['field1' => 'foo2', 'field2' => new DateTime],
-    ],
-    ['id']
+		['field1' => 'foo1', 'field2' => new DateTime],
+		['field1' => 'foo2', 'field2' => new DateTime],
+	],
+	['id']
 );
 
 ```
@@ -230,11 +243,11 @@ The `UploadedFile::moveTo()` method now returns a `FileInfo` instance instead of
 
 ```php
 try {
-    $file = $uploadedFile->moveTo('/mnt/storage/file.ext');
-    $size = $file->getSize();
+	$file = $uploadedFile->moveTo('/mnt/storage/file.ext');
+	$size = $file->getSize();
 }
 catch(UploadException $e) {
-    // Handle failure
+	// Handle failure
 }
 ```
 
@@ -254,10 +267,10 @@ use Override;
 
 class InputValidation extends BaseInputValidation
 {
-    #[Override]
+	#[Override]
 	protected const Status HTTP_STATUS = Status::BadRequest;
 
-    #[Override]
+	#[Override]
 	protected const string HTTP_STATUS_EXCEPTION = BadRequestException::class;
 }
 ```
